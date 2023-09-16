@@ -1,6 +1,8 @@
 package com.vnstudio.cleanarchitecturedemo
 
-class Fork {
+import java.io.Serializable
+
+class Fork: Serializable {
     var id: Long? = null
     var name: String? = null
     var full_name: String? = null

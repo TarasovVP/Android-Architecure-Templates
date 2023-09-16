@@ -47,8 +47,8 @@ class SQLiteDBConnector(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             handler.sendMessage(errorMessage)
         }
         if (successMessages.isNotEmpty()) {
-            val successMessage = handler.obtainMessage(MainActivity.SUCCESS_SQLITE_CONNECTION, successMessages.joinToString("\n"))
-            handler.sendMessage(successMessage)
+            val forkList = handler.obtainMessage(MainActivity.SUCCESS_SQLITE_CONNECTION, forks)
+            handler.sendMessage(forkList)
         }
     }
 
