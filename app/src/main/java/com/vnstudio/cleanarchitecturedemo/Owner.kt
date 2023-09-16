@@ -1,23 +1,23 @@
 package com.vnstudio.cleanarchitecturedemo
 
 
-class Owner() {
+class Owner {
     var login: String? = null
-    var id: Int? = null
-    var nodeId: String? = null
-    var avatarUrl: String? = null
-    var gravatarId: String? = null
+    var id: Long? = null
+    var node_id: String? = null
+    var avatar_url: String? = null
+    var gravatar_id: String? = null
     var url: String? = null
-    var htmlUrl: String? = null
-    var followersUrl: String? = null
-    var followingUrl: String? = null
-    var gistsUrl: String? = null
-    var starredUrl: String? = null
-    var subscriptionsUrl: String? = null
-    var organizationsUrl: String? = null
-    var reposUrl: String? = null
-    var eventsUrl: String? = null
-    var receivedEventsUrl: String? = null
+    var html_url: String? = null
+    var followers_url: String? = null
+    var following_url: String? = null
+    var gists_url: String? = null
+    var starred_url: String? = null
+    var subscriptions_url: String? = null
+    var organizations_url: String? = null
+    var repos_url: String? = null
+    var events_url: String? = null
+    var received_events_url: String? = null
     var type: String? = null
-    var siteAdmin: Boolean? = null
+    var site_admin: Boolean? = null
 }
