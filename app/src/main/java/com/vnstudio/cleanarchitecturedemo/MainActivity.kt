@@ -1,10 +1,13 @@
 package com.vnstudio.cleanarchitecturedemo
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -16,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val sqLiteDBConnector = SQLiteDBConnector(this)
+        val listView = findViewById<ListView>(R.id.listView)
         handler = Handler(Looper.getMainLooper()) { message ->
             when (message.what) {
                 SUCCESS_HTTPS_CONNECTION -> {
@@ -27,8 +31,16 @@ class MainActivity : AppCompatActivity() {
                     Log.e("apiTAG", "MainActivity SUCCESS_HTTPS_CONNECTION fork $forks")
                 }
                 SUCCESS_SQLITE_CONNECTION -> {
-                    val successMessage = message.obj as String
-                    Log.e("apiTAG", "MainActivity SUCCESS_SQLITE_CONNECTION successMessage $successMessage")
+                    val forkList = message.obj as ArrayList<Fork>
+                    val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, forkList.map { it.name })
+                    listView.adapter = adapter
+                    listView.setOnItemClickListener { _, _, position, _ ->
+                        Log.e("apiTAG", "MainActivity SUCCESS_SQLITE_CONNECTION setOnItemClickListener position $position")
+                        val intent = Intent(this, DetailsActivity::class.java)
+                        intent.putExtra(FORK, forkList[position])
+                        startActivity(intent)
+                    }
+                    Log.e("apiTAG", "MainActivity SUCCESS_SQLITE_CONNECTION forksNameList.size ${forkList.size}")
                 }
                 ERROR -> {
                     val errorText = message.obj as String
@@ -51,5 +63,6 @@ class MainActivity : AppCompatActivity() {
         const val ERROR = 3
         const val DATABASE_NAME = "CleanArchitectureDemo"
         const val TABLE_NAME = "forks"
+        const val FORK = "fork"
     }
 }
