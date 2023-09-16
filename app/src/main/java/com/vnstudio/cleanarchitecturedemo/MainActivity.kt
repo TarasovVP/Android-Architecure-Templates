@@ -25,7 +25,9 @@ class MainActivity : AppCompatActivity() {
             when (message.what) {
                 1 -> {
                     val responseData = message.obj as String
-                    Log.e("apiTAG", "MainActivity responseData $responseData")
+                    val jsonConverter = JsonConverter()
+                    val fork = jsonConverter.getForkList(responseData)
+                    Log.e("apiTAG", "MainActivity fork $fork")
                 }
                 2 -> {
                     val errorText = message.obj as String
@@ -73,9 +75,4 @@ class MainActivity : AppCompatActivity() {
         }
         thread.start()
     }
-}
-
-private fun createForkObject(responseData: String): Fork {
-    val fork = Fork()
-    return fork
 }
