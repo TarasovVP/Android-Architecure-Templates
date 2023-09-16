@@ -21,7 +21,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        handler = Handler(Looper.getMainLooper())
+        handler = Handler(Looper.getMainLooper()) { message ->
+            when (message.what) {
+                1 -> {
+                    val responseData = message.obj as String
+                    Log.e("apiTAG", "MainActivity responseData $responseData")
+                }
+                2 -> {
+                    val errorText = message.obj as String
+                    Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
+        }
 
         val startButton = findViewById<Button>(R.id.startButton)
         startButton.setOnClickListener {
@@ -48,19 +60,22 @@ class MainActivity : AppCompatActivity() {
                         line = reader.readLine()
                     }
                     val responseData = stringBuilder.toString()
-                    handler.post {
-                        Log.e("apiTAG", "MainActivity responseData $responseData")
-                        Toast.makeText(this, responseData, Toast.LENGTH_SHORT).show()
-                    }
+                    val message = handler.obtainMessage(1, responseData)
+                    handler.sendMessage(message)
                 } else {
-                    handler.post {
-                        Toast.makeText(this, "Error responseCode $responseCode", Toast.LENGTH_SHORT).show()
-                    }
+                    val message = handler.obtainMessage(2, "Error responseCode $responseCode")
+                    handler.sendMessage(message)
                 }
             } catch (e: Exception) {
-                Toast.makeText(this, e.localizedMessage, Toast.LENGTH_SHORT).show()
+                val message = handler.obtainMessage(2, e.localizedMessage)
+                handler.sendMessage(message)
             }
         }
         thread.start()
     }
+}
+
+private fun createForkObject(responseData: String): Fork {
+    val fork = Fork()
+    return fork
 }
