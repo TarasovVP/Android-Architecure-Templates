@@ -18,18 +18,18 @@ class SQLiteDBConnector(context: Context) : SQLiteOpenHelper(context, DATABASE_N
 
     }
 
-    fun insertDataAsync(forks: ArrayList<Fork>, successResult: (ArrayList<Fork>) -> Unit, errorResult: (String) -> Unit) {
+    fun insertDataAsync(forks: List<Fork>, successResult: (List<Fork>) -> Unit, errorResult: (String) -> Unit) {
         InsertDataTask(this, successResult, errorResult).execute(forks)
     }
 
     private class InsertDataTask(
         private val dbConnector: SQLiteDBConnector,
-        private val successResult: (ArrayList<Fork>) -> Unit,
+        private val successResult: (List<Fork>) -> Unit,
         private val errorResult: (String) -> Unit
-    ) : AsyncTask<ArrayList<Fork>, Void, Pair<ArrayList<Fork>, String>>() {
+    ) : AsyncTask<List<Fork>, Void, Pair<List<Fork>, String>>() {
 
         @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg params: ArrayList<Fork>): Pair<ArrayList<Fork>, String> {
+        override fun doInBackground(vararg params: List<Fork>): Pair<List<Fork>, String> {
             val forks = params[0]
             val errorMessages = mutableListOf<String>()
 
@@ -54,7 +54,7 @@ class SQLiteDBConnector(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         }
 
         @Deprecated("Deprecated in Java")
-        override fun onPostExecute(result: Pair<ArrayList<Fork>, String>) {
+        override fun onPostExecute(result: Pair<List<Fork>, String>) {
             successResult.invoke(result.first)
             if (result.second.isNotEmpty()) errorResult.invoke(result.second)
         }
