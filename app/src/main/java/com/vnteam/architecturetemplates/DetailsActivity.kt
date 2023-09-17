@@ -1,26 +1,40 @@
 package com.vnstudio.cleanarchitecturedemo
 
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.OnClick
 import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.FORK
 
 class DetailsActivity : AppCompatActivity() {
 
+    @BindView(R.id.forkName)
+    lateinit var forkName: TextView
+
+    @BindView(R.id.ownerName)
+    lateinit var ownerName: TextView
+
+    @BindView(R.id.forkDescription)
+    lateinit var forkDescription: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
+        ButterKnife.bind(this)
         val fork = intent.getSerializableExtra(FORK) as? Fork
-        findViewById<TextView>(R.id.forkName).text = fork?.full_name
-        findViewById<TextView>(R.id.ownerName).text = fork?.owner?.login
-        findViewById<TextView>(R.id.forkDescription).text = fork?.full_name
+        forkName.text = fork?.full_name
+        ownerName.text = fork?.owner?.login
+        forkDescription.text = fork?.full_name
         setOwnerAvatar(fork)
-        findViewById<Button>(R.id.backButton).setOnClickListener {
-            onBackPressed()
-        }
+    }
+
+    @OnClick(R.id.backButton)
+    fun onBackButtonClick() {
+        onBackPressed()
     }
 
     private fun setOwnerAvatar(fork: Fork?) {
