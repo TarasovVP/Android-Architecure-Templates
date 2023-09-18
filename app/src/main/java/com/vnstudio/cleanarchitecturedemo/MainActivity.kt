@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
     fun onStartButtonClick() {
         progressBar.isVisible = true
         val ormLiteSqliteDBConnector = OrmLiteSqliteDBConnector(this)
-        val httpUrlConnector = HttpUrlConnector()
-        httpUrlConnector.makeHttpUrlConnection({ responseData ->
+        val httpClientConnector = OkHttpClientConnector()
+        httpClientConnector.makeHttpUrlConnection({ responseData ->
             val jsonConverter = JsonConverter()
             responseData?.let {
                 val forks = jsonConverter.getForkList(responseData)
