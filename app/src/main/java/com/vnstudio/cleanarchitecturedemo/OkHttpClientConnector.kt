@@ -4,43 +4,38 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
-import java.io.BufferedReader
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import java.io.IOException
 import java.io.InputStream
-import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-class HttpUrlConnector {
+class OkHttpClientConnector {
 
     fun makeHttpUrlConnection(callback: (result: String?) -> Unit, errorCallBack: (String) -> Unit) {
         object : AsyncTask<Void, Void, String>() {
             @SuppressLint("StaticFieldLeak")
             override fun doInBackground(vararg params: Void): String? {
-                try {
-                    val url = "https://api.github.com/repos/octocat/Spoon-Knife/forks"
-                    val connection: HttpURLConnection = URL(url).openConnection() as HttpURLConnection
-                    connection.requestMethod = "GET"
-                    connection.connect()
+                val url = "https://api.github.com/repos/octocat/Spoon-Knife/forks"
+                val okHttpClient = OkHttpClient()
+                val request = Request.Builder()
+                    .url(url)
+                    .build()
 
-                    val responseCode: Int = connection.responseCode
-                    if (responseCode == 200) {
-                        val inputStream: InputStream = connection.inputStream
-                        val reader = BufferedReader(InputStreamReader(inputStream))
-                        val stringBuilder = StringBuilder()
-                        var line: String? = reader.readLine()
-                        while (line != null) {
-                            stringBuilder.append(line)
-                            line = reader.readLine()
-                        }
-                        return stringBuilder.toString()
+                try {
+                    val response: Response = okHttpClient.newCall(request).execute()
+                    if (response.isSuccessful) {
+                        return response.body?.string()
                     } else {
-                        errorCallBack.invoke("Error responseCode $responseCode")
-                        return null
+                        errorCallBack.invoke("Error responseCode ${response.code}")
                     }
-                } catch (e: Exception) {
+                } catch (e: IOException) {
                     errorCallBack.invoke(e.localizedMessage)
-                    return null
+                    e.printStackTrace()
                 }
+                return null
             }
 
             override fun onPostExecute(result: String?) {
