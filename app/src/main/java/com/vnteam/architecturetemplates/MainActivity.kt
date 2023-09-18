@@ -27,13 +27,14 @@ class MainActivity : AppCompatActivity() {
     @OnClick(R.id.startButton)
     fun onStartButtonClick() {
         progressBar.isVisible = true
-        val sqLiteDBConnector = SQLiteDBConnector(this)
+        val ormLiteSqliteDBConnector = OrmLiteSqliteDBConnector(this)
         val httpUrlConnector = HttpUrlConnector()
         httpUrlConnector.makeHttpUrlConnection({ responseData ->
             val jsonConverter = JsonConverter()
             responseData?.let {
                 val forks = jsonConverter.getForkList(responseData)
-                sqLiteDBConnector.insertDataAsync(forks, { forkList ->
+                ormLiteSqliteDBConnector.insertDataAsync(jsonConverter.forkListToForkDBList(forks), {
+                    val forkList = ormLiteSqliteDBConnector.getTransformedForks()
                     val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, forkList.map { it.name })
                     listView.adapter = adapter
                     progressBar.isVisible = false
@@ -54,7 +55,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val DATABASE_NAME = "CleanArchitectureDemo"
-        const val TABLE_NAME = "forks"
         const val FORK = "fork"
     }
 }
