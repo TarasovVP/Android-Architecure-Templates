@@ -26,9 +26,9 @@ class DetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_details)
         ButterKnife.bind(this)
         val fork = intent.getSerializableExtra(FORK) as? Fork
-        forkName.text = fork?.full_name
+        forkName.text = fork?.fullName
         ownerName.text = fork?.owner?.login
-        forkDescription.text = fork?.full_name
+        forkDescription.text = fork?.fullName
         setOwnerAvatar(fork)
     }
 
@@ -40,7 +40,7 @@ class DetailsActivity : AppCompatActivity() {
     private fun setOwnerAvatar(fork: Fork?) {
         val ownerAvatar = findViewById<ImageView>(R.id.ownerAvatar)
         val httpUrlConnector = HttpUrlConnector()
-        httpUrlConnector.getBitmapFromHttpUrlUrl(fork?.owner?.avatar_url, { imageFromUrl ->
+        httpUrlConnector.getBitmapFromHttpUrlUrl(fork?.owner?.avatarUrl, { imageFromUrl ->
             ownerAvatar.setImageBitmap(imageFromUrl)
         }, { errorText ->
             Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show()
