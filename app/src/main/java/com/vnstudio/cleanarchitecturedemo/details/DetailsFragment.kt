@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnstudio.cleanarchitecturedemo.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
+import com.vnstudio.cleanarchitecturedemo.models.Fork
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment() {

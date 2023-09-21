@@ -49,6 +49,10 @@ dependencies {
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.8'
 
+    //Dagger
+    implementation 'com.google.dagger:dagger:2.46.1'
+    kapt 'com.google.dagger:dagger-compiler:2.46.1'
+
     //Moshi
     implementation 'com.squareup.moshi:moshi:1.14.0'
     implementation 'com.squareup.moshi:moshi-kotlin:1.14.0'

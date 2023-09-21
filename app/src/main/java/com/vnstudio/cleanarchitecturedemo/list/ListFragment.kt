@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnstudio.cleanarchitecturedemo.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import com.vnstudio.cleanarchitecturedemo.*
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentListBinding
+import com.vnstudio.cleanarchitecturedemo.details.DetailsFragment
+import com.vnstudio.cleanarchitecturedemo.models.Fork
 
 class ListFragment : Fragment() {
 
