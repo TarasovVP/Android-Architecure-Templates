@@ -11,8 +11,12 @@ import com.vnstudio.cleanarchitecturedemo.*
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentListBinding
 import com.vnstudio.cleanarchitecturedemo.details.DetailsFragment
 import com.vnstudio.cleanarchitecturedemo.models.Fork
+import javax.inject.Inject
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(), ListViewContract {
+
+    @Inject
+    lateinit var listPresenter: ListPresenter
 
     private var binding: FragmentListBinding? = null
 
@@ -21,40 +25,46 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentListBinding.inflate(LayoutInflater.from(context))
+        AppApplication.instance?.appComponent?.injectListFragment(this)
+        listPresenter.attachView(this)
+        listPresenter.getForksFromApi()
         return binding?.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding?.progressBar?.isVisible = true
+    override fun setProgressVisibility(showProgress: Boolean) {
+        binding?.progressBar?.isVisible = showProgress
+    }
+
+    override fun setForks(forks: List<Fork>) {
         val ormLiteSqliteDBConnector = activity?.let { OrmLiteSqliteDBConnector(it) }
-        val httpClientConnector = OkHttpClientConnector()
-        httpClientConnector.makeHttpUrlConnection({ responseData ->
-            val jsonConverter = JsonConverter()
-            responseData?.let {
-                val forks = jsonConverter.getForkList(responseData)
-                ormLiteSqliteDBConnector?.insertDataAsync(jsonConverter.forkListToForkDBList(forks), {
-                    val forkList = ormLiteSqliteDBConnector.getTransformedForks()
-                    val adapter = ForkAdapter(forkList)
-                    adapter.setOnForkClickListener(object : OnForkClickListener {
-                        override fun onForkClick(fork: Fork) {
-                            val detailsFragment = DetailsFragment.newInstance(fork)
-                            parentFragmentManager.beginTransaction().apply {
-                                replace(R.id.fragmentContainer, detailsFragment)
-                                addToBackStack(null)
-                                commit()
-                            }
-                        }
-                    })
-                    binding?.recyclerView?.adapter = adapter
-                    binding?.progressBar?.isVisible = false
-                }, { errorText ->
-                    Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
-                })
-            }
+        val jsonConverter = JsonConverter()
+        ormLiteSqliteDBConnector?.insertDataAsync(jsonConverter.forkListToForkDBList(forks), {
+            val forkList = ormLiteSqliteDBConnector.getTransformedForks()
+            val adapter = ForkAdapter(forkList)
+            adapter.setOnForkClickListener(object : OnForkClickListener {
+                override fun onForkClick(fork: Fork) {
+                    val detailsFragment = DetailsFragment.newInstance(fork)
+                    parentFragmentManager.beginTransaction().apply {
+                        replace(R.id.fragmentContainer, detailsFragment)
+                        addToBackStack(null)
+                        commit()
+                    }
+                }
+            })
+            binding?.recyclerView?.adapter = adapter
+            binding?.progressBar?.isVisible = false
         }, { errorText ->
-            Toast.makeText(context, errorText, Toast.LENGTH_SHORT).show()
+            showError(errorText)
         })
+    }
+
+    override fun showError(errorMessage: String) {
+        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        listPresenter.detachView()
+        super.onDestroyView()
     }
 
     companion object {
