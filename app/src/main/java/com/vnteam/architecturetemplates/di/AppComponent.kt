@@ -1,6 +1,5 @@
 package com.vnstudio.cleanarchitecturedemo.di
 
-import com.vnstudio.cleanarchitecturedemo.details.DetailsFragment
 import com.vnstudio.cleanarchitecturedemo.list.ListFragment
 import dagger.Component
 
@@ -8,6 +7,4 @@ import dagger.Component
 interface AppComponent {
 
     fun injectListFragment(listFragment: ListFragment)
-
-    fun injectDetailsFragment(detailsFragment: DetailsFragment)
 }
