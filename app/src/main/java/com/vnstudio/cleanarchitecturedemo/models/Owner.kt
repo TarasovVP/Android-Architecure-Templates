@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnstudio.cleanarchitecturedemo.models
 
 import com.squareup.moshi.Json
 import java.io.Serializable

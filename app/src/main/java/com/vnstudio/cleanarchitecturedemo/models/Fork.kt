@@ -1,6 +1,7 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnstudio.cleanarchitecturedemo.models
 
 import com.squareup.moshi.Json
+import com.vnstudio.cleanarchitecturedemo.models.Owner
 import java.io.Serializable
 
 class Fork: Serializable {

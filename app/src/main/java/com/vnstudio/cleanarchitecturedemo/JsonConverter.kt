@@ -2,6 +2,9 @@ package com.vnstudio.cleanarchitecturedemo
 
 import com.squareup.moshi.*
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnstudio.cleanarchitecturedemo.models.ForkDB
+import com.vnstudio.cleanarchitecturedemo.models.Owner
 
 class JsonConverter {
 

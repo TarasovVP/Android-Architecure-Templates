@@ -11,6 +11,9 @@ import com.j256.ormlite.table.TableUtils
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.DATABASE_NAME
+import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnstudio.cleanarchitecturedemo.models.ForkDB
+import com.vnstudio.cleanarchitecturedemo.models.Owner
 
 class OrmLiteSqliteDBConnector(context: Context) : OrmLiteSqliteOpenHelper(context, DATABASE_NAME, null, 1) {
 
