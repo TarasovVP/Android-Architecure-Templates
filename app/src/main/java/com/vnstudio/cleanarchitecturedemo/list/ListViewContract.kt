@@ -6,6 +6,8 @@ interface ListViewContract {
 
     fun setProgressVisibility(showProgress: Boolean)
 
+    fun insertForksDB()
+
     fun setForks(forks: List<Fork>)
 
     fun showError(errorMessage: String)

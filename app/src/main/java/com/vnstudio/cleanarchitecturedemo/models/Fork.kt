@@ -2,9 +2,10 @@ package com.vnstudio.cleanarchitecturedemo.models
 
 import com.squareup.moshi.Json
 import com.vnstudio.cleanarchitecturedemo.models.Owner
+import io.realm.RealmObject
 import java.io.Serializable
 
-class Fork: Serializable {
+open class Fork: Serializable, RealmObject() {
     @Json(name = "id")
     var id: Long? = null
     @Json(name = "name")
