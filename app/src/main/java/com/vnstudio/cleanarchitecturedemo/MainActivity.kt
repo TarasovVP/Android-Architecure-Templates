@@ -18,5 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val DATABASE_NAME = "CleanArchitectureDemo"
+        const val FORKS_URL = "https://api.github.com/repos/octocat/Spoon-Knife/forks"
     }
 }
