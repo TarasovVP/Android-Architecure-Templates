@@ -27,7 +27,9 @@ class ListFragment : Fragment(), ListViewContract {
         binding = FragmentListBinding.inflate(LayoutInflater.from(context))
         AppApplication.instance?.appComponent?.injectListFragment(this)
         listPresenter.attachView(this)
-        listPresenter.getForksFromApi()
+        binding?.startButton?.setOnClickListener {
+            listPresenter.getForksFromApi()
+        }
         return binding?.root
     }
 
