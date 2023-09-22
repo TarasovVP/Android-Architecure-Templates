@@ -35,27 +35,24 @@ class ListFragment : Fragment(), ListViewContract {
         binding?.progressBar?.isVisible = showProgress
     }
 
+    override fun insertForksDB() {
+        listPresenter.getForksFromDB()
+    }
+
     override fun setForks(forks: List<Fork>) {
-        val ormLiteSqliteDBConnector = activity?.let { OrmLiteSqliteDBConnector(it) }
-        val jsonConverter = JsonConverter()
-        ormLiteSqliteDBConnector?.insertDataAsync(jsonConverter.forkListToForkDBList(forks), {
-            val forkList = ormLiteSqliteDBConnector.getTransformedForks()
-            val adapter = ForkAdapter(forkList)
-            adapter.setOnForkClickListener(object : OnForkClickListener {
-                override fun onForkClick(fork: Fork) {
-                    val detailsFragment = DetailsFragment.newInstance(fork)
-                    parentFragmentManager.beginTransaction().apply {
-                        replace(R.id.fragmentContainer, detailsFragment)
-                        addToBackStack(null)
-                        commit()
-                    }
+        val adapter = ForkAdapter(forks)
+        adapter.setOnForkClickListener(object : OnForkClickListener {
+            override fun onForkClick(fork: Fork) {
+                val detailsFragment = DetailsFragment.newInstance(fork)
+                parentFragmentManager.beginTransaction().apply {
+                    replace(R.id.fragmentContainer, detailsFragment)
+                    addToBackStack(null)
+                    commit()
                 }
-            })
-            binding?.recyclerView?.adapter = adapter
-            binding?.progressBar?.isVisible = false
-        }, { errorText ->
-            showError(errorText)
+            }
         })
+        binding?.recyclerView?.adapter = adapter
+        binding?.progressBar?.isVisible = false
     }
 
     override fun showError(errorMessage: String) {

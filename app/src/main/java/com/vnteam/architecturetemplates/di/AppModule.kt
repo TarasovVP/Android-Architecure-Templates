@@ -1,7 +1,7 @@
 package com.vnstudio.cleanarchitecturedemo.di
 
 import com.vnstudio.cleanarchitecturedemo.AppApplication
-import com.vnstudio.cleanarchitecturedemo.JsonConverter
+import com.vnstudio.cleanarchitecturedemo.RealmDBConnector
 import com.vnstudio.cleanarchitecturedemo.ValleyApiConnector
 import com.vnstudio.cleanarchitecturedemo.list.ListPresenter
 import dagger.Module
@@ -17,12 +17,12 @@ class AppModule(private val application: AppApplication) {
     }
 
     @Provides
-    fun provideJsonConverter(): JsonConverter {
-        return JsonConverter()
+    fun provideRealmDBConnector(): RealmDBConnector {
+        return RealmDBConnector()
     }
 
     @Provides
-    fun provideListPresenter(valleyApiConnector: ValleyApiConnector, jsonConverter: JsonConverter): ListPresenter {
-        return ListPresenter(valleyApiConnector, jsonConverter)
+    fun provideListPresenter(valleyApiConnector: ValleyApiConnector, realmDBConnector: RealmDBConnector): ListPresenter {
+        return ListPresenter(valleyApiConnector, realmDBConnector)
     }
 }

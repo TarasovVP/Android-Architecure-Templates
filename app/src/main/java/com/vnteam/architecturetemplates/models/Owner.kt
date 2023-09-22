@@ -5,9 +5,10 @@ package com.vnstudio.cleanarchitecturedemo.models
 >>>>>>>> 64049960 (Implement dependency inversion):app/src/main/java/com/vnteam/architecturetemplates/models/Owner.kt
 
 import com.squareup.moshi.Json
+import io.realm.RealmObject
 import java.io.Serializable
 
-class Owner: Serializable {
+open class Owner: Serializable, RealmObject() {
     @Json(name = "login")
     var login: String? = null
     @Json(name = "id")
