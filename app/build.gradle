@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'realm-android'
 }
 
 android {
@@ -60,7 +61,5 @@ dependencies {
     //Volley
     implementation 'com.android.volley:volley:1.2.1'
 
-    //ORMLite
-    implementation 'com.j256.ormlite:ormlite-android:5.5'
-    implementation 'com.j256.ormlite:ormlite-core:5.5'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
 }
