@@ -1,8 +1,10 @@
 package com.vnstudio.cleanarchitecturedemo.list
 
+import android.annotation.SuppressLint
 import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.FORKS_URL
-import com.vnstudio.cleanarchitecturedemo.RealmDBConnector
-import com.vnstudio.cleanarchitecturedemo.ValleyApiConnector
+import com.vnstudio.cleanarchitecturedemo.database.RealmDBConnector
+import com.vnstudio.cleanarchitecturedemo.network.ValleyApiConnector
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 class ListPresenter @Inject constructor(
@@ -16,23 +18,45 @@ class ListPresenter @Inject constructor(
         this.view = view
     }
 
+    @SuppressLint("CheckResult")
     fun getForksFromApi() {
         view?.setProgressVisibility(true)
-        valleyApiConnector.makeRequest(FORKS_URL, { forks ->
-            realmDBConnector.insertForksToDB(forks)
-            view?.insertForksDB()
-            view?.setProgressVisibility(false)
-        }, { errorText ->
-            view?.showError(errorText)
-            view?.setProgressVisibility(false)
-        })
+        valleyApiConnector.makeRequest(FORKS_URL).observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { forks ->
+                    realmDBConnector.insertForksToDB(forks).observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            {
+                                view?.insertForksDB()
+                                view?.setProgressVisibility(false)
+                            },
+                            { error ->
+                                view?.showError(error?.localizedMessage.toString())
+                                view?.setProgressVisibility(false)
+                            }
+                        )
+                },
+                { error ->
+                    view?.showError(error?.localizedMessage.toString())
+                    view?.setProgressVisibility(false)
+                }
+            )
     }
 
+    @SuppressLint("CheckResult")
     fun getForksFromDB() {
         view?.setProgressVisibility(true)
-        val forks = realmDBConnector.getForksFromDB()
-        view?.setForks(forks)
-        view?.setProgressVisibility(false)
+        realmDBConnector.getForksFromDB().observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { forks ->
+                    view?.setForks(forks)
+                    view?.setProgressVisibility(false)
+                },
+                { error ->
+                    view?.showError(error?.localizedMessage.toString())
+                    view?.setProgressVisibility(false)
+                }
+            )
     }
 
     fun detachView() {
