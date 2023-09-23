@@ -19,6 +19,7 @@ class ListFragment : Fragment(), ListViewContract {
     lateinit var listPresenter: ListPresenter
 
     private var binding: FragmentListBinding? = null
+    private var forkAdapter: ForkAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,25 +28,19 @@ class ListFragment : Fragment(), ListViewContract {
         binding = FragmentListBinding.inflate(LayoutInflater.from(context))
         AppApplication.instance?.appComponent?.injectListFragment(this)
         listPresenter.attachView(this)
+        setForkAdapter()
         binding?.startButton?.setOnClickListener {
             listPresenter.getForksFromApi()
         }
         return binding?.root
     }
 
-    override fun setProgressVisibility(showProgress: Boolean) {
-        binding?.progressBar?.isVisible = showProgress
-    }
-
-    override fun insertForksDB() {
-        listPresenter.getForksFromDB()
-    }
-
-    override fun setForks(forks: List<Fork>) {
-        val adapter = ForkAdapter(forks)
-        adapter.setOnForkClickListener(object : OnForkClickListener {
+    private fun setForkAdapter() {
+        forkAdapter = forkAdapter ?: ForkAdapter(listOf())
+        binding?.recyclerView?.adapter = forkAdapter
+        forkAdapter?.setOnForkClickListener(object : OnForkClickListener {
             override fun onForkClick(fork: Fork) {
-                val detailsFragment = DetailsFragment.newInstance(fork)
+                val detailsFragment = DetailsFragment.newInstance(fork.id)
                 parentFragmentManager.beginTransaction().apply {
                     replace(R.id.fragmentContainer, detailsFragment)
                     addToBackStack(null)
@@ -53,8 +48,22 @@ class ListFragment : Fragment(), ListViewContract {
                 }
             }
         })
-        binding?.recyclerView?.adapter = adapter
-        binding?.progressBar?.isVisible = false
+    }
+
+    override fun setProgressVisibility(showProgress: Boolean) {
+        binding?.progressBar?.isVisible = showProgress
+    }
+
+    override fun insertForksToDB(forks: List<Fork>) {
+        listPresenter.insertForksToDB(forks)
+    }
+
+    override fun getForksFromDB() {
+        listPresenter.getForksFromDB()
+    }
+
+    override fun setForksFromDB(forks: List<Fork>) {
+        forkAdapter?.setForks(forks)
     }
 
     override fun showError(errorMessage: String) {

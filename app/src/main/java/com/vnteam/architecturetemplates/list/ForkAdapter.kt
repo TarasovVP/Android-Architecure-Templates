@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vnstudio.cleanarchitecturedemo.databinding.ItemForkBinding
 import com.vnstudio.cleanarchitecturedemo.models.Fork
 
-class ForkAdapter(private val forks: List<Fork>) :
+class ForkAdapter(private var forks: List<Fork>) :
     RecyclerView.Adapter<ForkAdapter.ViewHolder>() {
 
     private var onForkClickListener: OnForkClickListener? = null
@@ -36,5 +36,10 @@ class ForkAdapter(private val forks: List<Fork>) :
 
     fun setOnForkClickListener(onForkClickListener: OnForkClickListener) {
         this.onForkClickListener = onForkClickListener
+    }
+
+    fun setForks(forks: List<Fork>) {
+        this.forks = forks
+        notifyDataSetChanged()
     }
 }
