@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.vnstudio.cleanarchitecturedemo.AppApplication
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentDetailsBinding
 import com.vnstudio.cleanarchitecturedemo.models.Fork
@@ -44,7 +44,7 @@ class DetailsFragment : Fragment(), DetailsViewContract {
             forkName.text = fork.fullName
             ownerName.text = fork.owner?.login
             forkDescription.text = fork.fullName
-            Picasso.get().load(fork.owner?.avatarUrl).into(ownerAvatar)
+           context?.let { Glide.with(it).load(fork.owner?.avatarUrl).into(ownerAvatar) }
         }
     }
 
