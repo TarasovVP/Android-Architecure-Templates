@@ -3,10 +3,11 @@ package com.vnstudio.cleanarchitecturedemo.models
 import com.squareup.moshi.Json
 import com.vnstudio.cleanarchitecturedemo.models.Owner
 import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 import java.io.Serializable
 
 open class Fork: Serializable, RealmObject() {
-    @Json(name = "id")
+    @PrimaryKey @Json(name = "id")
     var id: Long? = null
     @Json(name = "name")
     var name: String? = null

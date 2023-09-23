@@ -9,7 +9,6 @@ import com.vnstudio.cleanarchitecturedemo.models.Fork
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
-
 class ValleyApiConnector(private val requestQueue: RequestQueue) {
 
     fun makeRequest(url: String): Observable<List<Fork>> {
