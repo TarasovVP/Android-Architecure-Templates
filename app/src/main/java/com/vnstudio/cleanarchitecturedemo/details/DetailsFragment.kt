@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.vnstudio.cleanarchitecturedemo.AppApplication
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentDetailsBinding
@@ -17,6 +18,8 @@ class DetailsFragment : Fragment(), DetailsViewContract {
 
     @Inject
     lateinit var detailsPresenter: DetailsPresenter
+
+    private val args: DetailsFragmentArgs by navArgs()
 
     private var binding: FragmentDetailsBinding? = null
 
@@ -30,8 +33,7 @@ class DetailsFragment : Fragment(), DetailsViewContract {
         }
         AppApplication.instance?.appComponent?.injectDetailsFragment(this)
         detailsPresenter.attachView(this)
-        val forkId =  arguments?.getLong(FORK_ID)
-        detailsPresenter.getForkById(forkId)
+        detailsPresenter.getForkById(args.forkId)
         return binding?.root
     }
 
