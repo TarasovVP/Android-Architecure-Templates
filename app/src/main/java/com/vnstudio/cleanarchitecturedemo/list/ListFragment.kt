@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.vnstudio.cleanarchitecturedemo.*
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentListBinding
 import com.vnstudio.cleanarchitecturedemo.details.DetailsFragment
@@ -40,12 +41,7 @@ class ListFragment : Fragment(), ListViewContract {
         binding?.recyclerView?.adapter = forkAdapter
         forkAdapter?.setOnForkClickListener(object : OnForkClickListener {
             override fun onForkClick(fork: Fork) {
-                val detailsFragment = DetailsFragment.newInstance(fork.id)
-                parentFragmentManager.beginTransaction().apply {
-                    replace(R.id.fragmentContainer, detailsFragment)
-                    addToBackStack(null)
-                    commit()
-                }
+                findNavController().navigate(ListFragmentDirections.startDetailsFragment(fork.id ?: 0))
             }
         })
     }
