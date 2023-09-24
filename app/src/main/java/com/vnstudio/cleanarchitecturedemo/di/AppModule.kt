@@ -1,22 +1,23 @@
 package com.vnstudio.cleanarchitecturedemo.di
 
+import android.content.Context
 import com.android.volley.RequestQueue
-import com.android.volley.toolbox.Volley
-import com.vnstudio.cleanarchitecturedemo.AppApplication
-import com.vnstudio.cleanarchitecturedemo.database.RealmDBConnector
+import com.vnstudio.cleanarchitecturedemo.database.AppDatabase
+import com.vnstudio.cleanarchitecturedemo.database.ForkDao
+import com.vnstudio.cleanarchitecturedemo.database.ForkRepository
 import com.vnstudio.cleanarchitecturedemo.details.DetailsPresenter
 import com.vnstudio.cleanarchitecturedemo.network.ValleyApiConnector
 import com.vnstudio.cleanarchitecturedemo.list.ListPresenter
 import dagger.Module
 import dagger.Provides
-import io.realm.Realm
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Module
-class AppModule(private val application: AppApplication) {
+class AppModule() {
 
     @Provides
-    fun provideRequestQueue(): RequestQueue {
-        return Volley.newRequestQueue(application)
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return AppDatabase.getDatabase(appContext)
     }
 
     @Provides
@@ -25,22 +26,22 @@ class AppModule(private val application: AppApplication) {
     }
 
     @Provides
-    fun provideRealm(): Realm {
-        return Realm.getDefaultInstance()
+    fun provideForkDao(appDatabase: AppDatabase): ForkDao {
+        return appDatabase.forkDao()
     }
 
     @Provides
-    fun provideRealmDBConnector(realm: Realm): RealmDBConnector {
-        return RealmDBConnector(realm)
+    fun provideForkRepository(forkDao: ForkDao): ForkRepository {
+        return ForkRepository(forkDao)
     }
 
     @Provides
-    fun provideListPresenter(valleyApiConnector: ValleyApiConnector, realmDBConnector: RealmDBConnector): ListPresenter {
-        return ListPresenter(valleyApiConnector, realmDBConnector)
+    fun provideListPresenter(valleyApiConnector: ValleyApiConnector, forkRepository: ForkRepository): ListPresenter {
+        return ListPresenter(valleyApiConnector, forkRepository)
     }
 
     @Provides
-    fun provideDetailsPresenter(realmDBConnector: RealmDBConnector): DetailsPresenter {
-        return DetailsPresenter(realmDBConnector)
+    fun provideDetailsPresenter(forkRepository: ForkRepository): DetailsPresenter {
+        return DetailsPresenter(forkRepository)
     }
 }

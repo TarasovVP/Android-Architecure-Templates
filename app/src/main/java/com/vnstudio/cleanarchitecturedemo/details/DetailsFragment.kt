@@ -12,8 +12,10 @@ import com.bumptech.glide.Glide
 import com.vnstudio.cleanarchitecturedemo.AppApplication
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentDetailsBinding
 import com.vnstudio.cleanarchitecturedemo.models.Fork
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment(), DetailsViewContract {
 
     @Inject
