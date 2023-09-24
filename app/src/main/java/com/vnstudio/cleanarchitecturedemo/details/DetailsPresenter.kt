@@ -1,12 +1,12 @@
 package com.vnstudio.cleanarchitecturedemo.details
 
 import android.annotation.SuppressLint
-import com.vnstudio.cleanarchitecturedemo.database.RealmDBConnector
+import com.vnstudio.cleanarchitecturedemo.database.ForkRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 class DetailsPresenter @Inject constructor(
-    private val realmDBConnector: RealmDBConnector
+    private val forkRepository: ForkRepository
 ){
 
     private var view: DetailsViewContract? = null
@@ -18,7 +18,7 @@ class DetailsPresenter @Inject constructor(
     @SuppressLint("CheckResult")
     fun getForkById(forkId: Long?) {
         view?.setProgressVisibility(true)
-        realmDBConnector.getForkById(forkId).observeOn(AndroidSchedulers.mainThread())
+        forkRepository.getForkById(forkId)
             .subscribe(
                 { fork ->
                     view?.setForkFromDB(fork)

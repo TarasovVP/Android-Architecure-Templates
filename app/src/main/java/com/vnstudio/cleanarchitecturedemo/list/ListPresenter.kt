@@ -2,15 +2,16 @@ package com.vnstudio.cleanarchitecturedemo.list
 
 import android.annotation.SuppressLint
 import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.FORKS_URL
-import com.vnstudio.cleanarchitecturedemo.database.RealmDBConnector
+import com.vnstudio.cleanarchitecturedemo.database.ForkRepository
 import com.vnstudio.cleanarchitecturedemo.models.Fork
 import com.vnstudio.cleanarchitecturedemo.network.ValleyApiConnector
-import io.reactivex.android.schedulers.AndroidSchedulers
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ListPresenter @Inject constructor(
     private val valleyApiConnector: ValleyApiConnector,
-    private val realmDBConnector: RealmDBConnector
+    private val forkRepository: ForkRepository
 ){
 
     private var view: ListViewContract? = null
@@ -22,7 +23,7 @@ class ListPresenter @Inject constructor(
     @SuppressLint("CheckResult")
     fun getForksFromApi() {
         view?.setProgressVisibility(true)
-        valleyApiConnector.makeRequest(FORKS_URL).observeOn(AndroidSchedulers.mainThread())
+        valleyApiConnector.makeRequest(FORKS_URL)
             .subscribe(
                 { forks ->
                     view?.insertForksToDB(forks)
@@ -38,7 +39,7 @@ class ListPresenter @Inject constructor(
     @SuppressLint("CheckResult")
     fun insertForksToDB(forks: List<Fork>) {
         view?.setProgressVisibility(true)
-        realmDBConnector.insertForksToDB(forks).observeOn(AndroidSchedulers.mainThread())
+        forkRepository.insertForksToDB(forks)
             .subscribe(
                 {
                     view?.getForksFromDB()
@@ -54,7 +55,7 @@ class ListPresenter @Inject constructor(
     @SuppressLint("CheckResult")
     fun getForksFromDB() {
         view?.setProgressVisibility(true)
-        realmDBConnector.getForksFromDB().observeOn(AndroidSchedulers.mainThread())
+        forkRepository.getForksFromDB()
             .subscribe(
                 { forks ->
                     view?.setForksFromDB(forks)
