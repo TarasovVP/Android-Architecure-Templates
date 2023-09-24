@@ -7,17 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.vnstudio.cleanarchitecturedemo.*
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentListBinding
-import com.vnstudio.cleanarchitecturedemo.details.DetailsFragment
 import com.vnstudio.cleanarchitecturedemo.models.Fork
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class ListFragment : Fragment(), ListViewContract {
+@AndroidEntryPoint
+class ListFragment : Fragment() {
 
-    @Inject
-    lateinit var listPresenter: ListPresenter
+    private val listViewModel: ListViewModel by viewModels()
 
     private var binding: FragmentListBinding? = null
     private var forkAdapter: ForkAdapter? = null
@@ -27,13 +26,32 @@ class ListFragment : Fragment(), ListViewContract {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentListBinding.inflate(LayoutInflater.from(context))
-        AppApplication.instance?.appComponent?.injectListFragment(this)
-        listPresenter.attachView(this)
-        setForkAdapter()
         binding?.startButton?.setOnClickListener {
-            listPresenter.getForksFromApi()
+            listViewModel.getForksFromApi()
         }
+        setForkAdapter()
+        observeLiveData()
         return binding?.root
+    }
+
+    private fun observeLiveData() {
+        with(listViewModel) {
+            progressVisibilityLiveData.observe(viewLifecycleOwner) { showProgress ->
+                binding?.progressBar?.isVisible = showProgress
+            }
+            errorLiveData.observe(viewLifecycleOwner) { errorMessage ->
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+            forksFromApiLiveData.observe(viewLifecycleOwner) { forks ->
+                listViewModel.insertForksToDB(forks)
+            }
+            forksToDBInsertedLiveData.observe(viewLifecycleOwner) {
+                listViewModel.getForksFromDB()
+            }
+            forksFromDBLiveData.observe(viewLifecycleOwner) { forks ->
+                forkAdapter?.setForks(forks)
+            }
+        }
     }
 
     private fun setForkAdapter() {
@@ -44,35 +62,5 @@ class ListFragment : Fragment(), ListViewContract {
                 findNavController().navigate(ListFragmentDirections.startDetailsFragment(fork.id ?: 0))
             }
         })
-    }
-
-    override fun setProgressVisibility(showProgress: Boolean) {
-        binding?.progressBar?.isVisible = showProgress
-    }
-
-    override fun insertForksToDB(forks: List<Fork>) {
-        listPresenter.insertForksToDB(forks)
-    }
-
-    override fun getForksFromDB() {
-        listPresenter.getForksFromDB()
-    }
-
-    override fun setForksFromDB(forks: List<Fork>) {
-        forkAdapter?.setForks(forks)
-    }
-
-    override fun showError(errorMessage: String) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onDestroyView() {
-        listPresenter.detachView()
-        super.onDestroyView()
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = ListFragment()
     }
 }
