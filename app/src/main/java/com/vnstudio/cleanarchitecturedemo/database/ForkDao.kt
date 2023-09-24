@@ -1,9 +1,11 @@
 package com.vnstudio.cleanarchitecturedemo.database
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.vnstudio.cleanarchitecturedemo.models.Fork
 
+@Dao
 interface ForkDao {
 
     @Insert
@@ -12,6 +14,6 @@ interface ForkDao {
     @Query("SELECT * FROM forks")
     fun getForks(): List<Fork>
 
-    @Query("SELECT * FROM forks id = :forkId")
-    fun getForkById(forkId: Long): Fork
+    @Query("SELECT * FROM forks WHERE :id = id")
+    fun getForkById(id: Long): Fork
 }

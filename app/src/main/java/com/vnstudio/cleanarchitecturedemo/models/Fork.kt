@@ -1,22 +1,26 @@
 package com.vnstudio.cleanarchitecturedemo.models
 
-import com.squareup.moshi.Json
-import com.vnstudio.cleanarchitecturedemo.models.Owner
-import io.realm.RealmObject
-import io.realm.annotations.PrimaryKey
-import java.io.Serializable
+import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
-open class Fork: Serializable, RealmObject() {
-    @PrimaryKey @Json(name = "id")
-    var id: Long? = null
-    @Json(name = "name")
-    var name: String? = null
-    @Json(name = "full_name")
-    var fullName: String? = null
-    @Json(name = "owner")
-    var owner: Owner? = null
-    @Json(name = "html_url")
-    var htmlUrl: String? = null
-    @Json(name = "description")
-    var description: String? = null
-}
+@Parcelize
+@Entity("forks")
+data class Fork(
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: Long? = null,
+    @ColumnInfo(name = "name")
+    var name: String? = null,
+    @ColumnInfo(name = "full_name")
+    var fullName: String? = null,
+    @Embedded("owner")
+    var owner: Owner? = null,
+    @ColumnInfo(name = "html_url")
+    var htmlUrl: String? = null,
+    @ColumnInfo(name = "description")
+    var description: String? = null,
+) : Parcelable
