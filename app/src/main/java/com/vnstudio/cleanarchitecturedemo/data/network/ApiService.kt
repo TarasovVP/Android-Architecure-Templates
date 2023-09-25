@@ -1,6 +1,6 @@
-package com.vnstudio.cleanarchitecturedemo.network
+package com.vnstudio.cleanarchitecturedemo.data.network
 
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnstudio.cleanarchitecturedemo.domain.models.Fork
 import retrofit2.Response
 import retrofit2.http.*
 

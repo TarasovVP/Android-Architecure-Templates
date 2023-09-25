@@ -1,10 +1,10 @@
-package com.vnstudio.cleanarchitecturedemo.database
+package com.vnstudio.cleanarchitecturedemo.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnstudio.cleanarchitecturedemo.domain.models.Fork
 
 @Database(
     entities = [Fork::class],
