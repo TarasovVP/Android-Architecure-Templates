@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.vnstudio.cleanarchitecturedemo.R
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,10 +45,10 @@ class DetailsFragment : Fragment() {
             }
             forkLiveData.observe(viewLifecycleOwner) { fork ->
                 binding?.apply {
-                    forkName.text = fork.fullName
+                    forkName.text = fork.name
                     ownerName.text = fork.owner?.login
-                    forkDescription.text = fork.fullName
-                    context?.let { Glide.with(it).load(fork.owner?.avatarUrl).into(ownerAvatar) }
+                    forkDescription.text = fork.description
+                    context?.let { Glide.with(it).load(fork.owner?.avatarUrl).error(R.drawable.ic_person).into(ownerAvatar) }
                 }
             }
         }
