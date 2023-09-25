@@ -1,7 +1,8 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnstudio.cleanarchitecturedemo.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.vnstudio.cleanarchitecturedemo.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
