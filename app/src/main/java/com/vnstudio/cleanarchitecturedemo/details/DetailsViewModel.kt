@@ -25,9 +25,9 @@ class DetailsViewModel @Inject constructor(
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
         }) {
-            progressVisibilityLiveData.postValue(false)
             val fork = forkRepository.getForkById(forkId ?: 0)
             forkLiveData.postValue(fork)
+            progressVisibilityLiveData.postValue(false)
         }
     }
 }
