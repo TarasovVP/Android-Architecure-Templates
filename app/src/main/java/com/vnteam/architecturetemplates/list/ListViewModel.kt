@@ -30,8 +30,8 @@ class ListViewModel @Inject constructor(
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
         }) {
-            progressVisibilityLiveData.postValue(false)
             valleyApiConnector.makeRequest(FORKS_URL, { forks ->
+                progressVisibilityLiveData.postValue(false)
                 forksFromApiLiveData.postValue(forks)
             }, { error ->
                 errorLiveData.postValue(error)
@@ -45,8 +45,8 @@ class ListViewModel @Inject constructor(
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
         }) {
-            progressVisibilityLiveData.postValue(false)
             forkRepository.insertForksToDB(forks)
+            progressVisibilityLiveData.postValue(false)
             forksToDBInsertedLiveData.postValue(Unit)
         }
     }
@@ -57,9 +57,9 @@ class ListViewModel @Inject constructor(
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
         }) {
-            progressVisibilityLiveData.postValue(false)
             val forks = forkRepository.getForksFromDB()
             forksFromDBLiveData.postValue(forks)
+            progressVisibilityLiveData.postValue(false)
         }
     }
 }

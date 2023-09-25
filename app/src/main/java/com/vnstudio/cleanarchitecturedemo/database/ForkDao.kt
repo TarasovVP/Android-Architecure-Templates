@@ -2,13 +2,14 @@ package com.vnstudio.cleanarchitecturedemo.database
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.vnstudio.cleanarchitecturedemo.models.Fork
 
 @Dao
 interface ForkDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertForks(forks: List<Fork>)
 
     @Query("SELECT * FROM forks")
