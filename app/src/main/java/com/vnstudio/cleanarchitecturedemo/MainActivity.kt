@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val FORKS_URL = "https://api.github.com/repos/octocat/Spoon-Knife/forks"
+        const val BASE_URL = "https://api.github.com/"
+        const val SERVER_TIMEOUT = 50L
     }
 }
