@@ -1,8 +1,13 @@
 package com.vnstudio.cleanarchitecturedemo.database
 
 import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnstudio.cleanarchitecturedemo.network.ApiService
 
-class ForkRepository(private val forkDao: ForkDao) {
+class ForkRepository(private val apiService: ApiService, private val forkDao: ForkDao) {
+
+    suspend fun getForksFromApi(): List<Fork>? {
+        return apiService.getForks().body()
+    }
 
     fun insertForksToDB(forks: List<Fork>) {
         forkDao.insertForks(forks)

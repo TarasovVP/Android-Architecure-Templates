@@ -3,10 +3,8 @@ package com.vnstudio.cleanarchitecturedemo.list
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.FORKS_URL
 import com.vnstudio.cleanarchitecturedemo.database.ForkRepository
 import com.vnstudio.cleanarchitecturedemo.models.Fork
-import com.vnstudio.cleanarchitecturedemo.network.ValleyApiConnector
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -14,7 +12,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    private val valleyApiConnector: ValleyApiConnector,
     private val forkRepository: ForkRepository
 ): ViewModel() {
 
@@ -30,12 +27,8 @@ class ListViewModel @Inject constructor(
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
         }) {
-            valleyApiConnector.makeRequest(FORKS_URL, { forks ->
-                progressVisibilityLiveData.postValue(false)
-                forksFromApiLiveData.postValue(forks)
-            }, { error ->
-                errorLiveData.postValue(error)
-            })
+            val forks = forkRepository.getForksFromApi()
+            forks?.let { forksFromApiLiveData.postValue(it) }
         }
     }
 
