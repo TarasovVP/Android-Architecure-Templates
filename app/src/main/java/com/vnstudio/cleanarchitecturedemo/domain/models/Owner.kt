@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo.models
+package com.vnstudio.cleanarchitecturedemo.domain.models
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
