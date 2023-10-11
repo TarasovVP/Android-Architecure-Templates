@@ -1,6 +1,6 @@
 package com.vnstudio.cleanarchitecturedemo.presentation.list
 
-import com.vnstudio.cleanarchitecturedemo.domain.models.Fork
+import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
 
 interface OnForkClickListener {
 

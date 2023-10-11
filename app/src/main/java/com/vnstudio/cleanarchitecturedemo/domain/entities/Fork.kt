@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo.domain.models
+package com.vnstudio.cleanarchitecturedemo.domain.entities
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
