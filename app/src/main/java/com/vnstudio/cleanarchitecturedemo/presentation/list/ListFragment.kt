@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentListBinding
 import com.vnstudio.cleanarchitecturedemo.list.ListFragmentDirections
-import com.vnstudio.cleanarchitecturedemo.domain.models.Fork
+import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
