@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.vnstudio.cleanarchitecturedemo.domain.models.Fork
+import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
 
 @Dao
 interface ForkDao {

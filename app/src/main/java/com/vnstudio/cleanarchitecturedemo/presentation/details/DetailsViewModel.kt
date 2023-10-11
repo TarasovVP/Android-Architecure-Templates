@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vnstudio.cleanarchitecturedemo.data.database.ForkRepository
-import com.vnstudio.cleanarchitecturedemo.domain.models.Fork
+import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
