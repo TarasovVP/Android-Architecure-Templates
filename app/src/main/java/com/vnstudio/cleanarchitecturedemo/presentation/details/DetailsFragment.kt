@@ -12,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.vnstudio.cleanarchitecturedemo.R
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentDetailsBinding
-import com.vnstudio.cleanarchitecturedemo.details.DetailsFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
