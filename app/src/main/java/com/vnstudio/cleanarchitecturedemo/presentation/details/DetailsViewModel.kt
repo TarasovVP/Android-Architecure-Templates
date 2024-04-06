@@ -3,7 +3,7 @@ package com.vnstudio.cleanarchitecturedemo.presentation.details
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vnstudio.cleanarchitecturedemo.data.database.ForkRepository
+import com.vnstudio.cleanarchitecturedemo.data.repositoryimpl.DBRepositoryImpl
 import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val forkRepository: ForkRepository
+    private val forkRepository: DBRepositoryImpl
 ): ViewModel() {
 
     val progressVisibilityLiveData = MutableLiveData<Boolean>()
