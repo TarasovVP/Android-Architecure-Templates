@@ -7,8 +7,13 @@ import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.BA
 import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.SERVER_TIMEOUT
 import com.vnstudio.cleanarchitecturedemo.data.database.AppDatabase
 import com.vnstudio.cleanarchitecturedemo.data.database.ForkDao
-import com.vnstudio.cleanarchitecturedemo.data.database.ForkRepository
+import com.vnstudio.cleanarchitecturedemo.data.repositoryimpl.DBRepositoryImpl
 import com.vnstudio.cleanarchitecturedemo.data.network.ApiService
+import com.vnstudio.cleanarchitecturedemo.data.repositoryimpl.ApiRepositoryImpl
+import com.vnstudio.cleanarchitecturedemo.domain.repositories.ApiRepository
+import com.vnstudio.cleanarchitecturedemo.domain.repositories.DBRepository
+import com.vnstudio.cleanarchitecturedemo.domain.usecase.ForkUseCase
+import com.vnstudio.cleanarchitecturedemo.presentation.usecaseimpl.ForkUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -71,7 +76,19 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideForkRepository(apiService: ApiService, forkDao: ForkDao): ForkRepository {
-        return ForkRepository(apiService, forkDao)
+    fun provideApiRepository(apiService: ApiService): ApiRepository {
+        return ApiRepositoryImpl(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDBRepository(forkDao: ForkDao): DBRepository {
+        return DBRepositoryImpl(forkDao)
+    }
+
+    @Singleton
+    @Provides
+    fun provideForkUseCase(apiRepository: ApiRepository, dbRepository: DBRepository): ForkUseCase {
+        return ForkUseCaseImpl(apiRepository, dbRepository)
     }
 }
