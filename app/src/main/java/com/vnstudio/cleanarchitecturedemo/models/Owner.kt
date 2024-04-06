@@ -1,17 +1,16 @@
 package com.vnstudio.cleanarchitecturedemo.models
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
 import androidx.room.Entity
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity
 data class Owner(
-    @ColumnInfo(name = "login")
     var login: String? = null,
-    @ColumnInfo(name = "id")
+    @SerializedName("id")
     var ownerId: Long? = null,
-    @ColumnInfo(name = "avatar_url")
+    @SerializedName("avatar_url")
     var avatarUrl: String? = null,
 ) : Parcelable
