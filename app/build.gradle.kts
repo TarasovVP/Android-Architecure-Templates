@@ -86,9 +86,9 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.46.1")
-    ksp("com.google.dagger:hilt-compiler:2.46.1")
-    implementation("com.google.dagger:hilt-android-testing:2.46.1")
+    implementation("com.google.dagger:hilt-android:2.48")
+    ksp("com.google.dagger:hilt-compiler:2.48")
+    implementation("com.google.dagger:hilt-android-testing:2.48")
 
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
