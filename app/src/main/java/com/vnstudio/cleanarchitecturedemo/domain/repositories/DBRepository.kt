@@ -1,6 +1,6 @@
 package com.vnstudio.cleanarchitecturedemo.domain.repositories
 
-import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
+import com.vnstudio.cleanarchitecturedemo.domain.models.Fork
 
 interface DBRepository {
 

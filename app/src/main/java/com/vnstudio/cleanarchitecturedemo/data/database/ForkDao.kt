@@ -4,17 +4,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
+import com.vnstudio.cleanarchitecturedemo.data.database.entities.ForkDB
 
 @Dao
 interface ForkDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertForks(forks: List<Fork>)
+    fun insertForks(forks: List<ForkDB>)
 
     @Query("SELECT * FROM forks")
-    fun getForks(): List<Fork>
+    fun getForks(): List<ForkDB>
 
     @Query("SELECT * FROM forks WHERE :id = id")
-    fun getForkById(id: Long): Fork
+    fun getForkById(id: Long): ForkDB
 }
