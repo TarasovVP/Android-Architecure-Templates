@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vnstudio.cleanarchitecturedemo.databinding.ItemForkBinding
-import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
+import com.vnstudio.cleanarchitecturedemo.presentation.uimodels.ForkUI
 
-class ForkAdapter(private var forks: List<Fork>) :
+class ForkAdapter(private var forks: List<ForkUI>) :
     RecyclerView.Adapter<ForkAdapter.ViewHolder>() {
 
     private var onForkClickListener: OnForkClickListener? = null
 
     class ViewHolder(private val binding: ItemForkBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(fork: Fork, onForkClickListener: OnForkClickListener?) {
+        fun bind(fork: ForkUI, onForkClickListener: OnForkClickListener?) {
             binding.forkName.text = fork.name
             binding.root.setOnClickListener {
                 onForkClickListener?.onForkClick(fork)
@@ -38,7 +38,7 @@ class ForkAdapter(private var forks: List<Fork>) :
         this.onForkClickListener = onForkClickListener
     }
 
-    fun setForks(forks: List<Fork>) {
+    fun setForks(forks: List<ForkUI>) {
         this.forks = forks
         notifyDataSetChanged()
     }

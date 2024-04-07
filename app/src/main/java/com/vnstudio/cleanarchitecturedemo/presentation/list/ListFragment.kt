@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.vnstudio.cleanarchitecturedemo.databinding.FragmentListBinding
-import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
+import com.vnstudio.cleanarchitecturedemo.presentation.uimodels.ForkUI
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,7 +57,7 @@ class ListFragment : Fragment() {
         forkAdapter = forkAdapter ?: ForkAdapter(listOf())
         binding?.recyclerView?.adapter = forkAdapter
         forkAdapter?.setOnForkClickListener(object : OnForkClickListener {
-            override fun onForkClick(fork: Fork) {
+            override fun onForkClick(fork: ForkUI) {
                 findNavController().navigate(
                     ListFragmentDirections.startDetailsFragment(
                         fork.id ?: 0
