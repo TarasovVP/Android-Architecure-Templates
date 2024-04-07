@@ -1,8 +1,8 @@
 package com.vnstudio.cleanarchitecturedemo.presentation.list
 
-import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
+import com.vnstudio.cleanarchitecturedemo.presentation.uimodels.ForkUI
 
 interface OnForkClickListener {
 
-    fun onForkClick(fork: Fork)
+    fun onForkClick(fork: ForkUI)
 }

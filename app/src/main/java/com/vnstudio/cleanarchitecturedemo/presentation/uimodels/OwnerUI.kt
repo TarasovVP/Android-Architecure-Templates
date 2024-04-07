@@ -1,10 +1,10 @@
-package com.vnstudio.cleanarchitecturedemo.domain.entities
+package com.vnstudio.cleanarchitecturedemo.presentation.uimodels
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Owner(
+data class OwnerUI(
     var login: String? = null,
     var ownerId: Long? = null,
     var avatarUrl: String? = null,
