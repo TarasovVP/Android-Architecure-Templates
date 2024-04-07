@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.vnstudio.cleanarchitecturedemo"
+    namespace = "com.vnteam.cleanarchitecturedemo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.vnstudio.cleanarchitecturedemo"
+        applicationId = "com.vnteam.cleanarchitecturedemo"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -73,9 +73,8 @@ dependencies {
     //Gson
     implementation("com.google.code.gson:gson:2.10.1")
 
-    //Glide
-    implementation("com.github.bump tech.glide:glide:4.15.1")
-    ksp("com.github.bumptech.glide:compiler:4.16.0")
+    //Coil
+    implementation("io.coil-kt:coil:2.2.2")
 
     //Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
