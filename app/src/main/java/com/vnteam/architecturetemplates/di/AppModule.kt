@@ -7,12 +7,24 @@ import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.BA
 import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.SERVER_TIMEOUT
 import com.vnstudio.cleanarchitecturedemo.data.database.AppDatabase
 import com.vnstudio.cleanarchitecturedemo.data.database.ForkDao
+import com.vnstudio.cleanarchitecturedemo.data.mapperimpls.ForkDBMapperImpl
+import com.vnstudio.cleanarchitecturedemo.data.mapperimpls.ForkResponseMapperImpl
+import com.vnstudio.cleanarchitecturedemo.data.mapperimpls.OwnerDBMapperImpl
+import com.vnstudio.cleanarchitecturedemo.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnstudio.cleanarchitecturedemo.data.repositoryimpl.DBRepositoryImpl
 import com.vnstudio.cleanarchitecturedemo.data.network.ApiService
 import com.vnstudio.cleanarchitecturedemo.data.repositoryimpl.ApiRepositoryImpl
+import com.vnstudio.cleanarchitecturedemo.domain.mappers.ForkDBMapper
+import com.vnstudio.cleanarchitecturedemo.domain.mappers.ForkResponseMapper
+import com.vnstudio.cleanarchitecturedemo.domain.mappers.ForkUIMapper
+import com.vnstudio.cleanarchitecturedemo.domain.mappers.OwnerDBMapper
+import com.vnstudio.cleanarchitecturedemo.domain.mappers.OwnerResponseMapper
+import com.vnstudio.cleanarchitecturedemo.domain.mappers.OwnerUIMapper
 import com.vnstudio.cleanarchitecturedemo.domain.repositories.ApiRepository
 import com.vnstudio.cleanarchitecturedemo.domain.repositories.DBRepository
 import com.vnstudio.cleanarchitecturedemo.domain.usecase.ForkUseCase
+import com.vnstudio.cleanarchitecturedemo.presentation.mapperimpls.ForkUIMapperImpl
+import com.vnstudio.cleanarchitecturedemo.presentation.mapperimpls.OwnerUIMapperImpl
 import com.vnstudio.cleanarchitecturedemo.presentation.usecaseimpl.ForkUseCaseImpl
 import dagger.Module
 import dagger.Provides
@@ -76,14 +88,50 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideApiRepository(apiService: ApiService): ApiRepository {
-        return ApiRepositoryImpl(apiService)
+    fun provideOwnerResponseMapper(): OwnerResponseMapper {
+        return OwnerResponseMapperImpl()
     }
 
     @Singleton
     @Provides
-    fun provideDBRepository(forkDao: ForkDao): DBRepository {
-        return DBRepositoryImpl(forkDao)
+    fun provideOwnerDBMapper(): OwnerDBMapper {
+        return OwnerDBMapperImpl()
+    }
+
+    @Singleton
+    @Provides
+    fun provideOwnerUIMapper(): OwnerUIMapper {
+        return OwnerUIMapperImpl()
+    }
+
+    @Singleton
+    @Provides
+    fun provideForkResponseMapper(ownerResponseMapper: OwnerResponseMapper): ForkResponseMapper {
+        return ForkResponseMapperImpl(ownerResponseMapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideForkDBMapper(ownerDBMapper: OwnerDBMapper): ForkDBMapper {
+        return ForkDBMapperImpl(ownerDBMapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideForkUIMapper(ownerUIMapper: OwnerUIMapper): ForkUIMapper {
+        return ForkUIMapperImpl(ownerUIMapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiRepository(apiService: ApiService, forkResponseMapper: ForkResponseMapper): ApiRepository {
+        return ApiRepositoryImpl(apiService, forkResponseMapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDBRepository(forkDao: ForkDao, forkDBMapper: ForkDBMapper): DBRepository {
+        return DBRepositoryImpl(forkDao, forkDBMapper)
     }
 
     @Singleton

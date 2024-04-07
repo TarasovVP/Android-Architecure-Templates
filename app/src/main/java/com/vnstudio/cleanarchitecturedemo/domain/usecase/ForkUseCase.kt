@@ -1,6 +1,6 @@
 package com.vnstudio.cleanarchitecturedemo.domain.usecase
 
-import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
+import com.vnstudio.cleanarchitecturedemo.domain.models.Fork
 
 interface ForkUseCase {
 

@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
+import com.vnstudio.cleanarchitecturedemo.data.database.entities.ForkDB
 
 @Database(
-    entities = [Fork::class],
+    entities = [ForkDB::class],
     version = 1,
     exportSchema = false
 )

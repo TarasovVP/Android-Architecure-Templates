@@ -1,6 +1,6 @@
 package com.vnstudio.cleanarchitecturedemo.presentation.usecaseimpl
 
-import com.vnstudio.cleanarchitecturedemo.domain.entities.Fork
+import com.vnstudio.cleanarchitecturedemo.domain.models.Fork
 import com.vnstudio.cleanarchitecturedemo.domain.repositories.ApiRepository
 import com.vnstudio.cleanarchitecturedemo.domain.repositories.DBRepository
 import com.vnstudio.cleanarchitecturedemo.domain.usecase.ForkUseCase
