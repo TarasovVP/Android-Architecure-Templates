@@ -2,18 +2,18 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
+    id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
 }
 
 android {
-    namespace = "com.vnteam.architecturetemplates"
+    namespace = "com.vnstudio.cleanarchitecturedemo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.vnteam.architecturetemplates"
+        applicationId = "com.vnstudio.cleanarchitecturedemo"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -38,14 +38,6 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    kotlin {
-        sourceSets {
-            val main by getting {
-                kotlin.srcDir("build/generated/ksp/src/main/kotlin")
-            }
-        }
-    }
-
     buildFeatures {
         viewBinding = true
     }
@@ -73,8 +65,9 @@ dependencies {
     //Gson
     implementation("com.google.code.gson:gson:2.10.1")
 
-    //Coil
-    implementation("io.coil-kt:coil:2.2.2")
+    //Glide
+    implementation("com.github.bump tech.glide:glide:4.15.1")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
 
     //Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
@@ -82,13 +75,13 @@ dependencies {
 
     //Room
     implementation("androidx.room:room-runtime:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    ksp("com.google.dagger:hilt-compiler:2.48")
-    implementation("com.google.dagger:hilt-android-testing:2.48")
+    implementation("com.google.dagger:hilt-android:2.46.1")
+    kapt("com.google.dagger:hilt-compiler:2.46.1")
+    implementation("com.google.dagger:hilt-android-testing:2.46.1")
 
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
