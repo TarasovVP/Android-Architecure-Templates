@@ -48,6 +48,10 @@ android {
 
     buildFeatures {
         viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
     compileSdk = 34
 }
@@ -74,7 +78,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
 
     //Coil
-    implementation("io.coil-kt:coil:2.2.2")
+    implementation("io.coil-kt:coil-compose:2.2.2")
 
     //Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
@@ -94,4 +98,12 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
+    //Compose
+    implementation(platform("androidx.compose:compose-bom:2024.04.00"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material:material")
+    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation("androidx.compose.runtime:runtime")
 }
