@@ -1,6 +1,5 @@
 package com.vnteam.cleanarchitecturedemo.presentation.list
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vnteam.cleanarchitecturedemo.domain.mappers.ForkUIMapper
@@ -8,6 +7,10 @@ import com.vnteam.cleanarchitecturedemo.domain.models.Fork
 import com.vnteam.cleanarchitecturedemo.domain.usecase.ForkUseCase
 import com.vnteam.cleanarchitecturedemo.presentation.uimodels.ForkUI
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ListViewModel(
@@ -15,41 +18,49 @@ class ListViewModel(
     private val forkUIMapper: ForkUIMapper,
 ) : ViewModel() {
 
-    val progressVisibilityLiveData = MutableLiveData<Boolean>()
-    val errorLiveData = MutableLiveData<String>()
-    val forksFromDBLiveData = MutableLiveData<List<ForkUI>>()
+    private val _progressVisibilityFlow = MutableStateFlow(false)
+    val progressVisibilityFlow: StateFlow<Boolean> = _progressVisibilityFlow.asStateFlow()
+
+    private val _errorFlow = MutableStateFlow<String?>(null)
+    val errorFlow: StateFlow<String?> = _errorFlow.asStateFlow()
+
+    private val _forksFromDBFlow = MutableStateFlow<List<ForkUI>>(emptyList())
+    val forksFromDBFlow: StateFlow<List<ForkUI>> = _forksFromDBFlow.asStateFlow()
 
     fun getForksFromApi() {
-        progressVisibilityLiveData.postValue(true)
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            progressVisibilityLiveData.postValue(false)
-            errorLiveData.postValue(exception.localizedMessage)
+            _progressVisibilityFlow.value = false
+            _errorFlow.value = exception.localizedMessage
         }) {
+            _progressVisibilityFlow.value = true
             val forks = forkUseCase.getForksFromApi()
-            forks?.let {
-                insertForksToDB(it)
-            }
+            insertForksToDB(forks)
             getForksFromDB()
         }
     }
 
-    private fun insertForksToDB(forks: List<Fork>) {
+    private fun insertForksToDB(forks: Flow<List<Fork>?>) {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            progressVisibilityLiveData.postValue(false)
-            errorLiveData.postValue(exception.localizedMessage)
+            _progressVisibilityFlow.value = false
+            _errorFlow.value = exception.localizedMessage
         }) {
-            forkUseCase.insertForksToDB(forks)
+            forks.collect {
+                it ?: return@collect
+                forkUseCase.insertForksToDB(it)
+            }
         }
     }
 
     private fun getForksFromDB() {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            progressVisibilityLiveData.postValue(false)
-            errorLiveData.postValue(exception.localizedMessage)
+            _progressVisibilityFlow.value = false
+            _errorFlow.value = exception.localizedMessage
         }) {
-            val forks = forkUIMapper.mapToImplModelList(forkUseCase.getForksFromDB())
-            forksFromDBLiveData.postValue(forks)
-            progressVisibilityLiveData.postValue(false)
+            forkUseCase.getForksFromDB().collect {
+                val forks = forkUIMapper.mapToImplModelList(it)
+                _forksFromDBFlow.value = forks
+                _progressVisibilityFlow.value = false
+            }
         }
     }
 }

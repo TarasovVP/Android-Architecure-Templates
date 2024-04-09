@@ -1,12 +1,14 @@
 package com.vnteam.cleanarchitecturedemo.presentation.details
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vnteam.cleanarchitecturedemo.domain.mappers.ForkUIMapper
 import com.vnteam.cleanarchitecturedemo.domain.repositories.DBRepository
 import com.vnteam.cleanarchitecturedemo.presentation.uimodels.ForkUI
-import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(
@@ -14,19 +16,29 @@ class DetailsViewModel(
     private val forkUIMapper: ForkUIMapper,
 ): ViewModel() {
 
-    val progressVisibilityLiveData = MutableLiveData<Boolean>()
-    val errorLiveData = MutableLiveData<String>()
-    val forkLiveData = MutableLiveData<ForkUI>()
+    private val _progressVisibilityFlow = MutableStateFlow(false)
+    val progressVisibilityFlow: StateFlow<Boolean> = _progressVisibilityFlow
+
+    private val _errorFlow = MutableStateFlow<String?>(null)
+    val errorFlow: StateFlow<String?> = _errorFlow
+
+    private val _forkFlow = MutableStateFlow<ForkUI?>(null)
+    val forkFlow: StateFlow<ForkUI?> = _forkFlow
 
     fun getForkById(forkId: Long?) {
-        progressVisibilityLiveData.postValue(true)
-        viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            progressVisibilityLiveData.postValue(false)
-            errorLiveData.postValue(exception.localizedMessage)
-        }) {
-            val fork = forkRepository.getForkById(forkId ?: 0)
-            forkLiveData.postValue(fork?.let { forkUIMapper.mapToImplModel(it) })
-            progressVisibilityLiveData.postValue(false)
+        viewModelScope.launch {
+            forkRepository.getForkById(forkId ?: 0)
+                .onStart {
+                    _progressVisibilityFlow.value = true
+                }
+                .catch { exception ->
+                    _progressVisibilityFlow.value = false
+                    _errorFlow.value = exception.localizedMessage
+                }
+                .collect { fork ->
+                    _forkFlow.value = fork?.let { forkUIMapper.mapToImplModel(it) }
+                    _progressVisibilityFlow.value = false
+                }
         }
     }
 }
