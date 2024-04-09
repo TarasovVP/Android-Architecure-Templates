@@ -1,11 +1,13 @@
 package com.vnteam.cleanarchitecturedemo.data.network.responses
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class OwnerResponse(
     var login: String? = null,
-    @SerializedName("id")
+    @SerialName("id")
     var ownerId: Long? = null,
-    @SerializedName("avatar_url")
+    @SerialName("avatar_url")
     var avatarUrl: String? = null,
 )

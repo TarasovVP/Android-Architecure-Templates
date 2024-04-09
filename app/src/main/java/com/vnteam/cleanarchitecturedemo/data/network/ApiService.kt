@@ -1,11 +1,22 @@
 package com.vnteam.cleanarchitecturedemo.data.network
 
-import com.vnteam.cleanarchitecturedemo.data.network.responses.ForkResponse
-import retrofit2.Response
-import retrofit2.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.client.statement.HttpResponse
 
-interface ApiService {
 
-    @GET("repos/octocat/Spoon-Knife/forks")
-    suspend fun getForks(): Response<List<ForkResponse>>
+class ApiService(
+    private val baseUrl: String,
+    private val httpClient: HttpClient,
+) {
+
+    suspend fun getForks(): HttpResponse? {
+        val httpResponse = try {
+            httpClient.get("${baseUrl}repos/octocat/Spoon-Knife/forks")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+        return httpResponse
+    }
 }

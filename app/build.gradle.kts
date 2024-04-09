@@ -5,6 +5,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -92,10 +93,12 @@ dependencies {
     implementation("io.insert-koin:koin-android:3.5.3")
     implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 
-    //Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    //Ktor
+    implementation("io.ktor:ktor-client-android:2.3.7")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
+    implementation("io.ktor:ktor-client-logging-jvm:2.3.7")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     //Compose
     implementation(platform("androidx.compose:compose-bom:2024.04.00"))
