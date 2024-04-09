@@ -22,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.vnteam.cleanarchitecturedemo.presentation.uimodels.ForkUI
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ListScreen(viewModel: ListViewModel, onItemClick: (Long) -> Unit) {
+fun ListScreen(onItemClick: (Long) -> Unit) {
+    val viewModel: ListViewModel = koinViewModel()
     val fork = viewModel.forksFromDBLiveData.observeAsState()
     val isLoading = viewModel.progressVisibilityLiveData.observeAsState()
     val error = viewModel.errorLiveData.observeAsState()

@@ -6,13 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.vnteam.cleanarchitecturedemo.domain.mappers.ForkUIMapper
 import com.vnteam.cleanarchitecturedemo.domain.repositories.DBRepository
 import com.vnteam.cleanarchitecturedemo.presentation.uimodels.ForkUI
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class DetailsViewModel @Inject constructor(
+class DetailsViewModel(
     private val forkRepository: DBRepository,
     private val forkUIMapper: ForkUIMapper,
 ): ViewModel() {

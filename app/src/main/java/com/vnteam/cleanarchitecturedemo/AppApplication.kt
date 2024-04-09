@@ -1,18 +1,19 @@
 package com.vnteam.cleanarchitecturedemo
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.vnteam.cleanarchitecturedemo.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.GlobalContext.startKoin
 
-@HiltAndroidApp
 class AppApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
-    }
-
-    companion object {
-        var instance: AppApplication? = null
-            private set
+        startKoin {
+            androidLogger()
+            androidContext(this@AppApplication)
+            modules(appModule)
+        }
     }
 }
