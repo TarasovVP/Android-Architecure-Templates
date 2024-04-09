@@ -36,7 +36,7 @@ class ListViewModel @Inject constructor(
         }
     }
 
-    fun insertForksToDB(forks: List<Fork>) {
+    private fun insertForksToDB(forks: List<Fork>) {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
@@ -45,7 +45,7 @@ class ListViewModel @Inject constructor(
         }
     }
 
-    fun getForksFromDB() {
+    private fun getForksFromDB() {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
