@@ -6,6 +6,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
     id("kotlinx-serialization")
+    id("com.squareup.sqldelight")
 }
 
 android {
@@ -56,6 +57,12 @@ android {
     compileSdk = 34
 }
 
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.vnteam.cleanarchitecturedemo"
+    }
+}
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -84,10 +91,9 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
-    //Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
+    //SQLDelight`
+    implementation("com.squareup.sqldelight:android-driver:1.5.5")
+    implementation("com.squareup.sqldelight:coroutines-extensions:1.5.5")
 
     // Koin
     implementation("io.insert-koin:koin-android:3.5.3")

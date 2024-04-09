@@ -25,7 +25,7 @@ class DetailsViewModel(
             errorLiveData.postValue(exception.localizedMessage)
         }) {
             val fork = forkRepository.getForkById(forkId ?: 0)
-            forkLiveData.postValue(forkUIMapper.mapToImplModel(fork))
+            forkLiveData.postValue(fork?.let { forkUIMapper.mapToImplModel(it) })
             progressVisibilityLiveData.postValue(false)
         }
     }

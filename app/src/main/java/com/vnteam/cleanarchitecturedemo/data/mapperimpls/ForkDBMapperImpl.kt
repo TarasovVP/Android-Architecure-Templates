@@ -1,37 +1,39 @@
 package com.vnteam.cleanarchitecturedemo.data.mapperimpls
 
-import com.vnteam.cleanarchitecturedemo.data.database.entities.ForkDB
-import com.vnteam.cleanarchitecturedemo.data.database.entities.OwnerDB
+import com.vnteam.cleanarchitecturedemo.ForkWithOwner
 import com.vnteam.cleanarchitecturedemo.domain.mappers.ForkDBMapper
-import com.vnteam.cleanarchitecturedemo.domain.mappers.OwnerDBMapper
 import com.vnteam.cleanarchitecturedemo.domain.models.Fork
 import com.vnteam.cleanarchitecturedemo.domain.models.Owner
 
-class ForkDBMapperImpl(private val ownerDBMapper: OwnerDBMapper) : ForkDBMapper {
+class ForkDBMapperImpl : ForkDBMapper {
 
-    override fun mapToImplModel(from: Fork): ForkDB {
-        return ForkDB(id = from.id,
+    override fun mapToImplModel(from: Fork): ForkWithOwner {
+        return ForkWithOwner(id = from.id ?: 0,
             name = from.name,
             fullName = from.fullName,
-            owner = ownerDBMapper.mapToImplModel(from.owner ?: Owner()),
+            ownerId = from.owner?.ownerId,
+            login = from.owner?.login,
+            avatarUrl = from.owner?.avatarUrl,
             htmlUrl = from.htmlUrl,
             description = from.description)
     }
 
-    override fun mapFromImplModel(to: ForkDB): Fork {
+    override fun mapFromImplModel(to: ForkWithOwner): Fork {
         return Fork(id = to.id,
         name = to.name,
         fullName = to.fullName,
-        owner = ownerDBMapper.mapFromImplModel(to.owner ?: OwnerDB()),
+        owner = Owner(ownerId = to.ownerId,
+            login = to.login,
+            avatarUrl = to.avatarUrl),
         htmlUrl = to.htmlUrl,
         description = to.description)
     }
 
-    override fun mapToImplModelList(fromList: List<Fork>): List<ForkDB> {
+    override fun mapToImplModelList(fromList: List<Fork>): List<ForkWithOwner> {
         return fromList.map { mapToImplModel(it) }
     }
 
-    override fun mapFromImplModelList(toList: List<ForkDB>): List<Fork> {
+    override fun mapFromImplModelList(toList: List<ForkWithOwner>): List<Fork> {
         return toList.map { mapFromImplModel(it) }
     }
 }
