@@ -2,6 +2,7 @@ package com.vnteam.cleanarchitecturedemo.presentation.details
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,12 +27,17 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.vnteam.cleanarchitecturedemo.R
 import com.vnteam.cleanarchitecturedemo.presentation.uimodels.ForkUI
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun DetailsScreen(viewModel: DetailsViewModel, onClick: () -> Unit) {
+fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
+    val viewModel: DetailsViewModel = koinViewModel()
     val fork = viewModel.forkLiveData.observeAsState()
     val isLoading = viewModel.progressVisibilityLiveData.observeAsState()
     val error = viewModel.errorLiveData.observeAsState()
+    LaunchedEffect(forkId) {
+        viewModel.getForkById(forkId)
+    }
     val context = LocalContext.current
     LaunchedEffect(error.value) {
         error.value?.let {
@@ -43,70 +49,72 @@ fun DetailsScreen(viewModel: DetailsViewModel, onClick: () -> Unit) {
 
 @Composable
 fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Top
-    ) {
-        Text(
-            text = fork?.name.orEmpty(),
+    Box {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-        Text(
-            text = fork?.owner?.login.orEmpty(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-        Card {
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(fork?.owner?.avatarUrl.orEmpty())
-                        .crossfade(true)
-                        .error(R.drawable.ic_person)
-                        .placeholder(R.drawable.ic_person)
-                        .build(),
-                    contentDescription = "Owner avatar",
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .width(50.dp)
-                        .height(50.dp),
-                    contentScale = ContentScale.Crop
-                )
-                Text(
-                    text = fork?.description.orEmpty(),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                )
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Top
+        ) {
+            Text(
+                text = fork?.name.orEmpty(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
+            Text(
+                text = fork?.owner?.login.orEmpty(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
+            Card {
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(fork?.owner?.avatarUrl.orEmpty())
+                            .crossfade(true)
+                            .error(R.drawable.ic_person)
+                            .placeholder(R.drawable.ic_person)
+                            .build(),
+                        contentDescription = "Owner avatar",
+                        modifier = Modifier
+                            .wrapContentSize()
+                            .width(50.dp)
+                            .height(50.dp),
+                        contentScale = ContentScale.Crop
+                    )
+                    Text(
+                        text = fork?.description.orEmpty(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    )
+                }
+            }
+            Text(
+                text = "Description:",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
+            Text(
+                text = fork?.description.orEmpty(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
+            Button(
+                onClick = onClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(text = "Back")
             }
         }
-        Text(
-            text = "Description:",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-        Text(
-            text = fork?.description.orEmpty(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-        Button(
-            onClick = onClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Text(text = "Back")
-        }
         if (isLoading == true) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

@@ -7,13 +7,10 @@ import com.vnteam.cleanarchitecturedemo.domain.mappers.ForkUIMapper
 import com.vnteam.cleanarchitecturedemo.domain.models.Fork
 import com.vnteam.cleanarchitecturedemo.domain.usecase.ForkUseCase
 import com.vnteam.cleanarchitecturedemo.presentation.uimodels.ForkUI
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class ListViewModel @Inject constructor(
+class ListViewModel(
     private val forkUseCase: ForkUseCase,
     private val forkUIMapper: ForkUIMapper,
 ) : ViewModel() {

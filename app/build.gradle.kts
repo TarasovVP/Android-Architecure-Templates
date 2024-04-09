@@ -5,7 +5,6 @@ plugins {
     id("com.google.devtools.ksp")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -89,10 +88,9 @@ dependencies {
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
 
-    //Hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    ksp("com.google.dagger:hilt-compiler:2.48")
-    implementation("com.google.dagger:hilt-android-testing:2.48")
+    // Koin
+    implementation("io.insert-koin:koin-android:3.5.3")
+    implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
