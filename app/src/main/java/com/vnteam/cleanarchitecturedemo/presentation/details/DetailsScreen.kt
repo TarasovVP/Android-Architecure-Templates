@@ -17,7 +17,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -32,9 +32,9 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
     val viewModel: DetailsViewModel = koinViewModel()
-    val fork = viewModel.forkLiveData.observeAsState()
-    val isLoading = viewModel.progressVisibilityLiveData.observeAsState()
-    val error = viewModel.errorLiveData.observeAsState()
+    val fork = viewModel.forkFlow.collectAsState()
+    val isLoading = viewModel.progressVisibilityFlow.collectAsState()
+    val error = viewModel.errorFlow.collectAsState()
     LaunchedEffect(forkId) {
         viewModel.getForkById(forkId)
     }
