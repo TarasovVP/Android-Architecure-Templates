@@ -20,8 +20,6 @@ class ListViewModel @Inject constructor(
 
     val progressVisibilityLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<String>()
-    val forksFromApiLiveData = MutableLiveData<List<Fork>>()
-    val forksToDBInsertedLiveData = MutableLiveData<Unit>()
     val forksFromDBLiveData = MutableLiveData<List<ForkUI>>()
 
     fun getForksFromApi() {
@@ -31,24 +29,23 @@ class ListViewModel @Inject constructor(
             errorLiveData.postValue(exception.localizedMessage)
         }) {
             val forks = forkUseCase.getForksFromApi()
-            forks?.let { forksFromApiLiveData.postValue(it) }
+            forks?.let {
+                insertForksToDB(it)
+            }
+            getForksFromDB()
         }
     }
 
     fun insertForksToDB(forks: List<Fork>) {
-        progressVisibilityLiveData.postValue(true)
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
         }) {
             forkUseCase.insertForksToDB(forks)
-            progressVisibilityLiveData.postValue(false)
-            forksToDBInsertedLiveData.postValue(Unit)
         }
     }
 
     fun getForksFromDB() {
-        progressVisibilityLiveData.postValue(true)
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
