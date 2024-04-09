@@ -10,5 +10,5 @@ interface ForkUseCase {
 
     fun getForksFromDB(): List<Fork>
 
-    fun getForkById(forkId: Long): Fork
+    fun getForkById(forkId: Long): Fork?
 }

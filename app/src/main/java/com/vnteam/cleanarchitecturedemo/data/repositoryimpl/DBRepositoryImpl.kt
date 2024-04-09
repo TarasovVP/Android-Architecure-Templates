@@ -9,14 +9,14 @@ class DBRepositoryImpl(private val forkDao: ForkDao, private val forkDBMapper: F
     DBRepository {
 
     override fun insertForksToDB(forks: List<Fork>) {
-        forkDao.insertForks(forkDBMapper.mapToImplModelList(forks))
+        forkDao.insertForkWithOwners(forkDBMapper.mapToImplModelList(forks))
     }
 
     override fun getForksFromDB(): List<Fork> {
         return forkDBMapper.mapFromImplModelList(forkDao.getForks())
     }
 
-    override fun getForkById(forkId: Long): Fork {
-        return forkDBMapper.mapFromImplModel(forkDao.getForkById(forkId))
+    override fun getForkById(forkId: Long): Fork? {
+        return forkDao.getForkById(forkId)?.let { forkDBMapper.mapFromImplModel(it) }
     }
 }

@@ -2,6 +2,7 @@ buildscript {
     dependencies {
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
         classpath("org.jetbrains.kotlin:kotlin-serialization:1.9.23")
+        classpath("com.squareup.sqldelight:gradle-plugin:1.5.5")
     }
 }
 

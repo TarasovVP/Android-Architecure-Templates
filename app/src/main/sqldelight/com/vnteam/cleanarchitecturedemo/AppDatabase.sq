@@ -1,0 +1,20 @@
+CREATE TABLE ForkWithOwner (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    fullName TEXT,
+    htmlUrl TEXT,
+    description TEXT,
+    login TEXT,
+    ownerId INTEGER,
+    avatarUrl TEXT
+);
+
+insertForkWithOwner:
+INSERT OR REPLACE INTO ForkWithOwner(id, name, fullName, htmlUrl, description, login, ownerId, avatarUrl)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+getForkWithOwners:
+SELECT * FROM ForkWithOwner;
+
+getForkWithOwnerById:
+SELECT * FROM ForkWithOwner WHERE id = ?;

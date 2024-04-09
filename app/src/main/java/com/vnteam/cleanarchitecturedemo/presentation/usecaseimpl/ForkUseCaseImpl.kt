@@ -20,7 +20,7 @@ class ForkUseCaseImpl(private val apiRepository: ApiRepository, private val dbRe
         return dbRepository.getForksFromDB()
     }
 
-    override fun getForkById(forkId: Long): Fork {
+    override fun getForkById(forkId: Long): Fork? {
         return dbRepository.getForkById(forkId)
     }
 }

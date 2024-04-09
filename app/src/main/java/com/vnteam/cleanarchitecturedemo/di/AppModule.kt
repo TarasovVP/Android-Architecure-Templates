@@ -1,10 +1,12 @@
 package com.vnteam.cleanarchitecturedemo.di
 
 import android.util.Log
-import com.vnteam.cleanarchitecturedemo.data.database.AppDatabase
+import com.squareup.sqldelight.android.AndroidSqliteDriver
+import com.vnteam.cleanarchitecturedemo.AppDatabase
+import com.vnteam.cleanarchitecturedemo.data.database.ForkDao
+import com.vnteam.cleanarchitecturedemo.data.database.ForkDaoImpl
 import com.vnteam.cleanarchitecturedemo.data.mapperimpls.ForkDBMapperImpl
 import com.vnteam.cleanarchitecturedemo.data.mapperimpls.ForkResponseMapperImpl
-import com.vnteam.cleanarchitecturedemo.data.mapperimpls.OwnerDBMapperImpl
 import com.vnteam.cleanarchitecturedemo.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.cleanarchitecturedemo.data.network.ApiService
 import com.vnteam.cleanarchitecturedemo.data.repositoryimpl.ApiRepositoryImpl
@@ -12,7 +14,6 @@ import com.vnteam.cleanarchitecturedemo.data.repositoryimpl.DBRepositoryImpl
 import com.vnteam.cleanarchitecturedemo.domain.mappers.ForkDBMapper
 import com.vnteam.cleanarchitecturedemo.domain.mappers.ForkResponseMapper
 import com.vnteam.cleanarchitecturedemo.domain.mappers.ForkUIMapper
-import com.vnteam.cleanarchitecturedemo.domain.mappers.OwnerDBMapper
 import com.vnteam.cleanarchitecturedemo.domain.mappers.OwnerResponseMapper
 import com.vnteam.cleanarchitecturedemo.domain.mappers.OwnerUIMapper
 import com.vnteam.cleanarchitecturedemo.domain.repositories.ApiRepository
@@ -33,6 +34,7 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -65,20 +67,23 @@ val appModule = module {
     }
 
     single {
-        AppDatabase.getDatabase(get())
+        val sqlDriver = AndroidSqliteDriver(
+            schema = AppDatabase.Schema,
+            context = androidContext(),
+            name = "forks.db"
+        )
+        AppDatabase(sqlDriver)
     }
 
-    single { get<AppDatabase>().forkDao() }
+    single<ForkDao> { ForkDaoImpl(get<AppDatabase>().appDatabaseQueries) }
 
     single<OwnerResponseMapper> { OwnerResponseMapperImpl() }
-
-    single<OwnerDBMapper> { OwnerDBMapperImpl() }
 
     single<OwnerUIMapper> { OwnerUIMapperImpl() }
 
     single<ForkResponseMapper> { ForkResponseMapperImpl(get()) }
 
-    single<ForkDBMapper> { ForkDBMapperImpl(get()) }
+    single<ForkDBMapper> { ForkDBMapperImpl() }
 
     single<ForkUIMapper> { ForkUIMapperImpl(get()) }
 
