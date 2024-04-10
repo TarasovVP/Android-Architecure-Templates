@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
-import com.vnteam.cleanarchitecturedemo.presentation.navigation.AppNavigation
+import cafe.adriel.voyager.navigator.Navigator
+import com.vnteam.cleanarchitecturedemo.presentation.navigation.NavigationScreen
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                AppNavigation()
+                Navigator(NavigationScreen.ListContentScreen())
             }
         }
     }

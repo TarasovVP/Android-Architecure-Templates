@@ -86,8 +86,10 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil-compose:2.2.2")
 
-    //Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    //Voyager
+    implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
+    implementation("cafe.adriel.voyager:voyager-transitions:1.0.0")
+    implementation("cafe.adriel.voyager:voyager-koin:1.0.0")
 
     //SQLDelight`
     implementation("com.squareup.sqldelight:android-driver:1.5.5")
@@ -110,4 +112,5 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime")
+    implementation("androidx.activity:activity-compose")
 }

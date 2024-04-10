@@ -23,13 +23,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.vnteam.cleanarchitecturedemo.R
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
+fun DetailsScreen(forkId: Long?) {
+    val navigator = LocalNavigator.currentOrThrow
     val viewModel: DetailsViewModel = koinViewModel()
     val viewState = viewModel.state.collectAsState()
 
@@ -46,7 +49,9 @@ fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
-    DetailsContent(viewState.value, onClick)
+    DetailsContent(viewState.value) {
+        navigator.pop()
+    }
 }
 
 @Composable
