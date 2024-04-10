@@ -21,28 +21,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.vnteam.cleanarchitecturedemo.presentation.uimodels.ForkUI
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ListScreen(onItemClick: (Long) -> Unit) {
     val viewModel: ListViewModel = koinViewModel()
-    val fork = viewModel.forksFromDBFlow.collectAsState()
-    val isLoading = viewModel.progressVisibilityFlow.collectAsState()
-    val error = viewModel.errorFlow.collectAsState()
+    val viewState = viewModel.state.collectAsState()
+
     val context = LocalContext.current
-    LaunchedEffect(error.value) {
-        error.value?.let {
+    LaunchedEffect(viewState.value.error) {
+        viewState.value.error?.let {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
-    ListContent(fork.value, isLoading.value, onItemClick) {
+    ListContent(viewState.value, onItemClick) {
         viewModel.getForksFromApi()
     }
 }
 
 @Composable
-fun ListContent(forks: List<ForkUI>?, isLoading: Boolean?, onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
+fun ListContent(viewState: ListViewState, onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
 
     Box {
         Column(
@@ -60,7 +58,7 @@ fun ListContent(forks: List<ForkUI>?, isLoading: Boolean?, onItemClick: (Long) -
                 Text(text = "Start")
             }
             LazyColumn {
-                items(forks.orEmpty()) { item ->
+                items(viewState.forks.orEmpty()) { item ->
                     Card(modifier = Modifier.padding(8.dp)) {
                         Text(text = item.name.orEmpty(), modifier = Modifier
                             .padding(8.dp)
@@ -69,7 +67,7 @@ fun ListContent(forks: List<ForkUI>?, isLoading: Boolean?, onItemClick: (Long) -
                 }
             }
         }
-        if (isLoading == true) {
+        if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
