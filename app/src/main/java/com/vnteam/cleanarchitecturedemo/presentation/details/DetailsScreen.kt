@@ -26,29 +26,31 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.vnteam.cleanarchitecturedemo.R
-import com.vnteam.cleanarchitecturedemo.presentation.uimodels.ForkUI
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
     val viewModel: DetailsViewModel = koinViewModel()
-    val fork = viewModel.forkFlow.collectAsState()
-    val isLoading = viewModel.progressVisibilityFlow.collectAsState()
-    val error = viewModel.errorFlow.collectAsState()
+    val viewState = viewModel.state.collectAsState()
+
+    LaunchedEffect(forkId) {
+        viewModel.processIntent(DetailsIntent.LoadFork(forkId ?: 0))
+    }
+
     LaunchedEffect(forkId) {
         viewModel.getForkById(forkId)
     }
     val context = LocalContext.current
-    LaunchedEffect(error.value) {
-        error.value?.let {
+    LaunchedEffect(viewState.value.error) {
+        viewState.value.error?.let {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
-    DetailsContent(fork.value, isLoading.value, onClick)
+    DetailsContent(viewState.value, onClick)
 }
 
 @Composable
-fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
+fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
     Box {
         Column(
             modifier = Modifier
@@ -57,13 +59,13 @@ fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
             verticalArrangement = Arrangement.Top
         ) {
             Text(
-                text = fork?.name.orEmpty(),
+                text = viewState.fork?.name.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             )
             Text(
-                text = fork?.owner?.login.orEmpty(),
+                text = viewState.fork?.owner?.login.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -72,7 +74,7 @@ fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(fork?.owner?.avatarUrl.orEmpty())
+                            .data(viewState.fork?.owner?.avatarUrl.orEmpty())
                             .crossfade(true)
                             .error(R.drawable.ic_person)
                             .placeholder(R.drawable.ic_person)
@@ -85,7 +87,7 @@ fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
                         contentScale = ContentScale.Crop
                     )
                     Text(
-                        text = fork?.description.orEmpty(),
+                        text = viewState.fork?.description.orEmpty(),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)
@@ -99,7 +101,7 @@ fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
                     .padding(16.dp)
             )
             Text(
-                text = fork?.description.orEmpty(),
+                text = viewState.fork?.description.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -113,7 +115,7 @@ fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
                 Text(text = "Back")
             }
         }
-        if (isLoading == true) {
+        if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
