@@ -1,24 +1,22 @@
-<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/MainActivity.kt
-package com.vnteam.architecturetemplates.presentation
-========
 package com.vnteam.architecturetemplates
->>>>>>>> 13d1264 (Rename project):app/src/main/java/com/vnteam/architecturetemplates/MainActivity.kt
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.vnteam.architecturetemplates.R
-import dagger.hilt.android.AndroidEntryPoint
+import com.vnteam.architecturetemplates.list.ListFragment
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContainer, ListFragment.newInstance())
+            addToBackStack(null)
+            commit()
+        }
     }
 
     companion object {
-        const val BASE_URL = "https://api.github.com/"
-        const val SERVER_TIMEOUT = 50L
+        const val FORKS_URL = "https://api.github.com/repos/octocat/Spoon-Knife/forks"
     }
 }

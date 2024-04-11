@@ -1,16 +1,14 @@
 package com.vnteam.architecturetemplates.models
 
-import android.os.Parcelable
-import androidx.room.Entity
-import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
+import com.squareup.moshi.Json
+import io.realm.RealmObject
+import java.io.Serializable
 
-@Parcelize
-@Entity
-data class Owner(
-    var login: String? = null,
-    @SerializedName("id")
-    var ownerId: Long? = null,
-    @SerializedName("avatar_url")
-    var avatarUrl: String? = null,
-) : Parcelable
+open class Owner: Serializable, RealmObject() {
+    @Json(name = "login")
+    var login: String? = null
+    @Json(name = "id")
+    var ownerId: Long? = null
+    @Json(name = "avatar_url")
+    var avatarUrl: String? = null
+}

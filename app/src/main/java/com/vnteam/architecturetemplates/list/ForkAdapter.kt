@@ -1,26 +1,18 @@
-<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/list/ForkAdapter.kt
-package com.vnteam.architecturetemplates.presentation.list
-========
 package com.vnteam.architecturetemplates.list
->>>>>>>> 13d1264 (Rename project):app/src/main/java/com/vnteam/architecturetemplates/list/ForkAdapter.kt
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vnteam.architecturetemplates.databinding.ItemForkBinding
-<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/list/ForkAdapter.kt
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
-========
 import com.vnteam.architecturetemplates.models.Fork
->>>>>>>> 13d1264 (Rename project):app/src/main/java/com/vnteam/architecturetemplates/list/ForkAdapter.kt
 
-class ForkAdapter(private var forks: List<ForkUI>) :
+class ForkAdapter(private var forks: List<Fork>) :
     RecyclerView.Adapter<ForkAdapter.ViewHolder>() {
 
     private var onForkClickListener: OnForkClickListener? = null
 
     class ViewHolder(private val binding: ItemForkBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(fork: ForkUI, onForkClickListener: OnForkClickListener?) {
+        fun bind(fork: Fork, onForkClickListener: OnForkClickListener?) {
             binding.forkName.text = fork.name
             binding.root.setOnClickListener {
                 onForkClickListener?.onForkClick(fork)
@@ -46,7 +38,7 @@ class ForkAdapter(private var forks: List<ForkUI>) :
         this.onForkClickListener = onForkClickListener
     }
 
-    fun setForks(forks: List<ForkUI>) {
+    fun setForks(forks: List<Fork>) {
         this.forks = forks
         notifyDataSetChanged()
     }
