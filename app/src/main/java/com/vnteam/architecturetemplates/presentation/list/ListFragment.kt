@@ -1,4 +1,4 @@
-package com.vnteam.cleanarchitecturedemo.presentation.list
+package com.vnteam.architecturetemplates.presentation.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.vnteam.cleanarchitecturedemo.databinding.FragmentListBinding
-import com.vnteam.cleanarchitecturedemo.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.databinding.FragmentListBinding
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

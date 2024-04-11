@@ -1,10 +1,10 @@
-package com.vnteam.cleanarchitecturedemo.data.database
+package com.vnteam.architecturetemplates.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.vnteam.cleanarchitecturedemo.data.database.entities.ForkDB
+import com.vnteam.architecturetemplates.data.database.entities.ForkDB
 
 @Database(
     entities = [ForkDB::class],

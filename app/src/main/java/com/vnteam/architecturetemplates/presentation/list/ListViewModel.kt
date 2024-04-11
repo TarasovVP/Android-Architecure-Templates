@@ -1,12 +1,12 @@
-package com.vnteam.cleanarchitecturedemo.presentation.list
+package com.vnteam.architecturetemplates.presentation.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vnteam.cleanarchitecturedemo.domain.mappers.ForkUIMapper
-import com.vnteam.cleanarchitecturedemo.domain.models.Fork
-import com.vnteam.cleanarchitecturedemo.domain.usecase.ForkUseCase
-import com.vnteam.cleanarchitecturedemo.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.domain.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
