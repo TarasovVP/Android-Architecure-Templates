@@ -4,7 +4,7 @@ Below is a list of branches with an overview of the applied approaches:
 
 mvi_compose_navigation_implementation
 
-**Architecture**: MVVM 
+**Architecture**: MVI  
 **Screens:** androidx.appcompat.app.AppCompatActivity + @Composable  
 **Api:** io.ktor.client.HttpClient  
 **Image loading:** coil.compose.AsyncImage   
@@ -19,7 +19,7 @@ mvi_compose_navigation_implementation
 
 mvvm_compose_navigation_implementation
 
-**Architecture:** MVVM 
+**Architecture:** MVVM    
 **Screens:** androidx.appcompat.app.AppCompatActivity + @Composable   
 **Api:** io.ktor.client.HttpClient  
 **Image loading:** coil.compose.AsyncImage   
@@ -34,7 +34,7 @@ mvvm_compose_navigation_implementation
 
 mvvm_compose_implementation
 
-**Architecture:** MVVM 
+**Architecture:** MVVM    
 **Screens:** androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment + @Composable Api: retrofit2.Retrofit  
 **Image loading:** coil.compose.AsyncImage JsonConverter: com.google.gson.Gson  
 **DB:** androidx.room.RoomDatabase  
@@ -47,7 +47,7 @@ mvvm_compose_implementation
 
 mvvm_clean_architecture_implementation
 
-**Architecture:** MVVM 
+**Architecture:** MVVM    
 **Screens:** androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment   
 **Api:** retrofit2.Retrofit  
 **Image loading:** com.bumptech.glide.Glide   
@@ -62,7 +62,7 @@ mvvm_clean_architecture_implementation
 
 mvvm_implementation
 
-**Architecture:** MVVM 
+**Architecture:** MVVM    
 **Screens:** androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment   
 **Api:** retrofit2.Retrofit  
 **Image loading:** com.bumptech.glide.Glide JsonConverter: com.google.gson.Gson  
@@ -76,7 +76,7 @@ mvvm_implementation
 
 mvp_implementation
 
-**Architecture:** MVP 
+**Architecture:** MVP    
 **Screens:** androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment   
 **Api:** com.android.volley.toolbox.Volley  
 **Image loading:** com.squareup.picasso.Picasso   
@@ -91,7 +91,7 @@ mvp_implementation
 
 mvc_async_task_implementation
 
-**Architecture:** MVC 
+**Architecture:** MVC    
 **Screens:** androidx.appcompat.app.AppCompatActivity   
 **Api:** java.net.HttpURLConnection  
 **Image loading:** BitmapFactory.decodeStream(HttpURLConnection.inputStream)   
@@ -102,7 +102,7 @@ mvc_async_task_implementation
 
 mvc_native_implementation
 
-**Architecture:** MVC 
+**Architecture:** MVC    
 **Screens:** androidx.appcompat.app.AppCompatActivity   
 **Api:** java.net.HttpURLConnection  
 **Image loading:** BitmapFactory.decodeStream(HttpURLConnection.inputStream)   
