@@ -2,8 +2,13 @@ package com.vnteam.architecturetemplates.presentation.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+<<<<<<<< HEAD:shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/details/DetailsViewModel.kt
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.presentation.mappers.DemoObjectUIMapper
+========
+import com.vnteam.architecturetemplates.domain.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.domain.repositories.DBRepository
+>>>>>>>> 49c2f929 (Init branch):app/src/main/java/com/vnteam/architecturetemplates/presentation/details/DetailsViewModel.kt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
