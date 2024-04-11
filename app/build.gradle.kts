@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "com.vnteam.cleanarchitecturedemo"
+    namespace = "com.vnteam.architecturetemplates"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.vnteam.cleanarchitecturedemo"
+        applicationId = "com.vnteam.architecturetemplates"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -59,7 +59,7 @@ android {
 
 sqldelight {
     database("AppDatabase") {
-        packageName = "com.vnteam.cleanarchitecturedemo"
+        packageName = "com.vnteam.architecturetemplates"
     }
 }
 

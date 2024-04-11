@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Clean Architecture Demo"
+rootProject.name = "Android Architecture Templates"
 include(":app")
