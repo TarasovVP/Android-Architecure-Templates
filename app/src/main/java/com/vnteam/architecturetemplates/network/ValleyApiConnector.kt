@@ -1,11 +1,11 @@
-package com.vnstudio.cleanarchitecturedemo.network
+package com.vnteam.architecturetemplates.network
 
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.squareup.moshi.*
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.models.Fork
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 

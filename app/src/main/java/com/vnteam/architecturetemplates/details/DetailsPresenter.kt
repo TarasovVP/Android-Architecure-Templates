@@ -1,7 +1,7 @@
-package com.vnstudio.cleanarchitecturedemo.details
+package com.vnteam.architecturetemplates.details
 
 import android.annotation.SuppressLint
-import com.vnstudio.cleanarchitecturedemo.database.RealmDBConnector
+import com.vnteam.architecturetemplates.database.RealmDBConnector
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 

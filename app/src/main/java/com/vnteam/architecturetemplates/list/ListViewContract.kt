@@ -1,6 +1,6 @@
-package com.vnstudio.cleanarchitecturedemo.list
+package com.vnteam.architecturetemplates.list
 
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.models.Fork
 
 interface ListViewContract {
 

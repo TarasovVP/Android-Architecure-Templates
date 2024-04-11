@@ -1,6 +1,6 @@
-package com.vnstudio.cleanarchitecturedemo.details
+package com.vnteam.architecturetemplates.details
 
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.models.Fork
 
 interface DetailsViewContract {
 

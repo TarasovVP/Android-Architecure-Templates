@@ -1,10 +1,10 @@
-package com.vnstudio.cleanarchitecturedemo.list
+package com.vnteam.architecturetemplates.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.vnstudio.cleanarchitecturedemo.databinding.ItemForkBinding
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.databinding.ItemForkBinding
+import com.vnteam.architecturetemplates.models.Fork
 
 class ForkAdapter(private var forks: List<Fork>) :
     RecyclerView.Adapter<ForkAdapter.ViewHolder>() {

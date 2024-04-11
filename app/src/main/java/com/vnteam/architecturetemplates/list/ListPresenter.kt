@@ -1,10 +1,10 @@
-package com.vnstudio.cleanarchitecturedemo.list
+package com.vnteam.architecturetemplates.list
 
 import android.annotation.SuppressLint
-import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.FORKS_URL
-import com.vnstudio.cleanarchitecturedemo.database.RealmDBConnector
-import com.vnstudio.cleanarchitecturedemo.models.Fork
-import com.vnstudio.cleanarchitecturedemo.network.ValleyApiConnector
+import com.vnteam.architecturetemplates.MainActivity.Companion.FORKS_URL
+import com.vnteam.architecturetemplates.database.RealmDBConnector
+import com.vnteam.architecturetemplates.models.Fork
+import com.vnteam.architecturetemplates.network.ValleyApiConnector
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 

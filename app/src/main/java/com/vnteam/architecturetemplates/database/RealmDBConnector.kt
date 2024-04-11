@@ -1,9 +1,8 @@
-package com.vnstudio.cleanarchitecturedemo.database
+package com.vnteam.architecturetemplates.database
 
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.models.Fork
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.realm.Realm
 import io.realm.RealmList
 

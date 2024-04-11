@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo.models
+package com.vnteam.architecturetemplates.models
 
 import com.squareup.moshi.Json
 import io.realm.RealmObject

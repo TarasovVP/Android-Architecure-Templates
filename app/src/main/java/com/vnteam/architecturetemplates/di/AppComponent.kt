@@ -1,7 +1,7 @@
-package com.vnstudio.cleanarchitecturedemo.di
+package com.vnteam.architecturetemplates.di
 
-import com.vnstudio.cleanarchitecturedemo.details.DetailsFragment
-import com.vnstudio.cleanarchitecturedemo.list.ListFragment
+import com.vnteam.architecturetemplates.details.DetailsFragment
+import com.vnteam.architecturetemplates.list.ListFragment
 import dagger.Component
 
 @Component(modules = [AppModule::class])

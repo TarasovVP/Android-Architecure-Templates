@@ -1,7 +1,6 @@
-package com.vnstudio.cleanarchitecturedemo.models
+package com.vnteam.architecturetemplates.models
 
 import com.squareup.moshi.Json
-import com.vnstudio.cleanarchitecturedemo.models.Owner
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.io.Serializable

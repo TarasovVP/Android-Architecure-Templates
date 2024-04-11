@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo.details
+package com.vnteam.architecturetemplates.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.squareup.picasso.Picasso
-import com.vnstudio.cleanarchitecturedemo.AppApplication
-import com.vnstudio.cleanarchitecturedemo.databinding.FragmentDetailsBinding
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.AppApplication
+import com.vnteam.architecturetemplates.databinding.FragmentDetailsBinding
+import com.vnteam.architecturetemplates.models.Fork
 import javax.inject.Inject
 
 class DetailsFragment : Fragment(), DetailsViewContract {

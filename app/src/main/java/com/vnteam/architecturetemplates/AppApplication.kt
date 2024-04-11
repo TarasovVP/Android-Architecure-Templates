@@ -1,9 +1,9 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import android.app.Application
-import com.vnstudio.cleanarchitecturedemo.di.AppComponent
-import com.vnstudio.cleanarchitecturedemo.di.AppModule
-import com.vnstudio.cleanarchitecturedemo.di.DaggerAppComponent
+import com.vnteam.architecturetemplates.di.AppComponent
+import com.vnteam.architecturetemplates.di.AppModule
+import com.vnteam.architecturetemplates.di.DaggerAppComponent
 import io.realm.Realm
 
 class AppApplication : Application() {
