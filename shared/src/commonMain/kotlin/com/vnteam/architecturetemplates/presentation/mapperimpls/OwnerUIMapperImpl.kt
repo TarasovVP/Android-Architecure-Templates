@@ -1,6 +1,10 @@
 package com.vnteam.architecturetemplates.presentation.mapperimpls
 
+<<<<<<<< HEAD:shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/mapperimpls/OwnerUIMapperImpl.kt
 import com.vnteam.architecturetemplates.presentation.mappers.OwnerUIMapper
+========
+import com.vnteam.architecturetemplates.domain.mappers.OwnerUIMapper
+>>>>>>>> 746b1039 (Init branch):app/src/main/java/com/vnteam/architecturetemplates/presentation/mapperimpls/OwnerUIMapperImpl.kt
 import com.vnteam.architecturetemplates.domain.models.Owner
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 
