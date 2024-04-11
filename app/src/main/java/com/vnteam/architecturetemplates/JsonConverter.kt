@@ -1,33 +1,33 @@
 package com.vnteam.architecturetemplates
 
-import com.squareup.moshi.*
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import org.json.JSONArray
+import org.json.JSONObject
 
 class JsonConverter {
 
-    private var moshi: Moshi? = null
-
-    init {
-        moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-    }
-    fun getForkList(responseData: String): List<Fork> {
-        val listType = Types.newParameterizedType(List::class.java, Fork::class.java)
-        val adapter: JsonAdapter<List<Fork>>? = moshi?.adapter(listType)
-        return adapter?.fromJson(responseData) ?: listOf()
-    }
-
-    fun forkListToForkDBList(forks: List<Fork>): List<ForkDB> {
-        val forkDBList = mutableListOf<ForkDB>()
-        forks.forEach { fork ->
-            forkDBList.add(ForkDB().apply {
-                id = fork.id
-                name = fork.name
-                fullName = fork.fullName
-                htmlUrl = fork.htmlUrl
-                description = fork.description
-                owner = moshi?.adapter(Owner::class.java)?.toJson(fork.owner)
-            })
+    fun getForkList(responseData: String): ArrayList<Fork> {
+        val forkList = ArrayList<Fork>()
+        val jsonArray = JSONArray(responseData)
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject = jsonArray.get(i) as JSONObject
+            forkList.add(createForkObject(jsonObject))
         }
-        return forkDBList
+        return forkList
+    }
+
+    private fun createForkObject(jsonObject: JSONObject): Fork {
+        val fork = Fork()
+        fork.id = jsonObject.getLong("id")
+        fork.name = jsonObject.getString("name")
+        fork.full_name = jsonObject.getString("full_name")
+        fork.html_url = jsonObject.getString("html_url")
+        fork.description = jsonObject.getString("description")
+        val ownerObject = jsonObject.getJSONObject("owner")
+        val owner = Owner()
+        owner.login = ownerObject.getString("login")
+        owner.id = ownerObject.getLong("id")
+        owner.avatar_url = ownerObject.getString("avatar_url")
+        fork.owner = owner
+        return fork
     }
 }

@@ -1,13 +1,10 @@
 package com.vnteam.architecturetemplates
-import com.squareup.moshi.Json
-import io.realm.RealmObject
+
 import java.io.Serializable
 
-open class Owner: Serializable, RealmObject() {
-    @Json(name = "login")
+
+class Owner: Serializable {
     var login: String? = null
-    @Json(name = "id")
-    var ownerId: Long? = null
-    @Json(name = "avatar_url")
-    var avatarUrl: String? = null
+    var id: Long? = null
+    var avatar_url: String? = null
 }
