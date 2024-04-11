@@ -3,6 +3,7 @@ It consists of two screens. On the first one, a list of data is obtained, which,
 Below is a list of branches with an overview of the applied approaches:
 
 mvi_compose_navigation_implementation
+
 Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + @Composable 
 Api: io.ktor.client.HttpClient
 Image loading: coil.compose.AsyncImage 
@@ -16,6 +17,7 @@ DI: org.koin.core.KoinApplication
 
 
 mvvm_compose_navigation_implementation
+
 Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + @Composable 
 Api: io.ktor.client.HttpClient
 Image loading: coil.compose.AsyncImage 
@@ -29,6 +31,7 @@ DI: org.koin.core.KoinApplication
 
 
 mvvm_compose_implementation
+
 Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment + @Composable Api: retrofit2.Retrofit
 Image loading: coil.compose.AsyncImage JsonConverter: com.google.gson.Gson
 DB: androidx.room.RoomDatabase
@@ -40,6 +43,7 @@ DI: dagger.hilt.android.HiltAndroidApp
 
 
 mvvm_clean_architecture_implementation
+
 Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment 
 Api: retrofit2.Retrofit
 Image loading: com.bumptech.glide.Glide 
@@ -53,6 +57,7 @@ DI: dagger.hilt.android.HiltAndroidApp
 
 
 mvvm_implementation
+
 Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment 
 Api: retrofit2.Retrofit
 Image loading: com.bumptech.glide.Glide JsonConverter: com.google.gson.Gson
@@ -65,6 +70,7 @@ DI: dagger.hilt.android.HiltAndroidApp
 
 
 mvp_implementation
+
 Architecture: MVP Screens: androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment 
 Api: com.android.volley.toolbox.Volley
 Image loading: com.squareup.picasso.Picasso 
@@ -78,6 +84,7 @@ DI: dagger.hilt.android.HiltAndroidApp
 
 
 mvc_async_task_implementation
+
 Architecture: MVC Screens: androidx.appcompat.app.AppCompatActivity 
 Api: java.net.HttpURLConnection
 Image loading: BitmapFactory.decodeStream(HttpURLConnection.inputStream) 
@@ -87,6 +94,7 @@ Multithreading:android.os.AsyncTask
 
 
 mvc_native_implementation
+
 Architecture: MVC Screens: androidx.appcompat.app.AppCompatActivity 
 Api: java.net.HttpURLConnection
 Image loading: BitmapFactory.decodeStream(HttpURLConnection.inputStream) 
