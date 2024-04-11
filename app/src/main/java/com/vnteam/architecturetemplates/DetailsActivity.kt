@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -9,9 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.ERROR
-import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.FORK
-import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.SUCCESS_IMAGE_FROM_URL_CONNECTION
+import ccom.vnteam.architecturetemplates.R
+import com.vnteam.architecturetemplates.MainActivity.Companion.ERROR
+import com.vnteam.architecturetemplates.MainActivity.Companion.FORK
+import com.vnteam.architecturetemplates.MainActivity.Companion.SUCCESS_IMAGE_FROM_URL_CONNECTION
 
 class DetailsActivity : AppCompatActivity() {
 

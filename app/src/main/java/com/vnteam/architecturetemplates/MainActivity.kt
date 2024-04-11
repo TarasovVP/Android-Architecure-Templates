@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import ccom.vnteam.architecturetemplates.R
 
 class MainActivity : AppCompatActivity() {
 
