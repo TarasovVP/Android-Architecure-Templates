@@ -3,8 +3,10 @@ It consists of two screens. On the first one, a list of data is obtained, which,
 Below is a list of branches with an overview of the applied approaches:
 
 mvi_compose_navigation_implementation
-Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + @Composable Api: io.ktor.client.HttpClient
-Image loading: coil.compose.AsyncImage JsonConverter: kotlinx.serialization.SerialName
+Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + @Composable 
+Api: io.ktor.client.HttpClient
+Image loading: coil.compose.AsyncImage 
+JsonConverter: kotlinx.serialization.SerialName
 DB: com.squareup.sqldelight.AppDatabase
 Multithreading: kotlinx.coroutines.CoroutineScope
 Architectural component: androidx.lifecycle.ViewModel
@@ -14,8 +16,10 @@ DI: org.koin.core.KoinApplication
 
 
 mvvm_compose_navigation_implementation
-Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + @Composable Api: io.ktor.client.HttpClient
-Image loading: coil.compose.AsyncImage JsonConverter: kotlinx.serialization.SerialName
+Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + @Composable 
+Api: io.ktor.client.HttpClient
+Image loading: coil.compose.AsyncImage 
+JsonConverter: kotlinx.serialization.SerialName
 DB: com.squareup.sqldelight.AppDatabase
 Multithreading: kotlinx.coroutines.CoroutineScope
 Architectural component: androidx.lifecycle.ViewModel
@@ -36,8 +40,10 @@ DI: dagger.hilt.android.HiltAndroidApp
 
 
 mvvm_clean_architecture_implementation
-Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment Api: retrofit2.Retrofit
-Image loading: com.bumptech.glide.Glide JsonConverter: com.google.gson.Gson
+Architecture: MVVM Screens: androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment 
+Api: retrofit2.Retrofit
+Image loading: com.bumptech.glide.Glide 
+JsonConverter: com.google.gson.Gson
 DB: androidx.room.RoomDatabase
 Multithreading: kotlinx.coroutines.CoroutineScope
 Architectural component: androidx.lifecycle.ViewModel
