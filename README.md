@@ -2,11 +2,11 @@ The project includes templates for main architectural solutions and examples of 
 It consists of two screens. On the first one, a list of data is obtained, which, after caching, is displayed in a list format. Clicking on a selected item launches the next screen with detailed information. To view the required implementation, you need to switch to the corresponding branch.   
 Below is a list of branches with an overview of the applied approaches:
 
-[KMM Implementation]([https://github.com/username/repository/](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmm_implementation)
+[KMM Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmm_implementation)
 
 *Under development*  
 
-[MVI with Compose Implementation]([https://github.com/username/repository/](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvi_compose_navigation_implementation)
+[MVI with Compose Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvi_compose_navigation_implementation)
 
 **Architecture**: *MVI*  
 **Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*  
@@ -21,7 +21,7 @@ Below is a list of branches with an overview of the applied approaches:
 **DI:** *org.koin.core.KoinApplication*  
 
 
-[MVVM with Compose Navigation Implementation]([https://github.com/username/repository/](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_navigation_implementation)
+[MVVM with Compose Navigation Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_navigation_implementation)
 
 **Architecture:** *MVVM*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*   
@@ -36,7 +36,7 @@ Below is a list of branches with an overview of the applied approaches:
 **DI:** *org.koin.core.KoinApplication*  
 
 
-[MVVM with Compose Navigation Implementation]([https://github.com/username/repository/](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_implementation)
+[MVVM with Compose Navigation Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_implementation)
 
 **Architecture:** *MVVM*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment + @Composable*  
@@ -51,7 +51,7 @@ Below is a list of branches with an overview of the applied approaches:
 **DI:** *dagger.hilt.android.HiltAndroidApp*  
 
 
-[MVVM with Clean Architecture Implementation]([https://github.com/username/repository/](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_clean_architecture_implementation)
+[MVVM with Clean Architecture Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_clean_architecture_implementation)
 
 **Architecture:** *MVVM*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
@@ -66,7 +66,7 @@ Below is a list of branches with an overview of the applied approaches:
 **DI:** *dagger.hilt.android.HiltAndroidApp*  
 
 
-[MVVM Implementation]([https://github.com/username/repository/](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_implementation)
+[MVVM Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_implementation)
 
 **Architecture:** *MVVM*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
@@ -80,7 +80,7 @@ Below is a list of branches with an overview of the applied approaches:
 **DI:** *dagger.hilt.android.HiltAndroidApp*  
 
 
-[MVP Implementation]([https://github.com/username/repository/](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvp_implementation)
+[MVP Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvp_implementation)
 
 **Architecture:** *MVP    
 **Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
@@ -95,7 +95,7 @@ Below is a list of branches with an overview of the applied approaches:
 **DI:** *dagger.hilt.android.HiltAndroidApp*  
 
 
-[MVC_with Async Task Implementation]([https://github.com/username/repository/](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_async_task_implementation)
+[MVC_with Async Task Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_async_task_implementation)
 
 **Architecture:** *MVC*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity*   
@@ -106,7 +106,7 @@ Below is a list of branches with an overview of the applied approaches:
 **Multithreading:** *android.os.AsyncTask*  
 
 
-[MVC_Native Implementation]([https://github.com/username/repository/](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_native_implementation)
+[MVC_Native Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_native_implementation)
 
 **Architecture:** *MVC*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity*   
