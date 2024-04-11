@@ -36,7 +36,7 @@ class HttpUrlConnector {
                     val message = handler.obtainMessage(SUCCESS_HTTP_CONNECTION, responseData)
                     handler.sendMessage(message)
                 } else {
-                    val message = handler.obtainMessage(ERROR, "Error responseCode $responseCode")
+                    val message = handler.obtainMessage(ERROR, "Error responseCode - $responseCode")
                     handler.sendMessage(message)
                 }
             } catch (e: Exception) {
