@@ -1,10 +1,10 @@
-package com.vnstudio.cleanarchitecturedemo.list
+package com.vnteam.architecturetemplates.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vnstudio.cleanarchitecturedemo.database.ForkRepository
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.database.ForkRepository
+import com.vnteam.architecturetemplates.models.Fork
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch

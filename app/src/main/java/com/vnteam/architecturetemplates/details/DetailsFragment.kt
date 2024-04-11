@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo.details
+package com.vnteam.architecturetemplates.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +10,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.vnstudio.cleanarchitecturedemo.R
-import com.vnstudio.cleanarchitecturedemo.databinding.FragmentDetailsBinding
+import com.vnteam.architecturetemplates.R
+import com.vnteam.architecturetemplates.databinding.FragmentDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

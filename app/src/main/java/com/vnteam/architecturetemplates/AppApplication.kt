@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

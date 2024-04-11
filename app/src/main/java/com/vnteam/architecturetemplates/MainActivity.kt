@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

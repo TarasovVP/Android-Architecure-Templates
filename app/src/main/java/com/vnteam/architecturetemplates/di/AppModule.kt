@@ -1,14 +1,14 @@
-package com.vnstudio.cleanarchitecturedemo.di
+package com.vnteam.architecturetemplates.di
 
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.BASE_URL
-import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.SERVER_TIMEOUT
-import com.vnstudio.cleanarchitecturedemo.database.AppDatabase
-import com.vnstudio.cleanarchitecturedemo.database.ForkDao
-import com.vnstudio.cleanarchitecturedemo.database.ForkRepository
-import com.vnstudio.cleanarchitecturedemo.network.ApiService
+import com.vnteam.architecturetemplates.MainActivity.Companion.BASE_URL
+import com.vnteam.architecturetemplates.MainActivity.Companion.SERVER_TIMEOUT
+import com.vnteam.architecturetemplates.database.AppDatabase
+import com.vnteam.architecturetemplates.database.ForkDao
+import com.vnteam.architecturetemplates.database.ForkRepository
+import com.vnteam.architecturetemplates.network.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

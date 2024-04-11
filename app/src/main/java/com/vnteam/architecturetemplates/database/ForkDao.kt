@@ -1,10 +1,10 @@
-package com.vnstudio.cleanarchitecturedemo.database
+package com.vnteam.architecturetemplates.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.models.Fork
 
 @Dao
 interface ForkDao {

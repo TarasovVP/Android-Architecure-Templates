@@ -1,7 +1,7 @@
-package com.vnstudio.cleanarchitecturedemo.database
+package com.vnteam.architecturetemplates.database
 
-import com.vnstudio.cleanarchitecturedemo.models.Fork
-import com.vnstudio.cleanarchitecturedemo.network.ApiService
+import com.vnteam.architecturetemplates.models.Fork
+import com.vnteam.architecturetemplates.network.ApiService
 
 class ForkRepository(private val apiService: ApiService, private val forkDao: ForkDao) {
 
