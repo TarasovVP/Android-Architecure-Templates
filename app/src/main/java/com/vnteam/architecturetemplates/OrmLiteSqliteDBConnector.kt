@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -10,7 +10,7 @@ import com.j256.ormlite.support.ConnectionSource
 import com.j256.ormlite.table.TableUtils
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.DATABASE_NAME
+import com.vnteam.architecturetemplates.MainActivity.Companion.DATABASE_NAME
 
 class OrmLiteSqliteDBConnector(context: Context) : OrmLiteSqliteOpenHelper(context, DATABASE_NAME, null, 1) {
 

@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import android.os.Bundle
 import android.widget.ImageView
@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.FORK
+import com.vnteam.architecturetemplates.MainActivity.Companion.FORK
 
 class DetailsActivity : AppCompatActivity() {
 

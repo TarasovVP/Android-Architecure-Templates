@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import android.content.Intent
 import android.os.Bundle
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val DATABASE_NAME = "CleanArchitectureDemo"
+        const val DATABASE_NAME = "AndroidArchitectureTemplates"
         const val FORK = "fork"
     }
 }
