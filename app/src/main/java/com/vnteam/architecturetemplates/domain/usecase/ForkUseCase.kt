@@ -1,9 +1,11 @@
-package com.vnteam.architecturetemplates.domain.repositories
+package com.vnteam.architecturetemplates.domain.usecase
 
 import com.vnteam.architecturetemplates.domain.models.Fork
 import kotlinx.coroutines.flow.Flow
 
-interface DBRepository {
+interface ForkUseCase {
+
+    suspend fun getForksFromApi(): Flow<List<Fork>?>
 
     fun insertForksToDB(forks: List<Fork>)
 
