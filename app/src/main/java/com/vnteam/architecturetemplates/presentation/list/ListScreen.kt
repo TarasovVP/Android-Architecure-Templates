@@ -21,10 +21,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.vnteam.architecturetemplates.presentation.navigation.NavigationScreen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ListScreen(onItemClick: (Long) -> Unit) {
+fun ListScreen() {
+    val navigator = LocalNavigator.currentOrThrow
     val viewModel: ListViewModel = koinViewModel()
     val viewState = viewModel.state.collectAsState()
 
@@ -34,9 +38,11 @@ fun ListScreen(onItemClick: (Long) -> Unit) {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
-    ListContent(viewState.value, onItemClick) {
+    ListContent(viewState.value, { forkId ->
+        navigator.push(NavigationScreen.DetailsContentScreen(forkId))
+    }, {
         viewModel.getForksFromApi()
-    }
+    })
 }
 
 @Composable
