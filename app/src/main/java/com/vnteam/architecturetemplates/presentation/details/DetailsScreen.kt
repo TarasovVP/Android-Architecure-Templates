@@ -31,17 +31,17 @@ import com.vnteam.architecturetemplates.R
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun DetailsScreen(demoObjectId: Long?) {
+fun DetailsScreen(forkId: Long?) {
     val navigator = LocalNavigator.currentOrThrow
     val viewModel: DetailsViewModel = koinViewModel()
     val viewState = viewModel.state.collectAsState()
 
-    LaunchedEffect(demoObjectId) {
-        viewModel.processIntent(DetailsIntent.LoadDemoObject(demoObjectId ?: 0))
+    LaunchedEffect(forkId) {
+        viewModel.processIntent(DetailsIntent.LoadFork(forkId ?: 0))
     }
 
-    LaunchedEffect(demoObjectId) {
-        viewModel.getDemoObjectById(demoObjectId)
+    LaunchedEffect(forkId) {
+        viewModel.getForkById(forkId)
     }
     val context = LocalContext.current
     LaunchedEffect(viewState.value.error) {
@@ -64,13 +64,13 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
             verticalArrangement = Arrangement.Top
         ) {
             Text(
-                text = viewState.demoObject?.name.orEmpty(),
+                text = viewState.fork?.name.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             )
             Text(
-                text = viewState.demoObject?.owner?.login.orEmpty(),
+                text = viewState.fork?.owner?.login.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -79,7 +79,7 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(viewState.demoObject?.owner?.avatarUrl.orEmpty())
+                            .data(viewState.fork?.owner?.avatarUrl.orEmpty())
                             .crossfade(true)
                             .error(R.drawable.ic_person)
                             .placeholder(R.drawable.ic_person)
@@ -92,7 +92,7 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
                         contentScale = ContentScale.Crop
                     )
                     Text(
-                        text = viewState.demoObject?.description.orEmpty(),
+                        text = viewState.fork?.description.orEmpty(),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)
@@ -106,7 +106,7 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
                     .padding(16.dp)
             )
             Text(
-                text = viewState.demoObject?.description.orEmpty(),
+                text = viewState.fork?.description.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)

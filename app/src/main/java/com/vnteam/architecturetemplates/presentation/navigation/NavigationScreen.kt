@@ -13,10 +13,10 @@ sealed class NavigationScreen: Screen, KoinComponent {
             ListScreen()
         }
     }
-    class DetailsContentScreen(val demoObjectId: Long) : NavigationScreen() {
+    class DetailsContentScreen(val forkId: Long) : NavigationScreen() {
         @Composable
         override fun Content() {
-            DetailsScreen(demoObjectId = demoObjectId)
+            DetailsScreen(forkId = forkId)
         }
     }
 }
