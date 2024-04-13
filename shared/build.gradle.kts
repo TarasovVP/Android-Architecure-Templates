@@ -25,7 +25,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            implementation("junit:junit:4.13.2")
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
