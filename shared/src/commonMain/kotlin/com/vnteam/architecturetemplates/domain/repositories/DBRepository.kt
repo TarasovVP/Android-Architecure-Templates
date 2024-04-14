@@ -1,13 +1,13 @@
 package com.vnteam.architecturetemplates.domain.repositories
 
-import com.vnteam.architecturetemplates.domain.models.DemoObject
+import com.vnteam.architecturetemplates.domain.models.Fork
 import kotlinx.coroutines.flow.Flow
 
 interface DBRepository {
 
-    fun insertDemoObjectsToDB(demoObjects: List<DemoObject>)
+    fun insertForksToDB(forks: List<Fork>)
 
-    fun getDemoObjectsFromDB(): Flow<List<DemoObject>>
+    fun getForksFromDB(): Flow<List<Fork>>
 
-    fun getDemoObjectById(demoObjectId: Long): Flow<DemoObject?>
+    fun getForkById(forkId: Long): Flow<Fork?>
 }
