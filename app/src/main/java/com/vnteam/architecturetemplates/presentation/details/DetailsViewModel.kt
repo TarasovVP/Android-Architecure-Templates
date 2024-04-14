@@ -2,13 +2,8 @@ package com.vnteam.architecturetemplates.presentation.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-<<<<<<<< HEAD:shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/details/DetailsViewModel.kt
+import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
-import com.vnteam.architecturetemplates.presentation.mappers.DemoObjectUIMapper
-========
-import com.vnteam.architecturetemplates.domain.mappers.ForkUIMapper
-import com.vnteam.architecturetemplates.domain.repositories.DBRepository
->>>>>>>> 49c2f929 (Init branch):app/src/main/java/com/vnteam/architecturetemplates/presentation/details/DetailsViewModel.kt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,8 +12,8 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(
-    private val demoObjectRepository: DBRepository,
-    private val demoObjectUIMapper: DemoObjectUIMapper,
+    private val forkRepository: DBRepository,
+    private val forkUIMapper: ForkUIMapper,
 ): ViewModel() {
 
     private val _state = MutableStateFlow(DetailsViewState())
@@ -26,22 +21,21 @@ class DetailsViewModel(
 
     fun processIntent(intent: DetailsIntent) {
         when (intent) {
-            is DetailsIntent.LoadDemoObject -> getDemoObjectById(intent.demoObjectId)
-            else -> Unit
+            is DetailsIntent.LoadFork -> getForkById(intent.forkId)
         }
     }
 
-    private fun getDemoObjectById(demoObjectId: Long?) {
+    fun getForkById(forkId: Long?) {
         viewModelScope.launch {
-            demoObjectRepository.getDemoObjectById(demoObjectId ?: 0)
+            forkRepository.getForkById(forkId ?: 0)
                 .onStart {
                     _state.value = _state.value.copy(isLoading = true)
                 }
                 .catch { exception ->
-                    _state.value = _state.value.copy(error = exception.message, isLoading = false)
+                    _state.value = _state.value.copy(error = exception.localizedMessage, isLoading = false)
                 }
-                .collect { demoObject ->
-                    _state.value = _state.value.copy(demoObject = demoObject?.let { demoObjectUIMapper.mapToImplModel(it) }, isLoading = false)
+                .collect { fork ->
+                    _state.value = _state.value.copy(fork = fork?.let { forkUIMapper.mapToImplModel(it) }, isLoading = false)
                 }
         }
     }

@@ -1,4 +1,4 @@
-CREATE TABLE DemoObjectWithOwner (
+CREATE TABLE ForkWithOwner (
     id INTEGER PRIMARY KEY,
     name TEXT,
     fullName TEXT,
@@ -9,12 +9,12 @@ CREATE TABLE DemoObjectWithOwner (
     avatarUrl TEXT
 );
 
-insertDemoObjectWithOwner:
-INSERT OR REPLACE INTO DemoObjectWithOwner(id, name, fullName, htmlUrl, description, login, ownerId, avatarUrl)
+insertForkWithOwner:
+INSERT OR REPLACE INTO ForkWithOwner(id, name, fullName, htmlUrl, description, login, ownerId, avatarUrl)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?);
 
-getDemoObjectWithOwners:
-SELECT * FROM DemoObjectWithOwner;
+getForkWithOwners:
+SELECT * FROM ForkWithOwner;
 
-getDemoObjectWithOwnerById:
-SELECT * FROM DemoObjectWithOwner WHERE id = ?;
+getForkWithOwnerById:
+SELECT * FROM ForkWithOwner WHERE id = ?;
