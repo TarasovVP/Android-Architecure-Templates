@@ -14,7 +14,6 @@
 		C87F05CD2BCBB0A500087FCB /* architecturetemplatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F05CC2BCBB0A500087FCB /* architecturetemplatesTests.swift */; };
 		C87F05D72BCBB0A500087FCB /* architecturetemplatesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F05D62BCBB0A500087FCB /* architecturetemplatesUITests.swift */; };
 		C87F05D92BCBB0A500087FCB /* architecturetemplatesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F05D82BCBB0A500087FCB /* architecturetemplatesUITestsLaunchTests.swift */; };
-		C8E5ADB32BD2BBD00098101A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C8E5ADB22BD2BBD00098101A /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +45,6 @@
 		C87F05D22BCBB0A500087FCB /* architecturetemplatesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = architecturetemplatesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C87F05D62BCBB0A500087FCB /* architecturetemplatesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = architecturetemplatesUITests.swift; sourceTree = "<group>"; };
 		C87F05D82BCBB0A500087FCB /* architecturetemplatesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = architecturetemplatesUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		C8E5ADB22BD2BBD00098101A /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.4.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8E5ADB32BD2BBD00098101A /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +79,6 @@
 				C87F05CB2BCBB0A500087FCB /* architecturetemplatesTests */,
 				C87F05D52BCBB0A500087FCB /* architecturetemplatesUITests */,
 				C87F05B82BCBB0A200087FCB /* Products */,
-				C8E5ADB12BD2BBD00098101A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,14 +127,6 @@
 				C87F05D82BCBB0A500087FCB /* architecturetemplatesUITestsLaunchTests.swift */,
 			);
 			path = architecturetemplatesUITests;
-			sourceTree = "<group>";
-		};
-		C8E5ADB12BD2BBD00098101A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C8E5ADB22BD2BBD00098101A /* libsqlite3.tbd */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
