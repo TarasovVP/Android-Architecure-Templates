@@ -1,6 +1,6 @@
 package com.vnteam.architecturetemplates.presentation.mapperimpls
 
-import com.vnteam.architecturetemplates.domain.mappers.OwnerUIMapper
+import com.vnteam.architecturetemplates.presentation.mappers.OwnerUIMapper
 import com.vnteam.architecturetemplates.domain.models.Owner
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 
