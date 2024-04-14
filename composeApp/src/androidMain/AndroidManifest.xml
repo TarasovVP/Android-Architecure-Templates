@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:name=".AppApplication"
+        android:name="architecturetemplates.AppApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="Architecture Templates"
         android:supportsRtl="true"
