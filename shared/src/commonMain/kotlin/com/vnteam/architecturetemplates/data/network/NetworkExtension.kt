@@ -17,7 +17,7 @@ suspend inline fun <reified T> HttpResponse?.handleResponse(): NetworkResult<T> 
                 val result = body<T>()
                 NetworkResult.Success(result)
             } catch (e: Exception) {
-                NetworkResult.Failure(e.localizedMessage)
+                NetworkResult.Failure(e.message)
             }
         }
     }
