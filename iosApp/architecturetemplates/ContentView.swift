@@ -6,19 +6,22 @@
 //
 
 import SwiftUI
+import shared
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+struct ComposeView: UIViewControllerRepresentable {
+
+    func makeUIViewController(context: Context) -> UIViewController {
+        MainViewControllerKt.MainViewController()
     }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+
 }
 
-#Preview {
-    ContentView()
+struct ContentView: View {
+
+    var body: some View {
+        ComposeView()
+                .ignoresSafeArea(.keyboard)
+    }
 }

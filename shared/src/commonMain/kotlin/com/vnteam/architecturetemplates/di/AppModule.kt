@@ -16,6 +16,11 @@ import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
+import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
+import com.vnteam.architecturetemplates.presentation.mapperimpls.ForkUIMapperImpl
+import com.vnteam.architecturetemplates.presentation.mapperimpls.OwnerUIMapperImpl
+import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.ForkUseCaseImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -23,6 +28,7 @@ import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+import presentation.mappers.OwnerUIMapper
 
 
 val appModule = module {
@@ -60,4 +66,10 @@ val appModule = module {
     single<ApiRepository> { ApiRepositoryImpl(get(), get()) }
 
     single<DBRepository> { DBRepositoryImpl(get(), get()) }
+
+    single<OwnerUIMapper> { OwnerUIMapperImpl() }
+
+    single<ForkUIMapper> { ForkUIMapperImpl(get()) }
+
+    single<ForkUseCase> { ForkUseCaseImpl(get(), get()) }
 }

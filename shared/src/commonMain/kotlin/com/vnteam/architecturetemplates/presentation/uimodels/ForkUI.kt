@@ -1,9 +1,8 @@
-package architecturetemplates.presentation.uimodels
+package com.vnteam.architecturetemplates.presentation.uimodels
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
-@Parcelize
+@Serializable
 data class ForkUI(
     var id: Long? = null,
     var name: String? = null,
@@ -11,4 +10,4 @@ data class ForkUI(
     var owner: OwnerUI? = null,
     var htmlUrl: String? = null,
     var description: String? = null,
-) : Parcelable
+)

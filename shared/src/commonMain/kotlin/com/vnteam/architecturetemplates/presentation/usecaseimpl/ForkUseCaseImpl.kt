@@ -1,4 +1,4 @@
-package architecturetemplates.presentation.usecaseimpl
+package com.vnteam.architecturetemplates.presentation.usecaseimpl
 
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
