@@ -1,5 +1,6 @@
 package architecturetemplates.presentation.list
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,37 +10,39 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
+import androidx.compose.material.Button
+import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-<<<<<<<< HEAD:shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/list/ListScreen.kt
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
-import com.vnteam.architecturetemplates.resources.LocalLargePadding
-import com.vnteam.architecturetemplates.resources.LocalMediumPadding
-import com.vnteam.architecturetemplates.resources.getStringResources
-import org.koin.compose.koinInject
-========
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import architecturetemplates.presentation.NavigationScreen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import architecturetemplates.presentation.navigation.NavigationScreen
 import org.koin.androidx.compose.koinViewModel
->>>>>>>> 8ed69786 (Implement ios module):app/src/androidMain/kotlin/architecturetemplates/presentation/list/ListScreen.kt
 
 @Composable
-fun ListScreen(onItemClick: (Long) -> Unit) {
-    val viewModel: ListViewModel = koinInject<ListViewModel>()
+fun ListScreen() {
+    val navigator = LocalNavigator.currentOrThrow
+    val viewModel: ListViewModel = koinViewModel()
     val viewState = viewModel.state.collectAsState()
 
-    ListContent(viewState.value, onItemClick) {
-        viewModel.processIntent(ListIntent.LoadForks())
+    val context = LocalContext.current
+    LaunchedEffect(viewState.value.error) {
+        viewState.value.error?.let {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
     }
+    ListContent(viewState.value, { forkId ->
+        navigator.push(NavigationScreen.DetailsContentScreen(forkId))
+    }, {
+        viewModel.processIntent(ListIntent.LoadForks())
+    })
 }
 
 @Composable
@@ -49,33 +52,29 @@ fun ListContent(viewState: ListViewState, onItemClick: (Long) -> Unit, onButtonC
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(LocalLargePadding.current.margin),
+                .padding(16.dp),
             verticalArrangement = Arrangement.Top
         ) {
             Button(
                 onClick = onButtonClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(LocalLargePadding.current.margin)
+                    .padding(16.dp)
             ) {
-                Text(text = getStringResources().START)
+                Text(text = "Start")
             }
             LazyColumn {
                 items(viewState.forks.orEmpty()) { item ->
-                    ForkItem(item, onItemClick)
+                    Card(modifier = Modifier.padding(8.dp)) {
+                        Text(text = item.name.orEmpty(), modifier = Modifier
+                            .padding(8.dp)
+                            .clickable { onItemClick(item.id ?: 0) })
+                    }
                 }
             }
         }
         if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
-    }
-}
-
-@Composable
-fun ForkItem(item: ForkUI, onItemClick: (Long) -> Unit) {
-    Card(modifier = Modifier.padding(LocalMediumPadding.current.margin).clickable { onItemClick(item.id ?: 0) }) {
-        Text(text = item.name.orEmpty(), modifier = Modifier
-            .padding(LocalMediumPadding.current.margin))
     }
 }
