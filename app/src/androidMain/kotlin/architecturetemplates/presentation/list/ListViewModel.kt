@@ -2,7 +2,7 @@ package architecturetemplates.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import architecturetemplates.presentation.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler

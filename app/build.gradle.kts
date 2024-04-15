@@ -36,12 +36,22 @@ kotlin {
             implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+            implementation(project(":shared"))
+            //Voyager
+            implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-transitions:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-koin:1.0.0")
+            // Koin
+            implementation("io.insert-koin:koin-core:3.5.3")
+            implementation("io.insert-koin:koin-compose:1.1.2")
         }
         androidMain.dependencies {
             implementation("androidx.core:core-ktx:1.12.0")
             implementation("androidx.appcompat:appcompat:1.6.1")
             implementation("com.google.android.material:material:1.11.0")
             implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
             implementation(project(":shared"))
 
             //Lifecycle
@@ -55,7 +65,8 @@ kotlin {
             implementation("com.google.code.gson:gson:2.10.1")
 
             //Coil
-            implementation("io.coil-kt:coil-compose:2.2.2")
+            implementation("io.coil-kt.coil3:coil-compose:3.0.0-alpha06")
+            implementation("io.coil-kt.coil3:coil-network-ktor:3.0.0-alpha06")
 
             //Voyager
             implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
@@ -75,7 +86,6 @@ kotlin {
             implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
             implementation("io.ktor:ktor-client-logging-jvm:2.3.7")
             implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
             //Compose
             implementation(platform("androidx.compose:compose-bom:2024.04.00"))
@@ -89,6 +99,14 @@ kotlin {
             implementation(project(":shared"))
             implementation("io.insert-koin:koin-core:3.5.3")
             implementation("com.squareup.sqldelight:native-driver:1.5.5")
+            implementation("io.ktor:ktor-client-darwin:3.0.0-alpha06")
+            //Coil
+            implementation("io.coil-kt.coil3:coil-compose:3.0.0-alpha06")
+            implementation("io.coil-kt.coil3:coil-network-ktor:3.0.0-alpha06")
+            //Voyager
+            implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-transitions:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-koin:1.0.0")
         }
     }
 }
@@ -122,8 +140,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {

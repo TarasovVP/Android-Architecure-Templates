@@ -13,6 +13,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Android Architecture Templates"
+rootProject.name = "Android_Architecture_Templates"
 include(":app")
 include(":shared")

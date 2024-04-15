@@ -21,9 +21,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import architecturetemplates.presentation.NavigationScreen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import architecturetemplates.presentation.navigation.NavigationScreen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -41,7 +41,7 @@ fun ListScreen() {
     ListContent(viewState.value, { forkId ->
         navigator.push(NavigationScreen.DetailsContentScreen(forkId))
     }, {
-        viewModel.getForksFromApi()
+        viewModel.processIntent(ListIntent.LoadForks())
     })
 }
 
