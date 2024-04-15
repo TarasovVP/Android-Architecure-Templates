@@ -8,17 +8,14 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-<<<<<<<< HEAD:app/src/main/AndroidManifest.xml
-========
         android:name="architecturetemplates.AppApplication"
->>>>>>>> 8ed69786 (Implement ios module):app/src/androidMain/AndroidManifest.xml
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.ArchitectureTemplates"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="architecturetemplates.presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

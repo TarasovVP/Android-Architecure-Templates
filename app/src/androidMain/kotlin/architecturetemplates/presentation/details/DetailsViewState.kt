@@ -1,6 +1,6 @@
 package architecturetemplates.presentation.details
 
-import architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 
 
 data class DetailsViewState(val fork: ForkUI? = null,

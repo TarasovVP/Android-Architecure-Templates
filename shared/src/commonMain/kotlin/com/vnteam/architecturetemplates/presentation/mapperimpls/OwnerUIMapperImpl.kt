@@ -1,8 +1,8 @@
-package architecturetemplates.presentation.mapperimpls
+package com.vnteam.architecturetemplates.presentation.mapperimpls
 
-import architecturetemplates.presentation.mappers.OwnerUIMapper
+import presentation.mappers.OwnerUIMapper
 import com.vnteam.architecturetemplates.domain.models.Owner
-import architecturetemplates.presentation.uimodels.OwnerUI
+import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 
 class OwnerUIMapperImpl : OwnerUIMapper {
 

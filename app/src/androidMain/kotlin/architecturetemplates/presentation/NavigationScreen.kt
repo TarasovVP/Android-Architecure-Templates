@@ -1,9 +1,9 @@
-package architecturetemplates.presentation.navigation
+package architecturetemplates.presentation
 
 import androidx.compose.runtime.Composable
-import cafe.adriel.voyager.core.screen.Screen
 import architecturetemplates.presentation.details.DetailsScreen
 import architecturetemplates.presentation.list.ListScreen
+import cafe.adriel.voyager.core.screen.Screen
 import org.koin.core.component.KoinComponent
 
 sealed class NavigationScreen: Screen, KoinComponent {

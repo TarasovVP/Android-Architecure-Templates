@@ -1,9 +1,9 @@
-package architecturetemplates.presentation.uimodels
+package com.vnteam.architecturetemplates.presentation.uimodels
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DemoObjectUI(
+data class ForkUI(
     var id: Long? = null,
     var name: String? = null,
     var fullName: String? = null,
