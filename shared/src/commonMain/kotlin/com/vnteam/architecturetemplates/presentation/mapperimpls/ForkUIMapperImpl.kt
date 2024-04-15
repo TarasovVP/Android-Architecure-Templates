@@ -1,16 +1,11 @@
-package architecturetemplates.presentation.mapperimpls
+package com.vnteam.architecturetemplates.presentation.mapperimpls
 
-<<<<<<<< HEAD:shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/mapperimpls/ForkUIMapperImpl.kt
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import presentation.mappers.OwnerUIMapper
-========
-import architecturetemplates.presentation.mappers.ForkUIMapper
-import architecturetemplates.presentation.mappers.OwnerUIMapper
->>>>>>>> 8ed69786 (Implement ios module):app/src/androidMain/kotlin/architecturetemplates/presentation/mapperimpls/ForkUIMapperImpl.kt
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.domain.models.Owner
-import architecturetemplates.presentation.uimodels.ForkUI
-import architecturetemplates.presentation.uimodels.OwnerUI
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 
 class ForkUIMapperImpl(private val owner: OwnerUIMapper) : ForkUIMapper {
 

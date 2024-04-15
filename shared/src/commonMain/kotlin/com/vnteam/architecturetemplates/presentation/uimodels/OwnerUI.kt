@@ -1,4 +1,4 @@
-package architecturetemplates.presentation.uimodels
+package com.vnteam.architecturetemplates.presentation.uimodels
 
 import kotlinx.serialization.Serializable
 

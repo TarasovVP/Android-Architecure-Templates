@@ -81,8 +81,8 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
                         model = ImageRequest.Builder(LocalContext.current)
                             .data(viewState.fork?.owner?.avatarUrl.orEmpty())
                             .crossfade(true)
-                            .error(R.drawable.ic_person)
-                            .placeholder(R.drawable.ic_person)
+                            .error(com.vnteam.architecturetemplates.R.drawable.ic_person)
+                            .placeholder(com.vnteam.architecturetemplates.R.drawable.ic_person)
                             .build(),
                         contentDescription = "Owner avatar",
                         modifier = Modifier
