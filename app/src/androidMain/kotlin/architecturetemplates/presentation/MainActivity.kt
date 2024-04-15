@@ -1,11 +1,10 @@
-package com.vnteam.architecturetemplates.presentation
+package architecturetemplates.presentation
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import cafe.adriel.voyager.navigator.Navigator
-import architecturetemplates.presentation.navigation.NavigationScreen
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,9 +15,5 @@ class MainActivity : AppCompatActivity() {
                 Navigator(NavigationScreen.ListContentScreen())
             }
         }
-    }
-
-    companion object {
-        const val BASE_URL = "https://api.github.com/"
     }
 }

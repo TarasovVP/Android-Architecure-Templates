@@ -2,12 +2,8 @@ package architecturetemplates.presentation.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-<<<<<<<< HEAD:shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/details/DetailsViewModel.kt
-========
-import architecturetemplates.presentation.mappers.ForkUIMapper
->>>>>>>> 8ed69786 (Implement ios module):app/src/androidMain/kotlin/architecturetemplates/presentation/details/DetailsViewModel.kt
-import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,18 +22,17 @@ class DetailsViewModel(
     fun processIntent(intent: DetailsIntent) {
         when (intent) {
             is DetailsIntent.LoadFork -> getForkById(intent.forkId)
-            else -> Unit
         }
     }
 
-    private fun getForkById(forkId: Long?) {
+    fun getForkById(forkId: Long?) {
         viewModelScope.launch {
             forkRepository.getForkById(forkId ?: 0)
                 .onStart {
                     _state.value = _state.value.copy(isLoading = true)
                 }
                 .catch { exception ->
-                    _state.value = _state.value.copy(error = exception.message, isLoading = false)
+                    _state.value = _state.value.copy(error = exception.localizedMessage, isLoading = false)
                 }
                 .collect { fork ->
                     _state.value = _state.value.copy(fork = fork?.let { forkUIMapper.mapToImplModel(it) }, isLoading = false)
