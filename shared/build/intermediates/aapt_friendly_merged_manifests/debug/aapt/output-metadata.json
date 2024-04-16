@@ -4,7 +4,7 @@
     "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.vnteam.architecturetemplates",
+  "applicationId": "com.vnteam.architecturetemplates.shared",
   "variantName": "debug",
   "elements": [
     {
