@@ -1,7 +1,9 @@
+package com.vnteam.architecturetemplates
+
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
-import details.DetailsScreen
-import list.ListScreen
+import com.vnteam.architecturetemplates.details.DetailsScreen
+import com.vnteam.architecturetemplates.list.ListScreen
 import org.koin.core.component.KoinComponent
 
 sealed class NavigationScreen: Screen, KoinComponent {

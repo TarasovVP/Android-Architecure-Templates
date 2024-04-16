@@ -6,6 +6,7 @@ import platform.UIKit.UIAlertController
 import platform.UIKit.UIAlertControllerStyleAlert
 import platform.UIKit.UIViewController
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class PlatformMessageDisplayer {
 
     private var uiViewController: UIViewController? = null

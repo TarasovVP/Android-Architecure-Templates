@@ -1,4 +1,4 @@
-package architecturetemplates.presentation
+package com.vnteam.architecturetemplates.presentation
 
 import android.os.Bundle
 import androidx.activity.compose.setContent

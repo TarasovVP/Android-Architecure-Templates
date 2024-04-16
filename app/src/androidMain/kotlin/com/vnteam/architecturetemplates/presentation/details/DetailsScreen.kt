@@ -1,4 +1,4 @@
-package architecturetemplates.presentation.details
+package com.vnteam.architecturetemplates.presentation.details
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -25,8 +25,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.vnteam.architecturetemplates.R
 import org.koin.androidx.compose.koinViewModel
 
@@ -81,8 +82,9 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
                         model = ImageRequest.Builder(LocalContext.current)
                             .data(viewState.fork?.owner?.avatarUrl.orEmpty())
                             .crossfade(true)
-                            .error(com.vnteam.architecturetemplates.R.drawable.ic_person)
-                            .placeholder(com.vnteam.architecturetemplates.R.drawable.ic_person)
+                            //TODO: Add placeholder and error image
+                            /*.error(R.drawable.ic_person)
+                            .placeholder(R.drawable.ic_person)*/
                             .build(),
                         contentDescription = "Owner avatar",
                         modifier = Modifier

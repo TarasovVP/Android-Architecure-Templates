@@ -1,4 +1,4 @@
-package details
+package com.vnteam.architecturetemplates.details
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,7 +28,6 @@ import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.PlatformMessageDisplayer
 import org.koin.compose.koinInject
-import platform.UIKit.UIImage
 
 @Composable
 fun DetailsScreen(forkId: Long?) {
@@ -77,9 +76,6 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
             )
             Card {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
-                    val image = UIImage().apply {
-
-                    }
                     SubcomposeAsyncImage(
                         model = viewState.fork?.owner?.avatarUrl.orEmpty(),
                         contentDescription = "Owner avatar",

@@ -1,4 +1,4 @@
-package details
+package com.vnteam.architecturetemplates.presentation.details
 
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 

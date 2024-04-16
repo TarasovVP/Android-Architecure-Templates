@@ -1,6 +1,5 @@
-package architecturetemplates.presentation.list
+package com.vnteam.architecturetemplates.list
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,23 +18,23 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import architecturetemplates.presentation.NavigationScreen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import org.koin.androidx.compose.koinViewModel
+import com.vnteam.architecturetemplates.NavigationScreen
+import com.vnteam.architecturetemplates.PlatformMessageDisplayer
+import org.koin.compose.koinInject
 
 @Composable
 fun ListScreen() {
     val navigator = LocalNavigator.currentOrThrow
-    val viewModel: ListViewModel = koinViewModel()
+    val viewModel: ListViewModel = koinInject()
+    val platformMessageDisplayer: PlatformMessageDisplayer = koinInject()
     val viewState = viewModel.state.collectAsState()
 
-    val context = LocalContext.current
     LaunchedEffect(viewState.value.error) {
-        viewState.value.error?.let {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        viewState.value.error?.let { message ->
+            platformMessageDisplayer.showPopupMessage(message)
         }
     }
     ListContent(viewState.value, { forkId ->

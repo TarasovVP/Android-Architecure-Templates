@@ -1,4 +1,4 @@
-package details
+package com.vnteam.architecturetemplates.details
 
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository

@@ -1,4 +1,4 @@
-package list
+package com.vnteam.architecturetemplates.list
 
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.models.Fork

@@ -1,8 +1,8 @@
-package architecturetemplates.presentation
+package com.vnteam.architecturetemplates.presentation
 
 import androidx.compose.runtime.Composable
-import architecturetemplates.presentation.details.DetailsScreen
-import architecturetemplates.presentation.list.ListScreen
+import com.vnteam.architecturetemplates.presentation.details.DetailsScreen
+import com.vnteam.architecturetemplates.presentation.list.ListScreen
 import cafe.adriel.voyager.core.screen.Screen
 import org.koin.core.component.KoinComponent
 
