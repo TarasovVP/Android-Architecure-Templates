@@ -20,6 +20,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
+            freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.shared"
             baseName = "shared"
             isStatic = true
         }
@@ -57,7 +58,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.vnteam.architecturetemplates"
+    namespace = "com.vnteam.architecturetemplates.shared"
     compileSdk = 34
     defaultConfig {
         minSdk = 24

@@ -24,6 +24,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
+            freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.app"
             baseName = "app"
             isStatic = true
         }
@@ -99,7 +100,7 @@ kotlin {
             implementation(project(":shared"))
             implementation("io.insert-koin:koin-core:3.5.3")
             implementation("com.squareup.sqldelight:native-driver:1.5.5")
-            implementation("io.ktor:ktor-client-darwin:3.0.0-alpha06")
+            implementation("io.ktor:ktor-client-darwin:2.3.7")
             //Coil
             implementation("io.coil-kt.coil3:coil-compose:3.0.0-alpha06")
             implementation("io.coil-kt.coil3:coil-network-ktor:3.0.0-alpha06")

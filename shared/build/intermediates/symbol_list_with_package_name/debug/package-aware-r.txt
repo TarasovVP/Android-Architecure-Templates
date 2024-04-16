@@ -1,1 +1,1 @@
-com.vnteam.architecturetemplates
+com.vnteam.architecturetemplates.shared
