@@ -3,6 +3,7 @@ plugins {
     id("com.android.library")
     id("com.squareup.sqldelight")
     id("kotlinx-serialization")
+    id("org.jetbrains.compose") version "1.6.1"
 }
 
 kotlin {
@@ -21,6 +22,7 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.shared"
+            linkerOpts.add("-lsqlite3")
             baseName = "shared"
             isStatic = true
         }
@@ -47,8 +49,22 @@ kotlin {
             implementation("com.squareup.sqldelight:android-driver:1.5.5")
         }
         iosMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.ui)
             implementation("io.ktor:ktor-client-darwin:2.3.7")
             implementation("com.squareup.sqldelight:native-driver:1.5.5")
+            implementation("io.ktor:ktor-client-darwin:2.3.7")
+            //Coil
+            implementation("io.coil-kt.coil3:coil-compose:3.0.0-alpha06")
+            implementation("io.coil-kt.coil3:coil-network-ktor:3.0.0-alpha06")
+            //Voyager
+            implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-transitions:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-koin:1.0.0")
+
+            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha01")
         }
         nativeMain.dependencies {
             implementation("io.ktor:ktor-client-darwin:2.3.7")

@@ -98,6 +98,11 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(project(":shared"))
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
             implementation("io.insert-koin:koin-core:3.5.3")
             implementation("com.squareup.sqldelight:native-driver:1.5.5")
             implementation("io.ktor:ktor-client-darwin:2.3.7")
