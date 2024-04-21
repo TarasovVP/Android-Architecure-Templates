@@ -21,8 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
@@ -30,8 +28,7 @@ import com.vnteam.architecturetemplates.PlatformMessageDisplayer
 import org.koin.compose.koinInject
 
 @Composable
-fun DetailsScreen(forkId: Long?) {
-    val navigator = LocalNavigator.currentOrThrow
+fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
     val viewModel: DetailsViewModel = koinInject()
     val platformMessageDisplayer: PlatformMessageDisplayer = koinInject()
     val viewState = viewModel.state.collectAsState()
@@ -48,9 +45,7 @@ fun DetailsScreen(forkId: Long?) {
             platformMessageDisplayer.showPopupMessage(message)
         }
     }
-    DetailsContent(viewState.value) {
-        navigator.pop()
-    }
+    DetailsContent(viewState.value, onClick)
 }
 
 @Composable
