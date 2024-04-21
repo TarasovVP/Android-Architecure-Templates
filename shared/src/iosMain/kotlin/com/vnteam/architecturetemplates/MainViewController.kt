@@ -1,9 +1,7 @@
 package com.vnteam.architecturetemplates
 
-import androidx.compose.material.Text
 import androidx.compose.ui.window.ComposeUIViewController
-import cafe.adriel.voyager.navigator.Navigator
-import com.vnteam.architecturetemplates.presentation.list.ListScreen
+import com.vnteam.architecturetemplates.presentation.AppNavigation
 import platform.UIKit.UIViewController
 
 fun MainViewController(): UIViewController {
@@ -16,6 +14,6 @@ fun MainViewController(): UIViewController {
     platformMessageDisplayer.setUIViewController(viewController)*/
 
     return ComposeUIViewController {
-        Navigator(NavigationScreen.ListContentScreen())
+        AppNavigation()
     }
 }
