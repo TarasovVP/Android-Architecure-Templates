@@ -23,9 +23,8 @@ import com.vnteam.architecturetemplates.PlatformMessageDisplayer
 import org.koin.compose.koinInject
 
 @Composable
-fun ListScreen(onItemClick: (Long) -> Unit) {
+fun ListScreen(viewModel: ListViewModel, onItemClick: (Long) -> Unit) {
 
-    val viewModel: ListViewModel = koinInject()
     val platformMessageDisplayer: PlatformMessageDisplayer = koinInject()
     val viewState = viewModel.state.collectAsState()
 
