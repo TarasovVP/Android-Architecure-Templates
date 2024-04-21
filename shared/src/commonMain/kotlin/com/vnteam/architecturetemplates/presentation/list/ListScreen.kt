@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.list
+package com.vnteam.architecturetemplates.presentation.list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,14 +23,8 @@ import com.vnteam.architecturetemplates.PlatformMessageDisplayer
 import org.koin.compose.koinInject
 
 @Composable
-<<<<<<<< HEAD:app/src/iosMain/kotlin/com/vnteam/architecturetemplates/list/ListScreen.kt
-fun ListScreen() {
-    val navigator = LocalNavigator.currentOrThrow
-========
-fun ListScreen(onItemClick: (Long) -> Unit) {
+fun ListScreen(viewModel: ListViewModel, onItemClick: (Long) -> Unit) {
 
->>>>>>>> 0d23c4c2 (Migrate to compose navigation):shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/list/ListScreen.kt
-    val viewModel: ListViewModel = koinInject()
     val platformMessageDisplayer: PlatformMessageDisplayer = koinInject()
     val viewState = viewModel.state.collectAsState()
 
@@ -39,14 +33,8 @@ fun ListScreen(onItemClick: (Long) -> Unit) {
             platformMessageDisplayer.showPopupMessage(message)
         }
     }
-<<<<<<<< HEAD:app/src/iosMain/kotlin/com/vnteam/architecturetemplates/list/ListScreen.kt
-    ListContent(viewState.value, { forkId ->
-        navigator.push(NavigationScreen.DetailsContentScreen(forkId))
-    }, {
-========
 
     ListContent(viewState.value, onItemClick) {
->>>>>>>> 0d23c4c2 (Migrate to compose navigation):shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/list/ListScreen.kt
         viewModel.processIntent(ListIntent.LoadForks())
     }
 }

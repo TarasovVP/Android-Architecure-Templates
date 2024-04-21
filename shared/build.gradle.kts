@@ -13,7 +13,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -34,9 +34,9 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
-            implementation(compose.ui)
+
             //Ktor
-            implementation("io.ktor:ktor-client-core:2.3.7")
+            implementation("io.ktor:ktor-client-core:2.3.8")
             implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
             implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
             //SQLDelight
@@ -54,6 +54,9 @@ kotlin {
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-android:2.3.7")
             implementation("com.squareup.sqldelight:android-driver:1.5.5")
+            // Koin
+            implementation("io.insert-koin:koin-android:3.5.3")
+            implementation("io.insert-koin:koin-androidx-compose:3.5.3")
         }
         iosMain.dependencies {
             implementation("io.ktor:ktor-client-darwin:2.3.7")
