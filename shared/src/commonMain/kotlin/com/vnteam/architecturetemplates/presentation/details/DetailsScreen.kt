@@ -28,8 +28,7 @@ import com.vnteam.architecturetemplates.PlatformMessageDisplayer
 import org.koin.compose.koinInject
 
 @Composable
-fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
-    val viewModel: DetailsViewModel = koinInject()
+fun DetailsScreen(viewModel: DetailsViewModel, forkId: Long?, onClick: () -> Unit) {
     val platformMessageDisplayer: PlatformMessageDisplayer = koinInject()
     val viewState = viewModel.state.collectAsState()
 
