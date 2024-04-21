@@ -14,16 +14,14 @@ fun AppNavigation() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "list") {
-
-        composable("list") {
-            ListScreen {
-            val demoObjectId = it.toString()
-            navController.navigate("details/$demoObjectId")
+        composable("list") { ListScreen {
+            val forkId = it.toString()
+            navController.navigate("details/$forkId")
         } }
-        composable("details/{demoObjectId}", arguments = listOf(navArgument("demoObjectId") { type = NavType.StringType
+        composable("details/{forkId}", arguments = listOf(navArgument("forkId") { type = NavType.StringType
             defaultValue = "" })) { backStackEntry ->
-            val demoObjectId = backStackEntry.arguments?.getString("demoObjectId").orEmpty().toLong()
-            DetailsScreen(demoObjectId) {
+            val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
+            DetailsScreen(forkId) {
                 navController.popBackStack()
             }
         }

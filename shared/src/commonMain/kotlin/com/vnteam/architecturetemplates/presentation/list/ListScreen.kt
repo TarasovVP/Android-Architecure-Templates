@@ -19,15 +19,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
-import com.vnteam.architecturetemplates.NavigationScreen
 import com.vnteam.architecturetemplates.PlatformMessageDisplayer
 import org.koin.compose.koinInject
 
 @Composable
+<<<<<<<< HEAD:app/src/iosMain/kotlin/com/vnteam/architecturetemplates/list/ListScreen.kt
 fun ListScreen() {
     val navigator = LocalNavigator.currentOrThrow
+========
+fun ListScreen(onItemClick: (Long) -> Unit) {
+
+>>>>>>>> 0d23c4c2 (Migrate to compose navigation):shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/list/ListScreen.kt
     val viewModel: ListViewModel = koinInject()
     val platformMessageDisplayer: PlatformMessageDisplayer = koinInject()
     val viewState = viewModel.state.collectAsState()
@@ -37,11 +39,16 @@ fun ListScreen() {
             platformMessageDisplayer.showPopupMessage(message)
         }
     }
+<<<<<<<< HEAD:app/src/iosMain/kotlin/com/vnteam/architecturetemplates/list/ListScreen.kt
     ListContent(viewState.value, { forkId ->
         navigator.push(NavigationScreen.DetailsContentScreen(forkId))
     }, {
+========
+
+    ListContent(viewState.value, onItemClick) {
+>>>>>>>> 0d23c4c2 (Migrate to compose navigation):shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/list/ListScreen.kt
         viewModel.processIntent(ListIntent.LoadForks())
-    })
+    }
 }
 
 @Composable

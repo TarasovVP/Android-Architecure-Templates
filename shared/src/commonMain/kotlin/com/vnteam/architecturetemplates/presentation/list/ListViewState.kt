@@ -1,7 +1,7 @@
 package com.vnteam.architecturetemplates.presentation.list
 
-import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 
-data class ListViewState(val demoObjects: List<DemoObjectUI>? = null,
+data class ListViewState(val forks: List<ForkUI>? = null,
                          val isLoading: Boolean = false,
                          val error: String? = null)
