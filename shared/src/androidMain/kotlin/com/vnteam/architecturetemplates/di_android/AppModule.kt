@@ -2,7 +2,6 @@ package com.vnteam.architecturetemplates.di_android
 
 import com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory
 import com.vnteam.architecturetemplates.presentation.details.DetailsViewModel
-import com.vnteam.architecturetemplates.PlatformMessageDisplayer
 import com.vnteam.architecturetemplates.presentation.list.ListViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -13,10 +12,6 @@ val androidModule = module {
 
     single {
         DatabaseDriverFactory(androidContext())
-    }
-
-    single {
-        PlatformMessageDisplayer(androidContext())
     }
 
     viewModel {

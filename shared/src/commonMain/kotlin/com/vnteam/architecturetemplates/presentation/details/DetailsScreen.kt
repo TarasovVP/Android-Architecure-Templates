@@ -24,12 +24,10 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
-import com.vnteam.architecturetemplates.PlatformMessageDisplayer
-import org.koin.compose.koinInject
 
 @Composable
 fun DetailsScreen(viewModel: DetailsViewModel, forkId: Long?, onClick: () -> Unit) {
-    val platformMessageDisplayer: PlatformMessageDisplayer = koinInject()
+
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(forkId) {
@@ -38,11 +36,6 @@ fun DetailsScreen(viewModel: DetailsViewModel, forkId: Long?, onClick: () -> Uni
 
     LaunchedEffect(forkId) {
         viewModel.getForkById(forkId)
-    }
-    LaunchedEffect(viewState.value.error) {
-        viewState.value.error?.let { message ->
-            platformMessageDisplayer.showPopupMessage(message)
-        }
     }
     DetailsContent(viewState.value, onClick)
 }
