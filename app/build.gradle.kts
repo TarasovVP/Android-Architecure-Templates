@@ -31,17 +31,13 @@ kotlin {
     task("testClasses")
     sourceSets {
         androidMain.dependencies {
-            implementation("androidx.core:core-ktx:1.13.0")
-            implementation("androidx.appcompat:appcompat:1.6.1")
-            implementation("com.google.android.material:material:1.11.0")
-
             // Koin
-            implementation("io.insert-koin:koin-android:3.5.3")
-            implementation("io.insert-koin:koin-androidx-compose:3.5.3")
+            implementation("io.insert-koin:koin-android:3.5.6")
+            implementation("io.insert-koin:koin-androidx-compose:3.5.6")
 
             //Compose
-            implementation(compose.material)
-
+            implementation(compose.material3)
+            implementation("androidx.compose.material:material-ripple:1.7.0-alpha05")
             implementation("androidx.activity:activity-compose:1.9.0")
             implementation(project(":shared"))
         }

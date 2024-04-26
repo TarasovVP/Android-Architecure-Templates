@@ -10,10 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,10 +24,11 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
+import org.koin.compose.koinInject
 
 @Composable
-fun DetailsScreen(viewModel: DetailsViewModel, forkId: Long?, onClick: () -> Unit) {
-
+fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
+    val viewModel = koinInject<DetailsViewModel>()
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(forkId) {
