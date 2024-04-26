@@ -12,7 +12,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ArchitectureTemplates"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar"
         tools:targetApi="31">
         <activity
             android:name=".presentation.MainActivity"
