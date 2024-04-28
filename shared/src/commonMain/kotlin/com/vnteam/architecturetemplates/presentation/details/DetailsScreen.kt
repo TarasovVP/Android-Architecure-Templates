@@ -20,10 +20,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
+import com.vnteam.architecturetemplates.resources.LocalAvatarSize
+import com.vnteam.architecturetemplates.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.resources.getStringResources
 import org.koin.compose.koinInject
 
 @Composable
@@ -47,70 +50,79 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(LocalLargePadding.current.margin),
             verticalArrangement = Arrangement.Top
         ) {
             Text(
                 text = viewState.fork?.name.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(LocalLargePadding.current.margin)
             )
             Text(
                 text = viewState.fork?.owner?.login.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(LocalLargePadding.current.margin)
             )
-            Card {
-                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
-                    SubcomposeAsyncImage(
-                        model = viewState.fork?.owner?.avatarUrl.orEmpty(),
-                        contentDescription = "Owner avatar",
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .width(50.dp)
-                            .height(50.dp),
-                        contentScale = ContentScale.Crop
-                    ) {
-                        val state = painter.state
-                        if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                            //TODO add painterResource
-                        } else {
-                            SubcomposeAsyncImageContent()
-                        }
-                    }
-                    Text(
-                        text = viewState.fork?.description.orEmpty(),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    )
-                }
-            }
+            OwnerCard(
+                avatarUrl = viewState.fork?.owner?.avatarUrl.orEmpty(),
+                description = viewState.fork?.description.orEmpty()
+            )
             Text(
                 text = "Description:",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(LocalLargePadding.current.margin)
             )
             Text(
                 text = viewState.fork?.description.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(LocalLargePadding.current.margin)
             )
             Button(
                 onClick = onClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(LocalLargePadding.current.margin)
             ) {
-                Text(text = "Back")
+                Text(text = getStringResources().BACK)
             }
         }
         if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
+    }
+}
+
+@Composable
+fun OwnerCard(avatarUrl: String, description: String) {
+    Card {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(
+            LocalMediumPadding.current.margin)) {
+            SubcomposeAsyncImage(
+                model = avatarUrl,
+                contentDescription = getStringResources().OWNER_AVATAR,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .width(LocalAvatarSize.current.margin)
+                    .height(LocalAvatarSize.current.margin),
+                contentScale = ContentScale.Crop
+            ) {
+                val state = painter.state
+                if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                    //TODO add painterResource
+                } else {
+                    SubcomposeAsyncImageContent()
+                }
+            }
+            Text(
+                text = description,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(LocalLargePadding.current.margin)
+            )
         }
     }
 }

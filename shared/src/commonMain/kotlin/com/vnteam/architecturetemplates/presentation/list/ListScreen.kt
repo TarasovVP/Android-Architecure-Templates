@@ -17,7 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.resources.getStringResources
 import org.koin.compose.koinInject
 
 @Composable
@@ -37,29 +40,33 @@ fun ListContent(viewState: ListViewState, onItemClick: (Long) -> Unit, onButtonC
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(LocalLargePadding.current.margin),
             verticalArrangement = Arrangement.Top
         ) {
             Button(
                 onClick = onButtonClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(LocalLargePadding.current.margin)
             ) {
-                Text(text = "Start")
+                Text(text = getStringResources().START)
             }
             LazyColumn {
                 items(viewState.forks.orEmpty()) { item ->
-                    Card(modifier = Modifier.padding(8.dp)) {
-                        Text(text = item.name.orEmpty(), modifier = Modifier
-                            .padding(8.dp)
-                            .clickable { onItemClick(item.id ?: 0) })
-                    }
+                    ForkItem(item, onItemClick)
                 }
             }
         }
         if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
+    }
+}
+
+@Composable
+fun ForkItem(item: ForkUI, onItemClick: (Long) -> Unit) {
+    Card(modifier = Modifier.padding(LocalMediumPadding.current.margin).clickable { onItemClick(item.id ?: 0) }) {
+        Text(text = item.name.orEmpty(), modifier = Modifier
+            .padding(LocalMediumPadding.current.margin))
     }
 }

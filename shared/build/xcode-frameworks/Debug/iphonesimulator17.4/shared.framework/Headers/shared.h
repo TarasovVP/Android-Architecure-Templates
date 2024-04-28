@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class SharedAppDatabaseCompanion, SharedForkWithOwner, SharedRuntimeQuery<__covariant RowType>, SharedFork, SharedForkResponse, SharedOwner, SharedOwnerResponse, SharedKtor_client_coreHttpClient, SharedKtor_client_coreHttpResponse, SharedNetworkResult<__covariant T>, SharedNetworkResultFailure, SharedKotlinNothing, SharedNetworkResultSuccess<T>, SharedForkResponseCompanion, SharedOwnerResponseCompanion, SharedApiService, SharedForkCompanion, SharedOwnerCompanion, SharedDetailsIntent, SharedDetailsIntentLoadFork, SharedKotlinArray<T>, SharedLifecycle_viewmodelViewModel, SharedForkUI, SharedDetailsViewState, SharedListIntent, SharedListViewState, SharedOwnerUI, SharedForkUICompanion, SharedOwnerUICompanion, SharedKtor_client_coreHttpClientCall, SharedKtor_utilsGMTDate, SharedKtor_httpHttpStatusCode, SharedKtor_httpHttpProtocolVersion, SharedKoin_coreModule, SharedKoin_coreKoinApplication, UIViewController, SharedRuntimeTransacterTransaction, SharedKtor_client_coreHttpClientEngineConfig, SharedKtor_client_coreHttpClientConfig<T>, SharedKtor_eventsEvents, SharedKtor_client_coreHttpReceivePipeline, SharedKtor_client_coreHttpRequestPipeline, SharedKtor_client_coreHttpResponsePipeline, SharedKtor_client_coreHttpSendPipeline, SharedKotlinThrowable, SharedKotlinException, SharedKotlinRuntimeException, SharedKotlinIllegalStateException, SharedKtor_client_coreHttpRequestData, SharedKtor_client_coreHttpResponseData, SharedKtor_client_coreHttpClientCallCompanion, SharedKtor_utilsTypeInfo, SharedKtor_ioMemory, SharedKtor_ioChunkBuffer, SharedKtor_ioBuffer, SharedKotlinByteArray, SharedKtor_ioByteReadPacket, SharedKtor_utilsGMTDateCompanion, SharedKtor_utilsWeekDay, SharedKtor_utilsMonth, SharedKtor_httpHttpStatusCodeCompanion, SharedKtor_httpHttpProtocolVersionCompanion, SharedKoin_coreKoinDefinition<R>, SharedKoin_coreScope, SharedKoin_coreParametersHolder, SharedKoin_coreInstanceFactory<T>, SharedKoin_coreSingleInstanceFactory<T>, SharedKoin_coreScopeDSL, SharedKoin_coreKoinApplicationCompanion, SharedKoin_coreLogger, SharedKoin_coreLevel, SharedKoin_coreKoin, SharedKotlinx_coroutines_coreCoroutineDispatcher, SharedKtor_client_coreProxyConfig, SharedKtor_utilsAttributeKey<T>, SharedKtor_eventsEventDefinition<T>, SharedKtor_utilsPipelinePhase, SharedKtor_utilsPipeline<TSubject, TContext>, SharedKtor_client_coreHttpReceivePipelinePhases, SharedKotlinUnit, SharedKtor_client_coreHttpRequestPipelinePhases, SharedKtor_client_coreHttpRequestBuilder, SharedKtor_client_coreHttpResponsePipelinePhases, SharedKtor_client_coreHttpResponseContainer, SharedKtor_client_coreHttpSendPipelinePhases, SharedKotlinx_serialization_coreSerializersModule, SharedKotlinx_serialization_coreSerialKind, SharedKtor_httpUrl, SharedKtor_httpHttpMethod, SharedKtor_httpOutgoingContent, SharedKtor_ioMemoryCompanion, SharedKtor_ioBufferCompanion, SharedKtor_ioChunkBufferCompanion, SharedKotlinByteIterator, SharedKtor_ioInputCompanion, SharedKtor_ioInput, SharedKtor_ioByteReadPacketCompanion, SharedKotlinEnumCompanion, SharedKotlinEnum<E>, SharedKtor_utilsWeekDayCompanion, SharedKtor_utilsMonthCompanion, SharedKoin_coreLockable, SharedKotlinLazyThreadSafetyMode, SharedStately_concurrencyThreadLocalRef<T>, SharedKoin_coreBeanDefinition<T>, SharedKoin_coreInstanceFactoryCompanion, SharedKoin_coreInstanceContext, SharedKoin_coreExtensionManager, SharedKoin_coreInstanceRegistry, SharedKoin_corePropertyRegistry, SharedKoin_coreScopeRegistry, SharedKotlinAbstractCoroutineContextElement, SharedKotlinx_coroutines_coreCoroutineDispatcherKey, SharedKtor_httpHeadersBuilder, SharedKtor_client_coreHttpRequestBuilderCompanion, SharedKtor_httpURLBuilder, SharedKtor_httpUrlCompanion, SharedKtor_httpURLProtocol, SharedKtor_httpHttpMethodCompanion, SharedKtor_httpContentType, SharedKotlinCancellationException, SharedKotlinKTypeProjection, SharedKoin_coreKind, SharedKoin_coreCallbacks<T>, SharedKoin_coreScopeRegistryCompanion, SharedKotlinAbstractCoroutineContextKey<B, E>, SharedKtor_utilsStringValuesBuilderImpl, SharedKtor_httpURLBuilderCompanion, SharedKtor_httpURLProtocolCompanion, SharedKtor_httpHeaderValueParam, SharedKtor_httpHeaderValueWithParametersCompanion, SharedKtor_httpHeaderValueWithParameters, SharedKtor_httpContentTypeCompanion, SharedKotlinKVariance, SharedKotlinKTypeProjectionCompanion;
+@class SharedAppDatabaseCompanion, SharedForkWithOwner, SharedRuntimeQuery<__covariant RowType>, SharedFork, SharedForkResponse, SharedOwner, SharedOwnerResponse, SharedKtor_client_coreHttpClient, SharedKtor_client_coreHttpResponse, SharedNetworkResult<__covariant T>, SharedNetworkResultFailure, SharedKotlinNothing, SharedNetworkResultSuccess<T>, SharedForkResponseCompanion, SharedOwnerResponseCompanion, SharedApiService, SharedForkCompanion, SharedOwnerCompanion, SharedDetailsIntent, SharedDetailsIntentLoadFork, SharedKotlinArray<T>, SharedLifecycle_viewmodelViewModel, SharedForkUI, SharedDetailsViewState, SharedListIntent, SharedListViewState, SharedOwnerUI, SharedForkUICompanion, SharedOwnerUICompanion, SharedDimens, SharedDrawableResources, SharedStringResources, SharedKtor_client_coreHttpClientCall, SharedKtor_utilsGMTDate, SharedKtor_httpHttpStatusCode, SharedKtor_httpHttpProtocolVersion, SharedKoin_coreModule, SharedKoin_coreKoinApplication, UIViewController, SharedMaterial3Shapes, SharedRuntimeTransacterTransaction, SharedKtor_client_coreHttpClientEngineConfig, SharedKtor_client_coreHttpClientConfig<T>, SharedKtor_eventsEvents, SharedKtor_client_coreHttpReceivePipeline, SharedKtor_client_coreHttpRequestPipeline, SharedKtor_client_coreHttpResponsePipeline, SharedKtor_client_coreHttpSendPipeline, SharedKotlinThrowable, SharedKotlinException, SharedKotlinRuntimeException, SharedKotlinIllegalStateException, SharedKtor_client_coreHttpRequestData, SharedKtor_client_coreHttpResponseData, SharedKtor_client_coreHttpClientCallCompanion, SharedKtor_utilsTypeInfo, SharedKtor_ioMemory, SharedKtor_ioChunkBuffer, SharedKtor_ioBuffer, SharedKotlinByteArray, SharedKtor_ioByteReadPacket, SharedKtor_utilsGMTDateCompanion, SharedKtor_utilsWeekDay, SharedKtor_utilsMonth, SharedKtor_httpHttpStatusCodeCompanion, SharedKtor_httpHttpProtocolVersionCompanion, SharedKoin_coreKoinDefinition<R>, SharedKoin_coreScope, SharedKoin_coreParametersHolder, SharedKoin_coreInstanceFactory<T>, SharedKoin_coreSingleInstanceFactory<T>, SharedKoin_coreScopeDSL, SharedKoin_coreKoinApplicationCompanion, SharedKoin_coreLogger, SharedKoin_coreLevel, SharedKoin_coreKoin, SharedFoundationCornerBasedShape, SharedKotlinx_coroutines_coreCoroutineDispatcher, SharedKtor_client_coreProxyConfig, SharedKtor_utilsAttributeKey<T>, SharedKtor_eventsEventDefinition<T>, SharedKtor_utilsPipelinePhase, SharedKtor_utilsPipeline<TSubject, TContext>, SharedKtor_client_coreHttpReceivePipelinePhases, SharedKotlinUnit, SharedKtor_client_coreHttpRequestPipelinePhases, SharedKtor_client_coreHttpRequestBuilder, SharedKtor_client_coreHttpResponsePipelinePhases, SharedKtor_client_coreHttpResponseContainer, SharedKtor_client_coreHttpSendPipelinePhases, SharedKotlinx_serialization_coreSerializersModule, SharedKotlinx_serialization_coreSerialKind, SharedKtor_httpUrl, SharedKtor_httpHttpMethod, SharedKtor_httpOutgoingContent, SharedKtor_ioMemoryCompanion, SharedKtor_ioBufferCompanion, SharedKtor_ioChunkBufferCompanion, SharedKotlinByteIterator, SharedKtor_ioInputCompanion, SharedKtor_ioInput, SharedKtor_ioByteReadPacketCompanion, SharedKotlinEnumCompanion, SharedKotlinEnum<E>, SharedKtor_utilsWeekDayCompanion, SharedKtor_utilsMonthCompanion, SharedKoin_coreLockable, SharedKotlinLazyThreadSafetyMode, SharedStately_concurrencyThreadLocalRef<T>, SharedKoin_coreBeanDefinition<T>, SharedKoin_coreInstanceFactoryCompanion, SharedKoin_coreInstanceContext, SharedKoin_coreExtensionManager, SharedKoin_coreInstanceRegistry, SharedKoin_corePropertyRegistry, SharedKoin_coreScopeRegistry, SharedUi_graphicsOutline, SharedUi_unitLayoutDirection, SharedKotlinAbstractCoroutineContextElement, SharedKotlinx_coroutines_coreCoroutineDispatcherKey, SharedKtor_httpHeadersBuilder, SharedKtor_client_coreHttpRequestBuilderCompanion, SharedKtor_httpURLBuilder, SharedKtor_httpUrlCompanion, SharedKtor_httpURLProtocol, SharedKtor_httpHttpMethodCompanion, SharedKtor_httpContentType, SharedKotlinCancellationException, SharedKotlinKTypeProjection, SharedKoin_coreKind, SharedKoin_coreCallbacks<T>, SharedKoin_coreScopeRegistryCompanion, SharedUi_geometryRect, SharedUi_unitDpRect, SharedKotlinAbstractCoroutineContextKey<B, E>, SharedKtor_utilsStringValuesBuilderImpl, SharedKtor_httpURLBuilderCompanion, SharedKtor_httpURLProtocolCompanion, SharedKtor_httpHeaderValueParam, SharedKtor_httpHeaderValueWithParametersCompanion, SharedKtor_httpHeaderValueWithParameters, SharedKtor_httpContentTypeCompanion, SharedKotlinKVariance, SharedKotlinKTypeProjectionCompanion, SharedUi_geometryRectCompanion, SharedUi_unitDpRectCompanion;
 
-@protocol SharedAppDatabaseQueries, SharedRuntimeTransactionWithoutReturn, SharedRuntimeTransactionWithReturn, SharedRuntimeTransacter, SharedAppDatabase, SharedRuntimeSqlDriver, SharedRuntimeSqlDriverSchema, SharedForkDao, SharedBaseMapper, SharedForkDBMapper, SharedForkResponseMapper, SharedOwnerResponseMapper, SharedKotlinx_serialization_coreKSerializer, SharedKotlinx_coroutines_coreFlow, SharedApiRepository, SharedDBRepository, SharedKotlinAutoCloseable, SharedKotlinx_coroutines_coreCoroutineScope, SharedForkUIMapper, SharedKotlinx_coroutines_coreStateFlow, SharedForkUseCase, SharedOwnerUIMapper, SharedKtor_httpHeaders, SharedKtor_httpHttpMessage, SharedKotlinCoroutineContext, SharedKtor_ioByteReadChannel, SharedRuntimeTransactionCallbacks, SharedRuntimeSqlPreparedStatement, SharedRuntimeSqlCursor, SharedRuntimeCloseable, SharedRuntimeQueryListener, SharedKtor_ioCloseable, SharedKtor_client_coreHttpClientEngine, SharedKtor_client_coreHttpClientEngineCapability, SharedKtor_utilsAttributes, SharedKotlinx_serialization_coreEncoder, SharedKotlinx_serialization_coreSerialDescriptor, SharedKotlinx_serialization_coreSerializationStrategy, SharedKotlinx_serialization_coreDecoder, SharedKotlinx_serialization_coreDeserializationStrategy, SharedKotlinx_coroutines_coreFlowCollector, SharedKotlinIterator, SharedKotlinx_coroutines_coreSharedFlow, SharedKotlinMapEntry, SharedKtor_utilsStringValues, SharedKotlinCoroutineContextElement, SharedKotlinCoroutineContextKey, SharedKtor_client_coreHttpRequest, SharedKtor_ioReadSession, SharedKotlinSuspendFunction1, SharedKotlinAppendable, SharedKotlinComparable, SharedKoin_coreQualifier, SharedKtor_client_coreHttpClientPlugin, SharedKotlinx_coroutines_coreDisposableHandle, SharedKotlinSuspendFunction2, SharedKotlinx_serialization_coreCompositeEncoder, SharedKotlinAnnotation, SharedKotlinx_serialization_coreCompositeDecoder, SharedKotlinx_coroutines_coreJob, SharedKotlinKClass, SharedKotlinKType, SharedKtor_ioObjectPool, SharedKotlinFunction, SharedKotlinLazy, SharedKoin_coreScopeCallback, SharedKoin_coreKoinScopeComponent, SharedKotlinContinuation, SharedKotlinContinuationInterceptor, SharedKotlinx_coroutines_coreRunnable, SharedKtor_httpHttpMessageBuilder, SharedKotlinx_serialization_coreSerializersModuleCollector, SharedKtor_httpParameters, SharedKotlinx_coroutines_coreChildHandle, SharedKotlinx_coroutines_coreChildJob, SharedKotlinSequence, SharedKotlinx_coroutines_coreSelectClause0, SharedKotlinKDeclarationContainer, SharedKotlinKAnnotatedElement, SharedKotlinKClassifier, SharedKoin_coreKoinComponent, SharedKoin_coreKoinExtension, SharedKtor_utilsStringValuesBuilder, SharedKtor_httpParametersBuilder, SharedKotlinx_coroutines_coreParentJob, SharedKotlinx_coroutines_coreSelectInstance, SharedKotlinx_coroutines_coreSelectClause;
+@protocol SharedAppDatabaseQueries, SharedRuntimeTransactionWithoutReturn, SharedRuntimeTransactionWithReturn, SharedRuntimeTransacter, SharedAppDatabase, SharedRuntimeSqlDriver, SharedRuntimeSqlDriverSchema, SharedForkDao, SharedBaseMapper, SharedForkDBMapper, SharedForkResponseMapper, SharedOwnerResponseMapper, SharedKotlinx_serialization_coreKSerializer, SharedKotlinx_coroutines_coreFlow, SharedApiRepository, SharedDBRepository, SharedKotlinAutoCloseable, SharedKotlinx_coroutines_coreCoroutineScope, SharedForkUIMapper, SharedKotlinx_coroutines_coreStateFlow, SharedForkUseCase, SharedOwnerUIMapper, SharedKtor_httpHeaders, SharedKtor_httpHttpMessage, SharedKotlinCoroutineContext, SharedKtor_ioByteReadChannel, SharedRuntimeTransactionCallbacks, SharedRuntimeSqlPreparedStatement, SharedRuntimeSqlCursor, SharedRuntimeCloseable, SharedRuntimeQueryListener, SharedKtor_ioCloseable, SharedKtor_client_coreHttpClientEngine, SharedKtor_client_coreHttpClientEngineCapability, SharedKtor_utilsAttributes, SharedKotlinx_serialization_coreEncoder, SharedKotlinx_serialization_coreSerialDescriptor, SharedKotlinx_serialization_coreSerializationStrategy, SharedKotlinx_serialization_coreDecoder, SharedKotlinx_serialization_coreDeserializationStrategy, SharedKotlinx_coroutines_coreFlowCollector, SharedKotlinIterator, SharedKotlinx_coroutines_coreSharedFlow, SharedKotlinMapEntry, SharedKtor_utilsStringValues, SharedKotlinCoroutineContextElement, SharedKotlinCoroutineContextKey, SharedKtor_client_coreHttpRequest, SharedKtor_ioReadSession, SharedKotlinSuspendFunction1, SharedKotlinAppendable, SharedKotlinComparable, SharedKoin_coreQualifier, SharedKtor_client_coreHttpClientPlugin, SharedKotlinx_coroutines_coreDisposableHandle, SharedKotlinSuspendFunction2, SharedKotlinx_serialization_coreCompositeEncoder, SharedKotlinAnnotation, SharedKotlinx_serialization_coreCompositeDecoder, SharedKotlinx_coroutines_coreJob, SharedKotlinKClass, SharedKotlinKType, SharedKtor_ioObjectPool, SharedKotlinFunction, SharedKotlinLazy, SharedKoin_coreScopeCallback, SharedKoin_coreKoinScopeComponent, SharedUi_unitDensity, SharedUi_graphicsShape, SharedFoundationCornerSize, SharedKotlinContinuation, SharedKotlinContinuationInterceptor, SharedKotlinx_coroutines_coreRunnable, SharedKtor_httpHttpMessageBuilder, SharedKotlinx_serialization_coreSerializersModuleCollector, SharedKtor_httpParameters, SharedKotlinx_coroutines_coreChildHandle, SharedKotlinx_coroutines_coreChildJob, SharedKotlinSequence, SharedKotlinx_coroutines_coreSelectClause0, SharedKotlinKDeclarationContainer, SharedKotlinKAnnotatedElement, SharedKotlinKClassifier, SharedKoin_coreKoinComponent, SharedKoin_coreKoinExtension, SharedUi_unitFontScalingLinear, SharedKtor_utilsStringValuesBuilder, SharedKtor_httpParametersBuilder, SharedKotlinx_coroutines_coreParentJob, SharedKotlinx_coroutines_coreSelectInstance, SharedKotlinx_coroutines_coreSelectClause;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -734,6 +734,61 @@ __attribute__((swift_name("ForkUseCaseImpl")))
 - (void)insertForksToDBForks:(NSArray<SharedFork *> *)forks __attribute__((swift_name("insertForksToDB(forks:)")));
 @end
 
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Immutable
+*/
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Dimens")))
+@interface SharedDimens : SharedBase
+- (instancetype)initWithMargin:(float)margin textSize:(int64_t)textSize __attribute__((swift_name("init(margin:textSize:)"))) __attribute__((objc_designated_initializer));
+- (SharedDimens *)doCopyMargin:(float)margin textSize:(int64_t)textSize __attribute__((swift_name("doCopy(margin:textSize:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) float margin __attribute__((swift_name("margin")));
+@property (readonly) int64_t textSize __attribute__((swift_name("textSize")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("DrawableResources")))
+@interface SharedDrawableResources : SharedBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)drawableResources __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) SharedDrawableResources *shared __attribute__((swift_name("shared")));
+@property (readonly) NSString *AVATAR_AI __attribute__((swift_name("AVATAR_AI")));
+@property (readonly) NSString *EMPTY_STATE __attribute__((swift_name("EMPTY_STATE")));
+@end
+
+__attribute__((swift_name("StringResources")))
+@interface SharedStringResources : SharedBase
+@property NSString *APP_ID __attribute__((swift_name("APP_ID")));
+@property NSString *APP_NAME __attribute__((swift_name("APP_NAME")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("StringResourcesEN")))
+@interface SharedStringResourcesEN : SharedStringResources
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("StringResourcesRU")))
+@interface SharedStringResourcesRU : SharedStringResources
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("StringResourcesUK")))
+@interface SharedStringResourcesUK : SharedStringResources
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+@end
+
 __attribute__((swift_name("Ktor_httpHttpMessage")))
 @protocol SharedKtor_httpHttpMessage
 @required
@@ -775,9 +830,46 @@ __attribute__((swift_name("AppModuleKt")))
 @end
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("ColorKt")))
+@interface SharedColorKt : SharedBase
+@property (class, readonly) uint64_t Blue __attribute__((swift_name("Blue")));
+@property (class, readonly) uint64_t Neutral100 __attribute__((swift_name("Neutral100")));
+@property (class, readonly) uint64_t Neutral200 __attribute__((swift_name("Neutral200")));
+@property (class, readonly) uint64_t Neutral300 __attribute__((swift_name("Neutral300")));
+@property (class, readonly) uint64_t Neutral400 __attribute__((swift_name("Neutral400")));
+@property (class, readonly) uint64_t Neutral50 __attribute__((swift_name("Neutral50")));
+@property (class, readonly) uint64_t Neutral500 __attribute__((swift_name("Neutral500")));
+@property (class, readonly) uint64_t Neutral600 __attribute__((swift_name("Neutral600")));
+@property (class, readonly) uint64_t Neutral700 __attribute__((swift_name("Neutral700")));
+@property (class, readonly) uint64_t Neutral800 __attribute__((swift_name("Neutral800")));
+@property (class, readonly) uint64_t Neutral900 __attribute__((swift_name("Neutral900")));
+@property (class, readonly) uint64_t Primary100 __attribute__((swift_name("Primary100")));
+@property (class, readonly) uint64_t Primary200 __attribute__((swift_name("Primary200")));
+@property (class, readonly) uint64_t Primary300 __attribute__((swift_name("Primary300")));
+@property (class, readonly) uint64_t Primary400 __attribute__((swift_name("Primary400")));
+@property (class, readonly) uint64_t Primary50 __attribute__((swift_name("Primary50")));
+@property (class, readonly) uint64_t Primary500 __attribute__((swift_name("Primary500")));
+@property (class, readonly) uint64_t Primary600 __attribute__((swift_name("Primary600")));
+@property (class, readonly) uint64_t Primary700 __attribute__((swift_name("Primary700")));
+@property (class, readonly) uint64_t Primary800 __attribute__((swift_name("Primary800")));
+@property (class, readonly) uint64_t Primary900 __attribute__((swift_name("Primary900")));
+@property (class, readonly) uint64_t White __attribute__((swift_name("White")));
+@end
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ConstantsKt")))
 @interface SharedConstantsKt : SharedBase
 @property (class, readonly) NSString *BASE_URL __attribute__((swift_name("BASE_URL")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("DimenResourcesKt")))
+@interface SharedDimenResourcesKt : SharedBase
+@property (class, readonly) SharedDimens *avatar_size __attribute__((swift_name("avatar_size")));
+@property (class, readonly) SharedDimens *default_text_size __attribute__((swift_name("default_text_size")));
+@property (class, readonly) SharedDimens *large_padding __attribute__((swift_name("large_padding")));
+@property (class, readonly) SharedDimens *medium_padding __attribute__((swift_name("medium_padding")));
+@property (class, readonly) SharedDimens *small_padding __attribute__((swift_name("small_padding")));
 @end
 
 __attribute__((objc_subclassing_restricted))
@@ -796,6 +888,18 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MainViewControllerKt")))
 @interface SharedMainViewControllerKt : SharedBase
 + (UIViewController *)MainViewController __attribute__((swift_name("MainViewController()")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("ShapeKt")))
+@interface SharedShapeKt : SharedBase
+@property (class, readonly) SharedMaterial3Shapes *Shapes __attribute__((swift_name("Shapes")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("StringResourcesKt")))
+@interface SharedStringResourcesKt : SharedBase
++ (SharedStringResources *)getStringResourcesByLocaleLocale:(NSString *)locale __attribute__((swift_name("getStringResourcesByLocale(locale:)")));
 @end
 
 __attribute__((swift_name("RuntimeTransactionCallbacks")))
@@ -1326,6 +1430,26 @@ __attribute__((swift_name("Koin_coreKoinApplication")))
 - (SharedKoin_coreKoinApplication *)printLoggerLevel:(SharedKoin_coreLevel *)level __attribute__((swift_name("printLogger(level:)")));
 - (SharedKoin_coreKoinApplication *)propertiesValues:(NSDictionary<NSString *, id> *)values __attribute__((swift_name("properties(values:)")));
 @property (readonly) SharedKoin_coreKoin *koin __attribute__((swift_name("koin")));
+@end
+
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Immutable
+*/
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Material3Shapes")))
+@interface SharedMaterial3Shapes : SharedBase
+- (instancetype)initWithExtraSmall:(SharedFoundationCornerBasedShape *)extraSmall small:(SharedFoundationCornerBasedShape *)small medium:(SharedFoundationCornerBasedShape *)medium large:(SharedFoundationCornerBasedShape *)large extraLarge:(SharedFoundationCornerBasedShape *)extraLarge __attribute__((swift_name("init(extraSmall:small:medium:large:extraLarge:)"))) __attribute__((objc_designated_initializer));
+- (SharedMaterial3Shapes *)doCopyExtraSmall:(SharedFoundationCornerBasedShape *)extraSmall small:(SharedFoundationCornerBasedShape *)small medium:(SharedFoundationCornerBasedShape *)medium large:(SharedFoundationCornerBasedShape *)large extraLarge:(SharedFoundationCornerBasedShape *)extraLarge __attribute__((swift_name("doCopy(extraSmall:small:medium:large:extraLarge:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) SharedFoundationCornerBasedShape *extraLarge __attribute__((swift_name("extraLarge")));
+@property (readonly) SharedFoundationCornerBasedShape *extraSmall __attribute__((swift_name("extraSmall")));
+@property (readonly) SharedFoundationCornerBasedShape *large __attribute__((swift_name("large")));
+@property (readonly) SharedFoundationCornerBasedShape *medium __attribute__((swift_name("medium")));
+@property (readonly) SharedFoundationCornerBasedShape *small __attribute__((swift_name("small")));
 @end
 
 __attribute__((swift_name("RuntimeTransacterTransaction")))
@@ -2270,6 +2394,30 @@ __attribute__((swift_name("Koin_coreKoin")))
 
 /**
  * @note annotations
+ *   androidx.compose.runtime.Immutable
+*/
+__attribute__((swift_name("Ui_graphicsShape")))
+@protocol SharedUi_graphicsShape
+@required
+- (SharedUi_graphicsOutline *)createOutlineSize:(int64_t)size layoutDirection:(SharedUi_unitLayoutDirection *)layoutDirection density:(id<SharedUi_unitDensity>)density __attribute__((swift_name("createOutline(size:layoutDirection:density:)")));
+@end
+
+__attribute__((swift_name("FoundationCornerBasedShape")))
+@interface SharedFoundationCornerBasedShape : SharedBase <SharedUi_graphicsShape>
+- (instancetype)initWithTopStart:(id<SharedFoundationCornerSize>)topStart topEnd:(id<SharedFoundationCornerSize>)topEnd bottomEnd:(id<SharedFoundationCornerSize>)bottomEnd bottomStart:(id<SharedFoundationCornerSize>)bottomStart __attribute__((swift_name("init(topStart:topEnd:bottomEnd:bottomStart:)"))) __attribute__((objc_designated_initializer));
+- (SharedFoundationCornerBasedShape *)doCopyAll:(id<SharedFoundationCornerSize>)all __attribute__((swift_name("doCopy(all:)")));
+- (SharedFoundationCornerBasedShape *)doCopyTopStart:(id<SharedFoundationCornerSize>)topStart topEnd:(id<SharedFoundationCornerSize>)topEnd bottomEnd:(id<SharedFoundationCornerSize>)bottomEnd bottomStart:(id<SharedFoundationCornerSize>)bottomStart __attribute__((swift_name("doCopy(topStart:topEnd:bottomEnd:bottomStart:)")));
+- (SharedUi_graphicsOutline *)createOutlineSize:(int64_t)size layoutDirection:(SharedUi_unitLayoutDirection *)layoutDirection density:(id<SharedUi_unitDensity>)density __attribute__((swift_name("createOutline(size:layoutDirection:density:)")));
+- (SharedUi_graphicsOutline *)createOutlineSize:(int64_t)size topStart:(float)topStart topEnd:(float)topEnd bottomEnd:(float)bottomEnd bottomStart:(float)bottomStart layoutDirection:(SharedUi_unitLayoutDirection *)layoutDirection __attribute__((swift_name("createOutline(size:topStart:topEnd:bottomEnd:bottomStart:layoutDirection:)")));
+@property (readonly) id<SharedFoundationCornerSize> bottomEnd __attribute__((swift_name("bottomEnd")));
+@property (readonly) id<SharedFoundationCornerSize> bottomStart __attribute__((swift_name("bottomStart")));
+@property (readonly) id<SharedFoundationCornerSize> topEnd __attribute__((swift_name("topEnd")));
+@property (readonly) id<SharedFoundationCornerSize> topStart __attribute__((swift_name("topStart")));
+@end
+
+
+/**
+ * @note annotations
  *   kotlin.SinceKotlin(version="1.3")
 */
 __attribute__((swift_name("KotlinAbstractCoroutineContextElement")))
@@ -2932,6 +3080,145 @@ __attribute__((swift_name("Koin_coreScopeRegistry")))
 @property (readonly) NSSet<id<SharedKoin_coreQualifier>> *scopeDefinitions __attribute__((swift_name("scopeDefinitions")));
 @end
 
+__attribute__((swift_name("Ui_graphicsOutline")))
+@interface SharedUi_graphicsOutline : SharedBase
+@property (readonly) SharedUi_geometryRect *bounds __attribute__((swift_name("bounds")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ui_unitLayoutDirection")))
+@interface SharedUi_unitLayoutDirection : SharedKotlinEnum<SharedUi_unitLayoutDirection *>
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly) SharedUi_unitLayoutDirection *ltr __attribute__((swift_name("ltr")));
+@property (class, readonly) SharedUi_unitLayoutDirection *rtl __attribute__((swift_name("rtl")));
++ (SharedKotlinArray<SharedUi_unitLayoutDirection *> *)values __attribute__((swift_name("values()")));
+@property (class, readonly) NSArray<SharedUi_unitLayoutDirection *> *entries __attribute__((swift_name("entries")));
+@end
+
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Immutable
+ *   androidx.annotation.RestrictTo(value=[Scope.LIBRARY_GROUP])
+*/
+__attribute__((swift_name("Ui_unitFontScalingLinear")))
+@protocol SharedUi_unitFontScalingLinear
+@required
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (float)toDp__:(int64_t)receiver __attribute__((swift_name("toDp(___:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (int64_t)toSp__:(float)receiver __attribute__((swift_name("toSp(___:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float fontScale __attribute__((swift_name("fontScale")));
+@end
+
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Immutable
+*/
+__attribute__((swift_name("Ui_unitDensity")))
+@protocol SharedUi_unitDensity <SharedUi_unitFontScalingLinear>
+@required
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (int32_t)roundToPx:(float)receiver __attribute__((swift_name("roundToPx(_:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (int32_t)roundToPx_:(int64_t)receiver __attribute__((swift_name("roundToPx(__:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (float)toDp:(float)receiver __attribute__((swift_name("toDp(_:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (float)toDp_:(int32_t)receiver __attribute__((swift_name("toDp(__:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (int64_t)toDpSize:(int64_t)receiver __attribute__((swift_name("toDpSize(_:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (float)toPx:(float)receiver __attribute__((swift_name("toPx(_:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (float)toPx_:(int64_t)receiver __attribute__((swift_name("toPx(__:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (SharedUi_geometryRect *)toRect:(SharedUi_unitDpRect *)receiver __attribute__((swift_name("toRect(_:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (int64_t)toSize:(int64_t)receiver __attribute__((swift_name("toSize(_:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (int64_t)toSp:(float)receiver __attribute__((swift_name("toSp(_:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (int64_t)toSp_:(int32_t)receiver __attribute__((swift_name("toSp(__:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float density __attribute__((swift_name("density")));
+@end
+
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Immutable
+*/
+__attribute__((swift_name("FoundationCornerSize")))
+@protocol SharedFoundationCornerSize
+@required
+- (float)toPxShapeSize:(int64_t)shapeSize density:(id<SharedUi_unitDensity>)density __attribute__((swift_name("toPx(shapeSize:density:)")));
+@end
+
 
 /**
  * @note annotations
@@ -3272,6 +3559,172 @@ __attribute__((swift_name("Koin_coreScopeRegistry.Companion")))
 @property (class, readonly, getter=shared) SharedKoin_coreScopeRegistryCompanion *shared __attribute__((swift_name("shared")));
 @end
 
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Immutable
+*/
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ui_geometryRect")))
+@interface SharedUi_geometryRect : SharedBase
+- (instancetype)initWithLeft:(float)left top:(float)top right:(float)right bottom:(float)bottom __attribute__((swift_name("init(left:top:right:bottom:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) SharedUi_geometryRectCompanion *companion __attribute__((swift_name("companion")));
+- (BOOL)containsOffset:(int64_t)offset __attribute__((swift_name("contains(offset:)")));
+- (SharedUi_geometryRect *)doCopyLeft:(float)left top:(float)top right:(float)right bottom:(float)bottom __attribute__((swift_name("doCopy(left:top:right:bottom:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (SharedUi_geometryRect *)deflateDelta:(float)delta __attribute__((swift_name("deflate(delta:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (SharedUi_geometryRect *)inflateDelta:(float)delta __attribute__((swift_name("inflate(delta:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (SharedUi_geometryRect *)intersectOther:(SharedUi_geometryRect *)other __attribute__((swift_name("intersect(other:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (SharedUi_geometryRect *)intersectOtherLeft:(float)otherLeft otherTop:(float)otherTop otherRight:(float)otherRight otherBottom:(float)otherBottom __attribute__((swift_name("intersect(otherLeft:otherTop:otherRight:otherBottom:)")));
+- (BOOL)overlapsOther:(SharedUi_geometryRect *)other __attribute__((swift_name("overlaps(other:)")));
+- (NSString *)description __attribute__((swift_name("description()")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (SharedUi_geometryRect *)translateOffset:(int64_t)offset __attribute__((swift_name("translate(offset:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+- (SharedUi_geometryRect *)translateTranslateX:(float)translateX translateY:(float)translateY __attribute__((swift_name("translate(translateX:translateY:)")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float bottom __attribute__((swift_name("bottom")));
+@property (readonly) int64_t bottomCenter __attribute__((swift_name("bottomCenter")));
+@property (readonly) int64_t bottomLeft __attribute__((swift_name("bottomLeft")));
+@property (readonly) int64_t bottomRight __attribute__((swift_name("bottomRight")));
+@property (readonly) int64_t center __attribute__((swift_name("center")));
+@property (readonly) int64_t centerLeft __attribute__((swift_name("centerLeft")));
+@property (readonly) int64_t centerRight __attribute__((swift_name("centerRight")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float height __attribute__((swift_name("height")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) BOOL isEmpty __attribute__((swift_name("isEmpty")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) BOOL isFinite __attribute__((swift_name("isFinite")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) BOOL isInfinite __attribute__((swift_name("isInfinite")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float left __attribute__((swift_name("left")));
+@property (readonly) float maxDimension __attribute__((swift_name("maxDimension")));
+@property (readonly) float minDimension __attribute__((swift_name("minDimension")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float right __attribute__((swift_name("right")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) int64_t size __attribute__((swift_name("size")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float top __attribute__((swift_name("top")));
+@property (readonly) int64_t topCenter __attribute__((swift_name("topCenter")));
+@property (readonly) int64_t topLeft __attribute__((swift_name("topLeft")));
+@property (readonly) int64_t topRight __attribute__((swift_name("topRight")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float width __attribute__((swift_name("width")));
+@end
+
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Immutable
+*/
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ui_unitDpRect")))
+@interface SharedUi_unitDpRect : SharedBase
+- (instancetype)initWithOrigin:(int64_t)origin size:(int64_t)size __attribute__((swift_name("init(origin:size:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithLeft:(float)left top:(float)top right:(float)right bottom:(float)bottom __attribute__((swift_name("init(left:top:right:bottom:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) SharedUi_unitDpRectCompanion *companion __attribute__((swift_name("companion")));
+- (SharedUi_unitDpRect *)doCopyLeft:(float)left top:(float)top right:(float)right bottom:(float)bottom __attribute__((swift_name("doCopy(left:top:right:bottom:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float bottom __attribute__((swift_name("bottom")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float left __attribute__((swift_name("left")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float right __attribute__((swift_name("right")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) float top __attribute__((swift_name("top")));
+@end
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Ktor_httpURLBuilder.Companion")))
 @interface SharedKtor_httpURLBuilderCompanion : SharedBase
@@ -3396,6 +3849,30 @@ __attribute__((swift_name("KotlinKTypeProjection.Companion")))
 */
 - (SharedKotlinKTypeProjection *)invariantType:(id<SharedKotlinKType>)type __attribute__((swift_name("invariant(type:)")));
 @property (readonly) SharedKotlinKTypeProjection *STAR __attribute__((swift_name("STAR")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ui_geometryRect.Companion")))
+@interface SharedUi_geometryRectCompanion : SharedBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) SharedUi_geometryRectCompanion *shared __attribute__((swift_name("shared")));
+
+/**
+ * @note annotations
+ *   androidx.compose.runtime.Stable
+*/
+@property (readonly) SharedUi_geometryRect *Zero __attribute__((swift_name("Zero")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Ui_unitDpRect.Companion")))
+@interface SharedUi_unitDpRectCompanion : SharedBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) SharedUi_unitDpRectCompanion *shared __attribute__((swift_name("shared")));
 @end
 
 #pragma pop_macro("_Nullable_result")
