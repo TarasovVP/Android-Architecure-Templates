@@ -28,6 +28,7 @@ kotlin {
         }
     }
     task("testClasses")
+    jvm()
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization)
@@ -64,6 +65,11 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sqldelight.native.driver)
+        }
+        jvmMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.ktor.client.java)
+            implementation(libs.sqldelight.java.driver)
         }
     }
 }

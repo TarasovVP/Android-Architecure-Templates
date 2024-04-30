@@ -2,6 +2,7 @@ package com.vnteam.architecturetemplates.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vnteam.architecturetemplates.PlatformCoroutineDispatcher
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 class ListViewModel(
     private val forkUseCase: ForkUseCase,
     private val forkUIMapper: ForkUIMapper,
+    private val platformCoroutineDispatcher: PlatformCoroutineDispatcher
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ListViewState())
@@ -23,7 +25,6 @@ class ListViewModel(
     fun processIntent(intent: ListIntent) {
         when (intent) {
             is ListIntent.LoadForks -> getForksFromApi()
-            else -> Unit
         }
     }
 

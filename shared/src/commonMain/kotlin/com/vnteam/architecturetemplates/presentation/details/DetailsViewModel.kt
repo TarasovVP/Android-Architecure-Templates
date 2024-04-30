@@ -2,6 +2,7 @@ package com.vnteam.architecturetemplates.presentation.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vnteam.architecturetemplates.PlatformCoroutineDispatcher
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 class DetailsViewModel(
     private val forkRepository: DBRepository,
     private val forkUIMapper: ForkUIMapper,
+    private val platformCoroutineDispatcher: PlatformCoroutineDispatcher
 ): ViewModel() {
 
     private val _state = MutableStateFlow(DetailsViewState())
@@ -27,7 +29,7 @@ class DetailsViewModel(
     }
 
     private fun getForkById(forkId: Long?) {
-        viewModelScope.launch {
+        viewModelScope.launch(platformCoroutineDispatcher.io) {
             forkRepository.getForkById(forkId ?: 0)
                 .onStart {
                     _state.value = _state.value.copy(isLoading = true)
