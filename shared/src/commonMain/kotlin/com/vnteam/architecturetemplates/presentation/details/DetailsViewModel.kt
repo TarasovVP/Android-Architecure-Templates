@@ -26,7 +26,7 @@ class DetailsViewModel(
         }
     }
 
-    fun getForkById(forkId: Long?) {
+    private fun getForkById(forkId: Long?) {
         viewModelScope.launch {
             forkRepository.getForkById(forkId ?: 0)
                 .onStart {
