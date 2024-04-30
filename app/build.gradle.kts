@@ -1,3 +1,4 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -15,7 +16,11 @@ kotlin {
     }
 
     task("testClasses")
+
+    jvm("desktop")
+
     sourceSets {
+        val desktopMain by getting
         androidMain.dependencies {
             // Koin
             implementation(libs.koin.android)
@@ -25,6 +30,10 @@ kotlin {
             implementation(compose.material3)
             implementation(libs.androidx.activity.compose)
             implementation(libs.material.ripple)
+        }
+        desktopMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(compose.desktop.currentOs)
             implementation(project(":shared"))
         }
     }
@@ -69,5 +78,20 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
+    }
+}
+dependencies {
+    implementation(project(":shared"))
+}
+
+compose.desktop {
+    application {
+        mainClass = "MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "com.vnteam.architecturetemplates"
+            packageVersion = "1.0.0"
+        }
     }
 }
