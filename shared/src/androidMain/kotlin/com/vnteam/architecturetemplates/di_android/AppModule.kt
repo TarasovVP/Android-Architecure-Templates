@@ -8,7 +8,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-
 val androidModule = module {
 
     single {
@@ -20,9 +19,9 @@ val androidModule = module {
     }
 
     viewModel {
-        ListViewModel(get(), get())
+        ListViewModel(get(), get(), get())
     }
     viewModel {
-        DetailsViewModel(get(), get())
+        DetailsViewModel(get(), get(), get())
     }
 }
