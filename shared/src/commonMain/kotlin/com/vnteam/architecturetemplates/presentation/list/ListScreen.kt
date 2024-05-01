@@ -40,14 +40,14 @@ fun ListContent(viewState: ListViewState, onItemClick: (Long) -> Unit, onButtonC
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(LocalLargePadding.current.margin),
+                .padding(LocalLargePadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
             Button(
                 onClick = onButtonClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(LocalLargePadding.current.margin)
+                    .padding(LocalLargePadding.current.size)
             ) {
                 Text(text = getStringResources().START)
             }
@@ -65,8 +65,8 @@ fun ListContent(viewState: ListViewState, onItemClick: (Long) -> Unit, onButtonC
 
 @Composable
 fun ForkItem(item: ForkUI, onItemClick: (Long) -> Unit) {
-    Card(modifier = Modifier.padding(LocalMediumPadding.current.margin).clickable { onItemClick(item.id ?: 0) }) {
+    Card(modifier = Modifier.padding(LocalMediumPadding.current.size).clickable { onItemClick(item.id ?: 0) }) {
         Text(text = item.name.orEmpty(), modifier = Modifier
-            .padding(LocalMediumPadding.current.margin))
+            .padding(LocalMediumPadding.current.size))
     }
 }

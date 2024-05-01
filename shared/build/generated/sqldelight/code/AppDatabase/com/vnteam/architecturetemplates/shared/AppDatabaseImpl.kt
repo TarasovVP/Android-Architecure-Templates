@@ -34,7 +34,7 @@ private class AppDatabaseImpl(
 
     public override fun create(driver: SqlDriver): Unit {
       driver.execute(null, """
-          |CREATE TABLE ForkWithOwner (
+          |CREATE TABLE IF NOT EXISTS ForkWithOwner (
           |    id INTEGER PRIMARY KEY,
           |    name TEXT,
           |    fullName TEXT,

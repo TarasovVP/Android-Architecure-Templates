@@ -2,7 +2,6 @@ package com.vnteam.architecturetemplates.di
 
 import com.vnteam.architecturetemplates.data.network.BASE_URL
 import com.vnteam.architecturetemplates.AppDatabase
-import com.vnteam.architecturetemplates.PlatformCoroutineDispatcher
 import com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory
 import com.vnteam.architecturetemplates.data.database.ForkDao
 import com.vnteam.architecturetemplates.data.database.ForkDaoImpl
@@ -73,6 +72,4 @@ val appModule = module {
     single<ForkUIMapper> { ForkUIMapperImpl(get()) }
 
     single<ForkUseCase> { ForkUseCaseImpl(get(), get()) }
-
-    single { PlatformCoroutineDispatcher() }
 }

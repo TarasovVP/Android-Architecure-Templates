@@ -1,8 +1,6 @@
 package com.vnteam.architecturetemplates.presentation.details
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
@@ -23,16 +20,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Paint
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
+import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
 import coil3.request.ImageRequest
@@ -42,6 +33,7 @@ import com.vnteam.architecturetemplates.resources.LocalAvatarSize
 import com.vnteam.architecturetemplates.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.resources.getStringResources
+import kotlinx.coroutines.Dispatchers
 import org.koin.compose.koinInject
 
 @Composable
@@ -62,20 +54,20 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(LocalLargePadding.current.margin),
+                .padding(LocalLargePadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
             Text(
                 text = viewState.fork?.name.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(LocalLargePadding.current.margin)
+                    .padding(LocalLargePadding.current.size)
             )
             Text(
                 text = viewState.fork?.owner?.login.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(LocalLargePadding.current.margin)
+                    .padding(LocalLargePadding.current.size)
             )
             OwnerCard(
                 avatarUrl = viewState.fork?.owner?.avatarUrl.orEmpty(),
@@ -85,19 +77,19 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
                 text = "Description:",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(LocalLargePadding.current.margin)
+                    .padding(LocalLargePadding.current.size)
             )
             Text(
                 text = viewState.fork?.description.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(LocalLargePadding.current.margin)
+                    .padding(LocalLargePadding.current.size)
             )
             Button(
                 onClick = onClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(LocalLargePadding.current.margin)
+                    .padding(LocalLargePadding.current.size)
             ) {
                 Text(text = getStringResources().BACK)
             }
@@ -112,14 +104,14 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
 fun OwnerCard(avatarUrl: String, description: String) {
     Card {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(
-            LocalMediumPadding.current.margin)) {
+            LocalMediumPadding.current.size)) {
             SubcomposeAsyncImage(
                 model = avatarUrl,
                 contentDescription = getStringResources().OWNER_AVATAR,
                 modifier = Modifier
                     .wrapContentSize()
-                    .width(50.dp)
-                    .height(50.dp),
+                    .width(LocalAvatarSize.current.size)
+                    .height(LocalAvatarSize.current.size),
                 contentScale = ContentScale.Crop
             ) {
                 when (painter.state) {
@@ -132,7 +124,7 @@ fun OwnerCard(avatarUrl: String, description: String) {
                 text = description,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(LocalLargePadding.current.margin)
+                    .padding(LocalLargePadding.current.size)
             )
         }
     }

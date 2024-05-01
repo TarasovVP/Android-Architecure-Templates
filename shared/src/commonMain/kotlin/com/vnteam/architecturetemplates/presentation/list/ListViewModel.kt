@@ -2,7 +2,6 @@ package com.vnteam.architecturetemplates.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vnteam.architecturetemplates.PlatformCoroutineDispatcher
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
@@ -15,12 +14,15 @@ import kotlinx.coroutines.launch
 
 class ListViewModel(
     private val forkUseCase: ForkUseCase,
-    private val forkUIMapper: ForkUIMapper,
-    private val platformCoroutineDispatcher: PlatformCoroutineDispatcher
+    private val forkUIMapper: ForkUIMapper
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ListViewState())
     val state: StateFlow<ListViewState> = _state.asStateFlow()
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
+        _state.value = state.value.copy(isLoading = false, error = exception.message)
+    }
 
     fun processIntent(intent: ListIntent) {
         when (intent) {
@@ -29,9 +31,7 @@ class ListViewModel(
     }
 
     private fun getForksFromApi() {
-        viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            _state.value = state.value.copy(isLoading = false, error = exception.message)
-        }) {
+        viewModelScope.launch(exceptionHandler) {
             _state.value = state.value.copy(isLoading = true)
             val forks = forkUseCase.getForksFromApi()
             insertForksToDB(forks)
@@ -40,9 +40,7 @@ class ListViewModel(
     }
 
     private fun insertForksToDB(forks: Flow<List<Fork>?>) {
-        viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            _state.value = state.value.copy(isLoading = false, error = exception.message)
-        }) {
+        viewModelScope.launch(exceptionHandler) {
             forks.collect {
                 it ?: return@collect
                 forkUseCase.insertForksToDB(it)
@@ -51,9 +49,7 @@ class ListViewModel(
     }
 
     private fun getForksFromDB() {
-        viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            _state.value = state.value.copy(isLoading = false, error = exception.message)
-        }) {
+        viewModelScope.launch(exceptionHandler) {
             forkUseCase.getForksFromDB().collect {
                 val forks = forkUIMapper.mapToImplModelList(it)
                 _state.value = state.value.copy(forks = forks, isLoading = false)

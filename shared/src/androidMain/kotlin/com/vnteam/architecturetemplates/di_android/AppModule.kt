@@ -14,9 +14,9 @@ val androidModule = module {
     }
 
     viewModel {
-        ListViewModel(get(), get(), get())
+        ListViewModel(get(), get())
     }
     viewModel {
-        DetailsViewModel(get(), get(), get())
+        DetailsViewModel(get(), get())
     }
 }

@@ -10,9 +10,9 @@ val iosModule = module {
         DatabaseDriverFactory()
     }
     factory {
-        ListViewModel(get(), get(), get())
+        ListViewModel(get(), get())
     }
     factory {
-        DetailsViewModel(get(), get(), get())
+        DetailsViewModel(get(), get())
     }
 }
