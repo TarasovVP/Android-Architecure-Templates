@@ -6,7 +6,7 @@ Below is a list of branches with an overview of the applied approaches:
 
 **Platform**: *Android, IOS*  
 **Architecture**: *MVI*  
-**Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*  
+**Screens:** *(Android/ComponentActivity, IOS/ContentView) + @Composable*  
 **Api:** *io.ktor.client.HttpClient*  
 **Image loading:** *coil.compose.AsyncImage*   
 **JsonConverter:** *kotlinx.serialization.SerialName*  
