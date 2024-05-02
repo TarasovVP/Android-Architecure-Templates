@@ -4,7 +4,7 @@ Below is a list of branches with an overview of the applied approaches:
 
 [KMM Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmm_implementation)
 
-**Platform**: *Android, IOS*
+**Platform**: *Android, IOS*  
 **Architecture**: *MVI*  
 **Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*  
 **Api:** *io.ktor.client.HttpClient*  
