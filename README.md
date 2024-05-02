@@ -4,7 +4,18 @@ Below is a list of branches with an overview of the applied approaches:
 
 [KMM Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmm_implementation)
 
-*Under development*  
+**Platform**: *Android, IOS*
+**Architecture**: *MVI*  
+**Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*  
+**Api:** *io.ktor.client.HttpClient*  
+**Image loading:** *coil.compose.AsyncImage*   
+**JsonConverter:** *kotlinx.serialization.SerialName*  
+**DB:** *com.squareup.sqldelight.AppDatabase*  
+**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
+**Architectural component:** *androidx.lifecycle.ViewModel*  
+**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
+**Navigation component:** *org.jetbrains.androidx.navigation*  
+**DI:** *org.koin.core.KoinApplication*  
 
 [MVI with Compose Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvi_compose_navigation_implementation)
 
