@@ -13,6 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
-/.shared/build/bin/iosSimulatorArm64/debugFramework/shared.framework/shared
-/.shared/build/xcode-frameworks/Debug/iphonesimulator17.4/shared.framework/shared
+shared/build/bin/iosSimulatorArm64/debugFramework/shared.framework/shared
+shared/build/xcode-frameworks/Debug/iphonesimulator17.4/shared.framework/shared
 
