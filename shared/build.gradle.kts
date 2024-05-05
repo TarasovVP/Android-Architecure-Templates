@@ -18,7 +18,9 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
+        macosX64(),
+        macosArm64(),
     ).forEach {
         it.binaries.framework {
             freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.shared"
@@ -31,6 +33,7 @@ kotlin {
     jvm()
     sourceSets {
         commonMain.dependencies {
+            api(compose.runtime)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.androidx.viewmodel.compose)
@@ -64,6 +67,9 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+            implementation(libs.sqldelight.native.driver)
+        }
+        nativeMain.dependencies {
             implementation(libs.sqldelight.native.driver)
         }
         jvmMain.dependencies {
