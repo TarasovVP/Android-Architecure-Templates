@@ -1,16 +1,16 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7318568741051129394.xml:2:13-83
-INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7318568741051129394.xml:2:13-83
+ADDED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3001293431175646891.xml:2:13-83
+INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3001293431175646891.xml:2:13-83
 	package
-		INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7318568741051129394.xml
+		INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3001293431175646891.xml
 	xmlns:android
-		ADDED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7318568741051129394.xml:2:23-81
+		ADDED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3001293431175646891.xml:2:23-81
 uses-sdk
-INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7318568741051129394.xml reason: use-sdk injection requested
-INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7318568741051129394.xml
-INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7318568741051129394.xml
+INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3001293431175646891.xml reason: use-sdk injection requested
+INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3001293431175646891.xml
+INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3001293431175646891.xml
 	android:targetSdkVersion
-		INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7318568741051129394.xml
+		INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3001293431175646891.xml
 	android:minSdkVersion
-		INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7318568741051129394.xml
+		INJECTED from /Users/vladimirtarasov/AndroidStudioProjects/Android-Architecure-Templates/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3001293431175646891.xml

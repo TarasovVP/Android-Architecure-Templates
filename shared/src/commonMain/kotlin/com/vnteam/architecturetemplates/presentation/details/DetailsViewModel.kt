@@ -22,7 +22,6 @@ class DetailsViewModel(
     fun processIntent(intent: DetailsIntent) {
         when (intent) {
             is DetailsIntent.LoadFork -> getForkById(intent.forkId)
-            else -> Unit
         }
     }
 

@@ -20,6 +20,8 @@ agp = "8.2.2"
 compose-multiplatform = "1.6.10-beta01"
 kotlin = "1.9.23"
 sql-delight = "1.5.5"
+monitor = "1.6.1"
+junitKtx = "1.1.5"
 
 [libraries]
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
@@ -52,6 +54,8 @@ navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navi
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 material-ripple = { group = "androidx.compose.material", name = "material-ripple", version.ref = "materialRipple" }
+androidx-monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
