@@ -19,9 +19,27 @@ kotlin {
 
     jvm("desktop")
 
+    macosX64("macos") {
+        binaries {
+            executable {
+                entryPoint = "main"
+                baseName = "MyKMMApp"
+            }
+        }
+    }
+    macosArm64("macosArm") {
+        binaries {
+            executable {
+                entryPoint = "main"
+                baseName = "MyKMMApp"
+            }
+        }
+    }
+
     sourceSets {
         val desktopMain by getting
         androidMain.dependencies {
+            implementation("androidx.multidex:multidex:2.0.1")
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
@@ -55,6 +73,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        multiDexEnabled = true
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -82,6 +102,8 @@ android {
 }
 dependencies {
     implementation(project(":shared"))
+    implementation(libs.androidx.monitor)
+    implementation(libs.androidx.junit.ktx)
 }
 
 compose.desktop {
