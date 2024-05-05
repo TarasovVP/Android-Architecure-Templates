@@ -1,12 +1,9 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -16,59 +13,33 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        instrumentedTestVariant {
-            sourceSetTree.set(KotlinSourceSetTree.test)
-            dependencies {
-                debugImplementation(libs.androidx.testManifest)
-                implementation(libs.androidx.junit4)
-            }
-        }
     }
-    task("testClasses")
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.composeApp"
-            linkerOpts.add("-lsqlite3")
-            baseName = "composeApp"
-            isStatic = true
-        }
-    }
-    jvm("desktop")
-    js(IR) {
-        browser {
-            commonWebpackConfig {
-                outputFileName = "webApp.js"
-            }
 
+    task("testClasses")
+
+    jvm("desktop")
+
+    macosX64("macos") {
+        binaries {
+            executable {
+                entryPoint = "main"
+                baseName = "MyKMMApp"
+            }
         }
-        binaries.executable()
     }
+    macosArm64("macosArm") {
+        binaries {
+            executable {
+                entryPoint = "main"
+                baseName = "MyKMMApp"
+            }
+        }
+    }
+
     sourceSets {
         val desktopMain by getting
-
-        commonMain.dependencies {
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            implementation(libs.androidx.viewmodel.compose)
-            //Koin
-            implementation(libs.koin.core)
-            implementation(libs.koin.compose)
-            //Coil
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network.ktor)
-            //Navigation
-            implementation(libs.navigation.compose)
-            implementation(project(":shared"))
-
-        }
         androidMain.dependencies {
-            implementation(libs.androidx.multidex)
+            implementation("androidx.multidex:multidex:2.0.1")
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
@@ -77,30 +48,15 @@ kotlin {
             implementation(compose.material3)
             implementation(libs.androidx.activity.compose)
             implementation(libs.material.ripple)
-
-            implementation(libs.androidx.multidex)
         }
         desktopMain.dependencies {
             implementation(libs.koin.core)
             implementation(compose.desktop.currentOs)
-        }
-        iosMain.dependencies {
-            implementation(libs.koin.core)
-        }
-        jsMain.dependencies {
-            implementation(libs.koin.core)
-            //Compose
-            implementation(compose.html.core)
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            //Koin
-            implementation(libs.koin.core)
-            implementation(libs.koin.compose)
+            implementation(project(":shared"))
         }
     }
 }
+
 
 android {
     namespace = "com.vnteam.architecturetemplates"
@@ -144,6 +100,11 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
     }
 }
+dependencies {
+    implementation(project(":shared"))
+    implementation(libs.androidx.monitor)
+    implementation(libs.androidx.junit.ktx)
+}
 
 compose.desktop {
     application {
@@ -155,8 +116,4 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
-}
-
-compose.experimental {
-    web.application {}
 }
