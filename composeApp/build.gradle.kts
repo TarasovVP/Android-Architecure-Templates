@@ -14,11 +14,12 @@ kotlin {
             }
         }
     }
-
     task("testClasses")
-
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
     jvm("desktop")
-
     macosX64("macos") {
         binaries {
             executable {
@@ -52,6 +53,11 @@ kotlin {
         desktopMain.dependencies {
             implementation(libs.koin.core)
             implementation(compose.desktop.currentOs)
+            implementation(project(":shared"))
+        }
+        jsMain.dependencies {
+            implementation(compose.html.core)
+            implementation(compose.runtime)
             implementation(project(":shared"))
         }
     }
