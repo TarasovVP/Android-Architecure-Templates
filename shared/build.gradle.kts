@@ -14,7 +14,7 @@ kotlin {
             }
         }
     }
-
+    task("testClasses")
     listOf(
         iosX64(),
         iosArm64(),
@@ -29,7 +29,10 @@ kotlin {
             isStatic = true
         }
     }
-    task("testClasses")
+    js(IR) {
+        useCommonJs()
+        browser()
+    }
     jvm()
     sourceSets {
         commonMain.dependencies {
@@ -77,6 +80,12 @@ kotlin {
             implementation(libs.ktor.client.java)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.sqldelight.java.driver)
+        }
+        jsMain.dependencies {
+            implementation(libs.ktor.client.js)
+            implementation(libs.sqldelight.js.driver)
+            implementation(npm("sql.js", "1.6.2"))
+            implementation(devNpm("copy-webpack-plugin", "9.1.0"))
         }
     }
 }
