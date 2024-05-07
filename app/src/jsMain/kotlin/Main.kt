@@ -1,15 +1,14 @@
-import androidx.compose.runtime.*
-import com.vnteam.architecturetemplates.presentation.AppNavigation
-import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.*
+
+import com.vnteam.architecturetemplates.di.doInitKoin
+import com.vnteam.architecturetemplates.presentation.details.DetailsViewModel
 import org.jetbrains.compose.web.renderComposable
+import org.koin.core.context.GlobalContext.get
 
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 fun main() {
     doInitKoin()
+    renderComposable(rootElementId = "home-section") {
 
-    renderComposable(rootElementId = "root") {
-        AppNavigation()
     }
 }

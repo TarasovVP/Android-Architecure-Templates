@@ -12,5 +12,4 @@ public data class ForkWithOwner(
   public val login: String?,
   public val ownerId: Long?,
   public val avatarUrl: String?,
-  public val url: String?,
 )
