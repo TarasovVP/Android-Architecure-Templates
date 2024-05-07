@@ -86,6 +86,7 @@ kotlin {
             implementation(libs.sqldelight.js.driver)
             implementation(npm("sql.js", "1.6.2"))
             implementation(devNpm("copy-webpack-plugin", "9.1.0"))
+            implementation(libs.stately.common)
         }
     }
 }
@@ -97,7 +98,11 @@ android {
 }
 
 sqldelight {
-    database("AppDatabase") {
-        packageName = "com.vnteam.architecturetemplates"
+    databases {
+        create("AppDatabase") {
+            packageName.set("com.vnteam.architecturetemplates")
+            generateAsync.set(true)
+        }
     }
 }
+

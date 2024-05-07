@@ -1,12 +1,14 @@
 package com.vnteam.architecturetemplates.data.database
 
 import app.cash.sqldelight.db.SqlDriver
-import app.cash.sqldelight.driver.native.NativeSqliteDriver
+import app.cash.sqldelight.driver.sqljs.initSqlDriver
 import com.vnteam.architecturetemplates.AppDatabase
+import kotlinx.coroutines.await
+
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DatabaseDriverFactory {
     actual suspend fun createDriver(): SqlDriver {
-        return NativeSqliteDriver(AppDatabase.Schema, "forks.db")
+        return initSqlDriver(AppDatabase.Schema).await()
     }
 }

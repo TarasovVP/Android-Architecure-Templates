@@ -11,8 +11,7 @@ viewmodelCompose = "2.8.0-beta01"
 ktor = "2.3.9"
 koin = "3.5.6"
 koinComposeMultiplatform = "1.1.5"
-sqldelight = "2.0.2"
-sqldelightJs = "2.0.0-alpha05"
+sqldelight = "2.0.0-alpha05"
 coilCompose = "3.0.0-alpha06"
 navigationCompose = "2.8.0-alpha02"
 activity = "1.9.0"
@@ -20,9 +19,9 @@ materialRipple = "1.7.0-alpha05"
 agp = "8.2.2"
 compose-multiplatform = "1.6.10-beta01"
 kotlin = "1.9.23"
-sql-delight = "1.5.5"
 monitor = "1.6.1"
 junitKtx = "1.1.5"
+statelyCommon = "2.0.5"
 
 [libraries]
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
@@ -48,7 +47,7 @@ sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-ex
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-java-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
-sqldelight-js-driver = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqldelightJs" }
+sqldelight-js-driver = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqldelight" }
 
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coilCompose" }
@@ -59,6 +58,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 material-ripple = { group = "androidx.compose.material", name = "material-ripple", version.ref = "materialRipple" }
 androidx-monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+stately-common = { module = "co.touchlab:stately-common", version.ref = "statelyCommon" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -66,4 +66,4 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-sqlDelight = { id = "com.squareup.sqldelight", version.ref = "sql-delight" }
+sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
