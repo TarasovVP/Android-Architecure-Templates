@@ -13,15 +13,15 @@ class ForkUseCaseImpl(private val apiRepository: ApiRepository, private val dbRe
         return apiRepository.getForksFromApi()
     }
 
-    override fun insertForksToDB(forks: List<Fork>) {
+    override suspend fun insertForksToDB(forks: List<Fork>) {
         dbRepository.insertForksToDB(forks)
     }
 
-    override fun getForksFromDB(): Flow<List<Fork>> {
+    override suspend fun getForksFromDB(): Flow<List<Fork>> {
         return dbRepository.getForksFromDB()
     }
 
-    override fun getForkById(forkId: Long): Flow<Fork?> {
+    override suspend fun getForkById(forkId: Long): Flow<Fork?> {
         return dbRepository.getForkById(forkId)
     }
 }

@@ -1,15 +1,16 @@
 package com.vnteam.architecturetemplates
 
-import com.squareup.sqldelight.Transacter
-import com.squareup.sqldelight.db.SqlDriver
+import app.cash.sqldelight.SuspendingTransacter
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.db.SqlSchema
 import com.vnteam.architecturetemplates.shared.newInstance
 import com.vnteam.architecturetemplates.shared.schema
 
-public interface AppDatabase : Transacter {
+public interface AppDatabase : SuspendingTransacter {
   public val appDatabaseQueries: AppDatabaseQueries
 
   public companion object {
-    public val Schema: SqlDriver.Schema
+    public val Schema: SqlSchema
       get() = AppDatabase::class.schema
 
     public operator fun invoke(driver: SqlDriver): AppDatabase =

@@ -5,6 +5,7 @@ import com.vnteam.architecturetemplates.AppDatabase
 import com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory
 import com.vnteam.architecturetemplates.data.database.ForkDao
 import com.vnteam.architecturetemplates.data.database.ForkDaoImpl
+import com.vnteam.architecturetemplates.data.database.SharedDatabase
 import com.vnteam.architecturetemplates.data.mapperimpls.ForkDBMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.ForkResponseMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
@@ -51,11 +52,12 @@ val appModule = module {
     }
 
     single {
-        val sqlDriver = get<DatabaseDriverFactory>().createDriver()
-        AppDatabase(sqlDriver)
+        SharedDatabase(get())
     }
 
-    single<ForkDao> { ForkDaoImpl(get<AppDatabase>().appDatabaseQueries) }
+    single<ForkDao> {
+        ForkDaoImpl(get<SharedDatabase>())
+    }
 
     single<OwnerResponseMapper> { OwnerResponseMapperImpl() }
 

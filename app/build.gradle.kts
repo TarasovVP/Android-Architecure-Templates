@@ -56,6 +56,7 @@ kotlin {
             implementation(project(":shared"))
         }
         jsMain.dependencies {
+            implementation(libs.koin.core)
             implementation(compose.html.core)
             implementation(compose.runtime)
             implementation(project(":shared"))
