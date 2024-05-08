@@ -1,4 +1,5 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -18,6 +19,11 @@ kotlin {
     js(IR) {
         browser()
         binaries.executable()
+    }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        binaries.executable()
+        browser()
     }
     jvm("desktop")
     macosX64("macos") {
@@ -39,8 +45,9 @@ kotlin {
 
     sourceSets {
         val desktopMain by getting
+        val wasmJsMain by getting
         androidMain.dependencies {
-            implementation("androidx.multidex:multidex:2.0.1")
+            implementation(libs.androidx.multidex)
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
@@ -59,6 +66,11 @@ kotlin {
             implementation(libs.koin.core)
             implementation(compose.html.core)
             implementation(compose.runtime)
+            implementation(project(":shared"))
+        }
+        wasmJsMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
             implementation(project(":shared"))
         }
     }
@@ -123,4 +135,8 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+compose.experimental {
+    web.application {}
 }

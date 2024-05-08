@@ -5,6 +5,7 @@ targetSdk = "34"
 
 kotlinCompilerExtensionVersion = "1.5.11"
 
+multidex = "2.0.1"
 kotlinxSerialization = "1.6.3"
 coroutines = "1.8.0"
 <<<<<<< HEAD
@@ -17,9 +18,9 @@ viewmodelCompose = "2.8.0-alpha01"
 viewmodelCompose = "2.8.0-beta01"
 >>>>>>> a8741ccc (Implement common painter resources)
 ktor = "2.3.9"
-koin = "3.5.6"
-koinComposeMultiplatform = "1.1.5"
-sqldelight = "2.0.0-alpha05"
+koin = "3.6.0-alpha3"
+koinComposeMultiplatform = "1.2.0-alpha3"
+sqldelight = "2.0.2"
 coilCompose = "3.0.0-alpha06"
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -40,6 +41,7 @@ junitKtx = "1.1.5"
 statelyCommon = "2.0.5"
 
 [libraries]
+androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "coroutines" }
