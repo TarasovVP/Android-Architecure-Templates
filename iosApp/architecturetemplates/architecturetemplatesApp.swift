@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import shared
+import composeApp
 
 @main
 struct architecturetemplatesApp: App {

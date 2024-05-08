@@ -12,17 +12,19 @@ viewmodelCompose = "2.8.0-beta01"
 ktor = "2.3.9"
 koin = "3.6.0-alpha3"
 koinComposeMultiplatform = "1.2.0-alpha3"
-sqldelight = "2.0.2"
+sqldelight = "2.0.0-alpha05"
+sqldelightJs = "2.0.0-alpha05"
 coilCompose = "3.0.0-alpha06"
 navigationCompose = "2.8.0-alpha02"
 activity = "1.9.0"
 materialRipple = "1.7.0-alpha05"
 agp = "8.2.2"
-compose-multiplatform = "1.6.10-beta01"
+compose-multiplatform = "1.6.10-beta03"
 kotlin = "1.9.23"
 monitor = "1.6.1"
 junitKtx = "1.1.5"
 statelyCommon = "2.0.5"
+slf4j = "2.0.12"
 
 [libraries]
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
@@ -49,7 +51,8 @@ sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-ex
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-java-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
-sqldelight-js-driver = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqldelight" }
+sqldelight-js-driver = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqldelightJs" }
+sqldelight-wasm-driver = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqldelight" }
 
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coilCompose" }
@@ -61,6 +64,7 @@ material-ripple = { group = "androidx.compose.material", name = "material-ripple
 androidx-monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 stately-common = { module = "co.touchlab:stately-common", version.ref = "statelyCommon" }
+slf4j = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

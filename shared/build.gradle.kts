@@ -17,45 +17,25 @@ kotlin {
         }
     }
     task("testClasses")
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64(),
-        macosX64(),
-        macosArm64(),
-    ).forEach {
-        it.binaries.framework {
-            freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.shared"
-            linkerOpts.add("-lsqlite3")
-            baseName = "shared"
-            isStatic = true
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    /*macosX64()
+    macosArm64()*/
     js(IR) {
         useCommonJs()
         browser()
     }
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-    }
     jvm()
     sourceSets {
-        val wasmJsMain by getting
         commonMain.dependencies {
             api(compose.runtime)
+            implementation(libs.stately.common)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.androidx.viewmodel.compose)
             implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            //Coil
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network.ktor)
-            //Navigation
-            implementation(libs.navigation.compose)
+
             //Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
@@ -86,19 +66,21 @@ kotlin {
             implementation(libs.ktor.client.java)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.sqldelight.java.driver)
+            implementation(libs.slf4j)
         }
         jsMain.dependencies {
             implementation(libs.ktor.client.js)
             implementation(libs.sqldelight.js.driver)
+            //implementation(npm("path-browserify", "1.0.1"))
             implementation(npm("sql.js", "1.6.2"))
             implementation(devNpm("copy-webpack-plugin", "9.1.0"))
-            implementation(libs.stately.common)
         }
-        wasmJsMain.dependencies {
+        /*wasmJsMain.dependencies {
             implementation("io.ktor:ktor-client-core:3.0.0-wasm1")
             implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.0-wasm1")
             implementation("io.ktor:ktor-client-content-negotiation:3.0.0-wasm1")
-        }
+            implementation(libs.sqldelight.wasm.driver)
+        }*/
     }
 }
 
@@ -112,7 +94,6 @@ sqldelight {
     databases {
         create("AppDatabase") {
             packageName.set("com.vnteam.architecturetemplates")
-            generateAsync.set(true)
         }
     }
 }
