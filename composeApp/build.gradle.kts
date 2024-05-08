@@ -20,8 +20,8 @@ kotlin {
         iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
-        /*macosX64(),
-        macosArm64(),*/
+        macosX64(),
+        macosArm64(),
     ).forEach {
         it.binaries.framework {
             freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.composeApp"
@@ -83,6 +83,7 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.koin.core)
+            implementation(project(":shared"))
         }
     }
 }

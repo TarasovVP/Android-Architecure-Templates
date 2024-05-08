@@ -18,7 +18,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.presentation.list.ListIntent
-import com.vnteam.architecturetemplates.presentation.list.ListViewModel
 import com.vnteam.architecturetemplates.presentation.list.ListViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import org.koin.compose.koinInject
