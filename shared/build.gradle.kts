@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -33,8 +35,13 @@ kotlin {
         useCommonJs()
         browser()
     }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+    }
     jvm()
     sourceSets {
+        val wasmJsMain by getting
         commonMain.dependencies {
             api(compose.runtime)
             implementation(libs.kotlinx.serialization)
@@ -44,7 +51,11 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
-
+            //Coil
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
+            //Navigation
+            implementation(libs.navigation.compose)
             //Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
@@ -55,11 +66,6 @@ kotlin {
             //SQLDelight
             implementation(libs.sqldelight.runtime)
             implementation(libs.sqldelight.coroutines.extensions)
-            //Coil
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network.ktor)
-            //Navigation
-            implementation(libs.navigation.compose)
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.android)
@@ -87,6 +93,11 @@ kotlin {
             implementation(npm("sql.js", "1.6.2"))
             implementation(devNpm("copy-webpack-plugin", "9.1.0"))
             implementation(libs.stately.common)
+        }
+        wasmJsMain.dependencies {
+            implementation("io.ktor:ktor-client-core:3.0.0-wasm1")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.0-wasm1")
+            implementation("io.ktor:ktor-client-content-negotiation:3.0.0-wasm1")
         }
     }
 }
