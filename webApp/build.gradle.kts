@@ -15,13 +15,14 @@ kotlin {
         binaries.executable()
         browser()
     }*/
-
+    task("testClasses")
     sourceSets {
         //val wasmJsMain by getting
         commonMain.dependencies {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
+            implementation(libs.androidx.viewmodel.compose)
             //Koin
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
