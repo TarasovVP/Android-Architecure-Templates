@@ -1,0 +1,20 @@
+{
+  "name": "Android_Architecture_Templates-shared",
+  "version": "0.0.0-unspecified",
+  "main": "Android_Architecture_Templates-shared.js",
+  "types": "Android_Architecture_Templates-shared.d.ts",
+  "devDependencies": {
+    "copy-webpack-plugin": "9.1.0"
+  },
+  "dependencies": {
+    "sql.js": "1.6.2",
+    "@js-joda/core": "3.2.0",
+    "format-util": "^1.0.5",
+    "node-fetch": "2.6.7",
+    "abort-controller": "3.0.0",
+    "ws": "8.5.0"
+  },
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}
