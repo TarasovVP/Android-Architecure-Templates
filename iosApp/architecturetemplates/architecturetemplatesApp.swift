@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import composeApp
 
 @main
 struct architecturetemplatesApp: App {
+
+    init() {
+        KoinIOSKt.doInitKoin()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
