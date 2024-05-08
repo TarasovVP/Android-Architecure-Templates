@@ -1,5 +1,6 @@
-package com.vnteam.architecturetemplates.di
+package di
 
+import com.vnteam.architecturetemplates.di.appModule
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 

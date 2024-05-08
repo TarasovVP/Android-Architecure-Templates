@@ -1,11 +1,11 @@
-package com.vnteam.architecturetemplates
+package di_desktop
 
 import com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory
-import com.vnteam.architecturetemplates.presentation.details.DetailsViewModel
-import com.vnteam.architecturetemplates.presentation.list.ListViewModel
 import org.koin.dsl.module
+import presentation.details.DetailsViewModel
+import presentation.list.ListViewModel
 
-val iosModule = module {
+val desktopModule = module {
     single {
         DatabaseDriverFactory()
     }

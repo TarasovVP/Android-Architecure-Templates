@@ -21,11 +21,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import coil3.compose.AsyncImagePainter
-import coil3.compose.SubcomposeAsyncImage
-import coil3.compose.SubcomposeAsyncImageContent
+
 import com.vnteam.architecturetemplates.presentation.details.DetailsIntent
-import com.vnteam.architecturetemplates.presentation.details.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.details.DetailsViewState
 import org.koin.compose.koinInject
 import presentation.components.painterRes
@@ -104,7 +101,7 @@ fun OwnerCard(avatarUrl: String, description: String) {
     Card {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(
             LocalMediumPadding.current.size)) {
-            SubcomposeAsyncImage(
+            /*SubcomposeAsyncImage(
                 model = avatarUrl,
                 contentDescription = getStringResources().OWNER_AVATAR,
                 modifier = Modifier
@@ -118,7 +115,7 @@ fun OwnerCard(avatarUrl: String, description: String) {
                     is AsyncImagePainter.State.Error -> Image(painter = painterRes(DrawableResources.IC_PERSON), contentDescription = null)
                     else -> SubcomposeAsyncImageContent()
                 }
-            }
+            }*/
             Text(
                 text = description,
                 modifier = Modifier

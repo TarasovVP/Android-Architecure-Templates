@@ -25,7 +25,6 @@ import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.presentation.details.DetailsIntent
-import com.vnteam.architecturetemplates.presentation.details.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.details.DetailsViewState
 import org.koin.compose.koinInject
 import presentation.components.painterRes

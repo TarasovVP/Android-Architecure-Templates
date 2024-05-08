@@ -20,8 +20,8 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    /*macosX64()
-    macosArm64()*/
+    macosX64()
+    macosArm64()
     js(IR) {
         useCommonJs()
         browser()
@@ -33,7 +33,6 @@ kotlin {
             implementation(libs.stately.common)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.androidx.viewmodel.compose)
             implementation(compose.runtime)
 
             //Ktor
