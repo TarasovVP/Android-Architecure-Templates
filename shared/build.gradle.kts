@@ -71,8 +71,7 @@ kotlin {
             implementation(libs.ktor.client.js)
             implementation(libs.sqldelight.js.driver)
             //implementation(npm("path-browserify", "1.0.1"))
-            implementation(npm("sql.js", "1.6.2"))
-            implementation(devNpm("copy-webpack-plugin", "9.1.0"))
+            //implementation(npm("sql.js", "1.6.2"))
         }
         /*wasmJsMain.dependencies {
             implementation("io.ktor:ktor-client-core:3.0.0-wasm1")
