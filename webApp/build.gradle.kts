@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -6,7 +8,12 @@ plugins {
 
 kotlin {
     js(IR) {
-        browser()
+        browser {
+            commonWebpackConfig {
+                outputFileName = "webApp.js"
+            }
+
+        }
         binaries.executable()
     }
 
@@ -33,6 +40,9 @@ kotlin {
             implementation(libs.koin.core)
             implementation(compose.html.core)
             implementation(compose.runtime)
+            implementation(npm("sql.js", "1.6.2"))
+            implementation(devNpm("copy-webpack-plugin", "6.4.1"))
+            //implementation(npm("react", "> 14.0.0 <=16.9.0"))
         }
         /*wasmJsMain.dependencies {
             implementation(compose.runtime)
@@ -44,6 +54,14 @@ kotlin {
     }
 }
 
+rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin::class.java) {
+    rootProject.the<YarnRootExtension>().yarnLockMismatchReport =
+        YarnLockMismatchReport.WARNING // NONE | FAIL
+    rootProject.the<YarnRootExtension>().reportNewYarnLock = false // true
+    rootProject.the<YarnRootExtension>().yarnLockAutoReplace = false // true
+}
+
+/*
 compose.experimental {
     web.application {}
-}
+}*/
