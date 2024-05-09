@@ -18,20 +18,29 @@ import org.jetbrains.compose.web.renderComposable
 import org.koin.compose.koinInject
 import org.koin.dsl.koinApplication
 import org.w3c.dom.HTMLElement
+import org.w3c.dom.events.Event
 import presentation.list.ListViewModel
 
-@OptIn(ExperimentalJsExport::class)
-@JsExport
+
+
 fun main() {
     doInitKoin()
-    println("Hello from Compose for Web!")
-    renderComposable(rootElementId = "desktop2-container") {
+    console.log("Hello from Compose for Web!")
+    renderComposable(rootElementId = "content-root") {
+        console.log("content-root")
         val viewModel = koinInject<ListViewModel>()
-        viewModel.processIntent(ListIntent.LoadForks())
         val forks = viewModel.state.collectAsState()
+        val desktop2Btn = document.querySelector(".start-btn") as? HTMLElement
+        desktop2Btn?.addEventListener("click", { event: Event ->
+            desktop2Btn.textContent = "Button clicked!"
+            console.log("Button clicked!")
+            viewModel.processIntent(ListIntent.LoadForks())
+        })
         val userList = document.getElementById("userList") as? HTMLElement
         userList?.innerHTML = ""
         forks.value.forks?.forEach { fork ->
+            console.log(fork.fullName)
+            desktop2Btn?.textContent = fork.fullName.orEmpty()
             userList?.append(Div(
                 attrs = {
                     style {
@@ -47,14 +56,36 @@ fun main() {
             })
 
         }
-       /* val listViewModel = koinApplication().koin.get<ListViewModel>()
-        listViewModel.processIntent(ListIntent.LoadForks())
-
-        val forks = listViewModel.state.collectAsState()
-
-        LaunchedEffect(forks.value) {
-            println(forks.value.forks)
-        }*/
-
     }
+    /*renderComposable(rootElementId = "desktop2-container") {
+        val viewModel = koinInject<ListViewModel>()
+        val forks = viewModel.state.collectAsState()
+        val desktop2Btn = document.getElementById("desktop2-btn") as? HTMLElement
+        desktop2Btn?.addEventListener("click", { event: Event ->
+            desktop2Btn.textContent = "Button clicked!"
+            console.log("Button clicked!")
+            viewModel.processIntent(ListIntent.LoadForks())
+        })
+
+        val userList = document.getElementById("userList") as? HTMLElement
+        userList?.innerHTML = ""
+        forks.value.forks?.forEach { fork ->
+            console.log(fork.fullName)
+            desktop2Btn?.textContent = fork.fullName.orEmpty()
+            userList?.append(Div(
+                attrs = {
+                    style {
+                        display(DisplayStyle.Flex)
+                        alignItems(AlignItems.Center)
+                    }
+                }
+            ) {
+
+                Span {
+                    Text(fork.fullName.orEmpty())
+                }
+            })
+
+        }
+    }*/
 }
