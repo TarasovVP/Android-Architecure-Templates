@@ -13,7 +13,7 @@ class ForkUIMapperImpl(private val owner: OwnerUIMapper) : ForkUIMapper {
         return ForkUI(
             id = from.id,
             name = from.name,
-            fullName = from.fullName,
+            fullName = from.fullName.orEmpty(),
             owner = owner.mapToImplModel(from.owner ?: Owner()),
             htmlUrl = from.htmlUrl,
             description = from.description
