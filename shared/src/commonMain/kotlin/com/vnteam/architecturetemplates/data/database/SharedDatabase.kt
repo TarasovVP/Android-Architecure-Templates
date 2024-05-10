@@ -16,7 +16,7 @@ class SharedDatabase(
 
     suspend operator fun <R> invoke(block: suspend (AppDatabase) -> R): R {
         initDatabase()
-        return block(database!!)
+        return database.takeIf { it != null }?.let { block(it) } ?: throw IllegalStateException("Database is not initialized")
     }
 
     private fun SqlDriver.createDatabase(): AppDatabase { return AppDatabase(this)  }
