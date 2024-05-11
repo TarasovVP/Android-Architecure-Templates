@@ -61,7 +61,7 @@ fun VerticalLayout(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun StartButton(onClick: (SyntheticMouseEvent) -> Unit) {
+fun BaseButton(buttonText: String, onClick: (SyntheticMouseEvent) -> Unit) {
     Button(attrs = {
         style {
             gap(8.px)
@@ -84,7 +84,7 @@ fun StartButton(onClick: (SyntheticMouseEvent) -> Unit) {
         }
         onClick(onClick)
     }) {
-        Text("Start")
+        Text(buttonText)
     }
 }
 
