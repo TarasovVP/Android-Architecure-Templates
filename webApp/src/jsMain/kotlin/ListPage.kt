@@ -8,6 +8,7 @@ import kotlinx.browser.window
 import org.koin.compose.koinInject
 import org.w3c.dom.events.Event
 import presentation.list.ListViewModel
+import resources.getStringResources
 
 
 @Composable
@@ -22,11 +23,12 @@ fun ListScreen() {
     }
 
     VerticalLayout {
-        StartButton {
+        BaseButton( getStringResources().START ) {
             viewModel.processIntent(ListIntent.LoadForks())
         }
-        DynamicVerticalList(forks.value.forks?.map { it.fullName } ?: emptyList()) { itemId ->
-            window.history.pushState(null, "", "/details/$itemId")
+        DynamicVerticalList(forks.value.forks?.map { it.fullName } ?: emptyList()) { itemName ->
+            val item = forks.value.forks?.find { it.fullName == itemName }
+            window.history.pushState(null, "", "/details/${item?.id}")
             window.dispatchEvent(Event("popstate"))
         }
         if (error.value.isNullOrEmpty().not()) {
