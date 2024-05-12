@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -20,8 +19,6 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    macosX64()
-    macosArm64()
     js(IR) {
         useCommonJs()
         browser()
@@ -30,11 +27,11 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.runtime)
             implementation(libs.stately.common)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(compose.runtime)
-
             //Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
@@ -57,9 +54,6 @@ kotlin {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sqldelight.native.driver)
         }
-        nativeMain.dependencies {
-            implementation(libs.sqldelight.native.driver)
-        }
         jvmMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.ktor.client.java)
@@ -70,15 +64,7 @@ kotlin {
         jsMain.dependencies {
             implementation(libs.ktor.client.js)
             implementation(libs.sqldelight.js.driver)
-            //implementation(npm("path-browserify", "1.0.1"))
-            //implementation(npm("sql.js", "1.6.2"))
         }
-        /*wasmJsMain.dependencies {
-            implementation("io.ktor:ktor-client-core:3.0.0-wasm1")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.0-wasm1")
-            implementation("io.ktor:ktor-client-content-negotiation:3.0.0-wasm1")
-            implementation(libs.sqldelight.wasm.driver)
-        }*/
     }
 }
 

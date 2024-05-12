@@ -1,3 +1,5 @@
+package components
+
 import org.jetbrains.compose.web.css.Color
 import org.jetbrains.compose.web.css.StyleSheet
 import org.jetbrains.compose.web.css.color
@@ -13,7 +15,7 @@ import org.jetbrains.compose.web.css.width
 
 
 object AppStyles : StyleSheet() {
-    val descriptionStyle by style {
+    val textStyle by style {
         width(1110.px)
         color(Color("rgba(23, 23, 34, 1)"))
         fontSize(24.px)

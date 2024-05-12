@@ -1,4 +1,4 @@
-package presentation.mappers
+package com.vnteam.architecturetemplates.presentation.mappers
 
 import com.vnteam.architecturetemplates.domain.mappers.BaseMapper
 import com.vnteam.architecturetemplates.domain.models.Owner

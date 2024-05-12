@@ -5,7 +5,7 @@ import com.vnteam.architecturetemplates.di.appModule
 import di_desktop.desktopModule
 import org.koin.core.context.startKoin
 import presentation.AppNavigation
-import resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import theme.AppTheme
 
 fun main() {

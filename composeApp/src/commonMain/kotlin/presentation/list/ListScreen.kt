@@ -20,14 +20,12 @@ import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.presentation.list.ListIntent
 import com.vnteam.architecturetemplates.presentation.list.ListViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
-import org.koin.compose.koinInject
-import resources.LocalLargePadding
-import resources.LocalMediumPadding
-import resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 
 @Composable
-fun ListScreen(onItemClick: (Long) -> Unit) {
-    val viewModel: ListViewModel = koinInject<ListViewModel>()
+fun ListScreen(viewModel: ListViewModel, onItemClick: (Long) -> Unit) {
     val viewState = viewModel.state.collectAsState()
 
     ListContent(viewState.value, onItemClick) {

@@ -1,4 +1,9 @@
-
+package presentation.list
+import components.BaseButton
+import components.CircularProgress
+import components.DynamicVerticalList
+import components.Toast
+import components.VerticalLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -7,8 +12,7 @@ import com.vnteam.architecturetemplates.presentation.list.ListIntent
 import kotlinx.browser.window
 import org.koin.compose.koinInject
 import org.w3c.dom.events.Event
-import presentation.list.ListViewModel
-import resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 
 
 @Composable
@@ -23,7 +27,7 @@ fun ListScreen() {
     }
 
     VerticalLayout {
-        BaseButton( getStringResources().START ) {
+        BaseButton(getStringResources().START) {
             viewModel.processIntent(ListIntent.LoadForks())
         }
         DynamicVerticalList(forks.value.forks?.map { it.fullName } ?: emptyList()) { itemName ->

@@ -1,4 +1,4 @@
-package resources
+package com.vnteam.architecturetemplates.presentation.resources
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.intl.Locale
