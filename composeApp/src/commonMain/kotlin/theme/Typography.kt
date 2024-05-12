@@ -3,7 +3,7 @@ package theme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import resources.default_text_size
+import com.vnteam.architecturetemplates.presentation.resources.default_text_size
 
 val Typography = Typography(
     bodySmall = TextStyle(

@@ -1,5 +1,4 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -19,9 +18,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64(),
-        macosX64(),
-        macosArm64(),
+        iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
             freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.composeApp"
@@ -31,26 +28,9 @@ kotlin {
         }
     }
     jvm("desktop")
-    /*macosX64("macos") {
-        binaries {
-            executable {
-                entryPoint = "main"
-                baseName = "MyKMMApp"
-            }
-        }
-    }
-    macosArm64("macosArm") {
-        binaries {
-            executable {
-                entryPoint = "main"
-                baseName = "MyKMMApp"
-            }
-        }
-    }*/
 
     sourceSets {
         val desktopMain by getting
-        //val wasmJsMain by getting
 
         commonMain.dependencies {
             implementation(compose.foundation)

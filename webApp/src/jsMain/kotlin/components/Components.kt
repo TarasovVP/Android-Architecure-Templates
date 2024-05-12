@@ -1,6 +1,9 @@
+package components
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.web.events.SyntheticMouseEvent
+import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.web.css.AlignItems
 import org.jetbrains.compose.web.css.Color
@@ -40,6 +43,7 @@ import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.css.width
 import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.Img
 import org.jetbrains.compose.web.dom.Text
 
 @Composable
@@ -159,5 +163,32 @@ fun Toast(message: String, onDismiss: () -> Unit) {
             delay(1000)
             onDismiss()
         }
+    }
+}
+
+@Composable
+fun OwnerCard(owner: OwnerUI?) {
+    Div(attrs = {
+        style {
+            display(DisplayStyle.Flex)
+            gap(30.px)
+            width(1110.px)
+            padding(16.px)
+            alignItems(AlignItems.Center)
+            flexShrink(0)
+            borderRadius(16.px)
+            justifyContent(JustifyContent.Center)
+            backgroundColor(Color("rgba(240, 240, 240, 1)"))
+        }
+    }) {
+        Img(src = owner?.avatarUrl.orEmpty(),
+            alt = "img210",
+            attrs = { style {
+                width(60.px)
+                height(60.px)
+            }
+            }
+        )
+        Div(attrs = { classes(AppStyles.textStyle) }) { Text(owner?.login.orEmpty()) }
     }
 }
