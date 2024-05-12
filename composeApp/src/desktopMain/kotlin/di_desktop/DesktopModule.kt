@@ -9,10 +9,10 @@ val desktopModule = module {
     single {
         DatabaseDriverFactory()
     }
-    factory {
-        ListViewModel(get(), get(), get())
+    single {
+        ListViewModel(get(), get())
     }
-    factory {
-        DetailsViewModel(get(), get(), get())
+    single {
+        DetailsViewModel(get(), get())
     }
 }
