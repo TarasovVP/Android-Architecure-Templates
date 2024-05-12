@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import kotlinx.browser.window
 import org.w3c.dom.events.Event
+import presentation.details.DetailsScreen
+import presentation.list.ListScreen
 
 
 @Composable

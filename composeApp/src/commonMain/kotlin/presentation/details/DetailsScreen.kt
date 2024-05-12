@@ -28,15 +28,14 @@ import com.vnteam.architecturetemplates.presentation.details.DetailsIntent
 import com.vnteam.architecturetemplates.presentation.details.DetailsViewState
 import org.koin.compose.koinInject
 import presentation.components.painterRes
-import resources.DrawableResources
-import resources.LocalAvatarSize
-import resources.LocalLargePadding
-import resources.LocalMediumPadding
-import resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalAvatarSize
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 
 @Composable
-fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
-    val viewModel = koinInject<DetailsViewModel>()
+fun DetailsScreen(viewModel: DetailsViewModel, forkId: Long?, onClick: () -> Unit) {
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(forkId) {
