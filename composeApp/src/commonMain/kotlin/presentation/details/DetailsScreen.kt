@@ -24,16 +24,16 @@ import androidx.compose.ui.layout.ContentScale
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
-import com.vnteam.architecturetemplates.presentation.details.DetailsIntent
-import com.vnteam.architecturetemplates.presentation.details.DetailsViewModel
-import com.vnteam.architecturetemplates.presentation.details.DetailsViewState
+import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
+import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
+import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import presentation.components.painterRes
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
-import com.vnteam.architecturetemplates.presentation.viewModel
+import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 
 @Composable
 fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {

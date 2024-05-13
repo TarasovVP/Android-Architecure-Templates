@@ -17,14 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.vnteam.architecturetemplates.presentation.list.ListIntent
-import com.vnteam.architecturetemplates.presentation.list.ListViewModel
-import com.vnteam.architecturetemplates.presentation.list.ListViewState
+import com.vnteam.architecturetemplates.presentation.intents.ListIntent
+import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
+import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
-import com.vnteam.architecturetemplates.presentation.viewModel
+import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 
 @Composable
 fun ListScreen(onItemClick: (Long) -> Unit) {
