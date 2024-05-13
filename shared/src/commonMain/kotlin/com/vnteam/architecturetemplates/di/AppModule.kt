@@ -16,6 +16,8 @@ import com.vnteam.architecturetemplates.domain.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
+import com.vnteam.architecturetemplates.presentation.details.DetailsViewModel
+import com.vnteam.architecturetemplates.presentation.list.ListViewModel
 import com.vnteam.architecturetemplates.presentation.mapperimpls.ForkUIMapperImpl
 import com.vnteam.architecturetemplates.presentation.mapperimpls.OwnerUIMapperImpl
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
@@ -71,4 +73,11 @@ val appModule = module {
     single<ForkUIMapper> { ForkUIMapperImpl(get()) }
 
     single<ForkUseCase> { ForkUseCaseImpl(get(), get()) }
+
+    factory {
+        ListViewModel(get(), get())
+    }
+    factory {
+        DetailsViewModel(get(), get())
+    }
 }

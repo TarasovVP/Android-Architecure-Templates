@@ -9,16 +9,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import com.vnteam.architecturetemplates.presentation.list.ListIntent
+import com.vnteam.architecturetemplates.presentation.list.ListViewModel
 import kotlinx.browser.window
 import org.koin.compose.koinInject
 import org.w3c.dom.events.Event
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.viewModel
 
 
 @Composable
 fun ListScreen() {
 
-    val viewModel = koinInject<ListViewModel>()
+    val viewModel = viewModel(ListViewModel::class)
     val forks = viewModel.state.collectAsState()
     val error = mutableStateOf( viewModel.state.value.error )
 

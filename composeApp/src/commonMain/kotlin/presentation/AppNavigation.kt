@@ -6,11 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import org.koin.compose.koinInject
 import presentation.details.DetailsScreen
-import presentation.details.DetailsViewModel
 import presentation.list.ListScreen
-import presentation.list.ListViewModel
 
 @Composable
 fun AppNavigation() {
@@ -19,16 +16,14 @@ fun AppNavigation() {
     NavHost(navController = navController, startDestination = "list") {
 
         composable("list") {
-            val listViewModel = koinInject<ListViewModel>()
-            ListScreen(listViewModel) {
+            ListScreen {
             val forkId = it.toString()
             navController.navigate("details/$forkId")
         } }
         composable("details/{forkId}", arguments = listOf(navArgument("forkId") { type = NavType.StringType
             defaultValue = "" })) { backStackEntry ->
-            val detailsViewModel = koinInject<DetailsViewModel>()
             val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
-            DetailsScreen(detailsViewModel, forkId) {
+            DetailsScreen(forkId) {
                 navController.popBackStack()
             }
         }
