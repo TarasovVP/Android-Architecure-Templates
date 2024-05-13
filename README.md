@@ -3,6 +3,7 @@ It consists of two screens. On the first one, a list of data is obtained, which,
 Below is a list of branches with an overview of the applied approaches:
 
 [KMP Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation)  
+
 **Platform**: *Android, IOS, Desktop(JVM), Web(JS)*  
 **Architecture**: *MVI*  
 **Screens:** *(Android/ComponentActivity, IOS/ContentView, Desktop/androidx.compose.ui.window.Window, Web/org.jetbrains.compose.web.renderComposable) + @Composable*  
