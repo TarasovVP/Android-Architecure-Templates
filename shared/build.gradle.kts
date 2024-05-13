@@ -32,6 +32,7 @@ kotlin {
             implementation(libs.stately.common)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.androidx.viewmodel.compose)
             //Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)

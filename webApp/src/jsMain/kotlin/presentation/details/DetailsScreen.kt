@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import com.vnteam.architecturetemplates.presentation.details.DetailsIntent
+import com.vnteam.architecturetemplates.presentation.details.DetailsViewModel
 import components.AppStyles
 import components.BaseButton
 import components.CircularProgress
@@ -17,12 +18,13 @@ import org.jetbrains.compose.web.dom.Text
 import org.koin.compose.koinInject
 import org.w3c.dom.events.Event
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.viewModel
 
 
 @Composable
 fun DetailsScreen(itemId: String) {
     Style(AppStyles)
-    val viewModel = koinInject<DetailsViewModel>()
+    val viewModel = viewModel(DetailsViewModel::class)
 
     val detailsViewStateState = viewModel.state.collectAsState()
     val error = mutableStateOf(viewModel.state.value.error)
