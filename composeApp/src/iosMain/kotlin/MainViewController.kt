@@ -2,7 +2,7 @@ import androidx.compose.ui.window.ComposeUIViewController
 import platform.UIKit.UIViewController
 import presentation.AppNavigation
 import theme.AppTheme
-import com.vnteam.architecturetemplates.presentation.withViewModelStoreOwner
+import com.vnteam.architecturetemplates.presentation.viewmodels.withViewModelStoreOwner
 
 fun MainViewController(): UIViewController {
 

@@ -1,5 +1,5 @@
-import com.vnteam.architecturetemplates.presentation.withViewModelStoreOwner
-import di.doInitKoin
+import com.vnteam.architecturetemplates.di.doInitKoin
+import com.vnteam.architecturetemplates.presentation.viewmodels.withViewModelStoreOwner
 import kotlinx.browser.window
 import org.jetbrains.compose.web.renderComposable
 
