@@ -4,7 +4,7 @@ import androidx.compose.ui.window.application
 import com.vnteam.architecturetemplates.di_desktop.doInitKoin
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import presentation.AppNavigation
-import com.vnteam.architecturetemplates.presentation.withViewModelStoreOwner
+import com.vnteam.architecturetemplates.presentation.viewmodels.withViewModelStoreOwner
 import theme.AppTheme
 
 fun main() {
