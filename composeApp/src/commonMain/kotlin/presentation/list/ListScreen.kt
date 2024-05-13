@@ -18,14 +18,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.presentation.list.ListIntent
+import com.vnteam.architecturetemplates.presentation.list.ListViewModel
 import com.vnteam.architecturetemplates.presentation.list.ListViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.viewModel
 
 @Composable
-fun ListScreen(viewModel: ListViewModel, onItemClick: (Long) -> Unit) {
+fun ListScreen(onItemClick: (Long) -> Unit) {
+    val viewModel = viewModel(ListViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
     ListContent(viewState.value, onItemClick) {

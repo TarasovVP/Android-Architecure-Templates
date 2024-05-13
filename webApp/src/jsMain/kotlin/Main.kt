@@ -1,3 +1,4 @@
+import com.vnteam.architecturetemplates.presentation.withViewModelStoreOwner
 import di.doInitKoin
 import kotlinx.browser.window
 import org.jetbrains.compose.web.renderComposable
@@ -9,6 +10,8 @@ fun main() {
         if (window.location.pathname == "/" || window.location.pathname.isBlank()) {
             window.history.pushState(null, "", "/list")
         }
-        AppContent()
+        withViewModelStoreOwner {
+            AppContent()
+        }
     }
 }
