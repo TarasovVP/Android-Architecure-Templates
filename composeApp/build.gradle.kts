@@ -1,4 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -11,6 +15,14 @@ kotlin {
         compilations.all {
             kotlinOptions {
                 jvmTarget = "1.8"
+            }
+        }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+            dependencies {
+                debugImplementation(libs.androidx.testManifest)
+                implementation(libs.androidx.junit4)
             }
         }
     }
@@ -28,7 +40,15 @@ kotlin {
         }
     }
     jvm("desktop")
+    js(IR) {
+        browser {
+            commonWebpackConfig {
+                outputFileName = "webApp.js"
+            }
 
+        }
+        binaries.executable()
+    }
     sourceSets {
         val desktopMain by getting
 
@@ -64,11 +84,24 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.koin.core)
-            implementation(project(":shared"))
+        }
+        jsMain.dependencies {
+            implementation(libs.koin.core)
+            //Compose
+            implementation(compose.html.core)
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.components.resources)
+            //Koin
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+
+      /*      implementation(npm("sql.js", "1.6.2"))
+            implementation(devNpm("copy-webpack-plugin", "6.4.1"))*/
         }
     }
 }
-
 
 android {
     namespace = "com.vnteam.architecturetemplates"
@@ -112,11 +145,6 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
     }
 }
-dependencies {
-    implementation(project(":shared"))
-    implementation(libs.androidx.monitor)
-    implementation(libs.androidx.junit.ktx)
-}
 
 compose.desktop {
     application {
@@ -128,4 +156,8 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+compose.experimental {
+    web.application {}
 }
