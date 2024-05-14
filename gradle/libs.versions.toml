@@ -25,6 +25,7 @@ monitor = "1.6.1"
 junitKtx = "1.1.5"
 statelyCommon = "2.0.5"
 slf4j = "2.0.12"
+androidx-uiTest = "1.6.7"
 
 [libraries]
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
@@ -63,6 +64,8 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 material-ripple = { group = "androidx.compose.material", name = "material-ripple", version.ref = "materialRipple" }
 androidx-monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+androidx-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
+androidx-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
 stately-common = { module = "co.touchlab:stately-common", version.ref = "statelyCommon" }
 slf4j = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
 

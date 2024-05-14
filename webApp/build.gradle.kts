@@ -18,9 +18,6 @@ kotlin {
     }
     task("testClasses")
     sourceSets {
-        commonMain.dependencies {
-
-        }
         jsMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.androidx.viewmodel.compose)
