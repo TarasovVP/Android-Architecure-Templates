@@ -4,9 +4,9 @@ Below is a list of branches with an overview of the applied approaches:
 
 [KMP Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation)  
 
-**Platform**: *Android, IOS, Desktop(JVM), Web(JS)*  
+**Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS)*  
 **Architecture**: *MVI*  
-**Screens:** *(Android/ComponentActivity, IOS/ContentView, Desktop/androidx.compose.ui.window.Window, Web/org.jetbrains.compose.web.renderComposable) + @Composable*  
+**Screens:** *(Android/ComponentActivity, iOS/ContentView, Desktop/androidx.compose.ui.window.Window, Web/org.jetbrains.compose.web.renderComposable) + @Composable*  
 **Api:** *io.ktor.client.HttpClient*  
 **Image loading:** *coil.compose.AsyncImage*   
 **JsonConverter:** *kotlinx.serialization.SerialName*  
@@ -19,9 +19,9 @@ Below is a list of branches with an overview of the applied approaches:
 
 [KMM Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmm_implementation)
 
-**Platform**: *Android, IOS*  
+**Platform**: *Android, iOS*  
 **Architecture**: *MVI*  
-**Screens:** *(Android/ComponentActivity, IOS/ContentView) + @Composable*  
+**Screens:** *(Android/ComponentActivity, iOS/ContentView) + @Composable*  
 **Api:** *io.ktor.client.HttpClient*  
 **Image loading:** *coil.compose.AsyncImage*   
 **JsonConverter:** *kotlinx.serialization.SerialName*  
