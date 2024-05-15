@@ -12,6 +12,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Architecture Templates"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar"
         tools:targetApi="31">
         <activity
