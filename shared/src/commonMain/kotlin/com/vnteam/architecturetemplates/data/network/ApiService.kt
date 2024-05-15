@@ -14,6 +14,7 @@ class ApiService(
         val httpResponse = try {
             httpClient.get("${baseUrl}repos/octocat/Spoon-Knife/forks")
         } catch (e: Exception) {
+            e.printStackTrace()
             throw e
         }
         return httpResponse
