@@ -18,5 +18,6 @@ dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.config.yaml)
+    implementation("io.ktor:ktor-server-cors:2.3.11")
     testImplementation(libs.ktor.server.tests)
 }
