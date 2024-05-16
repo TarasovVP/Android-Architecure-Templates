@@ -7,10 +7,14 @@ import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flowOf
 
 class DBRepositoryImpl(private val forkDao: ForkDao, private val forkDBMapper: ForkDBMapper):
     DBRepository {
+
+    override suspend fun clearForks() {
+        forkDao.clearForks()
+
+    }
 
     override suspend fun insertForksToDB(forks: List<Fork>) {
         forkDao.insertForkWithOwners(forkDBMapper.mapToImplModelList(forks))

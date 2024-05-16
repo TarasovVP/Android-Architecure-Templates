@@ -13,6 +13,10 @@ class ForkUseCaseImpl(private val apiRepository: ApiRepository, private val dbRe
         return apiRepository.getForksFromApi()
     }
 
+    override suspend fun clearForks() {
+        return dbRepository.clearForks()
+    }
+
     override suspend fun insertForksToDB(forks: List<Fork>) {
         dbRepository.insertForksToDB(forks)
     }
