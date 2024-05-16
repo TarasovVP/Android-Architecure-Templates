@@ -86,6 +86,13 @@ public class AppDatabaseQueries(
     )
   }
 
+  public fun clearForks(): Unit {
+    driver.execute(1061931374, """DELETE FROM ForkWithOwner""", 0)
+    notifyQueries(1061931374) { emit ->
+      emit("ForkWithOwner")
+    }
+  }
+
   public fun insertForkWithOwner(
     id: Long?,
     name: String?,

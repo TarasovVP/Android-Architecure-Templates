@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface ForkUseCase {
 
+    suspend fun clearForks()
+
     suspend fun getForksFromApi(): Flow<List<Fork>?>
 
     suspend fun insertForksToDB(forks: List<Fork>)

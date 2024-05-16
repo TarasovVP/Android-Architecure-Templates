@@ -4,9 +4,10 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
+import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import io.ktor.server.response.respond
+import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
@@ -17,6 +18,12 @@ fun main() {
 }
 
 fun Application.module() {
+    install(CORS) {
+        anyHost()
+
+        allowCredentials = true
+        allowNonSimpleContentTypes = true
+    }
     routing {
         get("/repos/octocat/Spoon-Knife/forks") {
             call.respondText(forksJson(), ContentType.Application.Json, HttpStatusCode.OK)
@@ -28,8 +35,8 @@ fun forksJson() = "[\n" +
         "{\n" +
         "\"id\":800991676,\n" +
         "\"node_id\":\"R_kgDOL74pvA\",\n" +
-        "\"name\":\"Spoon-Knife\",\n" +
-        "\"full_name\":\"21Vijeth/Spoon-Knife\",\n" +
+        "\"name\":\"Fork from server\",\n" +
+        "\"full_name\":\"21Vijeth/Fork from server\",\n" +
         "\"private\":false,\n" +
         "\"owner\":{},\n" +
         "\"html_url\":\"https://github.com/21Vijeth/Spoon-Knife\",\n" +
@@ -110,8 +117,8 @@ fun forksJson() = "[\n" +
         "{\n" +
         "\"id\":800943769,\n" +
         "\"node_id\":\"R_kgDOL71umQ\",\n" +
-        "\"name\":\"Spoon-Knife\",\n" +
-        "\"full_name\":\"MT-Alex/Spoon-Knife\",\n" +
+        "\"name\":\"Spoon-Knife2\",\n" +
+        "\"full_name\":\"MT-Alex/Spoon-Knife2\",\n" +
         "\"private\":false,\n" +
         "\"owner\":{\n" +
         "\"login\":\"MT-Alex\",\n" +

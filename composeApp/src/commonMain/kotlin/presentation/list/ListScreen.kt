@@ -14,6 +14,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,6 +31,12 @@ import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 fun ListScreen(onItemClick: (Long) -> Unit) {
     val viewModel = viewModel(ListViewModel::class)
     val viewState = viewModel.state.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewState.value.takeIf { it.forks == null }?.let {
+            viewModel.processIntent(ListIntent.ClearForks())
+        }
+    }
 
     ListContent(viewState.value, onItemClick) {
         viewModel.processIntent(ListIntent.LoadForks())
