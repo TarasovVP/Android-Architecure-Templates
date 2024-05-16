@@ -4,6 +4,7 @@
   "main": "Android_Architecture_Templates-shared-test.js",
   "types": "Android_Architecture_Templates-shared-test.d.ts",
   "devDependencies": {
+    "typescript": "5.0.4",
     "karma": "6.4.2",
     "karma-mocha": "2.0.1",
     "mocha": "10.2.0",
@@ -12,8 +13,7 @@
     "webpack-cli": "5.1.0",
     "source-map-loader": "4.0.1",
     "karma-sourcemap-loader": "0.4.0",
-    "karma-chrome-launcher": "3.2.0",
-    "typescript": "5.0.4"
+    "karma-chrome-launcher": "3.2.0"
   },
   "dependencies": {
     "node-fetch": "2.6.7",

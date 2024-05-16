@@ -7,6 +7,8 @@ interface ListUseCase {
 
     suspend fun clearForks()
 
+    suspend fun clearForks()
+
     suspend fun getForksFromApi(): Flow<List<Fork>?>
 
     suspend fun insertForksToDB(forks: List<Fork>): Flow<Unit>
