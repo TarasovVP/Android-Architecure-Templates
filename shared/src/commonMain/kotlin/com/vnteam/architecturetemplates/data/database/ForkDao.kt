@@ -4,6 +4,8 @@ import com.vnteam.architecturetemplates.ForkWithOwner
 
 interface ForkDao {
 
+    suspend fun clearForks()
+
     suspend fun insertForkWithOwners(forks: List<ForkWithOwner>)
 
     suspend fun getForks(forkWithOwners: (List<ForkWithOwner>) -> Unit)

@@ -9,6 +9,9 @@ CREATE TABLE IF NOT EXISTS ForkWithOwner (
     avatarUrl TEXT
 );
 
+clearForks:
+DELETE FROM ForkWithOwner;
+
 insertForkWithOwner:
 INSERT OR REPLACE INTO ForkWithOwner(id, name, fullName, htmlUrl, description, login, ownerId, avatarUrl)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?);

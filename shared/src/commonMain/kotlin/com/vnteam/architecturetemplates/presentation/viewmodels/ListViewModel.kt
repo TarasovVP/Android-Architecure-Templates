@@ -28,7 +28,14 @@ class ListViewModel(
 
     fun processIntent(intent: ListIntent) {
         when (intent) {
+            is ListIntent.ClearForks -> clearForks()
             is ListIntent.LoadForks -> getForksFromApi()
+        }
+    }
+
+    private fun clearForks() {
+        viewModelScope.launch(exceptionHandler) {
+            forkUseCase.clearForks()
         }
     }
 

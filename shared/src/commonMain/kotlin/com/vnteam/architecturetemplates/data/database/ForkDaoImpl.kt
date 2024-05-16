@@ -3,6 +3,11 @@ package com.vnteam.architecturetemplates.data.database
 import com.vnteam.architecturetemplates.ForkWithOwner
 
 class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
+    override suspend fun clearForks() {
+        sharedDatabase { database ->
+            database.appDatabaseQueries.clearForks()
+        }
+    }
 
     override suspend fun insertForkWithOwners(forks: List<ForkWithOwner>) {
         sharedDatabase { database ->
