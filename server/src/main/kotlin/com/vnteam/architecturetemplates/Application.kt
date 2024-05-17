@@ -4,26 +4,18 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
-import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 
 fun main() {
-    embeddedServer(Netty, port = 8081, module = Application::module)
+    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
         .start(wait = true)
 }
 
 fun Application.module() {
-    install(CORS) {
-        anyHost()
-
-        allowCredentials = true
-        allowNonSimpleContentTypes = true
-    }
     routing {
         get("/repos/octocat/Spoon-Knife/forks") {
             call.respondText(forksJson(), ContentType.Application.Json, HttpStatusCode.OK)
