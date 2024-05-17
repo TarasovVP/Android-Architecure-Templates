@@ -23,9 +23,7 @@ import com.vnteam.architecturetemplates.presentation.mapperimpls.OwnerUIMapperIm
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.ForkUseCaseImpl
 import io.ktor.client.HttpClient
-import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
@@ -43,13 +41,6 @@ val appModule = module {
                     isLenient = true
                     ignoreUnknownKeys = true
                 })
-            }
-            install(DefaultRequest) {
-                header("Content-Type", "application/json")
-                //TODO remove this line in production
-                header("Access-Control-Allow-Origin", "http://localhost:8080")
-                header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-                header("Access-Control-Allow-Credentials", "true")
             }
         }
     }

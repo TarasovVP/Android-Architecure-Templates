@@ -50,6 +50,8 @@ kotlin {
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+
+            implementation(libs.androidx.multidex)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -73,6 +75,10 @@ android {
     namespace = "com.vnteam.architecturetemplates.shared"
     compileSdk = libs.versions.compileSdk.get().toInt()
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+        multiDexEnabled = true
+    }
 }
 
 sqldelight {
