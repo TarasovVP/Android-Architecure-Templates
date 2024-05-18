@@ -7,23 +7,21 @@ kotlinCompilerExtensionVersion = "1.5.11"
 
 multidex = "2.0.1"
 kotlinxSerialization = "1.6.3"
-coroutines = "1.8.0"
+coroutines = "1.8.1"
 viewmodelCompose = "2.8.0-rc01"
-ktor = "2.3.9"
+ktor = "2.3.11"
 koin = "3.6.0-alpha3"
 koinComposeMultiplatform = "1.2.0-alpha3"
-sqldelight = "2.0.0-alpha05"
+sqldelight = "2.0.2"
 sqldelightJs = "2.0.0-alpha05"
 coilCompose = "3.0.0-alpha06"
 navigationCompose = "2.8.0-alpha02"
 activity = "1.9.0"
 materialRipple = "1.7.0-alpha05"
 agp = "8.2.2"
-compose-multiplatform = "1.6.10-rc01"
-kotlin = "1.9.23"
-monitor = "1.6.1"
-junitKtx = "1.1.5"
-statelyCommon = "2.0.5"
+compose-multiplatform = "1.6.10-rc03"
+kotlin = "1.9.24"
+statelyCommon = "2.0.6"
 slf4j = "2.0.12"
 androidx-uiTest = "1.6.7"
 logback = "1.5.6"
@@ -55,7 +53,6 @@ sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", ver
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-java-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 sqldelight-js-driver = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqldelightJs" }
-sqldelight-wasm-driver = { module = "app.cash.sqldelight:sqljs-driver", version.ref = "sqldelight" }
 
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coilCompose" }
@@ -64,8 +61,6 @@ navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navi
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 material-ripple = { group = "androidx.compose.material", name = "material-ripple", version.ref = "materialRipple" }
-androidx-monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
-androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 androidx-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
 androidx-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
 stately-common = { module = "co.touchlab:stately-common", version.ref = "statelyCommon" }
