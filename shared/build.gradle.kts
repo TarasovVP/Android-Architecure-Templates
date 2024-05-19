@@ -1,3 +1,4 @@
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -88,4 +89,29 @@ sqldelight {
         }
     }
 }
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+tasks.register("generateBuildConfig") {
+    doLast {
+        val buildConfigFile = file("src/commonMain/kotlin/config/BuildConfig.kt")
+
+        buildConfigFile.parentFile.mkdirs()
+        buildConfigFile.writeText("""
+            package config
+
+            object BuildConfig {
+                val GITHUB_TOKEN: String = "${localProperties.getProperty("github_token", "")}"
+            }
+        """.trimIndent())
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    dependsOn("generateBuildConfig")
+}
+
 
