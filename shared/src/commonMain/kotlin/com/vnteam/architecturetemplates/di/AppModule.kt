@@ -8,6 +8,7 @@ import com.vnteam.architecturetemplates.data.mapperimpls.ForkDBMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.ForkResponseMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.architecturetemplates.data.network.ApiService
+import com.vnteam.architecturetemplates.data.network.DEBUG_URL
 import com.vnteam.architecturetemplates.data.repositoryimpl.ApiRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.DBRepositoryImpl
 import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
@@ -31,7 +32,7 @@ import com.vnteam.architecturetemplates.presentation.mappers.OwnerUIMapper
 
 val appModule = module {
 
-    single { BASE_URL }
+    single { DEBUG_URL }
     single { ApiService(get<String>(), get()) }
     single {
         HttpClient {
