@@ -19,6 +19,7 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
                 return flowOf( response.data?.map { forkResponseMapper.mapFromImplModel(it) }.orEmpty() )
             }
             is NetworkResult.Failure -> {
+                println(response.errorMessage)
                 throw Exception(response.errorMessage)
             }
         }
