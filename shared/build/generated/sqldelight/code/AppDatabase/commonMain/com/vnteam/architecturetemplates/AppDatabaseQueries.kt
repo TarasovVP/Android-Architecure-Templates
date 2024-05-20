@@ -1,7 +1,7 @@
 package com.vnteam.architecturetemplates
 
 import app.cash.sqldelight.Query
-import app.cash.sqldelight.TransacterImpl
+import app.cash.sqldelight.SuspendingTransacterImpl
 import app.cash.sqldelight.db.QueryResult
 import app.cash.sqldelight.db.SqlCursor
 import app.cash.sqldelight.db.SqlDriver
@@ -11,7 +11,7 @@ import kotlin.String
 
 public class AppDatabaseQueries(
   driver: SqlDriver,
-) : TransacterImpl(driver) {
+) : SuspendingTransacterImpl(driver) {
   public fun <T : Any> getForkWithOwners(mapper: (
     id: Long,
     name: String?,
@@ -87,14 +87,14 @@ public class AppDatabaseQueries(
     )
   }
 
-  public fun clearForks() {
-    driver.execute(1_061_931_374, """DELETE FROM ForkWithOwner""", 0)
+  public suspend fun clearForks() {
+    driver.execute(1_061_931_374, """DELETE FROM ForkWithOwner""", 0).await()
     notifyQueries(1_061_931_374) { emit ->
       emit("ForkWithOwner")
     }
   }
 
-  public fun insertForkWithOwner(
+  public suspend fun insertForkWithOwner(
     id: Long?,
     name: String?,
     fullName: String?,
@@ -116,7 +116,7 @@ public class AppDatabaseQueries(
           bindString(5, login)
           bindLong(6, ownerId)
           bindString(7, avatarUrl)
-        }
+        }.await()
     notifyQueries(434_123_816) { emit ->
       emit("ForkWithOwner")
     }

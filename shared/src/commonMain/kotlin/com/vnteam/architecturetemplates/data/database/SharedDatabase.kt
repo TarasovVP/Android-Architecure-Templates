@@ -10,7 +10,7 @@ class SharedDatabase(
 
     private suspend fun initDatabase() {
         if (database == null) {
-            database = databaseDriverFactory.createDriver().createDatabase()
+            database = databaseDriverFactory.createDriver(AppDatabase.Schema).createDatabase()
         }
     }
 

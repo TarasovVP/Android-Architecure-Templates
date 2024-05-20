@@ -88,7 +88,8 @@ android {
 sqldelight {
     databases {
         create("AppDatabase") {
-            packageName.set("com.vnteam.architecturetemplates")
+            packageName = "com.vnteam.architecturetemplates"
+            generateAsync = true
         }
     }
 }

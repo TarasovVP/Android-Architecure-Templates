@@ -1,6 +1,6 @@
 package com.vnteam.architecturetemplates.shared
 
-import app.cash.sqldelight.TransacterImpl
+import app.cash.sqldelight.SuspendingTransacterImpl
 import app.cash.sqldelight.db.AfterVersion
 import app.cash.sqldelight.db.QueryResult
 import app.cash.sqldelight.db.SqlDriver
@@ -11,7 +11,7 @@ import kotlin.Long
 import kotlin.Unit
 import kotlin.reflect.KClass
 
-internal val KClass<AppDatabase>.schema: SqlSchema<QueryResult.Value<Unit>>
+internal val KClass<AppDatabase>.schema: SqlSchema<QueryResult.AsyncValue<Unit>>
   get() = AppDatabaseImpl.Schema
 
 internal fun KClass<AppDatabase>.newInstance(driver: SqlDriver): AppDatabase =
@@ -19,14 +19,14 @@ internal fun KClass<AppDatabase>.newInstance(driver: SqlDriver): AppDatabase =
 
 private class AppDatabaseImpl(
   driver: SqlDriver,
-) : TransacterImpl(driver), AppDatabase {
+) : SuspendingTransacterImpl(driver), AppDatabase {
   override val appDatabaseQueries: AppDatabaseQueries = AppDatabaseQueries(driver)
 
-  public object Schema : SqlSchema<QueryResult.Value<Unit>> {
+  public object Schema : SqlSchema<QueryResult.AsyncValue<Unit>> {
     override val version: Long
       get() = 1
 
-    override fun create(driver: SqlDriver): QueryResult.Value<Unit> {
+    override fun create(driver: SqlDriver): QueryResult.AsyncValue<Unit> = QueryResult.AsyncValue {
       driver.execute(null, """
           |CREATE TABLE IF NOT EXISTS ForkWithOwner (
           |    id INTEGER PRIMARY KEY,
@@ -38,8 +38,7 @@ private class AppDatabaseImpl(
           |    ownerId INTEGER,
           |    avatarUrl TEXT
           |)
-          """.trimMargin(), 0)
-      return QueryResult.Unit
+          """.trimMargin(), 0).await()
     }
 
     override fun migrate(
@@ -47,6 +46,7 @@ private class AppDatabaseImpl(
       oldVersion: Long,
       newVersion: Long,
       vararg callbacks: AfterVersion,
-    ): QueryResult.Value<Unit> = QueryResult.Unit
+    ): QueryResult.AsyncValue<Unit> = QueryResult.AsyncValue {
+    }
   }
 }
