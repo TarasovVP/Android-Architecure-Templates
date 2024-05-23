@@ -1,5 +1,7 @@
 package com.vnteam.architecturetemplates.data.database
 
+import app.cash.sqldelight.async.coroutines.awaitAsList
+import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import com.vnteam.architecturetemplates.ForkWithOwner
 
 class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
@@ -30,13 +32,13 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
 
     override suspend fun getForks(forkWithOwners: (List<ForkWithOwner>) -> Unit) {
         sharedDatabase { database ->
-            forkWithOwners(database.appDatabaseQueries.getForkWithOwners().executeAsList())
+            forkWithOwners(database.appDatabaseQueries.getForkWithOwners().awaitAsList())
         }
     }
 
     override suspend fun getForkById(id: Long, forkWithOwner: (ForkWithOwner?) -> Unit) {
         sharedDatabase { database ->
-            forkWithOwner(database.appDatabaseQueries.getForkWithOwnerById(id).executeAsOneOrNull())
+            forkWithOwner(database.appDatabaseQueries.getForkWithOwnerById(id).awaitAsOneOrNull())
         }
     }
 }
