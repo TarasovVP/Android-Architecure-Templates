@@ -1,7 +1,5 @@
 package presentation.components
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -31,21 +29,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarData
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarVisuals
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import kotlinx.coroutines.delay
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
-import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.ResourceItem
@@ -204,38 +193,3 @@ fun SubmitButtons(
         }
     }
 }
-
-@Composable
-fun Snackbar(
-    message: String,
-    isError: Boolean
-) {
-    val showSnackbar = remember { mutableStateOf( true) }
-
-    if (showSnackbar.value) {
-        LaunchedEffect(key1 = Unit) {
-            delay(2000)
-            showSnackbar.value = false
-        }
-
-        Snackbar(
-            snackbarData = object : SnackbarData {
-                override val visuals: SnackbarVisuals
-                    get() = object : SnackbarVisuals {
-                        override val actionLabel: String? = null
-                        override val duration: SnackbarDuration = SnackbarDuration.Short
-                        override val message: String = message
-                        override val withDismissAction: Boolean = false
-                    }
-
-                override fun dismiss() {
-                    showSnackbar.value = false
-                }
-                override fun performAction() = Unit
-            },
-            containerColor = if (isError) Color.Red else Color.Green
-        )
-    }
-}
-
-
