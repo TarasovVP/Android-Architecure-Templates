@@ -6,7 +6,6 @@ import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
-import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.Flow
@@ -24,14 +23,14 @@ class ListViewModel(
     val state: StateFlow<ListViewState> = _state.asStateFlow()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-        _state.value = state.value.copy(isLoading = false, infoMessage = InfoMessageState(message = exception.message.orEmpty(), isError = true))
+        _state.value = state.value.copy(isLoading = false, error = exception.message)
     }
 
     fun processIntent(intent: ListIntent) {
         when (intent) {
             is ListIntent.ClearForks -> clearForks()
             is ListIntent.LoadForks -> getForksFromApi()
-            is ListIntent.DeleteFork -> deleteForkById(intent.id)
+            is ListIntent.DeleteFork -> getForksFromApi()
         }
     }
 
@@ -42,8 +41,8 @@ class ListViewModel(
     }
 
     private fun getForksFromApi() {
-        _state.value = state.value.copy(isLoading = true)
         viewModelScope.launch(exceptionHandler) {
+            _state.value = state.value.copy(isLoading = true)
             val forks = forkUseCase.getForksFromApi()
             insertForksToDB(forks)
         }
@@ -68,12 +67,11 @@ class ListViewModel(
         }
     }
 
-    private fun deleteForkById(forkId: Long) {
-        _state.value = state.value.copy(isLoading = true)
+    private fun deleteFork() {
         viewModelScope.launch(exceptionHandler) {
-            forkUseCase.deleteForkById(forkId).collect {
-                getForksFromDB()
-                _state.value = state.value.copy(isLoading = false, infoMessage = InfoMessageState(message = "Successfully deleted", isError = false))
+            forkUseCase.getForksFromDB().collect {
+                val forks = forkUIMapper.mapToImplModelList(it)
+                _state.value = state.value.copy(forks = forks, isLoading = false)
             }
         }
     }

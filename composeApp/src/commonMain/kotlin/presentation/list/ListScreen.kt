@@ -1,5 +1,6 @@
 package presentation.list
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,7 +37,6 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.components.AvatarImage
-import presentation.components.Snackbar
 
 @Composable
 fun ListScreen(onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
@@ -53,13 +53,14 @@ fun ListScreen(onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
     ListContent(viewState.value, onButtonClick) { id, action ->
         when (action) {
             "details" -> onItemClick(id)
-            "delete" -> viewModel.processIntent(ListIntent.DeleteFork(id))
+            "delete" -> viewModel.processIntent(ListIntent.DeleteFork())
         }
     }
 }
 
 @Composable
 fun ListContent(viewState: ListViewState, onButtonClick: () -> Unit, onItemClick: (Long, String) -> Unit) {
+
     Box {
         Column(
             modifier = Modifier
@@ -83,9 +84,6 @@ fun ListContent(viewState: ListViewState, onButtonClick: () -> Unit, onItemClick
         }
         if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        }
-        viewState.infoMessage.takeIf { it != null }?.let { infoMessage ->
-            Snackbar(message = infoMessage.message, isError = infoMessage.isError)
         }
     }
 }
