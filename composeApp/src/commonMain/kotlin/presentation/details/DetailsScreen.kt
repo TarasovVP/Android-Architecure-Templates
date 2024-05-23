@@ -5,13 +5,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,79 +20,66 @@ import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
-import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
-import org.koin.compose.koinInject
-import presentation.ScreenState
+import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.components.AvatarImage
-import presentation.components.HeaderText
-import presentation.components.PrimaryText
-import presentation.components.SecondaryText
+import presentation.components.CommonText
 
 @Composable
-fun DetailsScreen(forkId: Long?, screenState: MutableState<ScreenState>) {
-    val detailsViewModel = koinInject<DetailsViewModel>()
-    val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { detailsViewModel }
+fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
+    val viewModel = viewModel(DetailsViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
-    LaunchedEffect(viewState.value.infoMessage.value) {
-        viewState.value.infoMessage.value.takeIf { it != null }?.let {
-            screenState.value = screenState.value.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError)
-        }
-    }
-    LaunchedEffect(viewState.value.isLoading) {
-        screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
-    }
     LaunchedEffect(forkId) {
         viewModel.processIntent(DetailsIntent.LoadFork(forkId ?: 0))
     }
 
-    DetailsContent(viewState.value)
+    DetailsContent(viewState.value, onClick)
 }
 
 @Composable
-fun DetailsContent(viewState: DetailsViewState) {
+fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
     Box {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
                 .padding(LocalLargePadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
-            HeaderText(LocalStringResources.current.FORK)
-            Row {
-                SecondaryText(LocalStringResources.current.NAME)
-                PrimaryText(viewState.fork?.name.orEmpty())
+            CommonText(viewState.fork?.name.orEmpty())
+            CommonText(viewState.fork?.owner?.login.orEmpty())
+            OwnerCard(
+                avatarUrl = viewState.fork?.owner?.avatarUrl.orEmpty(),
+                description = viewState.fork?.description.orEmpty()
+            )
+            CommonText(getStringResources().DESCRIPTION)
+            CommonText(viewState.fork?.description.orEmpty())
+            Button(
+                onClick = onClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(LocalLargePadding.current.size)
+            ) {
+                Text(text = getStringResources().BACK)
             }
-            Row {
-                SecondaryText(LocalStringResources.current.DESCRIPTION)
-                PrimaryText(viewState.fork?.description.orEmpty())
-            }
-            Row {
-                SecondaryText(LocalStringResources.current.URL)
-                PrimaryText(viewState.fork?.htmlUrl.orEmpty())
-            }
-            HeaderText(LocalStringResources.current.OWNER)
-            OwnerCard(viewState.fork?.owner)
+        }
+        if (viewState.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }
 
 @Composable
-fun OwnerCard(ownerUI: OwnerUI?) {
-    Card(modifier = Modifier.padding(top = LocalMediumPadding.current.size)) {
+fun OwnerCard(avatarUrl: String, description: String) {
+    Card {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalMediumPadding.current.size)
         ) {
-            AvatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
-            Column(modifier = Modifier.padding(start = LocalLargePadding.current.size, bottom = LocalMediumPadding.current.size))  {
-                PrimaryText(ownerUI?.login.orEmpty())
-                SecondaryText(ownerUI?.url.orEmpty())
-            }
+            AvatarImage(avatarUrl, LocalLargeAvatarSize.current.size)
+            CommonText(description)
         }
     }
 }
