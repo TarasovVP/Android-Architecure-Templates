@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import presentation.create.CreateScreen
 import presentation.details.DetailsScreen
 import presentation.list.ListScreen
 
@@ -16,14 +17,24 @@ fun AppNavigation() {
     NavHost(navController = navController, startDestination = "list") {
 
         composable("list") {
-            ListScreen {
-            val forkId = it.toString()
-            navController.navigate("details/$forkId")
-        } }
-        composable("details/{forkId}", arguments = listOf(navArgument("forkId") { type = NavType.StringType
-            defaultValue = "" })) { backStackEntry ->
+            ListScreen({
+                val forkId = it.toString()
+                navController.navigate("details/$forkId")
+            }, {
+                navController.navigate("create")
+            })
+        }
+        composable("details/{forkId}", arguments = listOf(navArgument("forkId") {
+            type = NavType.StringType
+            defaultValue = ""
+        })) { backStackEntry ->
             val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
             DetailsScreen(forkId) {
+                navController.popBackStack()
+            }
+        }
+        composable("create") {
+            CreateScreen {
                 navController.popBackStack()
             }
         }
