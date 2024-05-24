@@ -122,6 +122,15 @@ public class AppDatabaseQueries(
     }
   }
 
+  public suspend fun deleteForkWithOwnerById(id: Long) {
+    driver.execute(-1_712_853_144, """DELETE FROM ForkWithOwner WHERE id = ?""", 1) {
+          bindLong(0, id)
+        }.await()
+    notifyQueries(-1_712_853_144) { emit ->
+      emit("ForkWithOwner")
+    }
+  }
+
   private inner class GetForkWithOwnerByIdQuery<out T : Any>(
     public val id: Long,
     mapper: (SqlCursor) -> T,
