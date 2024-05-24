@@ -25,7 +25,7 @@ class ForkUseCaseImpl(private val apiRepository: ApiRepository, private val dbRe
         return dbRepository.getForksFromDB()
     }
 
-    override suspend fun getForkById(forkId: Long): Flow<Fork?> {
-        return dbRepository.getForkById(forkId)
+    override suspend fun deleteForkById(id: Long): Flow<Unit> {
+        return dbRepository.deleteForkById(id)
     }
 }

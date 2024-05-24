@@ -33,4 +33,11 @@ class DBRepositoryImpl(private val forkDao: ForkDao, private val forkDBMapper: F
         }
         awaitClose { }
     }
+
+    override suspend fun deleteForkById(forkId: Long): Flow<Unit> = callbackFlow {
+        forkDao.deleteForkById(forkId) {
+            trySend(Unit).isSuccess
+        }
+        awaitClose { }
+    }
 }

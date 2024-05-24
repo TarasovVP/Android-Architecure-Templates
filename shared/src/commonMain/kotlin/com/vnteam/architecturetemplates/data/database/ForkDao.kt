@@ -11,4 +11,6 @@ interface ForkDao {
     suspend fun getForks(forkWithOwners: (List<ForkWithOwner>) -> Unit)
 
     suspend fun getForkById(id: Long, forkWithOwner: (ForkWithOwner?) -> Unit)
+
+    suspend fun deleteForkById(id: Long, result: (Unit) -> Unit)
 }
