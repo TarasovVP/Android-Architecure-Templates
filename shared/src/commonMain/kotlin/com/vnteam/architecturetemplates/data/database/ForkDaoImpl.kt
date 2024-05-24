@@ -47,4 +47,11 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
         }
         awaitClose { }
     }
+
+    override suspend fun deleteForkById(id: Long, result: (Unit) -> Unit) {
+        sharedDatabase { database ->
+            database.appDatabaseQueries.deleteForkWithOwnerById(id)
+            result(Unit)
+        }
+    }
 }
