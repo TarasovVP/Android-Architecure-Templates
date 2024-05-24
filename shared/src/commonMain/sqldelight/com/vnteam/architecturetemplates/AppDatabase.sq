@@ -21,3 +21,6 @@ SELECT * FROM ForkWithOwner;
 
 getForkWithOwnerById:
 SELECT * FROM ForkWithOwner WHERE id = ?;
+
+deleteForkWithOwnerById:
+DELETE FROM ForkWithOwner WHERE id = ?;
