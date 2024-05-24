@@ -1,6 +1,5 @@
 package presentation.list
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,6 +36,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.components.AvatarImage
+import presentation.components.Snackbar
 
 @Composable
 fun ListScreen(onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
@@ -50,17 +50,20 @@ fun ListScreen(onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
         }
     }
 
+    viewState.value.success.takeIf { it.isNullOrEmpty().not() }?.let { text ->
+        Snackbar(message = text)
+    }
+
     ListContent(viewState.value, onButtonClick) { id, action ->
         when (action) {
             "details" -> onItemClick(id)
-            "delete" -> viewModel.processIntent(ListIntent.DeleteFork())
+            "delete" -> viewModel.processIntent(ListIntent.DeleteFork(id))
         }
     }
 }
 
 @Composable
 fun ListContent(viewState: ListViewState, onButtonClick: () -> Unit, onItemClick: (Long, String) -> Unit) {
-
     Box {
         Column(
             modifier = Modifier
