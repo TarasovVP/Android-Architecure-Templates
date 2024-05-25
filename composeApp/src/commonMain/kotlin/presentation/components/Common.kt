@@ -1,5 +1,7 @@
 package presentation.components
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -21,24 +23,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.PopupProperties
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarData
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.window.Popup
 import kotlinx.coroutines.delay
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
@@ -46,6 +45,7 @@ import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.ResourceItem
@@ -208,44 +208,34 @@ fun SubmitButtons(
 @Composable
 fun Snackbar(
     message: String,
-    durationMillis: Int = 3000,
-    onDismiss: () -> Unit = {}
+    isError: Boolean
 ) {
+    val showSnackbar = remember { mutableStateOf( true) }
 
-    val visibility = remember { Animatable(0f) }
-
-    LaunchedEffect(key1 = true) {
-        visibility.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(durationMillis = 300)
-        )
-        delay(durationMillis.toLong())
-        visibility.animateTo(
-            targetValue = 0f,
-            animationSpec = tween(durationMillis = 300)
-        )
-        onDismiss()
-    }
-
-    Popup(
-        alignment = Alignment.BottomCenter,
-        offset = IntOffset(0, 0),
-        properties = PopupProperties(focusable = false),
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .graphicsLayer { alpha = visibility.value },
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = message, color = Color.Green)
-            }
+    if (showSnackbar.value) {
+        LaunchedEffect(key1 = Unit) {
+            delay(2000)
+            showSnackbar.value = false
         }
+
+        Snackbar(
+            snackbarData = object : SnackbarData {
+                override val visuals: SnackbarVisuals
+                    get() = object : SnackbarVisuals {
+                        override val actionLabel: String? = null
+                        override val duration: SnackbarDuration = SnackbarDuration.Short
+                        override val message: String = message
+                        override val withDismissAction: Boolean = false
+                    }
+
+                override fun dismiss() {
+                    showSnackbar.value = false
+                }
+                override fun performAction() = Unit
+            },
+            containerColor = if (isError) Color.Red else Color.Green
+        )
     }
 }
+
+
