@@ -17,9 +17,9 @@ coilCompose = "3.0.0-alpha06"
 navigationCompose = "2.8.0-alpha02"
 activity = "1.9.0"
 materialRipple = "1.7.0-alpha05"
-agp = "8.2.2"
+agp = "8.3.2"
 compose-multiplatform = "1.6.10-rc03"
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 statelyCommon = "2.0.6"
 slf4j = "2.0.12"
 androidx-uiTest = "1.6.7"
@@ -77,6 +77,7 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
