@@ -97,8 +97,6 @@ Below is a list of branches with an overview of the applied approaches:
 **Architecture:** *MVVM*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
 **Api:** *retrofit2.Retrofit*  
-**Image loading:** *com.bumptech.glide.Glide*   
-**JsonConverter:** *com.google.gson.Gson*  
 **DB:** *androidx.room.RoomDatabase*  
 **Multithreading:** *kotlinx.coroutines.CoroutineScope*  
 **Architectural component:** *androidx.lifecycle.ViewModel*  
