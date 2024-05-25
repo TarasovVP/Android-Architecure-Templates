@@ -50,10 +50,6 @@ fun ListScreen(onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
         }
     }
 
-    viewState.value.success.takeIf { it.isNullOrEmpty().not() }?.let { text ->
-        Snackbar(message = text)
-    }
-
     ListContent(viewState.value, onButtonClick) { id, action ->
         when (action) {
             "details" -> onItemClick(id)
@@ -87,6 +83,9 @@ fun ListContent(viewState: ListViewState, onButtonClick: () -> Unit, onItemClick
         }
         if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
+        viewState.infoMessage.takeIf { it != null }?.let { infoMessage ->
+            Snackbar(message = infoMessage.message, isError = infoMessage.isError)
         }
     }
 }
