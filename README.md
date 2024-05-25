@@ -1,11 +1,11 @@
 **Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment + @Composable*  
-**Api:** *retrofit2.Retrofit*  
-**Image loading:** *coil.compose.AsyncImage*  
-**JsonConverter:** *com.google.gson.Gson*  
-**DB:** *androidx.room.RoomDatabase*  
+**Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*   
+**Api:** *io.ktor.client.HttpClient*  
+**Image loading:** *coil.compose.AsyncImage*   
+**JsonConverter:** *kotlinx.serialization.SerialName*  
+**DB:** *com.squareup.sqldelight.AppDatabase*  
 **Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** a*ndroidx.lifecycle.ViewModel*  
-**Observable component:** *androidx.lifecycle.MutableLiveData*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*  
+**Architectural component:** *androidx.lifecycle.ViewModel*  
+**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
+**Navigation component:** *androidx.navigation.compose.NavHost*  
+**DI:** *org.koin.core.KoinApplication*  
