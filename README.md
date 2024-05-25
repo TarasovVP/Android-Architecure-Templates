@@ -62,7 +62,7 @@ Below is a list of branches with an overview of the applied approaches:
 **DI:** *org.koin.core.KoinApplication*  
 
 
-[MVVM with Compose Navigation Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_implementation)
+[MVVM with Compose Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_implementation)
 
 **Architecture:** *MVVM*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment + @Composable*  
