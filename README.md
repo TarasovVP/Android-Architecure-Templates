@@ -1,11 +1,7 @@
-**Architecture:** *MVP    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
-**Api:** *com.android.volley.toolbox.Volley*  
-**Image loading:** *com.squareup.picasso.Picasso*   
+**Architecture:** *MVC*    
+**Screens:** *androidx.appcompat.app.AppCompatActivity*   
+**Api:** *java.net.HttpURLConnection*  
+**Image loading:** *BitmapFactory.decodeStream(HttpURLConnection.inputStream)*   
 **JsonConverter:** *com.squareup.moshi.Moshi*  
-**DB:** *io.realm.Realm*  
-**Multithreading:** *io.reactivex.RxAndroid*  
-**Architectural component:** *Presenter*  
-**Observable component:** *io.reactivex.Observable*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*  
+**DB:** *com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper*  
+**Multithreading:** *android.os.AsyncTask*  
