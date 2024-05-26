@@ -1,19 +1,19 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
-import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ListViewModel(
@@ -25,7 +25,7 @@ class ListViewModel(
     val state: StateFlow<ListViewState> = _state.asStateFlow()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-        _state.value = state.value.copy(isLoading = false, error = exception.message)
+        _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
     }
 
     fun processIntent(intent: ListIntent) {
@@ -74,7 +74,7 @@ class ListViewModel(
         viewModelScope.launch(exceptionHandler) {
             forkUseCase.deleteForkById(forkId).collect {
                 getForksFromDB()
-                _state.value = state.value.copy(success = "Success deleted", isLoading = false)
+                _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully deleted", isError = false)))
             }
         }
     }
