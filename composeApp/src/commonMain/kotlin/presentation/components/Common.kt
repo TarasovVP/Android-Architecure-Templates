@@ -95,10 +95,13 @@ fun AvatarImage(avatarUrl: String, avatarSize: Dp) {
 fun CommonTextField(
     inputValue: MutableState<TextFieldValue>,
     placeHolder: String,
+    onValueChanged: (String) -> Unit = {}
 ) {
     TextField(
         value = inputValue.value,
-        onValueChange = { inputValue.value = it },
+        onValueChange = {
+            inputValue.value = it
+            onValueChanged.invoke(it.text)},
         placeholder = { Text(text = placeHolder) },
         colors = TextFieldDefaults.colors(focusedContainerColor = Color.White),
         modifier = Modifier

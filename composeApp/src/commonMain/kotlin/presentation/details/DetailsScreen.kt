@@ -22,6 +22,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
+import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.components.AvatarImage
@@ -49,11 +50,8 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
             verticalArrangement = Arrangement.Top
         ) {
             CommonText(viewState.fork?.name.orEmpty())
-            CommonText(viewState.fork?.owner?.login.orEmpty())
-            OwnerCard(
-                avatarUrl = viewState.fork?.owner?.avatarUrl.orEmpty(),
-                description = viewState.fork?.description.orEmpty()
-            )
+            CommonText(viewState.fork?.htmlUrl.orEmpty())
+            OwnerCard(viewState.fork?.owner)
             CommonText(getStringResources().DESCRIPTION)
             CommonText(viewState.fork?.description.orEmpty())
             Button(
@@ -72,14 +70,17 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
 }
 
 @Composable
-fun OwnerCard(avatarUrl: String, description: String) {
+fun OwnerCard(ownerUI: OwnerUI?) {
     Card {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalMediumPadding.current.size)
         ) {
-            AvatarImage(avatarUrl, LocalLargeAvatarSize.current.size)
-            CommonText(description)
+            AvatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
+            Column {
+                CommonText(ownerUI?.avatarUrl.orEmpty())
+                CommonText(ownerUI?.url.orEmpty())
+            }
         }
     }
 }

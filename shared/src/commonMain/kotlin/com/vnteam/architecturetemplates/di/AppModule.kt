@@ -45,7 +45,7 @@ val appModule = module {
     single {
         HttpClient {
             install(Logging) {
-                level = LogLevel.INFO
+                level = LogLevel.ALL
                 logger = Logger.DEFAULT
             }
             install(ContentNegotiation) {

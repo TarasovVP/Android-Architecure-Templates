@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,42 +11,56 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.input.TextFieldValue
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
+import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import presentation.components.painterRes
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.states.CreateViewState
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
+import presentation.components.CommonText
+import presentation.components.CommonTextField
 
 @Composable
-fun CreateScreen(onClick: () -> Unit) {
+fun CreateScreen() {
     val viewModel = viewModel(CreateViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
+        if (viewState.value.fork == null) {
+            viewModel.state.value.fork = ForkUI(owner = OwnerUI())
+        } else {
+            //viewModel.processIntent(CreateIntent.LoadFork(viewState.value.fork!!.id))
+        }
         //viewModel.processIntent(DetailsIntent.LoadFork(forkId ?: 0))
     }
 
-    CreateContent(viewState.value, onClick)
+    CreateContent(viewState.value) {
+        println(viewState.value.fork)
+        //viewState.value.fork?.let { viewModel.processIntent(CreateIntent.CreateFork(it)) }
+    }
 }
 
 @Composable
-fun CreateContent(viewState: DetailsViewState, onClick: () -> Unit) {
+fun CreateContent(viewState: CreateViewState, onClick: () -> Unit) {
     Box {
         Column(
             modifier = Modifier
@@ -55,56 +68,28 @@ fun CreateContent(viewState: DetailsViewState, onClick: () -> Unit) {
                 .padding(LocalLargePadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
-            Text(
-                text = viewState.fork?.name.orEmpty(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(LocalLargePadding.current.size)
-            )
-            Text(
-                text = viewState.fork?.owner?.login.orEmpty(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(LocalLargePadding.current.size)
-            )
-            Text(
-                text = "Description:",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(LocalLargePadding.current.size)
-            )
-            Text(
-                text = viewState.fork?.description.orEmpty(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(LocalLargePadding.current.size)
-            )
-            Button(
-                onClick = onClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(LocalLargePadding.current.size)
-            ) {
-                Text(text = getStringResources().BACK)
+            CommonText("Fork:")
+            CommonTextField(
+                mutableStateOf(TextFieldValue(viewState.fork?.name.orEmpty())),
+                "Name",
+            ) { text ->
+                viewState.fork?.name = text
             }
-            OwnerCard(
-                avatarUrl = viewState.fork?.owner?.avatarUrl.orEmpty(),
-                description = viewState.fork?.description.orEmpty()
-            )
-        }
-        if (viewState.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        }
-    }
-}
-
-@Composable
-fun OwnerCard(avatarUrl: String, description: String) {
-    Card {
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(
-            LocalMediumPadding.current.size)) {
+            CommonTextField(
+                mutableStateOf(TextFieldValue(viewState.fork?.description.orEmpty())),
+                "Description",
+            ) { text ->
+                viewState.fork?.description = text
+            }
+            CommonTextField(
+                mutableStateOf(TextFieldValue(viewState.fork?.htmlUrl.orEmpty())),
+                "Url",
+            ) { text ->
+                viewState.fork?.htmlUrl = text
+            }
+            CommonText("Owner")
             SubcomposeAsyncImage(
-                model = avatarUrl,
+                model = "",
                 contentDescription = getStringResources().OWNER_AVATAR,
                 modifier = Modifier
                     .wrapContentSize()
@@ -118,12 +103,29 @@ fun OwnerCard(avatarUrl: String, description: String) {
                     else -> SubcomposeAsyncImageContent()
                 }
             }
-            Text(
-                text = description,
+            CommonTextField(
+                mutableStateOf(TextFieldValue(viewState.fork?.owner?.login.orEmpty())),
+                "Name",
+            ) { text ->
+                viewState.fork?.owner?.login = text
+            }
+            CommonTextField(
+                mutableStateOf(TextFieldValue(viewState.fork?.owner?.url.orEmpty())),
+                "Url",
+            ) { text ->
+                viewState.fork?.owner?.url = text
+            }
+            Button(
+                onClick = onClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(LocalLargePadding.current.size)
-            )
+            ) {
+                Text(text = "Save")
+            }
+        }
+        if (viewState.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

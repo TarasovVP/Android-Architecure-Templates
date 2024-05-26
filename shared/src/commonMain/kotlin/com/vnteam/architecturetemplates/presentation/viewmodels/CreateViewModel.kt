@@ -1,12 +1,16 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.domain.usecase.CreateUseCase
-import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
+import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
+import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,12 +23,13 @@ class CreateViewModel(
     private val forkUIMapper: ForkUIMapper
 ): ViewModel() {
 
-    private val _state = MutableStateFlow(DetailsViewState())
-    val state: StateFlow<DetailsViewState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(CreateViewState())
+    val state: StateFlow<CreateViewState> = _state.asStateFlow()
 
-    fun processIntent(intent: DetailsIntent) {
+    fun processIntent(intent: CreateIntent) {
         when (intent) {
-            is DetailsIntent.LoadFork -> getForkById(intent.forkId)
+            is CreateIntent.LoadFork -> getForkById(intent.forkId)
+            is CreateIntent.CreateFork -> createFork(state.value.fork)
         }
     }
 
@@ -35,7 +40,8 @@ class CreateViewModel(
                     _state.value = _state.value.copy(isLoading = true)
                 }
                 .catch { exception ->
-                    _state.value = _state.value.copy(error = exception.message, isLoading = false)
+                    _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
+                    println("Error: ${exception.message}")
                 }
                 .collect { fork ->
                     _state.value = _state.value.copy(fork = fork?.let { forkUIMapper.mapToImplModel(it) }, isLoading = false)
@@ -43,10 +49,11 @@ class CreateViewModel(
         }
     }
 
-    private fun createFork(fork: Fork) {
+    private fun createFork(fork: ForkUI?) {
+        _state.value = state.value.copy(isLoading = true)
         viewModelScope.launch {
-            createUseCase.createFork(fork).collect {
-                // Do something
+            createUseCase.createFork(fork?.let { forkUIMapper.mapFromImplModel(it) } ?: Fork()).collect {
+                _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully created", isError = false)))
             }
         }
     }

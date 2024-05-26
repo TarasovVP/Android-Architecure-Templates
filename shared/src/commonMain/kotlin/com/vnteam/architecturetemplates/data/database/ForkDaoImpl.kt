@@ -23,7 +23,8 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
                         login = fork.login,
                         avatarUrl = fork.avatarUrl,
                         htmlUrl = fork.htmlUrl,
-                        description = fork.description
+                        description = fork.description,
+                        url = fork.url
                     )
                 }
                 result(Unit)

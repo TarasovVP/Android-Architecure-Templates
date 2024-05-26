@@ -34,9 +34,7 @@ fun AppNavigation() {
             }
         }
         composable("create") {
-            CreateScreen {
-                navController.popBackStack()
-            }
+            CreateScreen()
         }
     }
 }
