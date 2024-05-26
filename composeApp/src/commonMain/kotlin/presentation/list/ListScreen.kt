@@ -84,8 +84,8 @@ fun ListContent(viewState: ListViewState, onButtonClick: () -> Unit, onItemClick
         if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
-        viewState.infoMessage.takeIf { it != null }?.let { infoMessage ->
-            Snackbar(message = infoMessage.message, isError = infoMessage.isError)
+        viewState.infoMessage.value.takeIf { it != null }?.let {
+            Snackbar(viewState.infoMessage)
         }
     }
 }
