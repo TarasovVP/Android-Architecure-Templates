@@ -1,5 +1,6 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.domain.models.Fork
@@ -24,7 +25,7 @@ class ListViewModel(
     val state: StateFlow<ListViewState> = _state.asStateFlow()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-        _state.value = state.value.copy(isLoading = false, infoMessage = InfoMessageState(message = exception.message.orEmpty(), isError = true))
+        _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
     }
 
     fun processIntent(intent: ListIntent) {
@@ -73,7 +74,7 @@ class ListViewModel(
         viewModelScope.launch(exceptionHandler) {
             forkUseCase.deleteForkById(forkId).collect {
                 getForksFromDB()
-                _state.value = state.value.copy(isLoading = false, infoMessage = InfoMessageState(message = "Successfully deleted", isError = false))
+                _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully deleted", isError = false)))
             }
         }
     }
