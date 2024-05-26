@@ -33,6 +33,12 @@ private fun appViewModelFactory(
                 initializer { detailsViewModel }
             }
         }
+        CreateViewModel::class.simpleName -> {
+            val createViewModel: CreateViewModel = koinInject()
+            viewModelFactory {
+                initializer { createViewModel }
+            }
+        }
         else -> {
             val listViewModel: ListViewModel = koinInject()
             viewModelFactory {

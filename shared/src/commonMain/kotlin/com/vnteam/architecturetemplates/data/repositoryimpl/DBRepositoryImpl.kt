@@ -16,8 +16,11 @@ class DBRepositoryImpl(private val forkDao: ForkDao, private val forkDBMapper: F
 
     }
 
-    override suspend fun insertForksToDB(forks: List<Fork>) {
-        forkDao.insertForkWithOwners(forkDBMapper.mapToImplModelList(forks))
+    override suspend fun insertForksToDB(forks: List<Fork>): Flow<Unit> = callbackFlow{
+        forkDao.insertForkWithOwners(forkDBMapper.mapToImplModelList(forks)) {
+            trySend(Unit).isSuccess
+        }
+        awaitClose { }
     }
 
     override suspend fun getForksFromDB(): Flow<List<Fork>> = callbackFlow{

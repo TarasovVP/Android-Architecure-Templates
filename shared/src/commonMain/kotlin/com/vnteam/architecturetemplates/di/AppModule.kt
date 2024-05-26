@@ -1,6 +1,5 @@
 package com.vnteam.architecturetemplates.di
 
-import com.vnteam.architecturetemplates.data.network.BASE_URL
 import com.vnteam.architecturetemplates.data.database.ForkDao
 import com.vnteam.architecturetemplates.data.database.ForkDaoImpl
 import com.vnteam.architecturetemplates.data.database.SharedDatabase
@@ -16,19 +15,24 @@ import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
-import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
+import com.vnteam.architecturetemplates.domain.usecase.CreateUseCase
+import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
+import com.vnteam.architecturetemplates.domain.usecase.ListUseCase
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import com.vnteam.architecturetemplates.presentation.mapperimpls.ForkUIMapperImpl
 import com.vnteam.architecturetemplates.presentation.mapperimpls.OwnerUIMapperImpl
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
-import com.vnteam.architecturetemplates.presentation.usecaseimpl.ForkUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.ListUseCaseImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 import com.vnteam.architecturetemplates.presentation.mappers.OwnerUIMapper
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.CreateUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.DetailsUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
@@ -76,12 +80,19 @@ val appModule = module {
 
     single<ForkUIMapper> { ForkUIMapperImpl(get()) }
 
-    single<ForkUseCase> { ForkUseCaseImpl(get(), get()) }
+    single<ListUseCase> { ListUseCaseImpl(get(), get()) }
+
+    single<DetailsUseCase> { DetailsUseCaseImpl(get()) }
+
+    single<CreateUseCase> { CreateUseCaseImpl(get()) }
 
     factory {
         ListViewModel(get(), get())
     }
     factory {
         DetailsViewModel(get(), get())
+    }
+    factory {
+        CreateViewModel(get(), get())
     }
 }

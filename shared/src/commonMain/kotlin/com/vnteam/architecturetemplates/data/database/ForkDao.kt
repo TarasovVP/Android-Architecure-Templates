@@ -6,7 +6,7 @@ interface ForkDao {
 
     suspend fun clearForks()
 
-    suspend fun insertForkWithOwners(forks: List<ForkWithOwner>)
+    suspend fun insertForkWithOwners(forks: List<ForkWithOwner>, result: (Unit) -> Unit)
 
     suspend fun getForks(forkWithOwners: (List<ForkWithOwner>) -> Unit)
 

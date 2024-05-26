@@ -24,7 +24,6 @@ import androidx.compose.ui.layout.ContentScale
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
-import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import presentation.components.painterRes
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
@@ -32,11 +31,12 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarS
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 
 @Composable
 fun CreateScreen(onClick: () -> Unit) {
-    val viewModel = viewModel(DetailsViewModel::class)
+    val viewModel = viewModel(CreateViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {

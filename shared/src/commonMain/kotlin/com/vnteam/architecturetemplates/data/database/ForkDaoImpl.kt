@@ -11,7 +11,7 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
         }
     }
 
-    override suspend fun insertForkWithOwners(forks: List<ForkWithOwner>) {
+    override suspend fun insertForkWithOwners(forks: List<ForkWithOwner>, result: (Unit) -> Unit) {
         sharedDatabase { database ->
             database.appDatabaseQueries.transaction {
                 forks.forEach { fork ->
@@ -26,6 +26,7 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
                         description = fork.description
                     )
                 }
+                result(Unit)
             }
         }
     }
