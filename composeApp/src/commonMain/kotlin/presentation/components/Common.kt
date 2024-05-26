@@ -1,7 +1,5 @@
 package presentation.components
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -207,8 +205,7 @@ fun SubmitButtons(
 
 @Composable
 fun Snackbar(
-    message: String,
-    isError: Boolean
+    infoMessage: MutableState<InfoMessageState?>
 ) {
     val showSnackbar = remember { mutableStateOf( true) }
 
@@ -216,6 +213,7 @@ fun Snackbar(
         LaunchedEffect(key1 = Unit) {
             delay(2000)
             showSnackbar.value = false
+            infoMessage.value = null
         }
 
         Snackbar(
@@ -224,7 +222,7 @@ fun Snackbar(
                     get() = object : SnackbarVisuals {
                         override val actionLabel: String? = null
                         override val duration: SnackbarDuration = SnackbarDuration.Short
-                        override val message: String = message
+                        override val message: String = infoMessage.value?.message.orEmpty()
                         override val withDismissAction: Boolean = false
                     }
 
@@ -233,7 +231,7 @@ fun Snackbar(
                 }
                 override fun performAction() = Unit
             },
-            containerColor = if (isError) Color.Red else Color.Green
+            containerColor = if (infoMessage.value?.isError == true) Color.Red else Color.Green
         )
     }
 }
