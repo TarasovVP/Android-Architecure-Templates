@@ -27,6 +27,7 @@ import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.components.AvatarImage
 import presentation.components.CommonText
+import presentation.components.Snackbar
 
 @Composable
 fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
@@ -62,6 +63,9 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
             ) {
                 Text(text = getStringResources().BACK)
             }
+        }
+        viewState.infoMessage.value.takeIf { it != null }?.let {
+            Snackbar(viewState.infoMessage)
         }
         if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))

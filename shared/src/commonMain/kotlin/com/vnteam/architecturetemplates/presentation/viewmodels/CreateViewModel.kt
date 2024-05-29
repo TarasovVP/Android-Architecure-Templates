@@ -50,9 +50,15 @@ class CreateViewModel(
     }
 
     private fun createFork(fork: ForkUI?) {
-        _state.value = state.value.copy(isLoading = true)
         viewModelScope.launch {
-            createUseCase.createFork(fork?.let { forkUIMapper.mapFromImplModel(it) } ?: Fork()).collect {
+            createUseCase.createFork(fork?.let { forkUIMapper.mapFromImplModel(it) } ?: Fork())
+                .onStart {
+                    _state.value = _state.value.copy(isLoading = true)
+                }
+                .catch { exception ->
+                    _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
+                    println("Error: ${exception.message}")
+                }.collect {
                 _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully created", isError = false)))
             }
         }

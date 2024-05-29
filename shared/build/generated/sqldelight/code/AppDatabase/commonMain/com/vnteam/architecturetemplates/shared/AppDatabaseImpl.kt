@@ -24,7 +24,7 @@ private class AppDatabaseImpl(
 
   public object Schema : SqlSchema<QueryResult.AsyncValue<Unit>> {
     override val version: Long
-      get() = 1
+      get() = 2
 
     override fun create(driver: SqlDriver): QueryResult.AsyncValue<Unit> = QueryResult.AsyncValue {
       driver.execute(null, """
@@ -42,12 +42,36 @@ private class AppDatabaseImpl(
           """.trimMargin(), 0).await()
     }
 
+    private fun migrateInternal(
+      driver: SqlDriver,
+      oldVersion: Long,
+      newVersion: Long,
+    ): QueryResult.AsyncValue<Unit> = QueryResult.AsyncValue {
+      if (oldVersion <= 1 && newVersion > 1) {
+        driver.execute(null, "ALTER TABLE ForkWithOwner ADD COLUMN url TEXT", 0).await()
+      }
+    }
+
     override fun migrate(
       driver: SqlDriver,
       oldVersion: Long,
       newVersion: Long,
       vararg callbacks: AfterVersion,
     ): QueryResult.AsyncValue<Unit> = QueryResult.AsyncValue {
+      var lastVersion = oldVersion
+
+      callbacks.filter { it.afterVersion in oldVersion until newVersion }
+      .sortedBy { it.afterVersion }
+      .forEach { callback ->
+        migrateInternal(driver, oldVersion = lastVersion, newVersion = callback.afterVersion +
+          1).await()
+        callback.block(driver)
+        lastVersion = callback.afterVersion + 1
+      }
+
+      if (lastVersion < newVersion) {
+        migrateInternal(driver, lastVersion, newVersion).await()
+      }
     }
   }
 }

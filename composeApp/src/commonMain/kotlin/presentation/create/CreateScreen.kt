@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
@@ -38,6 +39,7 @@ import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.components.CommonText
 import presentation.components.CommonTextField
+import presentation.components.Snackbar
 
 @Composable
 fun CreateScreen() {
@@ -55,12 +57,13 @@ fun CreateScreen() {
 
     CreateContent(viewState.value) {
         println(viewState.value.fork)
-        //viewState.value.fork?.let { viewModel.processIntent(CreateIntent.CreateFork(it)) }
+        viewState.value.fork?.let { viewModel.processIntent(CreateIntent.CreateFork(it)) }
     }
 }
 
 @Composable
 fun CreateContent(viewState: CreateViewState, onClick: () -> Unit) {
+    val buttonEnabled = viewState.fork?.isForkValid() == true
     Box {
         Column(
             modifier = Modifier
@@ -94,7 +97,8 @@ fun CreateContent(viewState: CreateViewState, onClick: () -> Unit) {
                 modifier = Modifier
                     .wrapContentSize()
                     .width(LocalLargeAvatarSize.current.size)
-                    .height(LocalLargeAvatarSize.current.size),
+                    .height(LocalLargeAvatarSize.current.size)
+                    .padding(horizontal = 5.dp),
                 contentScale = ContentScale.Crop
             ) {
                 when (painter.state) {
@@ -119,10 +123,14 @@ fun CreateContent(viewState: CreateViewState, onClick: () -> Unit) {
                 onClick = onClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(LocalLargePadding.current.size)
+                    .padding(LocalLargePadding.current.size),
+                enabled = viewState.fork?.isForkValid() == true
             ) {
                 Text(text = "Save")
             }
+        }
+        viewState.infoMessage.value.takeIf { it != null }?.let {
+            Snackbar(viewState.infoMessage)
         }
         if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))

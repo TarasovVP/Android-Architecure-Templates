@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -42,6 +43,7 @@ import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import org.jetbrains.compose.resources.DrawableResource
@@ -97,16 +99,17 @@ fun CommonTextField(
     placeHolder: String,
     onValueChanged: (String) -> Unit = {}
 ) {
-    TextField(
+    OutlinedTextField(
         value = inputValue.value,
         onValueChange = {
             inputValue.value = it
             onValueChanged.invoke(it.text)},
         placeholder = { Text(text = placeHolder) },
+        shape = RoundedCornerShape(LocalMediumPadding.current.size),
         colors = TextFieldDefaults.colors(focusedContainerColor = Color.White),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(start = LocalLargePadding.current.size, end = LocalLargePadding.current.size, top = LocalMediumPadding.current.size)
     )
 }
 
@@ -157,7 +160,7 @@ fun PrimaryButton(
             .fillMaxWidth()
             .background(
                 color = if (isEnabled) Primary500 else Neutral400,
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(LocalLargePadding.current.size)
             )
             .testTag("sign_up_button"),
         onClick = {
@@ -171,7 +174,7 @@ fun PrimaryButton(
 @Composable
 fun SecondaryButton(text: String, isDestructive: Boolean, modifier: Modifier, onClick: () -> Unit) {
     TextButton(modifier = modifier
-        .padding(horizontal = 16.dp, vertical = 8.dp)
+        .padding(horizontal = LocalLargePadding.current.size, vertical = 8.dp)
         .fillMaxWidth()
         .border(
             1.dp,
