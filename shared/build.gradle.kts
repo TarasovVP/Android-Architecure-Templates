@@ -92,6 +92,7 @@ sqldelight {
         create("AppDatabase") {
             packageName = "com.vnteam.architecturetemplates"
             generateAsync = true
+            version = 2
         }
     }
 }

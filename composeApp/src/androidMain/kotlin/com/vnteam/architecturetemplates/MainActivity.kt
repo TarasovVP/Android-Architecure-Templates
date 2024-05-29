@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.vnteam.architecturetemplates.presentation.viewmodels.withViewModelStoreOwner
-import presentation.AppNavigation
+import presentation.App
 import theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             withViewModelStoreOwner {
                 AppTheme {
-                    AppNavigation()
+                    App()
                 }
             }
         }

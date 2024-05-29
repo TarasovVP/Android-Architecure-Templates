@@ -6,14 +6,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -39,7 +37,7 @@ import presentation.components.AvatarImage
 import presentation.components.Snackbar
 
 @Composable
-fun ListScreen(onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
+fun ListScreen(onItemClick: (Long) -> Unit) {
     val viewModel = viewModel(ListViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
@@ -50,7 +48,7 @@ fun ListScreen(onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
         }
     }
 
-    ListContent(viewState.value, onButtonClick) { id, action ->
+    ListContent(viewState.value) { id, action ->
         when (action) {
             "details" -> onItemClick(id)
             "delete" -> viewModel.processIntent(ListIntent.DeleteFork(id))
@@ -59,7 +57,7 @@ fun ListScreen(onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
 }
 
 @Composable
-fun ListContent(viewState: ListViewState, onButtonClick: () -> Unit, onItemClick: (Long, String) -> Unit) {
+fun ListContent(viewState: ListViewState, onItemClick: (Long, String) -> Unit) {
     Box {
         Column(
             modifier = Modifier
@@ -67,14 +65,6 @@ fun ListContent(viewState: ListViewState, onButtonClick: () -> Unit, onItemClick
                 .padding(LocalLargePadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
-            Button(
-                onClick = onButtonClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(LocalLargePadding.current.size)
-            ) {
-                Text(text = getStringResources().ADD)
-            }
             LazyColumn {
                 items(viewState.forks.orEmpty()) { item ->
                     ForkItem(item, onItemClick)

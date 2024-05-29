@@ -37,6 +37,7 @@ import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
+import presentation.ScaffoldState
 import presentation.components.CommonText
 import presentation.components.CommonTextField
 import presentation.components.Snackbar

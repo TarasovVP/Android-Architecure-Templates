@@ -1,1 +1,0 @@
-ALTER TABLE ForkWithOwner ADD COLUMN url TEXT;
