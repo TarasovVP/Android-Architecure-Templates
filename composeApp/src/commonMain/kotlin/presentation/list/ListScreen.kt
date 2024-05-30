@@ -35,9 +35,10 @@ import com.vnteam.architecturetemplates.presentation.resources.getStringResource
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.ScreenState
 import presentation.components.AvatarImage
+import presentation.components.ConfirmationDialog
 
 @Composable
-fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (Long) -> Unit) {
+fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> Unit) {
     val viewModel = viewModel(ListViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
@@ -51,21 +52,30 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (Long) -> Un
     LaunchedEffect(viewState.value.infoMessage.value) {
         viewState.value.infoMessage.value.takeIf { it != null }?.let {
             screenState.value = screenState.value.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError)
+            viewState.value.infoMessage.value = null
         }
     }
     LaunchedEffect(viewState.value.isLoading) {
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
-    ListContent(viewState.value) { id, action ->
+    ListContent(viewState.value) { forkUI, action ->
         when (action) {
-            "details" -> onItemClick(id)
-            "delete" -> viewModel.processIntent(ListIntent.DeleteFork(id))
+            "details" -> onItemClick(forkUI)
+            "confirm_delete" -> {
+                viewState.value.isConfirmationDialogVisible.value = true
+                viewState.value.forkToDelete = forkUI.id ?: 0
+            }
+            "delete" -> {
+                viewState.value.isConfirmationDialogVisible.value = false
+                viewState.value.forkToDelete = 0
+                viewModel.processIntent(ListIntent.DeleteFork( forkUI.id ?: 0 ))
+            }
         }
     }
 }
 
 @Composable
-fun ListContent(viewState: ListViewState, onItemClick: (Long, String) -> Unit) {
+fun ListContent(viewState: ListViewState, onItemClick: (ForkUI, String) -> Unit) {
     Box {
         Column(
             modifier = Modifier
@@ -79,18 +89,23 @@ fun ListContent(viewState: ListViewState, onItemClick: (Long, String) -> Unit) {
                 }
             }
         }
+        ConfirmationDialog(
+            showDialog = viewState.isConfirmationDialogVisible,
+            title = getStringResources().DELETE,
+            onConfirmationClick = { onItemClick(ForkUI(id = viewState.forkToDelete), "delete") },
+            onDismiss = { viewState.isConfirmationDialogVisible.value = false })
     }
 }
 
 @Composable
-fun ForkItem(item: ForkUI, onItemClick: (Long, String) -> Unit) {
-    Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item.id ?: 0, "details") }) {
+fun ForkItem(item: ForkUI, onItemClick: (ForkUI, String) -> Unit) {
+    Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, "details") }) {
         Row(verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalSmallPadding.current.size)) {
             AvatarImage(avatarUrl = item.owner?.avatarUrl.orEmpty(), avatarSize = LocalMediumAvatarSize.current.size)
             Text(text = item.name.orEmpty(), modifier = Modifier
                 .padding(LocalMediumPadding.current.size).weight(1f))
-            IconButton(onClick = { onItemClick(item.id ?: 0, "delete") }) {
+            IconButton(onClick = { onItemClick(item, "confirm_delete") }) {
                 Icon( modifier = Modifier
                     .size(LocalSmallAvatarSize.current.size),
                     imageVector = Icons.Filled.Delete,

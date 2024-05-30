@@ -26,17 +26,21 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                     navController.navigate("create/0")
                 }
             }
-            ListScreen(screenState) {
-                val forkId = it.toString()
-                navController.navigate("details/$forkId")
+            ListScreen(screenState) { forkUI ->
+                navController.navigate("details/${forkUI.id}/${forkUI.name}")
             }
         }
-        composable("details/{forkId}", arguments = listOf(navArgument("forkId") {
+        composable("details/{forkId}/{forkName}", arguments = listOf(navArgument("forkId") {
+            type = NavType.StringType
+            defaultValue = ""
+        }, navArgument("forkName") {
             type = NavType.StringType
             defaultValue = ""
         })) { backStackEntry ->
             val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
+            val forkName = backStackEntry.arguments?.getString("forkName").orEmpty()
             screenState.value = ScreenState().apply {
+                topAppBarTitle = forkName
                 topAppBarActionVisible = true
                 topAppBarAction = {
                     navController.popBackStack()

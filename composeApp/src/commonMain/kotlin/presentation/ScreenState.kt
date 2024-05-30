@@ -9,5 +9,5 @@ data class ScreenState(var topAppBarTitle: String = "",
                        var snackbarVisible: Boolean = false,
                        var isSnackbarError: Boolean = false,
                        var snackbarMessage: String = "",
-                       var isProgressVisible: Boolean = false
+                       var isProgressVisible: Boolean = false,
 )

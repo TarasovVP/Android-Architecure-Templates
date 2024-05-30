@@ -25,7 +25,6 @@ import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.ScreenState
 import presentation.components.AvatarImage
 import presentation.components.CommonText
-import presentation.components.Snackbar
 
 @Composable
 fun DetailsScreen(forkId: Long?, screenState: MutableState<ScreenState>) {
@@ -39,9 +38,6 @@ fun DetailsScreen(forkId: Long?, screenState: MutableState<ScreenState>) {
     }
     LaunchedEffect(viewState.value.isLoading) {
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
-    }
-    screenState.value = screenState.value.copy().apply {
-        topAppBarTitle = viewState.value.fork?.name.orEmpty()
     }
     LaunchedEffect(forkId) {
         viewModel.processIntent(DetailsIntent.LoadFork(forkId ?: 0))

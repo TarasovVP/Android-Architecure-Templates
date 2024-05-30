@@ -19,28 +19,31 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
-import theme.AppTheme
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App() {
-    val screenState = mutableStateOf(ScreenState())
+    val scope = rememberCoroutineScope()
+    val screenState = remember { mutableStateOf(ScreenState()) }
     val snackbarHostState = remember { SnackbarHostState() }
-    LaunchedEffect(Unit) {
-        if (screenState.value.snackbarVisible) {
+
+    if (screenState.value.snackbarVisible) {
+        scope.launch {
             snackbarHostState.showSnackbar(
                 message = screenState.value.snackbarMessage,
                 duration = SnackbarDuration.Short,)
             screenState.value = screenState.value.copy(snackbarVisible = false)
         }
     }
+
     Scaffold(
         topBar = {
             TopAppBar(
