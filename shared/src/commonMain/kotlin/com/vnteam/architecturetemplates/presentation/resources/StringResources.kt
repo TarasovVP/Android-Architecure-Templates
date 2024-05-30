@@ -14,6 +14,7 @@ sealed class StringResources(
     var BUTTON_CANCEL: String,
     var BUTTON_OK: String,
     var CREATE: String,
+    var EDIT: String
 )
 
 class StringResourcesEN : StringResources(
@@ -26,7 +27,8 @@ class StringResourcesEN : StringResources(
     DELETE = "Delete",
     BUTTON_CANCEL = "Cancel",
     BUTTON_OK = "Ok",
-    CREATE = "Create"
+    CREATE = "Create",
+    EDIT = "Edit"
 )
 
 class StringResourcesUK : StringResources(
@@ -39,7 +41,8 @@ class StringResourcesUK : StringResources(
     DELETE = "Видалити",
     BUTTON_CANCEL = "Відмінити",
     BUTTON_OK = "Так",
-    CREATE = "Створити"
+    CREATE = "Створити",
+    EDIT = "Редагувати"
 )
 
 fun getStringResourcesByLocale(locale: String): StringResources {

@@ -4,30 +4,56 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App() {
-    val scaffoldState = mutableStateOf(ScaffoldState())
+    val screenState = mutableStateOf(ScreenState())
+    val snackbarHostState = remember { SnackbarHostState() }
+    LaunchedEffect(Unit) {
+        if (screenState.value.snackbarVisible) {
+            snackbarHostState.showSnackbar(
+                message = screenState.value.snackbarMessage,
+                duration = SnackbarDuration.Short,)
+            screenState.value = screenState.value.copy(snackbarVisible = false)
+        }
+    }
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(scaffoldState.value.topAppBarTitle) },
+                title = { Text(screenState.value.topAppBarTitle) },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = Color.White
+                ),
                 navigationIcon = {
-                    if (scaffoldState.value.topAppBarActionVisible) {
-                        IconButton(onClick = scaffoldState.value.topAppBarAction) {
+                    if (screenState.value.topAppBarActionVisible) {
+                        IconButton(onClick = screenState.value.topAppBarAction) {
                             Icon(
+                                tint = Color.White,
                                 imageVector = Icons.AutoMirrored.Default.ArrowBack,
                                 contentDescription = getStringResources().BACK
                             )
@@ -35,17 +61,31 @@ fun App() {
                     }
                 })
         },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) { data ->
+                Snackbar(
+                    snackbarData = data,
+                    actionColor = Color.White,
+                    containerColor = if (screenState.value.isSnackbarError) Color.Red else Color.Green
+                )
+            }
+        },
         floatingActionButton = {
-            if (scaffoldState.value.floatingActionButtonVisible) {
+            if (screenState.value.floatingActionButtonVisible) {
                 FloatingActionButton(
-                    onClick = { scaffoldState.value.floatingActionButtonAction() },
-                    content = { Text(scaffoldState.value.floatingActionButtonTitle) }
+                    onClick = { screenState.value.floatingActionButtonAction() },
+                    content = { Text(screenState.value.floatingActionButtonTitle) },
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White
                 )
             }
         },
         content = { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
-                AppNavigation(scaffoldState)
+                AppNavigation(screenState)
+                if (screenState.value.isProgressVisible) {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                }
             }
         }
     )

@@ -31,13 +31,12 @@ class ListViewModel(
     fun processIntent(intent: ListIntent) {
         when (intent) {
             is ListIntent.ClearForks -> clearForks()
-            is ListIntent.LoadForks -> getForksFromDB()
+            is ListIntent.LoadForks -> getForksFromApi()
             is ListIntent.DeleteFork -> deleteForkById(intent.id)
         }
     }
 
     private fun clearForks() {
-        return
         viewModelScope.launch(exceptionHandler) {
             listUseCase.clearForks()
         }

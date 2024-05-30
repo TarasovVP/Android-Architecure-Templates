@@ -15,6 +15,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
@@ -26,7 +27,6 @@ import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
-import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import presentation.components.painterRes
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
@@ -37,23 +37,30 @@ import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
-import presentation.ScaffoldState
+import presentation.ScreenState
 import presentation.components.CommonText
 import presentation.components.CommonTextField
 import presentation.components.Snackbar
 
 @Composable
-fun CreateScreen() {
+fun CreateScreen(forkId: Long, screenState: MutableState<ScreenState>) {
     val viewModel = viewModel(CreateViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        if (viewState.value.fork == null) {
-            viewModel.state.value.fork = ForkUI(owner = OwnerUI())
+        if (forkId > 0) {
+            viewModel.processIntent(CreateIntent.LoadFork(forkId))
         } else {
-            //viewModel.processIntent(CreateIntent.LoadFork(viewState.value.fork!!.id))
+            viewModel.state.value.fork = ForkUI(owner = OwnerUI())
         }
-        //viewModel.processIntent(DetailsIntent.LoadFork(forkId ?: 0))
+    }
+    LaunchedEffect(viewState.value.infoMessage.value) {
+        viewState.value.infoMessage.value.takeIf { it != null }?.let {
+            screenState.value = screenState.value.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError)
+        }
+    }
+    LaunchedEffect(viewState.value.isLoading) {
+        screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
 
     CreateContent(viewState.value) {
@@ -64,7 +71,6 @@ fun CreateScreen() {
 
 @Composable
 fun CreateContent(viewState: CreateViewState, onClick: () -> Unit) {
-    val buttonEnabled = viewState.fork?.isForkValid() == true
     Box {
         Column(
             modifier = Modifier
@@ -129,12 +135,6 @@ fun CreateContent(viewState: CreateViewState, onClick: () -> Unit) {
             ) {
                 Text(text = "Save")
             }
-        }
-        viewState.infoMessage.value.takeIf { it != null }?.let {
-            Snackbar(viewState.infoMessage)
-        }
-        if (viewState.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

@@ -5,14 +5,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,24 +22,36 @@ import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
+import presentation.ScreenState
 import presentation.components.AvatarImage
 import presentation.components.CommonText
 import presentation.components.Snackbar
 
 @Composable
-fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
+fun DetailsScreen(forkId: Long?, screenState: MutableState<ScreenState>) {
     val viewModel = viewModel(DetailsViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
+    LaunchedEffect(viewState.value.infoMessage.value) {
+        viewState.value.infoMessage.value.takeIf { it != null }?.let {
+            screenState.value = screenState.value.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError)
+        }
+    }
+    LaunchedEffect(viewState.value.isLoading) {
+        screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
+    }
+    screenState.value = screenState.value.copy().apply {
+        topAppBarTitle = viewState.value.fork?.name.orEmpty()
+    }
     LaunchedEffect(forkId) {
         viewModel.processIntent(DetailsIntent.LoadFork(forkId ?: 0))
     }
 
-    DetailsContent(viewState.value, onClick)
+    DetailsContent(viewState.value)
 }
 
 @Composable
-fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
+fun DetailsContent(viewState: DetailsViewState) {
     Box {
         Column(
             modifier = Modifier
@@ -55,20 +64,6 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
             OwnerCard(viewState.fork?.owner)
             CommonText(getStringResources().DESCRIPTION)
             CommonText(viewState.fork?.description.orEmpty())
-            Button(
-                onClick = onClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(LocalLargePadding.current.size)
-            ) {
-                Text(text = getStringResources().BACK)
-            }
-        }
-        viewState.infoMessage.value.takeIf { it != null }?.let {
-            Snackbar(viewState.infoMessage)
-        }
-        if (viewState.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

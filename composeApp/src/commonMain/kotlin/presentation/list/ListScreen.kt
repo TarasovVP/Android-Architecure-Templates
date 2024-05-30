@@ -13,12 +13,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,11 +33,11 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarS
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
+import presentation.ScreenState
 import presentation.components.AvatarImage
-import presentation.components.Snackbar
 
 @Composable
-fun ListScreen(onItemClick: (Long) -> Unit) {
+fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (Long) -> Unit) {
     val viewModel = viewModel(ListViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
@@ -48,6 +48,14 @@ fun ListScreen(onItemClick: (Long) -> Unit) {
         }
     }
 
+    LaunchedEffect(viewState.value.infoMessage.value) {
+        viewState.value.infoMessage.value.takeIf { it != null }?.let {
+            screenState.value = screenState.value.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError)
+        }
+    }
+    LaunchedEffect(viewState.value.isLoading) {
+        screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
+    }
     ListContent(viewState.value) { id, action ->
         when (action) {
             "details" -> onItemClick(id)
@@ -70,12 +78,6 @@ fun ListContent(viewState: ListViewState, onItemClick: (Long, String) -> Unit) {
                     ForkItem(item, onItemClick)
                 }
             }
-        }
-        if (viewState.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        }
-        viewState.infoMessage.value.takeIf { it != null }?.let {
-            Snackbar(viewState.infoMessage)
         }
     }
 }

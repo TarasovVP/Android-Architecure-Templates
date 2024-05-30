@@ -13,20 +13,20 @@ import presentation.details.DetailsScreen
 import presentation.list.ListScreen
 
 @Composable
-fun AppNavigation(scaffoldState: MutableState<ScaffoldState>) {
+fun AppNavigation(screenState: MutableState<ScreenState>) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "list") {
         composable("list") {
-            scaffoldState.value = ScaffoldState().apply {
+            screenState.value = ScreenState().apply {
                 topAppBarTitle = getStringResources().APP_NAME
                 floatingActionButtonVisible = true
                 floatingActionButtonTitle = getStringResources().ADD
                 floatingActionButtonAction = {
-                    navController.navigate("create")
+                    navController.navigate("create/0")
                 }
             }
-            ListScreen {
+            ListScreen(screenState) {
                 val forkId = it.toString()
                 navController.navigate("details/$forkId")
             }
@@ -35,27 +35,33 @@ fun AppNavigation(scaffoldState: MutableState<ScaffoldState>) {
             type = NavType.StringType
             defaultValue = ""
         })) { backStackEntry ->
-            scaffoldState.value = ScaffoldState().apply {
-                topAppBarTitle = "details"
-                topAppBarActionVisible = true
-                topAppBarAction = {
-                    navController.navigateUp()
-                }
-            }
             val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
-            DetailsScreen(forkId) {
-                navController.popBackStack()
+            screenState.value = ScreenState().apply {
+                topAppBarActionVisible = true
+                topAppBarAction = {
+                    navController.popBackStack()
+                }
+                floatingActionButtonVisible = true
+                floatingActionButtonTitle = getStringResources().EDIT
+                floatingActionButtonAction = {
+                    navController.navigate("create/$forkId")
+                }
             }
+            DetailsScreen(forkId, screenState)
         }
-        composable("create") {
-            scaffoldState.value = ScaffoldState().apply {
-                topAppBarTitle = "create"
+        composable("create/{forkId}", arguments = listOf(navArgument("forkId") {
+            type = NavType.StringType
+            defaultValue = ""
+        })) { backStackEntry ->
+            val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
+            screenState.value = ScreenState().apply {
+                topAppBarTitle = if (forkId > 0) getStringResources().EDIT else getStringResources().CREATE
                 topAppBarActionVisible = true
                 topAppBarAction = {
                     navController.navigateUp()
                 }
             }
-            CreateScreen()
+            CreateScreen(forkId, screenState)
         }
     }
 }
