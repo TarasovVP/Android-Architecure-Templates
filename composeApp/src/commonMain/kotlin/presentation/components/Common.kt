@@ -12,8 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -37,6 +42,8 @@ import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import kotlinx.coroutines.delay
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
@@ -70,7 +77,7 @@ fun CommonText(
         text = text,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(LocalLargePadding.current.size)
+            .padding(start = LocalLargePadding.current.size, end = LocalLargePadding.current.size, top = LocalMediumPadding.current.size),
     )
 }
 
@@ -99,17 +106,32 @@ fun CommonTextField(
     placeHolder: String,
     onValueChanged: (String) -> Unit = {}
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
         value = inputValue.value,
         onValueChange = {
             inputValue.value = it
-            onValueChanged.invoke(it.text)},
-        placeholder = { Text(text = placeHolder) },
-        shape = RoundedCornerShape(LocalMediumPadding.current.size),
-        colors = TextFieldDefaults.colors(focusedContainerColor = Color.White),
+            onValueChanged.invoke(it.text)
+        },
+        label = { Text(text = placeHolder) },
+        shape = RoundedCornerShape(8.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            unfocusedBorderColor = Color.Gray,
+            focusedLabelColor = MaterialTheme.colorScheme.primary,
+            unfocusedLabelColor = Color.Gray
+        ),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = LocalLargePadding.current.size, end = LocalLargePadding.current.size, top = LocalMediumPadding.current.size)
+            .padding(start = LocalLargePadding.current.size, top = LocalMediumPadding.current.size, end = LocalLargePadding.current.size),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Next
+        ),
+        keyboardActions = KeyboardActions(
+            onNext = {
+                keyboardController?.hide()
+            }
+        )
     )
 }
 
