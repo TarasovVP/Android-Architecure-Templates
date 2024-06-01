@@ -98,9 +98,6 @@ kotlin {
             //Koin
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
-
-      /*      implementation(npm("sql.js", "1.6.2"))
-            implementation(devNpm("copy-webpack-plugin", "6.4.1"))*/
         }
     }
 }
