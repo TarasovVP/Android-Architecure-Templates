@@ -19,9 +19,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.TextFieldValue
@@ -42,21 +43,23 @@ import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.ScreenState
-import presentation.components.CommonText
 import presentation.components.CommonTextField
-import presentation.components.Snackbar
+import presentation.components.HeaderText
 
 @Composable
 fun CreateScreen(forkId: Long, screenState: MutableState<ScreenState>) {
     val viewModel = viewModel(CreateViewModel::class)
     val viewState = viewModel.state.collectAsState()
-    val saveButtonEnable = mutableStateOf(false)
+    val originFork = mutableStateOf<ForkUI?>( null )
 
+    LaunchedEffect(viewState.value) {
+        originFork.value = viewState.value.fork.value
+    }
     LaunchedEffect(Unit) {
         if (forkId > 0) {
             viewModel.processIntent(CreateIntent.LoadFork(forkId))
         } else {
-            viewModel.state.value.fork = ForkUI(owner = OwnerUI())
+            viewModel.state.value.fork = mutableStateOf( ForkUI(owner = OwnerUI()))
         }
     }
     LaunchedEffect(viewState.value.infoMessage.value) {
@@ -68,14 +71,13 @@ fun CreateScreen(forkId: Long, screenState: MutableState<ScreenState>) {
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
 
-    CreateContent(viewState.value, saveButtonEnable) {
-        println(viewState.value.fork)
-        viewState.value.fork?.let { viewModel.processIntent(CreateIntent.CreateFork(it)) }
+    CreateContent(viewState, originFork) {
+        viewState.value.fork.value?.let { viewModel.processIntent(CreateIntent.CreateFork(it)) }
     }
 }
 
 @Composable
-fun CreateContent(viewState: CreateViewState, saveButtonEnable: MutableState<Boolean>, onClick: () -> Unit) {
+fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<ForkUI?>, onClick: () -> Unit) {
     Box {
         Column(
             modifier = Modifier
@@ -84,29 +86,26 @@ fun CreateContent(viewState: CreateViewState, saveButtonEnable: MutableState<Boo
                 .padding(LocalLargePadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
-            CommonText(getStringResources().FORK)
+            HeaderText(getStringResources().FORK)
             CommonTextField(
-                mutableStateOf(TextFieldValue(viewState.fork?.name.orEmpty())),
+                mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())),
                 getStringResources().NAME,
             ) { text ->
-                viewState.fork?.name = text
-                saveButtonEnable.value = viewState.fork?.isForkValid() == true
+                viewState.value.fork.value = viewState.value.fork.value?.copy(name = text)
             }
             CommonTextField(
-                mutableStateOf(TextFieldValue(viewState.fork?.description.orEmpty())),
+                mutableStateOf(TextFieldValue(viewState.value.fork.value?.description.orEmpty())),
                 getStringResources().DESCRIPTION,
             ) { text ->
-                viewState.fork?.description = text
-                saveButtonEnable.value = viewState.fork?.isForkValid() == true
+                viewState.value.fork.value = viewState.value.fork.value?.copy(description = text)
             }
             CommonTextField(
-                mutableStateOf(TextFieldValue(viewState.fork?.htmlUrl.orEmpty())),
+                mutableStateOf(TextFieldValue(viewState.value.fork.value?.htmlUrl.orEmpty())),
                 getStringResources().URL,
             ) { text ->
-                viewState.fork?.htmlUrl = text
-                saveButtonEnable.value = viewState.fork?.isForkValid() == true
+                viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
             }
-            CommonText(getStringResources().OWNER)
+            HeaderText(getStringResources().OWNER)
             SubcomposeAsyncImage(
                 model = "",
                 contentDescription = getStringResources().OWNER_AVATAR,
@@ -124,18 +123,16 @@ fun CreateContent(viewState: CreateViewState, saveButtonEnable: MutableState<Boo
                 }
             }
             CommonTextField(
-                mutableStateOf(TextFieldValue(viewState.fork?.owner?.login.orEmpty())),
+                mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())),
                 getStringResources().NAME,
             ) { text ->
-                viewState.fork?.owner?.login = text
-                saveButtonEnable.value = viewState.fork?.isForkValid() == true
+                viewState.value.fork.value = viewState.value.fork.value?.copy(owner = viewState.value.fork.value?.owner?.copy(login = text))
             }
             CommonTextField(
-                mutableStateOf(TextFieldValue(viewState.fork?.owner?.url.orEmpty())),
+                mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())),
                 getStringResources().URL,
             ) { text ->
-                viewState.fork?.owner?.url = text
-                saveButtonEnable.value = viewState.fork?.isForkValid() == true
+                viewState.value.fork.value = viewState.value.fork.value?.copy(owner = viewState.value.fork.value?.owner?.copy(url = text))
             }
             Button(
                 onClick = onClick,
@@ -143,7 +140,7 @@ fun CreateContent(viewState: CreateViewState, saveButtonEnable: MutableState<Boo
                     .fillMaxWidth()
                     .padding(LocalLargePadding.current.size),
                 shape = MaterialTheme.shapes.large,
-                enabled = saveButtonEnable.value
+                enabled = viewState.value.fork.value?.isForkValid() == true && originFork.value != viewState.value.fork.value
             ) {
                 Text(text = "Save", modifier = Modifier
                     .padding(vertical = LocalSmallPadding.current.size))

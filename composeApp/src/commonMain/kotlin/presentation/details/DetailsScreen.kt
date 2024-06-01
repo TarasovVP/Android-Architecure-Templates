@@ -26,7 +26,9 @@ import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.ScreenState
 import presentation.components.AvatarImage
-import presentation.components.CommonText
+import presentation.components.HeaderText
+import presentation.components.PrimaryText
+import presentation.components.SecondaryText
 
 @Composable
 fun DetailsScreen(forkId: Long?, screenState: MutableState<ScreenState>) {
@@ -58,26 +60,36 @@ fun DetailsContent(viewState: DetailsViewState) {
                 .padding(LocalLargePadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
-            CommonText(viewState.fork?.name.orEmpty())
-            CommonText(viewState.fork?.htmlUrl.orEmpty())
+            HeaderText(getStringResources().FORK)
+            Row {
+                SecondaryText(getStringResources().NAME)
+                PrimaryText(viewState.fork?.name.orEmpty())
+            }
+            Row {
+                SecondaryText(getStringResources().DESCRIPTION)
+                PrimaryText(viewState.fork?.description.orEmpty())
+            }
+            Row {
+                SecondaryText(getStringResources().URL)
+                PrimaryText(viewState.fork?.htmlUrl.orEmpty())
+            }
+            HeaderText(getStringResources().OWNER)
             OwnerCard(viewState.fork?.owner)
-            CommonText(getStringResources().DESCRIPTION)
-            CommonText(viewState.fork?.description.orEmpty())
         }
     }
 }
 
 @Composable
 fun OwnerCard(ownerUI: OwnerUI?) {
-    Card {
+    Card(modifier = Modifier.padding(top = LocalMediumPadding.current.size)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalMediumPadding.current.size)
         ) {
             AvatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
-            Column {
-                CommonText(ownerUI?.avatarUrl.orEmpty())
-                CommonText(ownerUI?.url.orEmpty())
+            Column(modifier = Modifier.padding(start = LocalLargePadding.current.size, bottom = LocalMediumPadding.current.size))  {
+                PrimaryText(ownerUI?.login.orEmpty())
+                SecondaryText(ownerUI?.url.orEmpty())
             }
         }
     }

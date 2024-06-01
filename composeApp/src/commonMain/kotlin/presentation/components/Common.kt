@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -51,6 +52,7 @@ import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import org.jetbrains.compose.resources.DrawableResource
@@ -70,14 +72,44 @@ fun painterRes(resId: String): Painter {
 }
 
 @Composable
-fun CommonText(
+fun HeaderText(
     text: String
 ) {
     Text(
         text = text,
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.headlineMedium,
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = LocalLargePadding.current.size, end = LocalLargePadding.current.size, top = LocalMediumPadding.current.size),
+            .fillMaxSize()
+            .padding(start = LocalSmallPadding.current.size, end = LocalSmallPadding.current.size, top = LocalMediumPadding.current.size),
+    )
+}
+
+@Composable
+fun PrimaryText(
+    text: String
+) {
+    Text(
+        text = text,
+        textAlign = TextAlign.Start,
+        style = MaterialTheme.typography.bodyLarge,
+        modifier = Modifier
+            .wrapContentSize()
+            .padding(start = LocalSmallPadding.current.size, end = LocalSmallPadding.current.size, top = LocalLargePadding.current.size),
+    )
+}
+
+@Composable
+fun SecondaryText(
+    text: String
+) {
+    Text(
+        text = text,
+        textAlign = TextAlign.Start,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier
+            .wrapContentSize()
+            .padding(start = LocalSmallPadding.current.size, end = LocalSmallPadding.current.size, top = LocalLargePadding.current.size),
     )
 }
 
@@ -87,6 +119,7 @@ fun AvatarImage(avatarUrl: String, avatarSize: Dp) {
         model = avatarUrl,
         contentDescription = getStringResources().OWNER_AVATAR,
         modifier = Modifier
+            .padding(LocalSmallPadding.current.size)
             .wrapContentSize()
             .width(avatarSize)
             .height(avatarSize),

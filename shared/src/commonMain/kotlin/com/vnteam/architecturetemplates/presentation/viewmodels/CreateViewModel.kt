@@ -29,7 +29,7 @@ class CreateViewModel(
     fun processIntent(intent: CreateIntent) {
         when (intent) {
             is CreateIntent.LoadFork -> getForkById(intent.forkId)
-            is CreateIntent.CreateFork -> createFork(state.value.fork)
+            is CreateIntent.CreateFork -> createFork(state.value.fork.value)
         }
     }
 
@@ -44,7 +44,7 @@ class CreateViewModel(
                     println("Error: ${exception.message}")
                 }
                 .collect { fork ->
-                    _state.value = _state.value.copy(fork = fork?.let { forkUIMapper.mapToImplModel(it) }, isLoading = false)
+                    _state.value = _state.value.copy(fork = mutableStateOf( fork?.let { forkUIMapper.mapToImplModel(it) }), isLoading = false)
                 }
         }
     }

@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 
 
-data class CreateViewState(var fork: ForkUI? = null,
+data class CreateViewState(var fork: MutableState<ForkUI?> = mutableStateOf(null),
                            var isLoading: Boolean = false,
                            var infoMessage: MutableState<InfoMessageState?> = mutableStateOf(null)
 )
