@@ -21,9 +21,10 @@ public class AppDatabaseQueries(
     login: String?,
     ownerId: Long?,
     avatarUrl: String?,
+    url: String?,
   ) -> T): Query<T> = Query(-1_198_519_084, arrayOf("ForkWithOwner"), driver, "AppDatabase.sq",
       "getForkWithOwners",
-      "SELECT ForkWithOwner.id, ForkWithOwner.name, ForkWithOwner.fullName, ForkWithOwner.htmlUrl, ForkWithOwner.description, ForkWithOwner.login, ForkWithOwner.ownerId, ForkWithOwner.avatarUrl FROM ForkWithOwner") {
+      "SELECT ForkWithOwner.id, ForkWithOwner.name, ForkWithOwner.fullName, ForkWithOwner.htmlUrl, ForkWithOwner.description, ForkWithOwner.login, ForkWithOwner.ownerId, ForkWithOwner.avatarUrl, ForkWithOwner.url FROM ForkWithOwner") {
       cursor ->
     mapper(
       cursor.getLong(0)!!,
@@ -33,12 +34,13 @@ public class AppDatabaseQueries(
       cursor.getString(4),
       cursor.getString(5),
       cursor.getLong(6),
-      cursor.getString(7)
+      cursor.getString(7),
+      cursor.getString(8)
     )
   }
 
   public fun getForkWithOwners(): Query<ForkWithOwner> = getForkWithOwners { id, name, fullName,
-      htmlUrl, description, login, ownerId, avatarUrl ->
+      htmlUrl, description, login, ownerId, avatarUrl, url ->
     ForkWithOwner(
       id,
       name,
@@ -47,7 +49,8 @@ public class AppDatabaseQueries(
       description,
       login,
       ownerId,
-      avatarUrl
+      avatarUrl,
+      url
     )
   }
 
@@ -60,6 +63,7 @@ public class AppDatabaseQueries(
     login: String?,
     ownerId: Long?,
     avatarUrl: String?,
+    url: String?,
   ) -> T): Query<T> = GetForkWithOwnerByIdQuery(id) { cursor ->
     mapper(
       cursor.getLong(0)!!,
@@ -69,12 +73,13 @@ public class AppDatabaseQueries(
       cursor.getString(4),
       cursor.getString(5),
       cursor.getLong(6),
-      cursor.getString(7)
+      cursor.getString(7),
+      cursor.getString(8)
     )
   }
 
   public fun getForkWithOwnerById(id: Long): Query<ForkWithOwner> = getForkWithOwnerById(id) { id_,
-      name, fullName, htmlUrl, description, login, ownerId, avatarUrl ->
+      name, fullName, htmlUrl, description, login, ownerId, avatarUrl, url ->
     ForkWithOwner(
       id_,
       name,
@@ -83,7 +88,8 @@ public class AppDatabaseQueries(
       description,
       login,
       ownerId,
-      avatarUrl
+      avatarUrl,
+      url
     )
   }
 
@@ -103,11 +109,12 @@ public class AppDatabaseQueries(
     login: String?,
     ownerId: Long?,
     avatarUrl: String?,
+    url: String?,
   ) {
     driver.execute(434_123_816, """
-        |INSERT OR REPLACE INTO ForkWithOwner(id, name, fullName, htmlUrl, description, login, ownerId, avatarUrl)
-        |VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        """.trimMargin(), 8) {
+        |INSERT OR REPLACE INTO ForkWithOwner(id, name, fullName, htmlUrl, description, login, ownerId, avatarUrl, url)
+        |VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """.trimMargin(), 9) {
           bindLong(0, id)
           bindString(1, name)
           bindString(2, fullName)
@@ -116,6 +123,7 @@ public class AppDatabaseQueries(
           bindString(5, login)
           bindLong(6, ownerId)
           bindString(7, avatarUrl)
+          bindString(8, url)
         }.await()
     notifyQueries(434_123_816) { emit ->
       emit("ForkWithOwner")
@@ -145,7 +153,7 @@ public class AppDatabaseQueries(
 
     override fun <R> execute(mapper: (SqlCursor) -> QueryResult<R>): QueryResult<R> =
         driver.executeQuery(-1_020_240_911,
-        """SELECT ForkWithOwner.id, ForkWithOwner.name, ForkWithOwner.fullName, ForkWithOwner.htmlUrl, ForkWithOwner.description, ForkWithOwner.login, ForkWithOwner.ownerId, ForkWithOwner.avatarUrl FROM ForkWithOwner WHERE id = ?""",
+        """SELECT ForkWithOwner.id, ForkWithOwner.name, ForkWithOwner.fullName, ForkWithOwner.htmlUrl, ForkWithOwner.description, ForkWithOwner.login, ForkWithOwner.ownerId, ForkWithOwner.avatarUrl, ForkWithOwner.url FROM ForkWithOwner WHERE id = ?""",
         mapper, 1) {
       bindLong(0, id)
     }
