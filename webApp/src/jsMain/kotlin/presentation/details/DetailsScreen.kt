@@ -19,7 +19,6 @@ import org.w3c.dom.events.Event
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 
-
 @Composable
 fun DetailsScreen(itemId: String) {
     Style(AppStyles)
