@@ -6,13 +6,20 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -36,12 +43,16 @@ import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import kotlinx.coroutines.delay
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import org.jetbrains.compose.resources.DrawableResource
@@ -61,14 +72,44 @@ fun painterRes(resId: String): Painter {
 }
 
 @Composable
-fun CommonText(
+fun HeaderText(
     text: String
 ) {
     Text(
         text = text,
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.headlineMedium,
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(LocalLargePadding.current.size)
+            .fillMaxSize()
+            .padding(start = LocalSmallPadding.current.size, end = LocalSmallPadding.current.size, top = LocalMediumPadding.current.size),
+    )
+}
+
+@Composable
+fun PrimaryText(
+    text: String
+) {
+    Text(
+        text = text,
+        textAlign = TextAlign.Start,
+        style = MaterialTheme.typography.bodyLarge,
+        modifier = Modifier
+            .wrapContentSize()
+            .padding(start = LocalSmallPadding.current.size, end = LocalSmallPadding.current.size, top = LocalLargePadding.current.size),
+    )
+}
+
+@Composable
+fun SecondaryText(
+    text: String
+) {
+    Text(
+        text = text,
+        textAlign = TextAlign.Start,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier
+            .wrapContentSize()
+            .padding(start = LocalSmallPadding.current.size, end = LocalSmallPadding.current.size, top = LocalLargePadding.current.size),
     )
 }
 
@@ -78,6 +119,7 @@ fun AvatarImage(avatarUrl: String, avatarSize: Dp) {
         model = avatarUrl,
         contentDescription = getStringResources().OWNER_AVATAR,
         modifier = Modifier
+            .padding(LocalSmallPadding.current.size)
             .wrapContentSize()
             .width(avatarSize)
             .height(avatarSize),
@@ -95,15 +137,34 @@ fun AvatarImage(avatarUrl: String, avatarSize: Dp) {
 fun CommonTextField(
     inputValue: MutableState<TextFieldValue>,
     placeHolder: String,
+    onValueChanged: (String) -> Unit = {}
 ) {
-    TextField(
+    val keyboardController = LocalSoftwareKeyboardController.current
+    OutlinedTextField(
         value = inputValue.value,
-        onValueChange = { inputValue.value = it },
-        placeholder = { Text(text = placeHolder) },
-        colors = TextFieldDefaults.colors(focusedContainerColor = Color.White),
+        onValueChange = {
+            inputValue.value = it
+            onValueChanged.invoke(it.text)
+        },
+        label = { Text(text = placeHolder) },
+        shape = RoundedCornerShape(8.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            unfocusedBorderColor = Color.Gray,
+            focusedLabelColor = MaterialTheme.colorScheme.primary,
+            unfocusedLabelColor = Color.Gray
+        ),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(start = LocalLargePadding.current.size, top = LocalMediumPadding.current.size, end = LocalLargePadding.current.size),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Next
+        ),
+        keyboardActions = KeyboardActions(
+            onNext = {
+                keyboardController?.hide()
+            }
+        )
     )
 }
 
@@ -154,7 +215,7 @@ fun PrimaryButton(
             .fillMaxWidth()
             .background(
                 color = if (isEnabled) Primary500 else Neutral400,
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(LocalLargePadding.current.size)
             )
             .testTag("sign_up_button"),
         onClick = {
@@ -168,7 +229,7 @@ fun PrimaryButton(
 @Composable
 fun SecondaryButton(text: String, isDestructive: Boolean, modifier: Modifier, onClick: () -> Unit) {
     TextButton(modifier = modifier
-        .padding(horizontal = 16.dp, vertical = 8.dp)
+        .padding(horizontal = LocalLargePadding.current.size, vertical = 8.dp)
         .fillMaxWidth()
         .border(
             1.dp,
