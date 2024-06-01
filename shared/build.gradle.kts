@@ -29,9 +29,9 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(compose.runtime)
-            implementation(compose.ui)
             implementation(compose.foundation)
             implementation(compose.runtime)
+            implementation(libs.stately.common)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.androidx.viewmodel.compose)
@@ -44,9 +44,8 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             //SQLDelight
+            implementation(libs.sqldelight.runtime)
             implementation(libs.sqldelight.coroutines.extensions)
-            //Settings
-            implementation("com.russhwolf:multiplatform-settings:1.1.1")
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.android)
@@ -91,8 +90,8 @@ android {
 sqldelight {
     databases {
         create("AppDatabase") {
-            packageName.set("com.vnteam.architecturetemplates")
-            generateAsync.set(true)
+            packageName = "com.vnteam.architecturetemplates"
+            generateAsync = true
             version = 2
         }
     }
