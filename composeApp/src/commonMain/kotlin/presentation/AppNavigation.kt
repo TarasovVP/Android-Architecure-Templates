@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import presentation.create.CreateScreen
 import presentation.details.DetailsScreen
 import presentation.list.ListScreen
 
@@ -30,11 +29,6 @@ fun AppNavigation() {
         })) { backStackEntry ->
             val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
             DetailsScreen(forkId) {
-                navController.popBackStack()
-            }
-        }
-        composable("create") {
-            CreateScreen {
                 navController.popBackStack()
             }
         }
