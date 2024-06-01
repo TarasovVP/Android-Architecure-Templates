@@ -15,7 +15,8 @@ class ForkDBMapperImpl : ForkDBMapper {
             login = from.owner?.login,
             avatarUrl = from.owner?.avatarUrl,
             htmlUrl = from.htmlUrl,
-            description = from.description)
+            description = from.description,
+            url = from.owner?.url)
     }
 
     override fun mapFromImplModel(to: ForkWithOwner): Fork {
@@ -24,7 +25,8 @@ class ForkDBMapperImpl : ForkDBMapper {
         fullName = to.fullName,
         owner = Owner(ownerId = to.ownerId,
             login = to.login,
-            avatarUrl = to.avatarUrl),
+            avatarUrl = to.avatarUrl,
+            url = to.url),
         htmlUrl = to.htmlUrl,
         description = to.description)
     }
