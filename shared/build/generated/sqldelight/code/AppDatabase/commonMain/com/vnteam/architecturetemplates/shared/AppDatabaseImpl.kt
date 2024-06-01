@@ -36,7 +36,8 @@ private class AppDatabaseImpl(
           |    description TEXT,
           |    login TEXT,
           |    ownerId INTEGER,
-          |    avatarUrl TEXT
+          |    avatarUrl TEXT,
+          |    url TEXT
           |)
           """.trimMargin(), 0).await()
     }

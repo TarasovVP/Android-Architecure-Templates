@@ -11,7 +11,7 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
         }
     }
 
-    override suspend fun insertForkWithOwners(forks: List<ForkWithOwner>) {
+    override suspend fun insertForkWithOwners(forks: List<ForkWithOwner>, result: (Unit) -> Unit) {
         sharedDatabase { database ->
             database.appDatabaseQueries.transaction {
                 forks.forEach { fork ->
@@ -23,9 +23,11 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
                         login = fork.login,
                         avatarUrl = fork.avatarUrl,
                         htmlUrl = fork.htmlUrl,
-                        description = fork.description
+                        description = fork.description,
+                        url = fork.url
                     )
                 }
+                result(Unit)
             }
         }
     }
@@ -39,13 +41,6 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
     override suspend fun getForkById(id: Long, forkWithOwner: (ForkWithOwner?) -> Unit) {
         sharedDatabase { database ->
             forkWithOwner(database.appDatabaseQueries.getForkWithOwnerById(id).awaitAsOneOrNull())
-        }
-    }
-
-    override suspend fun deleteForkById(id: Long, result: (Unit) -> Unit) {
-        sharedDatabase { database ->
-            database.appDatabaseQueries.deleteForkWithOwnerById(id)
-            result(Unit)
         }
     }
 }

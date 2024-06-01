@@ -9,13 +9,15 @@ class OwnerUIMapperImpl : OwnerUIMapper {
     override fun mapToImplModel(from: Owner): OwnerUI {
         return OwnerUI(login = from.login,
         ownerId = from.ownerId,
-        avatarUrl = from.avatarUrl)
+        avatarUrl = from.avatarUrl,
+            url = from.url)
     }
 
     override fun mapFromImplModel(to: OwnerUI): Owner {
         return Owner(login = to.login,
             ownerId = to.ownerId,
-            avatarUrl = to.avatarUrl)
+            avatarUrl = to.avatarUrl,
+            url = to.url)
     }
 
     override fun mapToImplModelList(fromList: List<Owner>): List<OwnerUI> {
