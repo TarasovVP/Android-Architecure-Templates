@@ -10,4 +10,5 @@ data class OwnerResponse(
     var ownerId: Long? = null,
     @SerialName("avatar_url")
     var avatarUrl: String? = null,
+    var url: String? = null
 )

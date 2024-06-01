@@ -6,15 +6,16 @@ CREATE TABLE IF NOT EXISTS ForkWithOwner (
     description TEXT,
     login TEXT,
     ownerId INTEGER,
-    avatarUrl TEXT
+    avatarUrl TEXT,
+    url TEXT
 );
 
 clearForks:
 DELETE FROM ForkWithOwner;
 
 insertForkWithOwner:
-INSERT OR REPLACE INTO ForkWithOwner(id, name, fullName, htmlUrl, description, login, ownerId, avatarUrl)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+INSERT OR REPLACE INTO ForkWithOwner(id, name, fullName, htmlUrl, description, login, ownerId, avatarUrl, url)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 getForkWithOwners:
 SELECT * FROM ForkWithOwner;
