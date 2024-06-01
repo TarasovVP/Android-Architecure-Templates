@@ -1,5 +1,6 @@
 package com.vnteam.architecturetemplates.di
 
+import com.vnteam.architecturetemplates.AppDatabase
 import com.vnteam.architecturetemplates.data.database.ForkDao
 import com.vnteam.architecturetemplates.data.database.ForkDaoImpl
 import com.vnteam.architecturetemplates.data.database.SharedDatabase
@@ -7,7 +8,8 @@ import com.vnteam.architecturetemplates.data.mapperimpls.ForkDBMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.ForkResponseMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.architecturetemplates.data.network.ApiService
-import com.vnteam.architecturetemplates.data.network.BASE_URL
+import com.vnteam.architecturetemplates.data.BASE_URL
+import com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory
 import com.vnteam.architecturetemplates.data.repositoryimpl.ApiRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.DBRepositoryImpl
 import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
@@ -60,7 +62,7 @@ val appModule = module {
     }
 
     single<ForkDao> {
-        ForkDaoImpl(get<SharedDatabase>())
+        ForkDaoImpl(get())
     }
 
     single<OwnerResponseMapper> { OwnerResponseMapperImpl() }
