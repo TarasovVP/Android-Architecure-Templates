@@ -1,36 +1,46 @@
 package presentation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import presentation.details.DetailsScreen
 import presentation.list.ListScreen
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(screenState: MutableState<ScreenState>) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "list") {
-
         composable("list") {
-            ListScreen({
-                val forkId = it.toString()
-                navController.navigate("details/$forkId")
-            }, {
-                navController.navigate("create")
-            })
+            screenState.value = ScreenState().apply {
+                topAppBarTitle = getStringResources().FORKS
+            }
+            ListScreen(screenState) { forkUI ->
+                navController.navigate("details/${forkUI.id}/${forkUI.name}")
+            }
         }
-        composable("details/{forkId}", arguments = listOf(navArgument("forkId") {
+        composable("details/{forkId}/{forkName}", arguments = listOf(navArgument("forkId") {
+            type = NavType.StringType
+            defaultValue = ""
+        }, navArgument("forkName") {
             type = NavType.StringType
             defaultValue = ""
         })) { backStackEntry ->
             val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
-            DetailsScreen(forkId) {
-                navController.popBackStack()
+            val forkName = backStackEntry.arguments?.getString("forkName").orEmpty()
+            screenState.value = ScreenState().apply {
+                topAppBarTitle = forkName
+                topAppBarActionVisible = true
+                topAppBarAction = {
+                    navController.popBackStack()
+                }
             }
+            DetailsScreen(forkId, screenState)
         }
     }
 }
