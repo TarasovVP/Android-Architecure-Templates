@@ -1,6 +1,5 @@
 package com.vnteam.architecturetemplates.data.database
 
-import app.cash.sqldelight.db.SqlDriver
 import com.vnteam.architecturetemplates.AppDatabase
 
 class SharedDatabase(
@@ -10,7 +9,7 @@ class SharedDatabase(
 
     private suspend fun initDatabase() {
         if (database == null) {
-            database = databaseDriverFactory.createDriver(AppDatabase.Schema).createDatabase()
+            database = AppDatabase(databaseDriverFactory.createDriver())
         }
     }
 
@@ -18,6 +17,4 @@ class SharedDatabase(
         initDatabase()
         return database.takeIf { it != null }?.let { block(it) } ?: throw IllegalStateException("Database is not initialized")
     }
-
-    private fun SqlDriver.createDatabase(): AppDatabase { return AppDatabase(this)  }
 }
