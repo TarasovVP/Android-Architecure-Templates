@@ -44,7 +44,6 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             //SQLDelight
-            implementation(libs.sqldelight.runtime)
             implementation(libs.sqldelight.coroutines.extensions)
         }
         androidMain.dependencies {
@@ -90,8 +89,8 @@ android {
 sqldelight {
     databases {
         create("AppDatabase") {
-            packageName = "com.vnteam.architecturetemplates"
-            generateAsync = true
+            packageName.set("com.vnteam.architecturetemplates")
+            generateAsync.set(true)
             version = 2
         }
     }

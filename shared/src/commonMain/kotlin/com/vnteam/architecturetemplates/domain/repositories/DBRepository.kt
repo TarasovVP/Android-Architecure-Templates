@@ -1,7 +1,6 @@
 package com.vnteam.architecturetemplates.domain.repositories
 
 import com.vnteam.architecturetemplates.domain.models.Fork
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import kotlinx.coroutines.flow.Flow
 
 interface DBRepository {

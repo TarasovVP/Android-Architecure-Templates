@@ -3,6 +3,9 @@ package com.vnteam.architecturetemplates.data.database
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import com.vnteam.architecturetemplates.ForkWithOwner
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
     override suspend fun clearForks() {
@@ -11,7 +14,7 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
         }
     }
 
-    override suspend fun insertForkWithOwners(forks: List<ForkWithOwner>, result: (Unit) -> Unit) {
+    override suspend fun insertForkWithOwners(forks: List<ForkWithOwner>) {
         sharedDatabase { database ->
             database.appDatabaseQueries.transaction {
                 forks.forEach { fork ->
@@ -27,27 +30,27 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
                         url = fork.url
                     )
                 }
-                result(Unit)
             }
         }
     }
 
-    override suspend fun getForks(forkWithOwners: (List<ForkWithOwner>) -> Unit) {
+    override suspend fun getForkWithOwners(): Flow<List<ForkWithOwner>> = callbackFlow {
         sharedDatabase { database ->
-            forkWithOwners(database.appDatabaseQueries.getForkWithOwners().awaitAsList())
+            trySend(database.appDatabaseQueries.getForkWithOwners().awaitAsList()).isSuccess
         }
+        awaitClose { }
     }
 
-    override suspend fun getForkById(id: Long, forkWithOwner: (ForkWithOwner?) -> Unit) {
+    override suspend fun getForkById(id: Long): Flow<ForkWithOwner?> = callbackFlow {
         sharedDatabase { database ->
-            forkWithOwner(database.appDatabaseQueries.getForkWithOwnerById(id).awaitAsOneOrNull())
+            trySend(database.appDatabaseQueries.getForkWithOwnerById(id).awaitAsOneOrNull()).isSuccess
         }
+        awaitClose { }
     }
 
-    override suspend fun deleteForkById(id: Long, result: (Unit) -> Unit) {
+    override suspend fun deleteForkById(id: Long) {
         sharedDatabase { database ->
             database.appDatabaseQueries.deleteForkWithOwnerById(id)
-            result(Unit)
         }
     }
 }

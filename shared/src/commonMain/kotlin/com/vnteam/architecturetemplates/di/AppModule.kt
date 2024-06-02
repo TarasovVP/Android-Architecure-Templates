@@ -63,7 +63,7 @@ val appModule = module {
     }
 
     single<ForkDao> {
-        ForkDaoImpl(get<SharedDatabase>())
+        ForkDaoImpl(get())
     }
 
     single<OwnerResponseMapper> { OwnerResponseMapperImpl() }
