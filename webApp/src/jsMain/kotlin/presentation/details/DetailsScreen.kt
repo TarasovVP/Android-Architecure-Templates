@@ -19,21 +19,20 @@ import org.w3c.dom.events.Event
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 
-
 @Composable
 fun DetailsScreen(itemId: String) {
     Style(AppStyles)
     val viewModel = viewModel(DetailsViewModel::class)
 
     val detailsViewStateState = viewModel.state.collectAsState()
-    val error = mutableStateOf(viewModel.state.value.error)
+    val error = mutableStateOf(viewModel.state.value.infoMessage.value)
 
     LaunchedEffect(itemId) {
         viewModel.processIntent(DetailsIntent.LoadFork(itemId.toLong()))
     }
 
     LaunchedEffect(detailsViewStateState.value) {
-        error.value = viewModel.state.value.error
+        error.value = viewModel.state.value.infoMessage.value
     }
     console.log("DetailsScreen ${detailsViewStateState.value.fork?.name}")
     VerticalLayout {

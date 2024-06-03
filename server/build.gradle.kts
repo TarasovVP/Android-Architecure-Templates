@@ -18,5 +18,9 @@ dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.config.yaml)
+    implementation("io.ktor:ktor-server-cors:2.3.11")
+    implementation("io.ktor:ktor-server-content-negotiation:2.3.11")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.11")
+    testImplementation("io.ktor:ktor-client-content-negotiation:2.3.11")
     testImplementation(libs.ktor.server.tests)
 }
