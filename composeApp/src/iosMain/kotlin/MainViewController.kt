@@ -5,11 +5,11 @@ import com.vnteam.architecturetemplates.presentation.viewmodels.withViewModelSto
 import presentation.App
 
 fun MainViewController(): UIViewController {
-
     return ComposeUIViewController {
         withViewModelStoreOwner {
             AppTheme {
                 App()
+                println("isNetworkAvailable: ${isNetworkAvailable()}")
             }
         }
     }
