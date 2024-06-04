@@ -26,7 +26,7 @@ fun ListScreen() {
 
     VerticalLayout {
         BaseButton(getStringResources().START) {
-            viewModel.processIntent(ListIntent.LoadForks())
+            viewModel.processIntent(ListIntent.LoadForks(true))
         }
         DynamicVerticalList(forks.value.forks?.map { it.fullName } ?: emptyList()) { itemName ->
             val item = forks.value.forks?.find { it.fullName == itemName }

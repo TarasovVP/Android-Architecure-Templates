@@ -41,7 +41,7 @@ import io.ktor.client.plugins.logging.Logging
 
 val appModule = module {
 
-    single { BASE_URL }
+    single { DEBUG_URL }
     single { ApiService(get<String>(), get()) }
     single {
         HttpClient {

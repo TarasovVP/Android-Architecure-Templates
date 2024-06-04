@@ -31,7 +31,7 @@ class ListViewModel(
     fun processIntent(intent: ListIntent) {
         when (intent) {
             is ListIntent.ClearForks -> clearForks()
-            is ListIntent.LoadForks -> getForksFromApi()
+            is ListIntent.LoadForks -> getForksFromApi(intent.isInit)
             is ListIntent.DeleteFork -> deleteForkById(intent.id)
         }
     }
@@ -42,8 +42,8 @@ class ListViewModel(
         }
     }
 
-    private fun getForksFromApi() {
-        _state.value = state.value.copy(isLoading = true)
+    private fun getForksFromApi(isInit: Boolean) {
+        if (isInit) _state.value = state.value.copy(isLoading = true)
         viewModelScope.launch(exceptionHandler) {
             listUseCase.getForksFromApi().collect { forks ->
                 insertForksToDB(forks)

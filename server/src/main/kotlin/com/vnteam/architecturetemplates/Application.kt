@@ -31,12 +31,12 @@ fun Application.module() {
         get("/repos/octocat/Spoon-Knife/forks") {
             call.respondText(forksJson(), ContentType.Application.Json, HttpStatusCode.OK)
         }
-        val dbRepository: DBRepository by inject(DBRepository::class.java)
+        /*val dbRepository: DBRepository by inject(DBRepository::class.java)
         get("/repos/octocat/Spoon-Knife/forks") {
             dbRepository.getForksFromDB().collect {
                 call.respondText(it.toString(), ContentType.Application.Json, HttpStatusCode.OK)
             }
-        }
+        }*/
     }
 }
 

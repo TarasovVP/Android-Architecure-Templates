@@ -1,14 +1,11 @@
 package presentation.list
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -26,7 +23,6 @@ import com.vnteam.architecturetemplates.presentation.intents.ListIntent
 import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
@@ -36,6 +32,7 @@ import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.ScreenState
 import presentation.components.AvatarImage
 import presentation.components.ConfirmationDialog
+import presentation.components.RefreshableLazyList
 
 @Composable
 fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> Unit) {
@@ -45,7 +42,7 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
     LaunchedEffect(Unit) {
         viewState.value.takeIf { it.forks == null }?.let {
             viewModel.processIntent(ListIntent.ClearForks())
-            viewModel.processIntent(ListIntent.LoadForks())
+            viewModel.processIntent(ListIntent.LoadForks(true))
         }
     }
 
@@ -60,6 +57,7 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
     }
     ListContent(viewState.value) { forkUI, action ->
         when (action) {
+            "refresh" -> viewModel.processIntent(ListIntent.LoadForks(false))
             "details" -> onItemClick(forkUI)
             "confirm_delete" -> {
                 viewState.value.isConfirmationDialogVisible.value = true
@@ -77,18 +75,13 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
 @Composable
 fun ListContent(viewState: ListViewState, onItemClick: (ForkUI, String) -> Unit) {
     Box {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(LocalLargePadding.current.size),
-            verticalArrangement = Arrangement.Top
-        ) {
-            LazyColumn {
-                items(viewState.forks.orEmpty()) { item ->
-                    ForkItem(item, onItemClick)
-                }
+        RefreshableLazyList( {
+            items(viewState.forks.orEmpty()) { item ->
+                ForkItem(item, onItemClick)
             }
-        }
+        }, {
+            onItemClick(ForkUI(), "refresh")
+        })
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
             title = getStringResources().DELETE,
