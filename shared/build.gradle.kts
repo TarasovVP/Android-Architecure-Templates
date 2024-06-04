@@ -31,7 +31,7 @@ kotlin {
             api(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.runtime)
-            implementation(libs.stately.common)
+
             implementation(libs.kotlinx.serialization)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.androidx.viewmodel.compose)

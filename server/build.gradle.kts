@@ -15,12 +15,13 @@ application {
 dependencies {
     implementation(projects.shared)
     implementation(libs.logback)
+    implementation(libs.koin.core)
+    implementation(libs.koin.ktor)
+    // Ktor
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.config.yaml)
-    implementation("io.ktor:ktor-server-cors:2.3.11")
-    implementation("io.ktor:ktor-server-content-negotiation:2.3.11")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.11")
-    testImplementation("io.ktor:ktor-client-content-negotiation:2.3.11")
+    implementation(libs.ktor.server.cors)
     testImplementation(libs.ktor.server.tests)
+    implementation(project(":shared"))
 }

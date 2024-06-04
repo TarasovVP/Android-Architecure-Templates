@@ -1,5 +1,7 @@
 package com.vnteam.architecturetemplates
 
+import com.vnteam.architecturetemplates.di.appModule
+import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
@@ -12,6 +14,8 @@ import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
+import org.koin.java.KoinJavaComponent.inject
+import org.koin.ktor.plugin.Koin
 
 fun main() {
     embeddedServer(Netty, host = "0.0.0.0", port = 8080, module = Application::module).start(wait = true)
@@ -26,6 +30,12 @@ fun Application.module() {
     routing {
         get("/repos/octocat/Spoon-Knife/forks") {
             call.respondText(forksJson(), ContentType.Application.Json, HttpStatusCode.OK)
+        }
+        val dbRepository: DBRepository by inject(DBRepository::class.java)
+        get("/repos/octocat/Spoon-Knife/forks") {
+            dbRepository.getForksFromDB().collect {
+                call.respondText(it.toString(), ContentType.Application.Json, HttpStatusCode.OK)
+            }
         }
     }
 }

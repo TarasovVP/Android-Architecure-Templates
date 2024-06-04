@@ -20,15 +20,14 @@ kotlin {
     task("testClasses")
     sourceSets {
         jsMain.dependencies {
-            implementation(libs.koin.core)
             implementation(libs.androidx.viewmodel.compose)
-            //Compose
+            // Compose
             implementation(compose.html.core)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
-            //Koin
+            // Koin
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
 
