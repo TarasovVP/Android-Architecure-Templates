@@ -1,13 +1,12 @@
-package com.vnteam.architecturetemplates.domain.repositories
+package com.vnteam.architecturetemplates
 
 import com.vnteam.architecturetemplates.domain.models.Fork
-import kotlinx.coroutines.flow.Flow
 
-interface ApiRepository {
-
-    suspend fun getForksFromApi(): Flow<List<Fork>?>
+interface ForksPresenter {
 
     suspend fun insertForksToDB(forks: List<Fork>?)
+
+    suspend fun getForksFromDB(): List<Fork>?
 
     suspend fun getForkById(forkId: Long?): Fork?
 

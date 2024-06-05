@@ -41,8 +41,13 @@ import io.ktor.client.plugins.logging.Logging
 
 val appModule = module {
 
-    single { DEBUG_URL }
+    single { BASE_URL }
     single { ApiService(get<String>(), get()) }
+    single { Json {
+        prettyPrint = true
+        isLenient = true
+        ignoreUnknownKeys = true
+    } }
     single {
         HttpClient {
             install(Logging) {
@@ -50,11 +55,7 @@ val appModule = module {
                 logger = Logger.DEFAULT
             }
             install(ContentNegotiation) {
-                json(Json {
-                    prettyPrint = true
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                })
+                json(get())
             }
         }
     }

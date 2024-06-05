@@ -1,10 +1,16 @@
 package com.vnteam.architecturetemplates.data.network
 
+import com.vnteam.architecturetemplates.domain.models.Fork
 import config.BuildConfig.GITHUB_TOKEN
 import io.ktor.client.HttpClient
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
+import io.ktor.client.request.post
 import io.ktor.client.statement.HttpResponse
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.util.InternalAPI
 
 
 class ApiService(
@@ -12,16 +18,43 @@ class ApiService(
     private val httpClient: HttpClient,
 ) {
 
-    suspend fun getForks(): HttpResponse {
-
+    @OptIn(InternalAPI::class)
+    suspend fun insertForksToDB(forks: List<Fork>): HttpResponse {
         val httpResponse = try {
-            httpClient.get("${baseUrl}repos/octocat/Spoon-Knife/forks") {
-                headers {
-                    /*append("Accept", "application/vnd.github+json")
-                    append("Authorization", "Bearer $GITHUB_TOKEN")
-                    append("X-GitHub-Api-Version", "2022-11-28")*/
-                }
+            httpClient.post("${baseUrl}forks") {
+                contentType(ContentType.Application.Json)
+                body = forks
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw e
+        }
+        return httpResponse
+    }
+
+    suspend fun getForksFromApi(): HttpResponse {
+        val httpResponse = try {
+            httpClient.get("${baseUrl}forks")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw e
+        }
+        return httpResponse
+    }
+
+    suspend fun getForkById(id: Long): HttpResponse {
+        val httpResponse = try {
+            httpClient.get("${baseUrl}forks/$id")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw e
+        }
+        return httpResponse
+    }
+
+    suspend fun deleteForkById(id: Long): HttpResponse {
+        val httpResponse = try {
+            httpClient.delete("${baseUrl}forks/$id")
         } catch (e: Exception) {
             e.printStackTrace()
             throw e
