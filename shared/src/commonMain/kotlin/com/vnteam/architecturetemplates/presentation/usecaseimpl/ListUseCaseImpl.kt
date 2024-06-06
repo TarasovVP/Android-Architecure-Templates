@@ -26,6 +26,6 @@ class ListUseCaseImpl(private val apiRepository: ApiRepository, private val dbRe
     }
 
     override suspend fun deleteForkById(id: Long): Flow<Unit> {
-        return dbRepository.deleteForkById(id)
+        return apiRepository.deleteForkById(id)
     }
 }

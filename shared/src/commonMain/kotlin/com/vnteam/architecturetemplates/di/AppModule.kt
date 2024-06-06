@@ -86,7 +86,7 @@ val appModule = module {
 
     single<DetailsUseCase> { DetailsUseCaseImpl(get()) }
 
-    single<CreateUseCase> { CreateUseCaseImpl(get()) }
+    single<CreateUseCase> { CreateUseCaseImpl(get(), get()) }
 
     factory {
         ListViewModel(get(), get())

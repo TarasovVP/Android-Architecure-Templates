@@ -7,9 +7,9 @@ interface ApiRepository {
 
     suspend fun getForksFromApi(): Flow<List<Fork>?>
 
-    suspend fun insertForksToDB(forks: List<Fork>?)
+    suspend fun insertForksToApi(forks: List<Fork>?): Flow<Unit>
 
-    suspend fun getForkById(forkId: Long?): Fork?
+    suspend fun getForkById(forkId: Long?): Flow<Fork?>
 
-    suspend fun deleteForkById(forkId: Long)
+    suspend fun deleteForkById(forkId: Long): Flow<Unit>
 }

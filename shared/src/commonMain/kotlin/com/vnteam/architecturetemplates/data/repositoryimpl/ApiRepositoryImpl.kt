@@ -13,6 +13,18 @@ import kotlinx.coroutines.flow.flowOf
 class ApiRepositoryImpl(private val apiService: ApiService, private val forkResponseMapper: ForkResponseMapper) :
     ApiRepository {
 
+    override suspend fun insertForksToApi(forks: List<Fork>?): Flow<Unit> {
+        when (val response = apiService.insertForksToDB(forks.orEmpty()).handleResponse<Unit>()) {
+            is NetworkResult.Success -> {
+                return flowOf( Unit )
+            }
+            is NetworkResult.Failure -> {
+                println(response.errorMessage)
+                throw Exception(response.errorMessage)
+            }
+        }
+    }
+
     override suspend fun getForksFromApi(): Flow<List<Fork>> {
         when (val response = apiService.getForksFromApi().handleResponse<List<ForkResponse>>()) {
             is NetworkResult.Success -> {
@@ -25,10 +37,10 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
         }
     }
 
-    override suspend fun insertForksToDB(forks: List<Fork>?) {
-        when (val response = apiService.insertForksToDB(forks.orEmpty()).handleResponse<List<ForkResponse>>()) {
+    override suspend fun getForkById(forkId: Long?): Flow<Fork?> {
+        when (val response = apiService.getForkById(forkId ?: 0).handleResponse<ForkResponse>()) {
             is NetworkResult.Success -> {
-                return flowOf( response.data?.map { forkResponseMapper.mapFromImplModel(it) }.orEmpty() )
+                return flowOf( response.data?.let { forkResponseMapper.mapFromImplModel(it) } )
             }
             is NetworkResult.Failure -> {
                 println(response.errorMessage)
@@ -37,22 +49,10 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
         }
     }
 
-    override suspend fun getForkById(forkId: Long?): Fork? {
-        when (val response = apiService.getForkById(forkId ?: 0).handleResponse<List<ForkResponse>>()) {
-            is NetworkResult.Success -> {
-                return flowOf( response.data?.map { forkResponseMapper.mapFromImplModel(it) }.orEmpty() )
-            }
-            is NetworkResult.Failure -> {
-                println(response.errorMessage)
-                throw Exception(response.errorMessage)
-            }
-        }
-    }
-
-    override suspend fun deleteForkById(forkId: Long) {
+    override suspend fun deleteForkById(forkId: Long): Flow<Unit> {
         when (val response = apiService.deleteForkById(forkId).handleResponse<List<ForkResponse>>()) {
             is NetworkResult.Success -> {
-                return flowOf( response.data?.map { forkResponseMapper.mapFromImplModel(it) }.orEmpty() )
+                return flowOf( Unit )
             }
             is NetworkResult.Failure -> {
                 println(response.errorMessage)

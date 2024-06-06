@@ -59,6 +59,10 @@ kotlin {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sqldelight.native.driver)
         }
+        nativeMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+            implementation(libs.sqldelight.native.driver)
+        }
         jvmMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.ktor.client.java)
@@ -95,29 +99,3 @@ sqldelight {
         }
     }
 }
-
-val localProperties = Properties()
-val localPropertiesFile = rootProject.file("local.properties")
-if (localPropertiesFile.exists()) {
-    localProperties.load(localPropertiesFile.inputStream())
-}
-tasks.register("generateBuildConfig") {
-    doLast {
-        val buildConfigFile = file("src/commonMain/kotlin/config/BuildConfig.kt")
-
-        buildConfigFile.parentFile.mkdirs()
-        buildConfigFile.writeText("""
-            package config
-
-            object BuildConfig {
-                val GITHUB_TOKEN: String = "${localProperties.getProperty("github_token", "")}"
-            }
-        """.trimIndent())
-    }
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    dependsOn("generateBuildConfig")
-}
-
-

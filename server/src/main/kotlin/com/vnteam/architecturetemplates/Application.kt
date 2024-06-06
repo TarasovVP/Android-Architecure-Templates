@@ -30,13 +30,12 @@ fun Application.appModule() {
         allowHeader(HttpHeaders.AccessControlAllowOrigin)
     }
     install(Koin) {
-        modules(appModule, webModule)
+        modules(appModule, serverModule)
     }
     val jsonInstance = get<Json>()
     install(ContentNegotiation) {
         json(jsonInstance)
     }
-    val forksPresenter = get<ForksPresenter>()
     routing {
         insertForksToDB()
         getForksFromDB()

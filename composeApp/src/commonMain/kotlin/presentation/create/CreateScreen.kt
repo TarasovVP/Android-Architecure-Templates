@@ -140,7 +140,7 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
                     .fillMaxWidth()
                     .padding(LocalLargePadding.current.size),
                 shape = MaterialTheme.shapes.large,
-                enabled = viewState.value.fork.value?.isForkValid() == true && originFork.value != viewState.value.fork.value
+                enabled = true/*viewState.value.fork.value?.isForkValid() == true && originFork.value != viewState.value.fork.value*/
             ) {
                 Text(text = "Save", modifier = Modifier
                     .padding(vertical = LocalSmallPadding.current.size))
