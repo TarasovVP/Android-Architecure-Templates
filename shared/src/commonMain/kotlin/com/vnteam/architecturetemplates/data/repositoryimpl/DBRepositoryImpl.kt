@@ -27,12 +27,12 @@ class DBRepositoryImpl(private val forkDao: ForkDao, private val forkDBMapper: F
         }
 
 
-    override suspend fun getForkById(forkId: Long): Flow<Fork?> =
+    override suspend fun getForkById(forkId: String): Flow<Fork?> =
         forkDao.getForkById(forkId).map { forkWithOwner ->
             forkWithOwner?.let { forkDBMapper.mapFromImplModel(it) }
         }
 
-    override suspend fun deleteForkById(forkId: Long): Flow<Unit> = flow {
+    override suspend fun deleteForkById(forkId: String): Flow<Unit> = flow {
         forkDao.deleteForkById(forkId)
         emit(Unit)
     }

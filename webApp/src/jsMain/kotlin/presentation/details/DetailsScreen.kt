@@ -28,7 +28,7 @@ fun DetailsScreen(itemId: String) {
     val error = mutableStateOf(viewModel.state.value.infoMessage.value)
 
     LaunchedEffect(itemId) {
-        viewModel.processIntent(DetailsIntent.LoadFork(itemId.toLong()))
+        viewModel.processIntent(DetailsIntent.LoadFork(itemId))
     }
 
     LaunchedEffect(detailsViewStateState.value) {

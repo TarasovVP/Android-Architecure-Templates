@@ -29,13 +29,13 @@ private class AppDatabaseImpl(
     override fun create(driver: SqlDriver): QueryResult.AsyncValue<Unit> = QueryResult.AsyncValue {
       driver.execute(null, """
           |CREATE TABLE IF NOT EXISTS ForkWithOwner (
-          |    id INTEGER PRIMARY KEY,
+          |    id TEXT PRIMARY KEY,
           |    name TEXT,
           |    fullName TEXT,
           |    htmlUrl TEXT,
           |    description TEXT,
           |    login TEXT,
-          |    ownerId INTEGER,
+          |    ownerId TEXT,
           |    avatarUrl TEXT,
           |    url TEXT
           |)

@@ -33,9 +33,9 @@ class CreateViewModel(
         }
     }
 
-    private fun getForkById(forkId: Long?) {
+    private fun getForkById(forkId: String?) {
         viewModelScope.launch {
-            createUseCase.getForkById(forkId ?: 0)
+            createUseCase.getForkById(forkId.orEmpty())
                 .onStart {
                     _state.value = _state.value.copy(isLoading = true)
                 }
@@ -59,7 +59,7 @@ class CreateViewModel(
                     _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
                     println("Error: ${exception.message}")
                 }.collect {
-                _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully created", isError = false)))
+                _state.value = state.value.copy(isLoading = false, successResult = true, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully created", isError = false)))
             }
         }
     }

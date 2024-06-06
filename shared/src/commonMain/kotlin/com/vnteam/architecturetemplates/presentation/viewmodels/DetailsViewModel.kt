@@ -30,9 +30,9 @@ class DetailsViewModel(
         }
     }
 
-    private fun getForkById(forkId: Long?) {
+    private fun getForkById(forkId: String?) {
         viewModelScope.launch {
-            detailsUseCase.getForkById(forkId ?: 0)
+            detailsUseCase.getForkById(forkId.orEmpty())
                 .onStart {
                     _state.value = _state.value.copy(isLoading = true)
                 }

@@ -29,7 +29,7 @@ fun Routing.getForksFromDB() = get("/forks") {
 }
 
 fun Routing.getForkById() = get("/forks/{id}") {
-    val forkId = call.parameters["id"]?.toLongOrNull()
+    val forkId = call.parameters["id"]
     if (forkId == null) {
         call.respond(HttpStatusCode.BadRequest)
         return@get
@@ -44,7 +44,7 @@ fun Routing.getForkById() = get("/forks/{id}") {
 }
 
 fun Routing.deleteForkById() = delete("/forks/{id}") {
-    val forkId = call.parameters["id"]?.toLongOrNull()
+    val forkId = call.parameters["id"]
     if (forkId == null) {
         call.respond(HttpStatusCode.BadRequest)
         return@delete

@@ -10,4 +10,5 @@ data class ScreenState(var topAppBarTitle: String = "",
                        var isSnackbarError: Boolean = false,
                        var snackbarMessage: String = "",
                        var isProgressVisible: Boolean = false,
+                       var isScreenUpdatingNeeded: Boolean = false
 )

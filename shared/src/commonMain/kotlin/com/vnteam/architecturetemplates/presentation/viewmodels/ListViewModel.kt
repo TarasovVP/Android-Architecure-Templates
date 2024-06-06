@@ -70,7 +70,7 @@ class ListViewModel(
         }
     }
 
-    private fun deleteForkById(forkId: Long) {
+    private fun deleteForkById(forkId: String) {
         _state.value = state.value.copy(isLoading = true)
         viewModelScope.launch(exceptionHandler) {
             listUseCase.deleteForkById(forkId).collect {

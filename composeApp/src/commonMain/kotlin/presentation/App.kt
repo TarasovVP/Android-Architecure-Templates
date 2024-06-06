@@ -40,8 +40,9 @@ fun App() {
             snackbarHostState.showSnackbar(
                 message = screenState.value.snackbarMessage,
                 duration = SnackbarDuration.Short,)
-            screenState.value = screenState.value.copy(snackbarVisible = false)
+            screenState.value = screenState.value.copy(snackbarVisible = false, snackbarMessage = "")
         }
+        screenState.value = screenState.value.copy(snackbarVisible = false)
     }
 
     Scaffold(

@@ -12,7 +12,7 @@ actual class DatabaseDriverFactory {
     actual suspend fun createDriver(): SqlDriver {
         return WebWorkerDriver(
             Worker(
-                js("""new URL("@cashapp/sqldelight-sqljs-worker/sqljs.worker.js", import.meta.url)""")
+                js("""new URL("@cashapp/sqldelight-sqljs-worker/sqljs.worker.js", import.meta.url)""").unsafeCast<String>()
             )
         ).also { AppDatabase.Schema.awaitCreate(it) }
     }

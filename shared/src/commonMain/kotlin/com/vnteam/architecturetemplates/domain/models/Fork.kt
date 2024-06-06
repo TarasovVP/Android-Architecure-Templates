@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Fork(
-    var id: Long? = null,
+    var id: String? = null,
     var name: String? = null,
     @SerialName("full_name")
     var fullName: String? = null,

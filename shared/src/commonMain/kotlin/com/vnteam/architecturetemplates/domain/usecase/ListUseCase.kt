@@ -13,5 +13,5 @@ interface ListUseCase {
 
     suspend fun getForksFromDB(): Flow<List<Fork>>
 
-    suspend fun deleteForkById(id: Long): Flow<Unit>
+    suspend fun deleteForkById(id: String): Flow<Unit>
 }

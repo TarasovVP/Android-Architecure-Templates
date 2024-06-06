@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class Owner(
     var login: String? = null,
     @SerialName("id")
-    var ownerId: Long? = null,
+    var ownerId: String? = null,
     @SerialName("avatar_url")
     var avatarUrl: String? = null,
     var url: String? = null

@@ -29,9 +29,11 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarS
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
+import io.ktor.client.utils.EmptyContent
 import presentation.ScreenState
 import presentation.components.AvatarImage
 import presentation.components.ConfirmationDialog
+import presentation.components.EmptyState
 import presentation.components.RefreshableLazyList
 
 @Composable
@@ -52,21 +54,28 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
             viewState.value.infoMessage.value = null
         }
     }
+
     LaunchedEffect(viewState.value.isLoading) {
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
+
+    if (screenState.value.isScreenUpdatingNeeded) {
+        viewModel.processIntent(ListIntent.LoadForks(true))
+        screenState.value = screenState.value.copy(isScreenUpdatingNeeded = false)
+    }
+
     ListContent(viewState.value) { forkUI, action ->
         when (action) {
             "refresh" -> viewModel.processIntent(ListIntent.LoadForks(false))
             "details" -> onItemClick(forkUI)
             "confirm_delete" -> {
                 viewState.value.isConfirmationDialogVisible.value = true
-                viewState.value.forkToDelete = forkUI.id ?: 0
+                viewState.value.forkToDelete = forkUI.id.orEmpty()
             }
             "delete" -> {
                 viewState.value.isConfirmationDialogVisible.value = false
-                viewState.value.forkToDelete = 0
-                viewModel.processIntent(ListIntent.DeleteFork( forkUI.id ?: 0 ))
+                viewState.value.forkToDelete = ""
+                viewModel.processIntent(ListIntent.DeleteFork( forkUI.id.orEmpty() ))
             }
         }
     }
@@ -75,11 +84,11 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
 @Composable
 fun ListContent(viewState: ListViewState, onItemClick: (ForkUI, String) -> Unit) {
     Box {
-        RefreshableLazyList( {
+        RefreshableLazyList(viewState.forks.isNullOrEmpty(), content = {
             items(viewState.forks.orEmpty()) { item ->
                 ForkItem(item, onItemClick)
             }
-        }, {
+        }, onRefresh = {
             onItemClick(ForkUI(), "refresh")
         })
         ConfirmationDialog(

@@ -18,7 +18,8 @@ sealed class StringResources(
     var BUTTON_CANCEL: String,
     var BUTTON_OK: String,
     var CREATE: String,
-    var EDIT: String
+    var EDIT: String,
+    val EMPTY_STATE: String
 )
 
 class StringResourcesEN : StringResources(
@@ -36,7 +37,8 @@ class StringResourcesEN : StringResources(
     BUTTON_CANCEL = "Cancel",
     BUTTON_OK = "Ok",
     CREATE = "Create",
-    EDIT = "Edit"
+    EDIT = "Edit",
+    EMPTY_STATE = "No data"
 )
 
 class StringResourcesUK : StringResources(
@@ -54,7 +56,8 @@ class StringResourcesUK : StringResources(
     BUTTON_CANCEL = "Відмінити",
     BUTTON_OK = "Так",
     CREATE = "Створити",
-    EDIT = "Редагувати"
+    EDIT = "Редагувати",
+    EMPTY_STATE = "Немає даних"
 )
 
 fun getStringResourcesByLocale(locale: String): StringResources {

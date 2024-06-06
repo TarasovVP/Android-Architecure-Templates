@@ -37,8 +37,8 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
         }
     }
 
-    override suspend fun getForkById(forkId: Long?): Flow<Fork?> {
-        when (val response = apiService.getForkById(forkId ?: 0).handleResponse<ForkResponse>()) {
+    override suspend fun getForkById(forkId: String?): Flow<Fork?> {
+        when (val response = apiService.getForkById(forkId.orEmpty()).handleResponse<ForkResponse>()) {
             is NetworkResult.Success -> {
                 return flowOf( response.data?.let { forkResponseMapper.mapFromImplModel(it) } )
             }
@@ -49,7 +49,7 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
         }
     }
 
-    override suspend fun deleteForkById(forkId: Long): Flow<Unit> {
+    override suspend fun deleteForkById(forkId: String): Flow<Unit> {
         when (val response = apiService.deleteForkById(forkId).handleResponse<List<ForkResponse>>()) {
             is NetworkResult.Success -> {
                 return flowOf( Unit )

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 class DetailsUseCaseImpl(private val dbRepository: DBRepository) :
     DetailsUseCase {
 
-    override suspend fun getForkById(id: Long): Flow<Fork?> {
+    override suspend fun getForkById(id: String): Flow<Fork?> {
         return dbRepository.getForkById(id)
     }
 }

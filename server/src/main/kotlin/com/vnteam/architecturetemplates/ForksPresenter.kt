@@ -8,7 +8,7 @@ interface ForksPresenter {
 
     suspend fun getForksFromDB(): List<Fork>?
 
-    suspend fun getForkById(forkId: Long?): Fork?
+    suspend fun getForkById(forkId: String?): Fork?
 
-    suspend fun deleteForkById(forkId: Long)
+    suspend fun deleteForkById(forkId: String)
 }

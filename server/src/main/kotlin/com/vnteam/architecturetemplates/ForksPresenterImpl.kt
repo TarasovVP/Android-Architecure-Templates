@@ -17,11 +17,11 @@ class ForksPresenterImpl(
         return dbRepository.getForksFromDB().firstOrNull()
     }
 
-    override suspend fun getForkById(forkId: Long?): Fork? {
-        return dbRepository.getForkById(forkId ?: 0).firstOrNull()
+    override suspend fun getForkById(forkId: String?): Fork? {
+        return dbRepository.getForkById(forkId.orEmpty()).firstOrNull()
     }
 
-    override suspend fun deleteForkById(forkId: Long) {
+    override suspend fun deleteForkById(forkId: String) {
         return  dbRepository.deleteForkById(forkId).first()
     }
 

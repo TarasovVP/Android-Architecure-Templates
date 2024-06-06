@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ForkUI(
-    var id: Long? = null,
+    var id: String? = null,
     var name: String? = null,
     var fullName: String = "",
     var owner: OwnerUI? = null,

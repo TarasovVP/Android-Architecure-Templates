@@ -11,7 +11,7 @@ interface ForkDao {
 
     suspend fun getForkWithOwners(): Flow<List<ForkWithOwner>>
 
-    suspend fun getForkById(id: Long): Flow<ForkWithOwner?>
+    suspend fun getForkById(id: String): Flow<ForkWithOwner?>
 
-    suspend fun deleteForkById(id: Long)
+    suspend fun deleteForkById(id: String)
 }

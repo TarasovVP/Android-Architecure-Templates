@@ -18,14 +18,15 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
 
     NavHost(navController = navController, startDestination = "list") {
         composable("list") {
-            screenState.value = ScreenState().apply {
-                topAppBarTitle = getStringResources().APP_NAME
-                floatingActionButtonVisible = true
-                floatingActionButtonTitle = getStringResources().ADD
+            screenState.value = screenState.value.copy(
+                topAppBarTitle = getStringResources().APP_NAME,
+                topAppBarActionVisible = false,
+                floatingActionButtonVisible = true,
+                floatingActionButtonTitle = getStringResources().ADD,
                 floatingActionButtonAction = {
-                    navController.navigate("create/0")
+                    navController.navigate("create/-1")
                 }
-            }
+            )
             ListScreen(screenState) { forkUI ->
                 navController.navigate("details/${forkUI.id}/${forkUI.name}")
             }
@@ -37,34 +38,35 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
             type = NavType.StringType
             defaultValue = ""
         })) { backStackEntry ->
-            val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
+            val forkId = backStackEntry.arguments?.getString("forkId").orEmpty()
             val forkName = backStackEntry.arguments?.getString("forkName").orEmpty()
-            screenState.value = ScreenState().apply {
-                topAppBarTitle = forkName
-                topAppBarActionVisible = true
+            screenState.value = screenState.value.copy(
+                topAppBarTitle = forkName,
+                topAppBarActionVisible = true,
                 topAppBarAction = {
                     navController.popBackStack()
-                }
-                floatingActionButtonVisible = true
-                floatingActionButtonTitle = getStringResources().EDIT
+                },
+                floatingActionButtonVisible = true,
+                floatingActionButtonTitle = getStringResources().EDIT,
                 floatingActionButtonAction = {
                     navController.navigate("create/$forkId")
-                }
-            }
+                },
+            )
             DetailsScreen(forkId, screenState)
         }
         composable("create/{forkId}", arguments = listOf(navArgument("forkId") {
             type = NavType.StringType
             defaultValue = ""
+            nullable = true
         })) { backStackEntry ->
-            val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
-            screenState.value = ScreenState().apply {
-                topAppBarTitle = if (forkId > 0) getStringResources().EDIT else getStringResources().CREATE
-                topAppBarActionVisible = true
+            val forkId = backStackEntry.arguments?.getString("forkId").takeIf { it?.isNotEmpty() == true && it != "-1"} ?: ""
+            screenState.value = screenState.value.copy(
+                topAppBarTitle = if (forkId.isNotEmpty()) getStringResources().EDIT else getStringResources().CREATE,
+                topAppBarActionVisible = true,
                 topAppBarAction = {
                     navController.navigateUp()
-                }
-            }
+                },
+            )
             CreateScreen(forkId, screenState)
         }
     }

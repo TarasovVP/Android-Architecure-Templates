@@ -41,14 +41,14 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
         awaitClose { }
     }
 
-    override suspend fun getForkById(id: Long): Flow<ForkWithOwner?> = callbackFlow {
+    override suspend fun getForkById(id: String): Flow<ForkWithOwner?> = callbackFlow {
         sharedDatabase { database ->
             trySend(database.appDatabaseQueries.getForkWithOwnerById(id).awaitAsOneOrNull()).isSuccess
         }
         awaitClose { }
     }
 
-    override suspend fun deleteForkById(id: Long) {
+    override suspend fun deleteForkById(id: String) {
         sharedDatabase { database ->
             database.appDatabaseQueries.deleteForkWithOwnerById(id)
         }

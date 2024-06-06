@@ -9,7 +9,7 @@ interface ApiRepository {
 
     suspend fun insertForksToApi(forks: List<Fork>?): Flow<Unit>
 
-    suspend fun getForkById(forkId: Long?): Flow<Fork?>
+    suspend fun getForkById(forkId: String?): Flow<Fork?>
 
-    suspend fun deleteForkById(forkId: Long): Flow<Unit>
+    suspend fun deleteForkById(forkId: String): Flow<Unit>
 }

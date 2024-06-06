@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
+import com.vnteam.architecturetemplates.presentation.intents.ListIntent
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
@@ -31,7 +32,7 @@ import presentation.components.PrimaryText
 import presentation.components.SecondaryText
 
 @Composable
-fun DetailsScreen(forkId: Long?, screenState: MutableState<ScreenState>) {
+fun DetailsScreen(forkId: String?, screenState: MutableState<ScreenState>) {
     val viewModel = viewModel(DetailsViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
@@ -44,7 +45,11 @@ fun DetailsScreen(forkId: Long?, screenState: MutableState<ScreenState>) {
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
     LaunchedEffect(forkId) {
-        viewModel.processIntent(DetailsIntent.LoadFork(forkId ?: 0))
+        viewModel.processIntent(DetailsIntent.LoadFork(forkId.orEmpty()))
+    }
+    if (screenState.value.isScreenUpdatingNeeded) {
+        viewModel.processIntent(DetailsIntent.LoadFork(forkId.orEmpty()))
+        screenState.value = screenState.value.copy(isScreenUpdatingNeeded = false)
     }
 
     DetailsContent(viewState.value)

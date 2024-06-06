@@ -22,7 +22,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.TextFieldValue
@@ -30,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
+import com.vnteam.architecturetemplates.data.database.generateUUID
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import presentation.components.painterRes
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
@@ -47,7 +47,7 @@ import presentation.components.CommonTextField
 import presentation.components.HeaderText
 
 @Composable
-fun CreateScreen(forkId: Long, screenState: MutableState<ScreenState>) {
+fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
     val viewModel = viewModel(CreateViewModel::class)
     val viewState = viewModel.state.collectAsState()
     val originFork = mutableStateOf<ForkUI?>( null )
@@ -56,10 +56,16 @@ fun CreateScreen(forkId: Long, screenState: MutableState<ScreenState>) {
         originFork.value = viewState.value.fork.value
     }
     LaunchedEffect(Unit) {
-        if (forkId > 0) {
+        if (forkId.isNotEmpty()) {
             viewModel.processIntent(CreateIntent.LoadFork(forkId))
         } else {
-            viewModel.state.value.fork = mutableStateOf( ForkUI(owner = OwnerUI()))
+            viewModel.state.value.fork = mutableStateOf( ForkUI(id = generateUUID(), owner = OwnerUI(ownerId = generateUUID())))
+        }
+    }
+    LaunchedEffect(viewState.value.successResult) {
+        if (viewState.value.successResult) {
+            screenState.value = screenState.value.copy(isScreenUpdatingNeeded = true)
+            screenState.value.topAppBarAction.invoke()
         }
     }
     LaunchedEffect(viewState.value.infoMessage.value) {
@@ -70,7 +76,6 @@ fun CreateScreen(forkId: Long, screenState: MutableState<ScreenState>) {
     LaunchedEffect(viewState.value.isLoading) {
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
-
     CreateContent(viewState, originFork) {
         viewState.value.fork.value?.let { viewModel.processIntent(CreateIntent.CreateFork(it)) }
     }

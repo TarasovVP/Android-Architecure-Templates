@@ -11,7 +11,7 @@ interface DBRepository {
 
     suspend fun getForksFromDB(): Flow<List<Fork>>
 
-    suspend fun getForkById(forkId: Long): Flow<Fork?>
+    suspend fun getForkById(forkId: String): Flow<Fork?>
 
-    suspend fun deleteForkById(forkId: Long): Flow<Unit>
+    suspend fun deleteForkById(forkId: String): Flow<Unit>
 }

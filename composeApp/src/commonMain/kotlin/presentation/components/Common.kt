@@ -20,7 +20,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -38,16 +37,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarData
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -61,7 +53,6 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
-import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.ResourceItem
@@ -74,7 +65,6 @@ import theme.Primary500
 @OptIn(InternalResourceApi::class)
 @Composable
 fun painterRes(resId: String): Painter {
-    //TODO use painterResource("drawable/${resId}.xml")
     return painterResource(DrawableResource("", setOf(ResourceItem(setOf(),"drawable/${resId}.xml", 100, 100))))
 }
 
@@ -271,42 +261,9 @@ fun SubmitButtons(
     }
 }
 
-@Composable
-fun Snackbar(
-    infoMessage: MutableState<InfoMessageState?>
-) {
-    val showSnackbar = remember { mutableStateOf( true) }
-
-    if (showSnackbar.value) {
-        LaunchedEffect(key1 = Unit) {
-            delay(2000)
-            showSnackbar.value = false
-            infoMessage.value = null
-        }
-
-        Snackbar(
-            snackbarData = object : SnackbarData {
-                override val visuals: SnackbarVisuals
-                    get() = object : SnackbarVisuals {
-                        override val actionLabel: String? = null
-                        override val duration: SnackbarDuration = SnackbarDuration.Short
-                        override val message: String = infoMessage.value?.message.orEmpty()
-                        override val withDismissAction: Boolean = false
-                    }
-
-                override fun dismiss() {
-                    showSnackbar.value = false
-                }
-                override fun performAction() = Unit
-            },
-            containerColor = if (infoMessage.value?.isError == true) Color.Red else Color.Green
-        )
-    }
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RefreshableLazyList(content: LazyListScope.() -> Unit, onRefresh: () -> Unit) {
+fun RefreshableLazyList(isEmpty: Boolean = false, content: LazyListScope.() -> Unit = {}, onRefresh: () -> Unit = {}) {
     val state = rememberPullToRefreshState()
     if (state.isRefreshing) {
         LaunchedEffect(true) {
@@ -314,6 +271,9 @@ fun RefreshableLazyList(content: LazyListScope.() -> Unit, onRefresh: () -> Unit
             delay(1500)
             state.endRefresh()
         }
+    }
+    if (isEmpty) {
+        EmptyState()
     }
     Box(Modifier.nestedScroll(state.nestedScrollConnection)) {
         LazyColumn(Modifier.fillMaxSize().padding(LocalMediumPadding.current.size)) {
@@ -324,6 +284,31 @@ fun RefreshableLazyList(content: LazyListScope.() -> Unit, onRefresh: () -> Unit
         PullToRefreshContainer(
             modifier = Modifier.align(Alignment.TopCenter),
             state = state,
+        )
+    }
+}
+
+@Composable
+fun EmptyState() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(LocalMediumPadding.current.size),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Image(
+            painter = painterRes(DrawableResources.EMPTY_STATE),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxSize(0.3f)
+                .padding(LocalMediumPadding.current.size),
+            contentScale = ContentScale.Fit
+        )
+        Text(
+            text = getStringResources().EMPTY_STATE,
+            style = MaterialTheme.typography.bodyMedium,
+            color = Neutral700
         )
     }
 }
