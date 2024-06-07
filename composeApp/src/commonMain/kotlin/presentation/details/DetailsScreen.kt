@@ -16,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
-import com.vnteam.architecturetemplates.presentation.intents.ListIntent
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
@@ -45,12 +44,12 @@ fun DetailsScreen(forkId: String?, screenState: MutableState<ScreenState>) {
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
     LaunchedEffect(forkId) {
-        viewModel.processIntent(DetailsIntent.LoadFork(forkId.orEmpty()))
+        println("DetailsScreen LaunchedEffect(forkId) isScreenUpdatingNeeded: ${screenState.value.isScreenUpdatingNeeded} fork?.name: ${viewState.value.fork?.name}")
+        viewModel.processIntent(DetailsIntent.LoadFork(forkId.orEmpty(), screenState.value.isScreenUpdatingNeeded))
     }
-    if (screenState.value.isScreenUpdatingNeeded) {
-        viewModel.processIntent(DetailsIntent.LoadFork(forkId.orEmpty()))
-        screenState.value = screenState.value.copy(isScreenUpdatingNeeded = false)
-    }
+    /*if (screenState.value.isScreenUpdatingNeeded) {
+        viewModel.processIntent(DetailsIntent.LoadFork(forkId.orEmpty(), true))
+    }*/
 
     DetailsContent(viewState.value)
 }
@@ -86,7 +85,7 @@ fun DetailsContent(viewState: DetailsViewState) {
 
 @Composable
 fun OwnerCard(ownerUI: OwnerUI?) {
-    Card(modifier = Modifier.padding(top = LocalMediumPadding.current.size)) {
+    Card(modifier = Modifier.padding(top = LocalMediumPadding.current.size).fillMaxSize()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalMediumPadding.current.size)

@@ -41,7 +41,6 @@ class CreateViewModel(
                 }
                 .catch { exception ->
                     _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
-                    println("Error: ${exception.message}")
                 }
                 .collect { fork ->
                     _state.value = _state.value.copy(fork = mutableStateOf( fork?.let { forkUIMapper.mapToImplModel(it) }), isLoading = false)
@@ -57,10 +56,19 @@ class CreateViewModel(
                 }
                 .catch { exception ->
                     _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
-                    println("Error: ${exception.message}")
                 }.collect {
-                _state.value = state.value.copy(isLoading = false, successResult = true, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully created", isError = false)))
+                    insertForkToDB(fork)
+                    _state.value = state.value.copy(isLoading = false, successResult = true, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully created", isError = false)))
             }
+        }
+    }
+
+    private fun insertForkToDB(fork: ForkUI?) {
+        viewModelScope.launch {
+            createUseCase.insertForkToDB(fork?.let { forkUIMapper.mapFromImplModel(it) } ?: Fork())
+                .catch { exception ->
+                    _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
+                }
         }
     }
 }

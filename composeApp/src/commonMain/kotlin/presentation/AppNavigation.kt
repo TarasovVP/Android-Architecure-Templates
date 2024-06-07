@@ -66,6 +66,7 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                 topAppBarAction = {
                     navController.navigateUp()
                 },
+                floatingActionButtonVisible = false
             )
             CreateScreen(forkId, screenState)
         }

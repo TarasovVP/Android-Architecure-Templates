@@ -13,6 +13,10 @@ class CreateUseCaseImpl(private val apiRepository: ApiRepository, private val db
         return dbRepository.getForkById(id)
     }
 
+    override suspend fun insertForkToDB(fork: Fork): Flow<Unit> {
+        return dbRepository.insertForksToDB(listOf(fork))
+    }
+
 
     override suspend fun createFork(fork: Fork): Flow<Unit> {
         return apiRepository.insertForksToApi(listOf(fork))

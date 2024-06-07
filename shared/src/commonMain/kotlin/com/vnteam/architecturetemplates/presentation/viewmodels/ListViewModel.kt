@@ -74,8 +74,7 @@ class ListViewModel(
         _state.value = state.value.copy(isLoading = true)
         viewModelScope.launch(exceptionHandler) {
             listUseCase.deleteForkById(forkId).collect {
-                _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully deleted", isError = false)))
-                getForksFromDB()
+                _state.value = state.value.copy(forks = null, isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully deleted", isError = false)))
             }
         }
     }

@@ -41,7 +41,7 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
     val viewModel = viewModel(ListViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(viewState.value) {
         viewState.value.takeIf { it.forks == null }?.let {
             viewModel.processIntent(ListIntent.ClearForks())
             viewModel.processIntent(ListIntent.LoadForks(true))

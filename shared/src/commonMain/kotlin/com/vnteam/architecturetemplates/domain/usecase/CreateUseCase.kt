@@ -7,5 +7,7 @@ interface CreateUseCase {
 
     suspend fun getForkById(id: String): Flow<Fork?>
 
+    suspend fun insertForkToDB(fork: Fork): Flow<Unit>
+
     suspend fun createFork(fork: Fork): Flow<Unit>
 }

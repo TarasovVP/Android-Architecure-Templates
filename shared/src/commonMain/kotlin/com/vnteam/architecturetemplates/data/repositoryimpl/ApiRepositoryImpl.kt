@@ -50,7 +50,7 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
     }
 
     override suspend fun deleteForkById(forkId: String): Flow<Unit> {
-        when (val response = apiService.deleteForkById(forkId).handleResponse<List<ForkResponse>>()) {
+        when (val response = apiService.deleteForkById(forkId).handleResponse<Unit>()) {
             is NetworkResult.Success -> {
                 return flowOf( Unit )
             }

@@ -26,11 +26,14 @@ class DetailsViewModel(
 
     fun processIntent(intent: DetailsIntent) {
         when (intent) {
-            is DetailsIntent.LoadFork -> getForkById(intent.forkId)
+            is DetailsIntent.LoadFork -> getForkById(intent.forkId, intent.isUpdated)
         }
     }
 
-    private fun getForkById(forkId: String?) {
+    private fun getForkById(forkId: String?, isUpdated: Boolean) {
+        if (isUpdated) {
+            _state.value = _state.value.copy(fork = null)
+        }
         viewModelScope.launch {
             detailsUseCase.getForkById(forkId.orEmpty())
                 .onStart {
@@ -41,6 +44,7 @@ class DetailsViewModel(
                     println("Error: ${exception.message}")
                 }
                 .collect { fork ->
+                    println("DetailsViewModel: fork?.name ${fork?.name}")
                     _state.value = _state.value.copy(fork = fork?.let { forkUIMapper.mapToImplModel(it) }, isLoading = false)
                 }
         }
