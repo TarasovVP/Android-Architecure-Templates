@@ -52,15 +52,15 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
     val viewState = viewModel.state.collectAsState()
     val originFork = mutableStateOf<ForkUI?>( null )
 
-    LaunchedEffect(viewState.value) {
-        originFork.value = viewState.value.fork.value
-    }
     LaunchedEffect(Unit) {
         if (forkId.isNotEmpty()) {
             viewModel.processIntent(CreateIntent.LoadFork(forkId))
         } else {
             viewModel.state.value.fork = mutableStateOf( ForkUI(id = generateUUID(), owner = OwnerUI(ownerId = generateUUID())))
         }
+    }
+    LaunchedEffect(viewState.value) {
+        originFork.value = viewState.value.fork.value
     }
     LaunchedEffect(viewState.value.successResult) {
         if (viewState.value.successResult) {
@@ -94,7 +94,8 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
             HeaderText(getStringResources().FORK)
             CommonTextField(
                 mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())),
-                getStringResources().NAME,
+                "${getStringResources().NAME}*",
+
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(name = text)
             }
@@ -129,7 +130,7 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
             }
             CommonTextField(
                 mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())),
-                getStringResources().NAME,
+                "${getStringResources().NAME}*",
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(owner = viewState.value.fork.value?.owner?.copy(login = text))
             }
@@ -145,9 +146,9 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
                     .fillMaxWidth()
                     .padding(LocalLargePadding.current.size),
                 shape = MaterialTheme.shapes.large,
-                enabled = true/*viewState.value.fork.value?.isForkValid() == true && originFork.value != viewState.value.fork.value*/
+                enabled = originFork.value != viewState.value.fork.value && viewState.value.fork.value?.isForkValid() == true
             ) {
-                Text(text = "Save", modifier = Modifier
+                Text(text = getStringResources().SUBMIT, modifier = Modifier
                     .padding(vertical = LocalSmallPadding.current.size))
             }
         }

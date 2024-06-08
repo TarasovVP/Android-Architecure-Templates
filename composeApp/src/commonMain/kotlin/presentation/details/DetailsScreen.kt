@@ -29,6 +29,7 @@ import presentation.components.AvatarImage
 import presentation.components.HeaderText
 import presentation.components.PrimaryText
 import presentation.components.SecondaryText
+import presentation.textWithNoDataHandling
 
 @Composable
 fun DetailsScreen(forkId: String?, screenState: MutableState<ScreenState>) {
@@ -44,12 +45,8 @@ fun DetailsScreen(forkId: String?, screenState: MutableState<ScreenState>) {
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
     LaunchedEffect(forkId) {
-        println("DetailsScreen LaunchedEffect(forkId) isScreenUpdatingNeeded: ${screenState.value.isScreenUpdatingNeeded} fork?.name: ${viewState.value.fork?.name}")
         viewModel.processIntent(DetailsIntent.LoadFork(forkId.orEmpty(), screenState.value.isScreenUpdatingNeeded))
     }
-    /*if (screenState.value.isScreenUpdatingNeeded) {
-        viewModel.processIntent(DetailsIntent.LoadFork(forkId.orEmpty(), true))
-    }*/
 
     DetailsContent(viewState.value)
 }
@@ -67,15 +64,15 @@ fun DetailsContent(viewState: DetailsViewState) {
             HeaderText(getStringResources().FORK)
             Row {
                 SecondaryText(getStringResources().NAME)
-                PrimaryText(viewState.fork?.name.orEmpty())
+                PrimaryText(viewState.fork?.name.textWithNoDataHandling())
             }
             Row {
                 SecondaryText(getStringResources().DESCRIPTION)
-                PrimaryText(viewState.fork?.description.orEmpty())
+                PrimaryText(viewState.fork?.description.textWithNoDataHandling())
             }
             Row {
                 SecondaryText(getStringResources().URL)
-                PrimaryText(viewState.fork?.htmlUrl.orEmpty())
+                PrimaryText(viewState.fork?.htmlUrl.textWithNoDataHandling())
             }
             HeaderText(getStringResources().OWNER)
             OwnerCard(viewState.fork?.owner)
@@ -92,8 +89,8 @@ fun OwnerCard(ownerUI: OwnerUI?) {
         ) {
             AvatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
             Column(modifier = Modifier.padding(start = LocalLargePadding.current.size, bottom = LocalMediumPadding.current.size))  {
-                PrimaryText(ownerUI?.login.orEmpty())
-                SecondaryText(ownerUI?.url.orEmpty())
+                PrimaryText(ownerUI?.login.textWithNoDataHandling())
+                SecondaryText(ownerUI?.url.textWithNoDataHandling())
             }
         }
     }

@@ -12,10 +12,6 @@ data class ForkUI(
     var description: String? = null,
 ) {
     fun isForkValid(): Boolean {
-        return !name.isNullOrEmpty()
-                && !description.isNullOrEmpty()
-                && !htmlUrl.isNullOrEmpty()
-                && !owner?.login.isNullOrEmpty()
-                && !owner?.url.isNullOrEmpty()
+        return !name.isNullOrEmpty() && !owner?.login.isNullOrEmpty()
     }
 }
