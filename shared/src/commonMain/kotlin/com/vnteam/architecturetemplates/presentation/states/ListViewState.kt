@@ -8,5 +8,6 @@ data class ListViewState(val forks: List<ForkUI>? = null,
                          val isLoading: Boolean = false,
                          var isConfirmationDialogVisible: MutableState<Boolean> = mutableStateOf(false),
                          var forkToDelete: String = "",
-                         var infoMessage: MutableState<InfoMessageState?> = mutableStateOf(null)
+                         var infoMessage: MutableState<InfoMessageState?> = mutableStateOf(null),
+                         var successResult: Boolean = false
 )

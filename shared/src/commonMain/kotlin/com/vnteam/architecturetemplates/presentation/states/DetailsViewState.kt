@@ -7,5 +7,6 @@ import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 
 data class DetailsViewState(val fork: ForkUI? = null,
                             val isLoading: Boolean = false,
-                            var infoMessage: MutableState<InfoMessageState?> = mutableStateOf(null)
+                            var infoMessage: MutableState<InfoMessageState?> = mutableStateOf(null),
+                            var successResult: Boolean = false
 )

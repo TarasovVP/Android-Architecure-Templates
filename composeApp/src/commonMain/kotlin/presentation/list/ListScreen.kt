@@ -29,11 +29,9 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarS
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
-import io.ktor.client.utils.EmptyContent
 import presentation.ScreenState
 import presentation.components.AvatarImage
 import presentation.components.ConfirmationDialog
-import presentation.components.EmptyState
 import presentation.components.RefreshableLazyList
 
 @Composable
@@ -41,10 +39,9 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
     val viewModel = viewModel(ListViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
-    LaunchedEffect(viewState.value) {
+    LaunchedEffect(Unit) {
         viewState.value.takeIf { it.forks == null }?.let {
             viewModel.processIntent(ListIntent.ClearForks())
-            viewModel.processIntent(ListIntent.LoadForks(true))
         }
     }
 
@@ -59,9 +56,18 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
 
-    if (screenState.value.isScreenUpdatingNeeded) {
-        viewModel.processIntent(ListIntent.LoadForks(true))
-        screenState.value = screenState.value.copy(isScreenUpdatingNeeded = false)
+    LaunchedEffect(viewState.value.successResult) {
+        if (viewState.value.successResult){
+            viewModel.processIntent(ListIntent.ClearForks())
+            viewState.value.successResult = false
+        }
+    }
+
+    LaunchedEffect(screenState.value.isScreenUpdatingNeeded) {
+        if (screenState.value.isScreenUpdatingNeeded && viewState.value.forks != null) {
+            viewModel.processIntent(ListIntent.LoadForks(true))
+            screenState.value = screenState.value.copy(isScreenUpdatingNeeded = false)
+        }
     }
 
     ListContent(viewState.value) { forkUI, action ->
