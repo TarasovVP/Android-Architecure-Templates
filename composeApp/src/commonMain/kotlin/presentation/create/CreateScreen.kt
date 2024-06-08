@@ -22,6 +22,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.TextFieldValue
@@ -76,8 +77,10 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
     LaunchedEffect(viewState.value.isLoading) {
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
-    CreateContent(viewState, originFork) {
-        viewState.value.fork.value?.let { viewModel.processIntent(CreateIntent.CreateFork(it)) }
+    viewState.value.fork.value?.let {
+        CreateContent(viewState, originFork) {
+            viewModel.processIntent(CreateIntent.CreateFork(it))
+        }
     }
 }
 
@@ -93,20 +96,20 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
         ) {
             HeaderText(getStringResources().FORK)
             CommonTextField(
-                mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())),
+                remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())) },
                 "${getStringResources().NAME}*",
 
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(name = text)
             }
             CommonTextField(
-                mutableStateOf(TextFieldValue(viewState.value.fork.value?.description.orEmpty())),
+                remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.description.orEmpty())) },
                 getStringResources().DESCRIPTION,
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(description = text)
             }
             CommonTextField(
-                mutableStateOf(TextFieldValue(viewState.value.fork.value?.htmlUrl.orEmpty())),
+                remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.htmlUrl.orEmpty())) },
                 getStringResources().URL,
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
@@ -129,13 +132,13 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
                 }
             }
             CommonTextField(
-                mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())),
+                remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())) },
                 "${getStringResources().NAME}*",
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(owner = viewState.value.fork.value?.owner?.copy(login = text))
             }
             CommonTextField(
-                mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())),
+                remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())) },
                 getStringResources().URL,
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(owner = viewState.value.fork.value?.owner?.copy(url = text))
