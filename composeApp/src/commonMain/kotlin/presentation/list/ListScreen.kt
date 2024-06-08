@@ -59,7 +59,6 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
     LaunchedEffect(viewState.value.successResult) {
         if (viewState.value.successResult){
             viewModel.processIntent(ListIntent.ClearForks())
-            viewState.value.successResult = false
         }
     }
 

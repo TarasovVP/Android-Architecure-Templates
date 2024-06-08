@@ -272,14 +272,12 @@ fun RefreshableLazyList(isEmpty: Boolean = false, content: LazyListScope.() -> U
             state.endRefresh()
         }
     }
-    if (isEmpty) {
+    if (isEmpty && !state.isRefreshing) {
         EmptyState()
     }
     Box(Modifier.nestedScroll(state.nestedScrollConnection)) {
         LazyColumn(Modifier.fillMaxSize().padding(LocalMediumPadding.current.size)) {
-            if (!state.isRefreshing) {
-                content()
-            }
+            content()
         }
         PullToRefreshContainer(
             modifier = Modifier.align(Alignment.TopCenter),
