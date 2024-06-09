@@ -1,9 +1,11 @@
 package presentation.create
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,6 +25,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.TextFieldValue
@@ -36,6 +39,7 @@ import presentation.components.painterRes
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
@@ -44,6 +48,8 @@ import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.ScreenState
+import presentation.components.AvatarImage
+import presentation.components.ChangeAvatarDialog
 import presentation.components.CommonTextField
 import presentation.components.HeaderText
 
@@ -82,6 +88,8 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
             viewModel.processIntent(CreateIntent.CreateFork(it))
         }
     }
+    screenState.value = screenState.value.copy()
+
 }
 
 @Composable
@@ -92,7 +100,8 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(LocalLargePadding.current.size),
-            verticalArrangement = Arrangement.Top
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             HeaderText(getStringResources().FORK)
             CommonTextField(
@@ -115,21 +124,11 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
                 viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
             }
             HeaderText(getStringResources().OWNER)
-            SubcomposeAsyncImage(
-                model = "",
-                contentDescription = getStringResources().OWNER_AVATAR,
-                modifier = Modifier
-                    .wrapContentSize()
-                    .width(LocalLargeAvatarSize.current.size)
-                    .height(LocalLargeAvatarSize.current.size)
-                    .padding(horizontal = 5.dp),
-                contentScale = ContentScale.Crop
-            ) {
-                when (painter.state) {
-                    is AsyncImagePainter.State.Loading -> CircularProgressIndicator()
-                    is AsyncImagePainter.State.Error -> Image(painter = painterRes(DrawableResources.IC_PERSON), contentDescription = null)
-                    else -> SubcomposeAsyncImageContent()
-                }
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.wrapContentSize().clickable {
+                viewState.value.isChangeAvatarDialogVisible.value = true
+            }) {
+                AvatarImage(avatarUrl = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
+                    avatarSize = LocalLargeAvatarSize.current.size)
             }
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())) },
@@ -155,5 +154,13 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
                     .padding(vertical = LocalSmallPadding.current.size))
             }
         }
+    }
+    if (viewState.value.isChangeAvatarDialogVisible.value) {
+        ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
+            viewState.value.isChangeAvatarDialogVisible.value = false
+        }, onClick = { avatar ->
+            viewState.value.fork.value = viewState.value.fork.value?.copy(owner = viewState.value.fork.value?.owner?.copy(avatarUrl = avatar))
+            viewState.value.isChangeAvatarDialogVisible.value = false
+        })
     }
 }

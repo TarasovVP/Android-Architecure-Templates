@@ -3,24 +3,42 @@ package presentation.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemGestures
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -39,20 +57,31 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import coil3.compose.AsyncImage
 import kotlinx.coroutines.delay
 import coil3.compose.AsyncImagePainter
+import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.ResourceItem
@@ -61,6 +90,8 @@ import theme.Neutral400
 import theme.Neutral700
 import theme.Primary400
 import theme.Primary500
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 @OptIn(InternalResourceApi::class)
 @Composable
@@ -112,22 +143,17 @@ fun SecondaryText(
 
 @Composable
 fun AvatarImage(avatarUrl: String, avatarSize: Dp) {
-    SubcomposeAsyncImage(
-        model = avatarUrl,
+    Image(
+        painter = painterRes(avatarUrl.takeIf { it.isNotEmpty() } ?: DrawableResources.IC_AVATAR_DEFAULT),
         contentDescription = getStringResources().OWNER_AVATAR,
         modifier = Modifier
-            .padding(LocalSmallPadding.current.size)
             .wrapContentSize()
-            .width(avatarSize)
-            .height(avatarSize),
+            .padding(LocalMediumPadding.current.size)
+            .size(avatarSize)
+            .clip(CircleShape)
+            .border(1.dp, Color.Gray, CircleShape),
         contentScale = ContentScale.Crop
-    ) {
-        when (painter.state) {
-            is AsyncImagePainter.State.Loading -> CircularProgressIndicator()
-            is AsyncImagePainter.State.Error -> Image(painter = painterRes(DrawableResources.IC_PERSON), contentDescription = null)
-            else -> SubcomposeAsyncImageContent()
-        }
-    }
+    )
 }
 
 @Composable
@@ -308,6 +334,54 @@ fun EmptyState() {
             style = MaterialTheme.typography.bodyMedium,
             color = Neutral700
         )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ChangeAvatarDialog(avatarList: List<String>, onDismiss: () -> Unit, onClick: (String) -> Unit) {
+    val modalBottomSheetState = rememberModalBottomSheetState()
+
+    ModalBottomSheet(
+        sheetState = modalBottomSheetState,
+        onDismissRequest = { onDismiss() },
+        dragHandle = { BottomSheetDefaults.DragHandle() }
+    ) {
+        Text(
+            text = getStringResources().CHANGE_AVATAR,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(LocalMediumPadding.current.size),
+            textAlign = TextAlign.Center)
+        LazyVerticalGrid(modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = LocalMediumPadding.current.size,
+                end = LocalMediumPadding.current.size,
+                bottom = LocalLargePadding.current.size * 3),
+            columns = GridCells.Adaptive(minSize = LocalLargeAvatarSize.current.size + LocalLargePadding.current.size * 2)
+        )  {
+            items(avatarList) { avatar ->
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        onClick(avatar)
+                    },
+                    contentAlignment = Alignment.Center) {
+                    Image(
+                        painter = painterRes(avatar),
+                        contentDescription = getStringResources().OWNER_AVATAR,
+                        modifier = Modifier
+                            .padding(vertical = LocalMediumPadding.current.size, horizontal = LocalLargePadding.current.size)
+                            .wrapContentSize()
+                            .size(LocalLargeAvatarSize.current.size)
+                            .clip(CircleShape)
+                            .border(1.dp, Color.Gray, CircleShape),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+            }
+        }
     }
 }
 

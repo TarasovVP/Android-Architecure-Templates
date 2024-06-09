@@ -6,6 +6,7 @@ import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 
 
 data class CreateViewState(var fork: MutableState<ForkUI?> = mutableStateOf(null),
+                           var isChangeAvatarDialogVisible: MutableState<Boolean> = mutableStateOf(false),
                            var isLoading: Boolean = false,
                            var infoMessage: MutableState<InfoMessageState?> = mutableStateOf(null),
                            var successResult: Boolean = false

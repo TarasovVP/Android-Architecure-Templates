@@ -16,8 +16,8 @@ val large_padding = Dimens(size = 16.dp)
 val default_text_size = Dimens(textSize = 16.sp)
 
 private val small_avatar_size = Dimens(size = 16.dp)
-private val medium_avatar_size = Dimens(size = 24.dp)
-private val large_avatar_size = Dimens(size = 50.dp)
+private val medium_avatar_size = Dimens(size = 32.dp)
+private val large_avatar_size = Dimens(size = 75.dp)
 
 val LocalSmallAvatarSize = staticCompositionLocalOf { small_avatar_size }
 val LocalMediumAvatarSize = staticCompositionLocalOf { medium_avatar_size }

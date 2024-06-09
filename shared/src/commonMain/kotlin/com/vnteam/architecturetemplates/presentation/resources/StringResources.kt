@@ -21,7 +21,8 @@ sealed class StringResources(
     var EDIT: String,
     var SUBMIT: String,
     val EMPTY_STATE: String,
-    val NO_DATA: String
+    val NO_DATA: String,
+    val CHANGE_AVATAR: String
 )
 
 class StringResourcesEN : StringResources(
@@ -42,7 +43,8 @@ class StringResourcesEN : StringResources(
     EDIT = "Edit",
     SUBMIT = "Submit",
     EMPTY_STATE = "No data",
-    NO_DATA = "N/A"
+    NO_DATA = "N/A",
+    CHANGE_AVATAR = "Change avatar"
 )
 
 class StringResourcesUK : StringResources(
@@ -63,7 +65,8 @@ class StringResourcesUK : StringResources(
     EDIT = "Редагувати",
     SUBMIT = "Підтвердити",
     EMPTY_STATE = "Немає даних",
-    NO_DATA = "Немає даних"
+    NO_DATA = "Немає даних",
+    CHANGE_AVATAR = "Змінити аватар"
 )
 
 fun getStringResourcesByLocale(locale: String): StringResources {
