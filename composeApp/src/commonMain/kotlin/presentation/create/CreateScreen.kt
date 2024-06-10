@@ -1,21 +1,16 @@
 package presentation.create
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,19 +22,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImagePainter
-import coil3.compose.SubcomposeAsyncImage
-import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.data.database.generateUUID
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
-import presentation.components.painterRes
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
@@ -57,13 +45,18 @@ import presentation.components.HeaderText
 fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
     val viewModel = viewModel(CreateViewModel::class)
     val viewState = viewModel.state.collectAsState()
-    val originFork = mutableStateOf<ForkUI?>( null )
+    val originFork = mutableStateOf<ForkUI?>(null)
 
     LaunchedEffect(Unit) {
         if (forkId.isNotEmpty()) {
             viewModel.processIntent(CreateIntent.LoadFork(forkId))
         } else {
-            viewModel.state.value.fork = mutableStateOf( ForkUI(id = generateUUID(), owner = OwnerUI(ownerId = generateUUID())))
+            viewModel.state.value.fork = mutableStateOf(
+                ForkUI(
+                    id = generateUUID(),
+                    owner = OwnerUI(ownerId = generateUUID())
+                )
+            )
         }
     }
     LaunchedEffect(viewState.value) {
@@ -77,7 +70,11 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
     }
     LaunchedEffect(viewState.value.infoMessage.value) {
         viewState.value.infoMessage.value.takeIf { it != null }?.let {
-            screenState.value = screenState.value.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError)
+            screenState.value = screenState.value.copy(
+                snackbarVisible = true,
+                snackbarMessage = it.message,
+                isSnackbarError = it.isError
+            )
         }
     }
     LaunchedEffect(viewState.value.isLoading) {
@@ -93,7 +90,11 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
 }
 
 @Composable
-fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<ForkUI?>, onClick: () -> Unit) {
+fun CreateContent(
+    viewState: State<CreateViewState>,
+    originFork: MutableState<ForkUI?>,
+    onClick: () -> Unit,
+) {
     Box {
         Column(
             modifier = Modifier
@@ -108,7 +109,7 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
                 remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())) },
                 "${getStringResources().NAME}*",
 
-            ) { text ->
+                ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(name = text)
             }
             CommonTextField(
@@ -124,23 +125,31 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
                 viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
             }
             HeaderText(getStringResources().OWNER)
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.wrapContentSize().clickable {
-                viewState.value.isChangeAvatarDialogVisible.value = true
-            }) {
-                AvatarImage(avatarUrl = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
-                    avatarSize = LocalLargeAvatarSize.current.size)
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.wrapContentSize().clickable {
+                    viewState.value.isChangeAvatarDialogVisible.value = true
+                }) {
+                AvatarImage(
+                    avatarUrl = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
+                    avatarSize = LocalLargeAvatarSize.current.size
+                )
             }
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())) },
                 "${getStringResources().NAME}*",
             ) { text ->
-                viewState.value.fork.value = viewState.value.fork.value?.copy(owner = viewState.value.fork.value?.owner?.copy(login = text))
+                viewState.value.fork.value = viewState.value.fork.value?.copy(
+                    owner = viewState.value.fork.value?.owner?.copy(login = text)
+                )
             }
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())) },
                 getStringResources().URL,
             ) { text ->
-                viewState.value.fork.value = viewState.value.fork.value?.copy(owner = viewState.value.fork.value?.owner?.copy(url = text))
+                viewState.value.fork.value = viewState.value.fork.value?.copy(
+                    owner = viewState.value.fork.value?.owner?.copy(url = text)
+                )
             }
             Button(
                 onClick = onClick,
@@ -150,8 +159,10 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
                 shape = MaterialTheme.shapes.large,
                 enabled = originFork.value != viewState.value.fork.value && viewState.value.fork.value?.isForkValid() == true
             ) {
-                Text(text = getStringResources().SUBMIT, modifier = Modifier
-                    .padding(vertical = LocalSmallPadding.current.size))
+                Text(
+                    text = getStringResources().SUBMIT, modifier = Modifier
+                        .padding(vertical = LocalSmallPadding.current.size)
+                )
             }
         }
     }
@@ -159,7 +170,9 @@ fun CreateContent(viewState: State<CreateViewState>, originFork: MutableState<Fo
         ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
             viewState.value.isChangeAvatarDialogVisible.value = false
         }, onClick = { avatar ->
-            viewState.value.fork.value = viewState.value.fork.value?.copy(owner = viewState.value.fork.value?.owner?.copy(avatarUrl = avatar))
+            viewState.value.fork.value = viewState.value.fork.value?.copy(
+                owner = viewState.value.fork.value?.owner?.copy(avatarUrl = avatar)
+            )
             viewState.value.isChangeAvatarDialogVisible.value = false
         })
     }

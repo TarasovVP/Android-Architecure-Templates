@@ -8,80 +8,56 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemGestures
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomSheetDefaults
-import androidx.compose.material3.BottomSheetScaffold
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
-import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
-import androidx.compose.material3.rememberBottomSheetScaffoldState
-import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.input.ImeAction
-import coil3.compose.AsyncImage
-import kotlinx.coroutines.delay
-import coil3.compose.AsyncImagePainter
-import coil3.compose.LocalPlatformContext
-import coil3.compose.SubcomposeAsyncImage
-import coil3.compose.SubcomposeAsyncImageContent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.InternalResourceApi
 import org.jetbrains.compose.resources.ResourceItem
@@ -90,18 +66,21 @@ import theme.Neutral400
 import theme.Neutral700
 import theme.Primary400
 import theme.Primary500
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
 
 @OptIn(InternalResourceApi::class)
 @Composable
 fun painterRes(resId: String): Painter {
-    return painterResource(DrawableResource("", setOf(ResourceItem(setOf(),"drawable/${resId}.xml", 100, 100))))
+    return painterResource(
+        DrawableResource(
+            "",
+            setOf(ResourceItem(setOf(), "drawable/${resId}.xml", 100, 100))
+        )
+    )
 }
 
 @Composable
 fun HeaderText(
-    text: String
+    text: String,
 ) {
     Text(
         text = text,
@@ -109,13 +88,17 @@ fun HeaderText(
         style = MaterialTheme.typography.headlineMedium,
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = LocalSmallPadding.current.size, end = LocalSmallPadding.current.size, top = LocalMediumPadding.current.size),
+            .padding(
+                start = LocalSmallPadding.current.size,
+                end = LocalSmallPadding.current.size,
+                top = LocalMediumPadding.current.size
+            ),
     )
 }
 
 @Composable
 fun PrimaryText(
-    text: String
+    text: String,
 ) {
     Text(
         text = text,
@@ -123,13 +106,17 @@ fun PrimaryText(
         style = MaterialTheme.typography.bodyLarge,
         modifier = Modifier
             .wrapContentSize()
-            .padding(start = LocalSmallPadding.current.size, end = LocalSmallPadding.current.size, top = LocalLargePadding.current.size),
+            .padding(
+                start = LocalSmallPadding.current.size,
+                end = LocalSmallPadding.current.size,
+                top = LocalLargePadding.current.size
+            ),
     )
 }
 
 @Composable
 fun SecondaryText(
-    text: String
+    text: String,
 ) {
     Text(
         text = text,
@@ -137,14 +124,20 @@ fun SecondaryText(
         style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier
             .wrapContentSize()
-            .padding(start = LocalSmallPadding.current.size, end = LocalSmallPadding.current.size, top = LocalLargePadding.current.size),
+            .padding(
+                start = LocalSmallPadding.current.size,
+                end = LocalSmallPadding.current.size,
+                top = LocalLargePadding.current.size
+            ),
     )
 }
 
 @Composable
 fun AvatarImage(avatarUrl: String, avatarSize: Dp) {
+    println("AvatarImage avatarUrl: $avatarUrl")
     Image(
-        painter = painterRes(avatarUrl.takeIf { it.isNotEmpty() } ?: DrawableResources.IC_AVATAR_DEFAULT),
+        painter = painterRes(avatarUrl.takeIf { it.isNotEmpty() }
+            ?: DrawableResources.IC_AVATAR_DEFAULT),
         contentDescription = getStringResources().OWNER_AVATAR,
         modifier = Modifier
             .wrapContentSize()
@@ -160,7 +153,7 @@ fun AvatarImage(avatarUrl: String, avatarSize: Dp) {
 fun CommonTextField(
     inputValue: MutableState<TextFieldValue>,
     placeHolder: String,
-    onValueChanged: (String) -> Unit = {}
+    onValueChanged: (String) -> Unit = {},
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
@@ -179,7 +172,11 @@ fun CommonTextField(
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = LocalLargePadding.current.size, top = LocalMediumPadding.current.size, end = LocalLargePadding.current.size),
+            .padding(
+                start = LocalLargePadding.current.size,
+                top = LocalMediumPadding.current.size,
+                end = LocalLargePadding.current.size
+            ),
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = ImeAction.Next
         ),
@@ -280,7 +277,12 @@ fun SubmitButtons(
             .padding(8.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-        SecondaryButton(text = getStringResources().BUTTON_CANCEL, false, Modifier.weight(1f), onClick = onDismiss)
+        SecondaryButton(
+            text = getStringResources().BUTTON_CANCEL,
+            false,
+            Modifier.weight(1f),
+            onClick = onDismiss
+        )
         PrimaryButton(text = getStringResources().BUTTON_OK, isEnabled, Modifier.weight(1f)) {
             onConfirmationClick.invoke()
         }
@@ -289,7 +291,11 @@ fun SubmitButtons(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RefreshableLazyList(isEmpty: Boolean = false, content: LazyListScope.() -> Unit = {}, onRefresh: () -> Unit = {}) {
+fun RefreshableLazyList(
+    isEmpty: Boolean = false,
+    content: LazyListScope.() -> Unit = {},
+    onRefresh: () -> Unit = {},
+) {
     val state = rememberPullToRefreshState()
     if (state.isRefreshing) {
         LaunchedEffect(true) {
@@ -353,26 +359,35 @@ fun ChangeAvatarDialog(avatarList: List<String>, onDismiss: () -> Unit, onClick:
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(LocalMediumPadding.current.size),
-            textAlign = TextAlign.Center)
-        LazyVerticalGrid(modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = LocalMediumPadding.current.size,
-                end = LocalMediumPadding.current.size,
-                bottom = LocalLargePadding.current.size * 3),
+            textAlign = TextAlign.Center
+        )
+        LazyVerticalGrid(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = LocalMediumPadding.current.size,
+                    end = LocalMediumPadding.current.size,
+                    bottom = LocalLargePadding.current.size * 3
+                ),
             columns = GridCells.Adaptive(minSize = LocalLargeAvatarSize.current.size + LocalLargePadding.current.size * 2)
-        )  {
+        ) {
             items(avatarList) { avatar ->
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        onClick(avatar)
-                    },
-                    contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            onClick(avatar)
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
                     Image(
                         painter = painterRes(avatar),
                         contentDescription = getStringResources().OWNER_AVATAR,
                         modifier = Modifier
-                            .padding(vertical = LocalMediumPadding.current.size, horizontal = LocalLargePadding.current.size)
+                            .padding(
+                                vertical = LocalMediumPadding.current.size,
+                                horizontal = LocalLargePadding.current.size
+                            )
                             .wrapContentSize()
                             .size(LocalLargeAvatarSize.current.size)
                             .clip(CircleShape)

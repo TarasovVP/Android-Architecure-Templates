@@ -1,4 +1,3 @@
-import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
