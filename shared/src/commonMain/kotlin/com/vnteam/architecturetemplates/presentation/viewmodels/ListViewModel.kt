@@ -38,7 +38,7 @@ class ListViewModel(
 
     private fun clearForks() {
         viewModelScope.launch(exceptionHandler) {
-            //listUseCase.clearForks()
+            listUseCase.clearForks()
             getForksFromApi(true)
         }
     }
