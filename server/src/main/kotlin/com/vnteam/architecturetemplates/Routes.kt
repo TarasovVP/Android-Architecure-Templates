@@ -25,6 +25,7 @@ fun Routing.insertForksToDB() = post("/forks") {
 fun Routing.getForksFromDB() = get("/forks") {
     val forksPresenter = this.context.getKoin().get<ForksPresenter>()
     val forksList = forksPresenter.getForksFromDB()?.toList()
+    println("getForksFromDB forksList: $forksList")
     call.respond(forksList.orEmpty())
 }
 

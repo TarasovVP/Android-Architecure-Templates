@@ -39,7 +39,9 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
@@ -70,12 +72,22 @@ import theme.Primary500
 @OptIn(InternalResourceApi::class)
 @Composable
 fun painterRes(resId: String): Painter {
-    return painterResource(
+    return EmptyPainter()
+    /*return painterResource(
         DrawableResource(
             "",
             setOf(ResourceItem(setOf(), "drawable/${resId}.xml", 100, 100))
         )
-    )
+    )*/
+}
+
+class EmptyPainter : Painter() {
+    override val intrinsicSize: Size
+        get() = Size.Unspecified
+
+    override fun DrawScope.onDraw() {
+        // Ничего не рисуем
+    }
 }
 
 @Composable
