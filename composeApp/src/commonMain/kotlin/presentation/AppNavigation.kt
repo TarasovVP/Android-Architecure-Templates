@@ -28,7 +28,7 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                 }
             )
             ListScreen(screenState) { forkUI ->
-                navController.navigate("details/${forkUI.id}/${forkUI.name}")
+                navController.navigate("details/${forkUI.forkId}/${forkUI.name}")
             }
         }
         composable("details/{forkId}/{forkName}", arguments = listOf(navArgument("forkId") {

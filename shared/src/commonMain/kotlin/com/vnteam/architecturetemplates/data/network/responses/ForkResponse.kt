@@ -5,10 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ForkResponse(
-    var id: String? = null,
+    var forkId: String? = null,
     var name: String? = null,
-    @SerialName("full_name")
-    var fullName: String? = null,
     var owner: OwnerResponse? = null,
     @SerialName("html_url")
     var htmlUrl: String? = null,

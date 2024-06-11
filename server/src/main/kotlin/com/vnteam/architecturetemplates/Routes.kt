@@ -12,49 +12,68 @@ import io.ktor.server.routing.post
 import org.koin.ktor.ext.getKoin
 
 fun Routing.insertForksToDB() = post("/forks") {
+    println("insertForksToDB")
     try {
         val forksPresenter = this.context.getKoin().get<ForksPresenter>()
         val forks = call.receive<List<Fork>>()
         forksPresenter.insertForksToDB(forks)
         call.respond(HttpStatusCode.Created)
     } catch (e: Exception) {
+        println("insertForksToDB ${e.message}")
         call.respond(HttpStatusCode.BadRequest)
     }
 }
 
 fun Routing.getForksFromDB() = get("/forks") {
-    val forksPresenter = this.context.getKoin().get<ForksPresenter>()
-    val forksList = forksPresenter.getForksFromDB()?.toList()
-    println("getForksFromDB forksList: $forksList")
-    call.respond(forksList.orEmpty())
+    println("getForksFromDB")
+    try {
+        val forksPresenter = this.context.getKoin().get<ForksPresenter>()
+        val forksList = forksPresenter.getForksFromDB()?.toList()
+        call.respond(forksList.orEmpty())
+    } catch (e: Exception) {
+        println("getForksFromDB ${e.message}")
+        call.respond(HttpStatusCode.BadRequest)
+    }
 }
 
 fun Routing.getForkById() = get("/forks/{id}") {
-    val forkId = call.parameters["id"]
-    if (forkId == null) {
+    println("getForkById")
+    try {
+        val forkId = call.parameters["id"]
+        if (forkId == null) {
+            call.respond(HttpStatusCode.BadRequest)
+            return@get
+        }
+        val forksPresenter = this.context.getKoin().get<ForksPresenter>()
+        val fork = forksPresenter.getForkById(forkId)
+        if (fork != null) {
+            call.respond(fork)
+        } else {
+            call.respond(HttpStatusCode.NotFound)
+        }
+    } catch (e: Exception) {
+        println("getForksFromDB ${e.message}")
         call.respond(HttpStatusCode.BadRequest)
-        return@get
-    }
-    val forksPresenter = this.context.getKoin().get<ForksPresenter>()
-    val fork = forksPresenter.getForkById(forkId)
-    if (fork != null) {
-        call.respond(fork)
-    } else {
-        call.respond(HttpStatusCode.NotFound)
     }
 }
 
 fun Routing.deleteForkById() = delete("/forks/{id}") {
-    val forkId = call.parameters["id"]
-    if (forkId == null) {
-        call.respond(HttpStatusCode.BadRequest)
-        return@delete
-    }
-    val forksPresenter = this.context.getKoin().get<ForksPresenter>()
+    println("deleteForkById")
     try {
-        forksPresenter.deleteForkById(forkId)
-        call.respond(HttpStatusCode.OK)
+        val forkId = call.parameters["id"]
+        if (forkId == null) {
+            call.respond(HttpStatusCode.BadRequest)
+            return@delete
+        }
+        val forksPresenter = this.context.getKoin().get<ForksPresenter>()
+        try {
+            forksPresenter.deleteForkById(forkId)
+            call.respond(HttpStatusCode.OK)
+        } catch (e: Exception) {
+            call.respond(HttpStatusCode.InternalServerError)
+        }
     } catch (e: Exception) {
-        call.respond(HttpStatusCode.InternalServerError)
+        println("getForksFromDB ${e.message}")
+        call.respond(HttpStatusCode.BadRequest)
     }
 }

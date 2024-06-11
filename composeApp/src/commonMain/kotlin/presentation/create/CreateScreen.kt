@@ -53,7 +53,7 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
         } else {
             viewModel.state.value.fork = mutableStateOf(
                 ForkUI(
-                    id = generateUUID(),
+                    forkId = generateUUID(),
                     owner = OwnerUI(ownerId = generateUUID())
                 )
             )

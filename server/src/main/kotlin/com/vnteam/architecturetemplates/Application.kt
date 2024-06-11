@@ -15,31 +15,38 @@ import org.koin.ktor.ext.get
 import io.ktor.serialization.kotlinx.json.*
 
 fun main() {
+    println("main start")
     embeddedServer(
         Netty,
         host = "0.0.0.0",
         port = 8080,
         module = Application::appModule
     ).start(wait = true)
+    println("embeddedServer started")
 }
 
 fun Application.appModule() {
+    println("appModule")
     install(CORS) {
         anyHost()
         allowHeader(HttpHeaders.ContentType)
         allowHeader(HttpHeaders.AccessControlAllowOrigin)
     }
+    println("install(CORS)")
     install(Koin) {
         modules(appModule, serverModule)
     }
+    println("install(Koin)")
     val jsonInstance = get<Json>()
     install(ContentNegotiation) {
         json(jsonInstance)
     }
+    println("jsonInstance")
     routing {
         insertForksToDB()
         getForksFromDB()
         getForkById()
         deleteForkById()
     }
+    println("routing")
 }

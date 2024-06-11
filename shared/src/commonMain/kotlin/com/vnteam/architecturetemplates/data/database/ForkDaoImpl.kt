@@ -19,9 +19,8 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
             database.appDatabaseQueries.transaction {
                 forks.forEach { fork ->
                     database.appDatabaseQueries.insertForkWithOwner(
-                        id = fork.id,
+                        forkId = fork.forkId,
                         name = fork.name,
-                        fullName = fork.fullName,
                         ownerId = fork.ownerId,
                         login = fork.login,
                         avatarUrl = fork.avatarUrl,

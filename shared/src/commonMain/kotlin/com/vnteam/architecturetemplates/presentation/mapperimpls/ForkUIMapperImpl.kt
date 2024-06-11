@@ -11,9 +11,8 @@ class ForkUIMapperImpl(private val owner: OwnerUIMapper) : ForkUIMapper {
 
     override fun mapToImplModel(from: Fork): ForkUI {
         return ForkUI(
-            id = from.id,
+            forkId = from.forkId,
             name = from.name,
-            fullName = from.fullName.orEmpty(),
             owner = owner.mapToImplModel(from.owner ?: Owner()),
             htmlUrl = from.htmlUrl,
             description = from.description
@@ -22,9 +21,8 @@ class ForkUIMapperImpl(private val owner: OwnerUIMapper) : ForkUIMapper {
 
     override fun mapFromImplModel(to: ForkUI): Fork {
         return Fork(
-            id = to.id,
+            forkId = to.forkId,
             name = to.name,
-            fullName = to.fullName,
             owner = owner.mapFromImplModel(to.owner ?: OwnerUI()),
             htmlUrl = to.htmlUrl,
             description = to.description

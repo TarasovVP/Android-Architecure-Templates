@@ -8,9 +8,9 @@ import com.vnteam.architecturetemplates.domain.models.Owner
 class ForkDBMapperImpl : ForkDBMapper {
 
     override fun mapToImplModel(from: Fork): ForkWithOwner {
-        return ForkWithOwner(id = from.id.orEmpty(),
+        return ForkWithOwner(id = 0,
+            forkId = from.forkId.orEmpty(),
             name = from.name,
-            fullName = from.fullName,
             ownerId = from.owner?.ownerId,
             login = from.owner?.login,
             avatarUrl = from.owner?.avatarUrl,
@@ -20,9 +20,8 @@ class ForkDBMapperImpl : ForkDBMapper {
     }
 
     override fun mapFromImplModel(to: ForkWithOwner): Fork {
-        return Fork(id = to.id,
+        return Fork(forkId = to.forkId,
         name = to.name,
-        fullName = to.fullName,
         owner = Owner(ownerId = to.ownerId,
             login = to.login,
             avatarUrl = to.avatarUrl,

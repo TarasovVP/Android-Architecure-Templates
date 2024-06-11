@@ -75,12 +75,12 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
             "details" -> onItemClick(forkUI)
             "confirm_delete" -> {
                 viewState.value.isConfirmationDialogVisible.value = true
-                viewState.value.forkToDelete = forkUI.id.orEmpty()
+                viewState.value.forkToDelete = forkUI.forkId.orEmpty()
             }
             "delete" -> {
                 viewState.value.isConfirmationDialogVisible.value = false
                 viewState.value.forkToDelete = ""
-                viewModel.processIntent(ListIntent.DeleteFork( forkUI.id.orEmpty() ))
+                viewModel.processIntent(ListIntent.DeleteFork( forkUI.forkId.orEmpty() ))
             }
         }
     }
@@ -99,7 +99,7 @@ fun ListContent(viewState: ListViewState, onItemClick: (ForkUI, String) -> Unit)
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
             title = getStringResources().DELETE,
-            onConfirmationClick = { onItemClick(ForkUI(id = viewState.forkToDelete), "delete") },
+            onConfirmationClick = { onItemClick(ForkUI(forkId = viewState.forkToDelete), "delete") },
             onDismiss = { viewState.isConfirmationDialogVisible.value = false })
     }
 }

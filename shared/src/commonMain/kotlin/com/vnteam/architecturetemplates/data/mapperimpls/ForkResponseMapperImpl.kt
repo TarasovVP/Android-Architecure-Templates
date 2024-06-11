@@ -12,9 +12,8 @@ class ForkResponseMapperImpl(private val ownerResponseMapper: OwnerResponseMappe
 
     override fun mapToImplModel(from: Fork): ForkResponse {
         return ForkResponse(
-            id = from.id,
+            forkId = from.forkId,
             name = from.name,
-            fullName = from.fullName,
             owner = ownerResponseMapper.mapToImplModel(from.owner ?: Owner()),
             htmlUrl = from.htmlUrl,
             description = from.description
@@ -23,9 +22,8 @@ class ForkResponseMapperImpl(private val ownerResponseMapper: OwnerResponseMappe
 
     override fun mapFromImplModel(to: ForkResponse): Fork {
         return Fork(
-            id = to.id,
+            forkId = to.forkId,
             name = to.name,
-            fullName = to.fullName,
             owner = ownerResponseMapper.mapFromImplModel(to.owner ?: OwnerResponse()),
             htmlUrl = to.htmlUrl,
             description = to.description

@@ -28,9 +28,9 @@ fun ListScreen() {
         BaseButton(getStringResources().START) {
             viewModel.processIntent(ListIntent.LoadForks(true))
         }
-        DynamicVerticalList(forks.value.forks?.map { it.fullName } ?: emptyList()) { itemName ->
-            val item = forks.value.forks?.find { it.fullName == itemName }
-            window.history.pushState(null, "", "/details/${item?.id}")
+        DynamicVerticalList(forks.value.forks?.map { it.name.orEmpty() } ?: emptyList()) { itemName ->
+            val item = forks.value.forks?.find { it.name == itemName }
+            window.history.pushState(null, "", "/details/${item?.forkId}")
             window.dispatchEvent(Event("popstate"))
         }
         if (viewModel.state.value.isLoading) {
