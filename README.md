@@ -4,7 +4,7 @@ Below is a list of branches with an overview of the applied approaches:
 
 [KMP with Server Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_server_implementation)  
 
-**Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS), Server*  
+**Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS), Server(Ktor)*  
 **Architecture**: *MVI*  
 **Screens:** *(Android/ComponentActivity, iOS/ContentView, Desktop/androidx.compose.ui.window.Window, Web/org.jetbrains.compose.web.renderComposable) + @Composable*  
 **Api:** *io.ktor.client.HttpClient*  
