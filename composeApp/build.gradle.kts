@@ -160,3 +160,9 @@ compose.desktop {
 compose.experimental {
     web.application {}
 }
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.vnteam.architecturetemplates"
+    generateResClass = always
+}

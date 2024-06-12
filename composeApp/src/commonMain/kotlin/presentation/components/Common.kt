@@ -40,7 +40,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -58,25 +57,12 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPaddin
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import kotlinx.coroutines.delay
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.InternalResourceApi
-import org.jetbrains.compose.resources.ResourceItem
 import org.jetbrains.compose.resources.painterResource
+import presentation.drawableRes
 import theme.Neutral400
 import theme.Neutral700
 import theme.Primary400
 import theme.Primary500
-
-@OptIn(InternalResourceApi::class)
-@Composable
-fun painterRes(resId: String): Painter {
-    return painterResource(
-        DrawableResource(
-            "",
-            setOf(ResourceItem(setOf(), "drawable/${resId}.xml", 100, 100))
-        )
-    )
-}
 
 @Composable
 fun HeaderText(
@@ -133,10 +119,9 @@ fun SecondaryText(
 }
 
 @Composable
-fun AvatarImage(avatarUrl: String, avatarSize: Dp) {
+fun avatarImage(resId: String, avatarSize: Dp) {
     Image(
-        painter = painterRes(avatarUrl.takeIf { it.isNotEmpty() }
-            ?: DrawableResources.IC_AVATAR_DEFAULT),
+        painter = painterResource(DrawableResources.drawableRes(resId)),
         contentDescription = getStringResources().OWNER_AVATAR,
         modifier = Modifier
             .wrapContentSize()
@@ -235,8 +220,7 @@ fun PrimaryButton(
             .background(
                 color = if (isEnabled) Primary500 else Neutral400,
                 shape = RoundedCornerShape(LocalLargePadding.current.size)
-            )
-            .testTag("sign_up_button"),
+            ),
         onClick = {
             onClick.invoke()
         }
@@ -327,7 +311,7 @@ fun EmptyState() {
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterRes(DrawableResources.EMPTY_STATE),
+            painter = painterResource(DrawableResources.drawableRes(DrawableResources.EMPTY_STATE)),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize(0.3f)
@@ -380,7 +364,7 @@ fun ChangeAvatarDialog(avatarList: List<String>, onDismiss: () -> Unit, onClick:
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterRes(avatar),
+                        painter = painterResource(DrawableResources.drawableRes(avatar)),
                         contentDescription = getStringResources().OWNER_AVATAR,
                         modifier = Modifier
                             .padding(

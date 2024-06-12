@@ -25,7 +25,7 @@ import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.ScreenState
-import presentation.components.AvatarImage
+import presentation.components.avatarImage
 import presentation.components.HeaderText
 import presentation.components.PrimaryText
 import presentation.components.SecondaryText
@@ -87,7 +87,7 @@ fun OwnerCard(ownerUI: OwnerUI?) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalMediumPadding.current.size)
         ) {
-            AvatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
+            avatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
             Column(modifier = Modifier.padding(start = LocalLargePadding.current.size, bottom = LocalMediumPadding.current.size))  {
                 PrimaryText(ownerUI?.login.textWithNoDataHandling())
                 SecondaryText(ownerUI?.url.textWithNoDataHandling())

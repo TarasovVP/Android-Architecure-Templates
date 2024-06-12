@@ -36,7 +36,7 @@ import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.ScreenState
-import presentation.components.AvatarImage
+import presentation.components.avatarImage
 import presentation.components.ChangeAvatarDialog
 import presentation.components.CommonTextField
 import presentation.components.HeaderText
@@ -125,13 +125,14 @@ fun CreateContent(
                 viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
             }
             HeaderText(getStringResources().OWNER)
+            println("avatarTAG avatarUrl: ${viewState.value.fork.value?.owner?.avatarUrl}")
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.wrapContentSize().clickable {
                     viewState.value.isChangeAvatarDialogVisible.value = true
                 }) {
-                AvatarImage(
-                    avatarUrl = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
+                avatarImage(
+                    resId = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
                     avatarSize = LocalLargeAvatarSize.current.size
                 )
             }
