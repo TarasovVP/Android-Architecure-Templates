@@ -2,6 +2,21 @@ The project includes templates for main architectural solutions and examples of 
 It consists of two screens. On the first one, a list of data is obtained, which, after caching, is displayed in a list format. Clicking on a selected item launches the next screen with detailed information. To view the required implementation, you need to switch to the corresponding branch.   
 Below is a list of branches with an overview of the applied approaches:
 
+[KMP with Server Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_server_implementation)  
+
+**Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS), Server*  
+**Architecture**: *MVI*  
+**Screens:** *(Android/ComponentActivity, iOS/ContentView, Desktop/androidx.compose.ui.window.Window, Web/org.jetbrains.compose.web.renderComposable) + @Composable*  
+**Api:** *io.ktor.client.HttpClient*  
+**Image loading:** *coil.compose.AsyncImage*   
+**JsonConverter:** *kotlinx.serialization.SerialName*  
+**DB:** *com.squareup.sqldelight.AppDatabase*  
+**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
+**Architectural component:** *androidx.lifecycle.ViewModel*  
+**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
+**Navigation component:** *org.jetbrains.androidx.navigation*  
+**DI:** *org.koin.core.KoinApplication*  
+
 [KMP Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation)  
 
 **Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS)*  
