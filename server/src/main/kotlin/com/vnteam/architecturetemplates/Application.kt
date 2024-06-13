@@ -8,7 +8,6 @@ import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.cors.routing.CORS
-import io.ktor.server.routing.routing
 import kotlinx.serialization.json.Json
 import io.ktor.server.plugins.contentnegotiation.*
 import org.koin.ktor.plugin.Koin
@@ -38,10 +37,5 @@ fun Application.appModule() {
     install(ContentNegotiation) {
         json(jsonInstance)
     }
-    routing {
-        insertForksToDB()
-        getForksFromDB()
-        getForkById()
-        deleteForkById()
-    }
+    apiRoutes(get())
 }

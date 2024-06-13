@@ -7,7 +7,7 @@ val serverModule = module {
     single {
         DatabaseDriverFactory()
     }
-    single<ForksPresenter> {
-        ForksPresenterImpl(get())
+    single<ForkService> {
+        ForkServiceImpl(get(), get())
     }
 }
