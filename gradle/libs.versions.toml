@@ -1,6 +1,9 @@
 [versions]
 compileSdk = "34"
+hikaricp = "5.0.1"
+jdbcDriver = "1.5.5"
 minSdk = "24"
+postgresql = "42.7.3"
 targetSdk = "34"
 
 kotlinCompilerExtensionVersion = "1.5.11"
@@ -27,6 +30,8 @@ ktorServerConfigYaml = "2.3.11"
 
 [libraries]
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+hikari-cp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
+jdbc-driver = { module = "com.squareup.sqldelight:jdbc-driver", version.ref = "jdbcDriver" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -48,6 +53,7 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
 
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }

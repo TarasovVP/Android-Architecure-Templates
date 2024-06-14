@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
     alias(libs.plugins.kotlinSerialization)
+
+    alias(libs.plugins.sqlDelight)
     application
 }
 
@@ -11,6 +13,10 @@ application {
     mainClass.set("com.vnteam.architecturetemplates.ApplicationKt")
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -26,6 +32,17 @@ dependencies {
     implementation(libs.ktor.server.cors)
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.postgresql)
+    implementation(libs.hikari.cp)
+    implementation(libs.jdbc.driver)
     testImplementation(libs.ktor.server.tests)
-    implementation(project(":shared"))
+}
+
+sqldelight {
+    databases {
+        create("ServerDatabase") {
+            packageName = "com.vnteam.architecturetemplates"
+            dialect("app.cash.sqldelight:postgresql-dialect:2.0.2")
+        }
+    }
 }
