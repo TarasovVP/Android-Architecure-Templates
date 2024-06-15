@@ -1,6 +1,5 @@
 package com.vnteam.architecturetemplates
 
-import com.vnteam.architecturetemplates.di.appModule
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
 import io.ktor.server.application.Application
@@ -31,7 +30,7 @@ fun Application.appModule() {
         allowMethod(HttpMethod.Delete)
     }
     install(Koin) {
-        modules(appModule, serverModule)
+        modules(serverModule)
     }
     val jsonInstance = get<Json>()
     install(ContentNegotiation) {

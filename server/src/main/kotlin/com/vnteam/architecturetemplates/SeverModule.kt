@@ -1,26 +1,20 @@
 package com.vnteam.architecturetemplates
 
-import app.cash.sqldelight.db.SqlDriver
-import app.cash.sqldelight.driver.jdbc.asJdbcDriver
-import com.zaxxer.hikari.HikariConfig
-import com.zaxxer.hikari.HikariDataSource
+import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
 val serverModule = module {
     single {
-        HikariConfig().apply {
-            setJdbcUrl("jdbc:postgresql://localhost:8081/forks")
-            driverClassName = "org.postgresql.Driver"
-            username = "dbusername"
-            password = "dbpassword"
-        }
+        DatabaseDriverFactory()
     }
     single {
-        HikariDataSource(get())
+        ServerDatabase(get<DatabaseDriverFactory>().createDriver())
     }
-    single {
-        ServerDatabase(get<HikariDataSource>().asJdbcDriver())
-    }
+    single { Json {
+        prettyPrint = true
+        isLenient = true
+        ignoreUnknownKeys = true
+    } }
     single<ForkService> {
         ForkServiceImpl(get())
     }

@@ -2,7 +2,7 @@ package com.vnteam.architecturetemplates.data.database
 
 import com.vnteam.architecturetemplates.AppDatabase
 
-class SharedDatabase(private val databaseDriverFactory: DatabaseDriverFactory, ) {
+class SharedDatabase(private val databaseDriverFactory: DatabaseDriverFactory) {
     private var database: AppDatabase? = null
 
     private suspend fun initDatabase() {

@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
     alias(libs.plugins.kotlinSerialization)
-
     alias(libs.plugins.sqlDelight)
     application
 }
@@ -32,6 +31,7 @@ dependencies {
     implementation(libs.ktor.server.cors)
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
+    // DB
     implementation(libs.postgresql)
     implementation(libs.hikari.cp)
     implementation(libs.jdbc.driver)
