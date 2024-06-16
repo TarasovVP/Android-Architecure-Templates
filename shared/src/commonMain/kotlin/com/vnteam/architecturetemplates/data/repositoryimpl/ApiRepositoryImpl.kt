@@ -3,7 +3,7 @@ package com.vnteam.architecturetemplates.data.repositoryimpl
 import com.vnteam.architecturetemplates.data.network.ApiService
 import com.vnteam.architecturetemplates.data.network.NetworkResult
 import com.vnteam.architecturetemplates.data.network.handleResponse
-import com.vnteam.architecturetemplates.data.network.responses.ForkResponse
+import com.vnteam.architecturetemplates.domain.responses.ForkResponse
 import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
@@ -14,7 +14,7 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
     ApiRepository {
 
     override suspend fun insertForksToApi(forks: List<Fork>?): Flow<Unit> {
-        when (val response = apiService.insertForksToDB(forks.orEmpty()).handleResponse<Unit>()) {
+        when (val response = apiService.insertForksToApi(forkResponseMapper.mapToImplModelList(forks.orEmpty())).handleResponse<Unit>()) {
             is NetworkResult.Success -> {
                 return flowOf( Unit )
             }

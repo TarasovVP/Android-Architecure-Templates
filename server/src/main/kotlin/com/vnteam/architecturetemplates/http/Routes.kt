@@ -1,6 +1,7 @@
 package com.vnteam.architecturetemplates.http
 
-import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
+import com.vnteam.architecturetemplates.domain.responses.ForkResponse
 import com.vnteam.architecturetemplates.fork_service.ForkService
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
@@ -13,41 +14,43 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 
-fun Application.apiRoutes(forkService: ForkService) {
+fun Application.apiRoutes(forkService: ForkService, forkResponseMapper: ForkResponseMapper) {
     routing {
-        insertForksToDB(forkService)
-        getForksFromDB(forkService)
-        getForkById(forkService)
+        insertForksToDB(forkService, forkResponseMapper)
+        getForksFromDB(forkService, forkResponseMapper)
+        getForkById(forkService, forkResponseMapper)
         deleteForkById(forkService)
     }
 }
-fun Routing.insertForksToDB(forkService: ForkService) = post("/forks") {
+fun Routing.insertForksToDB(forkService: ForkService, forkResponseMapper: ForkResponseMapper) = post("/forks") {
     try {
-        val forks = call.receive<List<Fork>>()
+        val forks = forkResponseMapper.mapFromImplModelList(call.receive<List<ForkResponse>>())
         forkService.insertForks(forks)
         call.respond(HttpStatusCode.Created)
     } catch (e: Exception) {
+        println("insertForksToDB Error: ${e.message}")
         call.respond(HttpStatusCode.BadRequest)
     }
 }
 
-fun Routing.getForksFromDB(forkService: ForkService) = get("/forks") {
+fun Routing.getForksFromDB(forkService: ForkService, forkResponseMapper: ForkResponseMapper) = get("/forks") {
     try {
-        val forksList = forkService.getForks()?.toList()
-        call.respond(forksList.orEmpty())
+        val forksList = forkResponseMapper.mapToImplModelList(forkService.getForks().orEmpty().toList())
+        call.respond(forksList)
     } catch (e: Exception) {
+        println("getForksFromDB Error: ${e.message}")
         call.respond(HttpStatusCode.BadRequest)
     }
 }
 
-fun Routing.getForkById(forkService: ForkService) = get("/forks/{id}") {
+fun Routing.getForkById(forkService: ForkService, forkResponseMapper: ForkResponseMapper) = get("/forks/{id}") {
     try {
         val forkId = call.parameters["id"]
         if (forkId == null) {
             call.respond(HttpStatusCode.BadRequest)
             return@get
         }
-        val fork = forkService.getForkById(forkId)
+        val fork = forkService.getForkById(forkId)?.let { it1 -> forkResponseMapper.mapToImplModel(it1) }
         if (fork != null) {
             call.respond(fork)
         } else {

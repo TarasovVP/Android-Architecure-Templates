@@ -1,6 +1,6 @@
 package com.vnteam.architecturetemplates.data.network
 
-import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.domain.responses.ForkResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
@@ -15,7 +15,7 @@ class ApiService(
     private val httpClient: HttpClient,
 ) {
 
-    suspend fun insertForksToDB(forks: List<Fork>): HttpResponse {
+    suspend fun insertForksToApi(forks: List<ForkResponse>): HttpResponse {
         val httpResponse = try {
             httpClient.post("${baseUrl}forks") {
                 contentType(ContentType.Application.Json)

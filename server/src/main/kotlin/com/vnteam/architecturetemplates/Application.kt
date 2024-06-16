@@ -38,5 +38,5 @@ fun Application.appModule() {
     install(ContentNegotiation) {
         json(jsonInstance)
     }
-    apiRoutes(get())
+    apiRoutes(get(), get())
 }

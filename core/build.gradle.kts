@@ -1,0 +1,39 @@
+plugins {
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinSerialization)
+}
+
+kotlin {
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
+    task("testClasses")
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    js(IR) {
+        useCommonJs()
+        browser()
+    }
+    jvm()
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.kotlinx.serialization)
+        }
+    }
+}
+
+android {
+    namespace = "com.vnteam.architecturetemplates.core"
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+        multiDexEnabled = true
+    }
+}

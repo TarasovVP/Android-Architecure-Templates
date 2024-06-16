@@ -14,16 +14,14 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation(projects.shared)
+    implementation(projects.core)
     implementation(libs.logback)
+    implementation(libs.kotlinx.serialization.json)
+    testImplementation(libs.ktor.server.tests)
+    // Koin
     implementation(libs.koin.core)
     implementation(libs.koin.ktor)
-    implementation(libs.kotlinx.serialization.json)
     // Ktor
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
@@ -35,7 +33,6 @@ dependencies {
     implementation(libs.postgresql)
     implementation(libs.hikari.cp)
     implementation(libs.jdbc.driver)
-    testImplementation(libs.ktor.server.tests)
 }
 
 sqldelight {

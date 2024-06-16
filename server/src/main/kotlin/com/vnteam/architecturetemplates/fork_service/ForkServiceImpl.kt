@@ -2,7 +2,7 @@ package com.vnteam.architecturetemplates.fork_service
 
 import com.vnteam.architecturetemplates.ServerDatabaseQueries
 import com.vnteam.architecturetemplates.domain.models.Fork
-import com.vnteam.architecturetemplates.db.toFork
+import com.vnteam.architecturetemplates.mapperimpls.toFork
 
 class ForkServiceImpl(private val serverDatabaseQueries: ServerDatabaseQueries):
     ForkService {

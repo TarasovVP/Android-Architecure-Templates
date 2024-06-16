@@ -52,6 +52,7 @@ kotlin {
         val desktopMain by getting
 
         commonMain.dependencies {
+            implementation(projects.shared)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
@@ -64,7 +65,6 @@ kotlin {
             implementation(libs.coil.network.ktor)
             //Navigation
             implementation(libs.navigation.compose)
-            implementation(project(":shared"))
 
         }
         androidMain.dependencies {
