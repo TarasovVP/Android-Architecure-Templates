@@ -1,11 +1,11 @@
 package com.vnteam.architecturetemplates
 
-import kotlin.Long
+import kotlin.Int
 import kotlin.String
 
 public data class ForkWithOwner(
-  public val id: Long,
-  public val forkId: String?,
+  public val id: Int,
+  public val forkId: String,
   public val name: String?,
   public val htmlUrl: String?,
   public val description: String?,

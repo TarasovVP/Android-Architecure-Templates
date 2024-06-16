@@ -1,14 +1,16 @@
-package com.vnteam.architecturetemplates
+package com.vnteam.architecturetemplates.fork_service
 
+import com.vnteam.architecturetemplates.ServerDatabaseQueries
 import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.db.toFork
 
-class ForkServiceImpl(private val serverDatabase: ServerDatabase):
+class ForkServiceImpl(private val serverDatabaseQueries: ServerDatabaseQueries):
     ForkService {
 
     override suspend fun insertForks(forks: List<Fork>) {
         forks.forEach {
-            serverDatabase.appDatabaseQueries.insertForkWithOwner(
-                forkId = it.forkId,
+            serverDatabaseQueries.insertForkWithOwner(
+                forkId = it.forkId.orEmpty(),
                 name = it.name,
                 htmlUrl = it.htmlUrl,
                 description = it.description,
@@ -20,15 +22,16 @@ class ForkServiceImpl(private val serverDatabase: ServerDatabase):
         }
     }
 
-    override suspend fun getForks(): List<Fork> =
-        serverDatabase.appDatabaseQueries.getForkWithOwners().executeAsList()
+    override suspend fun getForks(): List<Fork> {
+        return serverDatabaseQueries.getForkWithOwners().executeAsList()
             .map { it.toFork() }
+    }
 
 
     override suspend fun getForkById(forkId: String): Fork? =
-        serverDatabase.appDatabaseQueries.getForkWithOwnerById(forkId).executeAsOneOrNull()?.toFork()
+        serverDatabaseQueries.getForkWithOwnerById(forkId).executeAsOneOrNull()?.toFork()
 
     override suspend fun deleteForkById(forkId: String) {
-        serverDatabase.appDatabaseQueries.deleteForkWithOwnerById(forkId)
+        serverDatabaseQueries.deleteForkWithOwnerById(forkId)
     }
 }

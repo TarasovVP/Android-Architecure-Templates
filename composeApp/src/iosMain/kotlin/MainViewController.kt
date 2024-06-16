@@ -9,7 +9,6 @@ fun MainViewController(): UIViewController {
         withViewModelStoreOwner {
             AppTheme {
                 App()
-                println("isNetworkAvailable: ${isNetworkAvailable()}")
             }
         }
     }

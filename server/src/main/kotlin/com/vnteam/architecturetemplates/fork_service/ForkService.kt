@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates
+package com.vnteam.architecturetemplates.fork_service
 
 import com.vnteam.architecturetemplates.domain.models.Fork
 

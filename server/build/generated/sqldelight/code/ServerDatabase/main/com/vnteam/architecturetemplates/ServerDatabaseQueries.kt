@@ -8,15 +8,15 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.JdbcCursor
 import app.cash.sqldelight.driver.jdbc.JdbcPreparedStatement
 import kotlin.Any
-import kotlin.Long
+import kotlin.Int
 import kotlin.String
 
-public class AppDatabaseQueries(
+public class ServerDatabaseQueries(
   driver: SqlDriver,
 ) : TransacterImpl(driver) {
   public fun <T : Any> getForkWithOwners(mapper: (
-    id: Long,
-    forkId: String?,
+    id: Int,
+    forkId: String,
     name: String?,
     htmlUrl: String?,
     description: String?,
@@ -24,14 +24,14 @@ public class AppDatabaseQueries(
     ownerId: String?,
     avatarUrl: String?,
     url: String?,
-  ) -> T): Query<T> = Query(-1_198_519_084, arrayOf("ForkWithOwner"), driver, "AppDatabase.sq",
+  ) -> T): Query<T> = Query(-983_922_510, arrayOf("ForkWithOwner"), driver, "ServerDatabase.sq",
       "getForkWithOwners",
       "SELECT ForkWithOwner.id, ForkWithOwner.forkId, ForkWithOwner.name, ForkWithOwner.htmlUrl, ForkWithOwner.description, ForkWithOwner.login, ForkWithOwner.ownerId, ForkWithOwner.avatarUrl, ForkWithOwner.url FROM ForkWithOwner") {
       cursor ->
     check(cursor is JdbcCursor)
     mapper(
-      cursor.getLong(0)!!,
-      cursor.getString(1),
+      cursor.getInt(0)!!,
+      cursor.getString(1)!!,
       cursor.getString(2),
       cursor.getString(3),
       cursor.getString(4),
@@ -57,9 +57,9 @@ public class AppDatabaseQueries(
     )
   }
 
-  public fun <T : Any> getForkWithOwnerById(forkId: String?, mapper: (
-    id: Long,
-    forkId: String?,
+  public fun <T : Any> getForkWithOwnerById(forkId: String, mapper: (
+    id: Int,
+    forkId: String,
     name: String?,
     htmlUrl: String?,
     description: String?,
@@ -70,8 +70,8 @@ public class AppDatabaseQueries(
   ) -> T): Query<T> = GetForkWithOwnerByIdQuery(forkId) { cursor ->
     check(cursor is JdbcCursor)
     mapper(
-      cursor.getLong(0)!!,
-      cursor.getString(1),
+      cursor.getInt(0)!!,
+      cursor.getString(1)!!,
       cursor.getString(2),
       cursor.getString(3),
       cursor.getString(4),
@@ -82,7 +82,7 @@ public class AppDatabaseQueries(
     )
   }
 
-  public fun getForkWithOwnerById(forkId: String?): Query<ForkWithOwner> =
+  public fun getForkWithOwnerById(forkId: String): Query<ForkWithOwner> =
       getForkWithOwnerById(forkId) { id, forkId_, name, htmlUrl, description, login, ownerId,
       avatarUrl, url ->
     ForkWithOwner(
@@ -98,19 +98,18 @@ public class AppDatabaseQueries(
     )
   }
 
-  public fun deleteForkWithOwnerById(forkId: String?) {
-    driver.execute(null,
-        """DELETE FROM ForkWithOwner WHERE forkId ${ if (forkId == null) "IS" else "=" } ?""", 1) {
+  public fun deleteForkWithOwnerById(forkId: String) {
+    driver.execute(-447_640_378, """DELETE FROM ForkWithOwner WHERE forkId = ?""", 1) {
           check(this is JdbcPreparedStatement)
           bindString(0, forkId)
         }
-    notifyQueries(-1_712_853_144) { emit ->
+    notifyQueries(-447_640_378) { emit ->
       emit("ForkWithOwner")
     }
   }
 
   public fun insertForkWithOwner(
-    forkId: String?,
+    forkId: String,
     name: String?,
     htmlUrl: String?,
     description: String?,
@@ -120,7 +119,7 @@ public class AppDatabaseQueries(
     url: String?,
   ) {
     transaction {
-      driver.execute(581_162_457, """
+      driver.execute(-1_947_127_113, """
           |INSERT INTO ForkWithOwner(forkId, name, htmlUrl, description, login, ownerId, avatarUrl, url)
           |    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
           |    ON CONFLICT (forkId) DO UPDATE SET
@@ -143,13 +142,13 @@ public class AppDatabaseQueries(
             bindString(7, url)
           }
     }
-    notifyQueries(434_123_816) { emit ->
+    notifyQueries(503_001_222) { emit ->
       emit("ForkWithOwner")
     }
   }
 
   private inner class GetForkWithOwnerByIdQuery<out T : Any>(
-    public val forkId: String?,
+    public val forkId: String,
     mapper: (SqlCursor) -> T,
   ) : Query<T>(mapper) {
     override fun addListener(listener: Query.Listener) {
@@ -161,13 +160,13 @@ public class AppDatabaseQueries(
     }
 
     override fun <R> execute(mapper: (SqlCursor) -> QueryResult<R>): QueryResult<R> =
-        driver.executeQuery(null,
-        """SELECT ForkWithOwner.id, ForkWithOwner.forkId, ForkWithOwner.name, ForkWithOwner.htmlUrl, ForkWithOwner.description, ForkWithOwner.login, ForkWithOwner.ownerId, ForkWithOwner.avatarUrl, ForkWithOwner.url FROM ForkWithOwner WHERE forkId ${ if (forkId == null) "IS" else "=" } ?""",
+        driver.executeQuery(1_114_958_675,
+        """SELECT ForkWithOwner.id, ForkWithOwner.forkId, ForkWithOwner.name, ForkWithOwner.htmlUrl, ForkWithOwner.description, ForkWithOwner.login, ForkWithOwner.ownerId, ForkWithOwner.avatarUrl, ForkWithOwner.url FROM ForkWithOwner WHERE forkId = ?""",
         mapper, 1) {
       check(this is JdbcPreparedStatement)
       bindString(0, forkId)
     }
 
-    override fun toString(): String = "AppDatabase.sq:getForkWithOwnerById"
+    override fun toString(): String = "ServerDatabase.sq:getForkWithOwnerById"
   }
 }

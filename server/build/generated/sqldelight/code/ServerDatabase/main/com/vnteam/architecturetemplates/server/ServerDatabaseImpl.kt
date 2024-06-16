@@ -5,8 +5,8 @@ import app.cash.sqldelight.db.AfterVersion
 import app.cash.sqldelight.db.QueryResult
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.db.SqlSchema
-import com.vnteam.architecturetemplates.AppDatabaseQueries
 import com.vnteam.architecturetemplates.ServerDatabase
+import com.vnteam.architecturetemplates.ServerDatabaseQueries
 import kotlin.Long
 import kotlin.Unit
 import kotlin.reflect.KClass
@@ -20,7 +20,7 @@ internal fun KClass<ServerDatabase>.newInstance(driver: SqlDriver): ServerDataba
 private class ServerDatabaseImpl(
   driver: SqlDriver,
 ) : TransacterImpl(driver), ServerDatabase {
-  override val appDatabaseQueries: AppDatabaseQueries = AppDatabaseQueries(driver)
+  override val serverDatabaseQueries: ServerDatabaseQueries = ServerDatabaseQueries(driver)
 
   public object Schema : SqlSchema<QueryResult.Value<Unit>> {
     override val version: Long
@@ -29,8 +29,8 @@ private class ServerDatabaseImpl(
     override fun create(driver: SqlDriver): QueryResult.Value<Unit> {
       driver.execute(null, """
           |CREATE TABLE IF NOT EXISTS ForkWithOwner (
-          |    id BIGSERIAL PRIMARY KEY,
-          |    forkId TEXT,
+          |    id SERIAL PRIMARY KEY,
+          |    forkId TEXT UNIQUE NOT NULL,
           |    name TEXT,
           |    htmlUrl TEXT,
           |    description TEXT,

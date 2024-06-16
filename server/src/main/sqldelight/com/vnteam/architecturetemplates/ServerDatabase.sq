@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS ForkWithOwner (
-    id BIGSERIAL PRIMARY KEY,
-    forkId TEXT,
+    id SERIAL PRIMARY KEY,
+    forkId TEXT UNIQUE NOT NULL,
     name TEXT,
     htmlUrl TEXT,
     description TEXT,

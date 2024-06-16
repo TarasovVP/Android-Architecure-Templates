@@ -1,5 +1,6 @@
-package com.vnteam.architecturetemplates
+package com.vnteam.architecturetemplates.db
 
+import com.vnteam.architecturetemplates.ForkWithOwner
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.domain.models.Owner
 

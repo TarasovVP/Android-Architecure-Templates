@@ -9,7 +9,7 @@ import com.vnteam.architecturetemplates.server.schema
 import kotlin.Unit
 
 public interface ServerDatabase : Transacter {
-  public val appDatabaseQueries: AppDatabaseQueries
+  public val serverDatabaseQueries: ServerDatabaseQueries
 
   public companion object {
     public val Schema: SqlSchema<QueryResult.Value<Unit>>

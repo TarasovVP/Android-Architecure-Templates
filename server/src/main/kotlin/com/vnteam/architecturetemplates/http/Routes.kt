@@ -1,6 +1,7 @@
-package com.vnteam.architecturetemplates
+package com.vnteam.architecturetemplates.http
 
 import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.fork_service.ForkService
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.call

@@ -1,5 +1,7 @@
 package com.vnteam.architecturetemplates
 
+import com.vnteam.architecturetemplates.di.serverModule
+import com.vnteam.architecturetemplates.http.apiRoutes
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
 import io.ktor.server.application.Application
@@ -16,8 +18,8 @@ import io.ktor.serialization.kotlinx.json.*
 fun main() {
     embeddedServer(
         Netty,
-        host = "0.0.0.0",
-        port = 8080,
+        host = HTTP_HOST,
+        port = HTTP_PORT,
         module = Application::appModule
     ).start(wait = true)
 }
