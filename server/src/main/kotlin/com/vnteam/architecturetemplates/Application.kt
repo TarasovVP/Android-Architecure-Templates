@@ -25,18 +25,18 @@ fun main() {
 }
 
 fun Application.appModule() {
-    install(CORS) {
-        anyHost()
-        allowHeader(HttpHeaders.ContentType)
-        allowHeader(HttpHeaders.AccessControlAllowOrigin)
-        allowMethod(HttpMethod.Delete)
-    }
     install(Koin) {
         modules(serverModule)
     }
     val jsonInstance = get<Json>()
     install(ContentNegotiation) {
         json(jsonInstance)
+    }
+    install(CORS) {
+        anyHost()
+        allowHeader(HttpHeaders.ContentType)
+        allowHeader(HttpHeaders.AccessControlAllowOrigin)
+        allowMethod(HttpMethod.Delete)
     }
     apiRoutes(get(), get())
 }

@@ -16,13 +16,13 @@ import io.ktor.server.routing.routing
 
 fun Application.apiRoutes(forkService: ForkService, forkResponseMapper: ForkResponseMapper) {
     routing {
-        insertForksToDB(forkService, forkResponseMapper)
-        getForksFromDB(forkService, forkResponseMapper)
+        insertForks(forkService, forkResponseMapper)
+        getForks(forkService, forkResponseMapper)
         getForkById(forkService, forkResponseMapper)
         deleteForkById(forkService)
     }
 }
-fun Routing.insertForksToDB(forkService: ForkService, forkResponseMapper: ForkResponseMapper) = post("/forks") {
+fun Routing.insertForks(forkService: ForkService, forkResponseMapper: ForkResponseMapper) = post("/forks") {
     try {
         val forks = forkResponseMapper.mapFromImplModelList(call.receive<List<ForkResponse>>())
         forkService.insertForks(forks)
@@ -33,7 +33,7 @@ fun Routing.insertForksToDB(forkService: ForkService, forkResponseMapper: ForkRe
     }
 }
 
-fun Routing.getForksFromDB(forkService: ForkService, forkResponseMapper: ForkResponseMapper) = get("/forks") {
+fun Routing.getForks(forkService: ForkService, forkResponseMapper: ForkResponseMapper) = get("/forks") {
     try {
         val forksList = forkResponseMapper.mapToImplModelList(forkService.getForks().orEmpty().toList())
         call.respond(forksList)
