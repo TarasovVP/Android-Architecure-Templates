@@ -77,8 +77,6 @@ kotlin {
             implementation(compose.material3)
             implementation(libs.androidx.activity.compose)
             implementation(libs.material.ripple)
-
-            implementation(libs.androidx.multidex)
         }
         desktopMain.dependencies {
             implementation(libs.koin.core)

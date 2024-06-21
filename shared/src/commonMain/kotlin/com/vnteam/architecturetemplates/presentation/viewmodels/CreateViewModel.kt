@@ -8,15 +8,12 @@ import com.vnteam.architecturetemplates.domain.usecase.CreateUseCase
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
-import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class CreateViewModel(

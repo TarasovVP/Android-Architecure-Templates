@@ -34,7 +34,7 @@ import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
-import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
+import org.koin.compose.koinInject
 import presentation.ScreenState
 import presentation.components.avatarImage
 import presentation.components.ChangeAvatarDialog
@@ -43,7 +43,8 @@ import presentation.components.HeaderText
 
 @Composable
 fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
-    val viewModel = viewModel(CreateViewModel::class)
+    val createViewModel = koinInject<CreateViewModel>()
+    val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { createViewModel }
     val viewState = viewModel.state.collectAsState()
     val originFork = mutableStateOf<ForkUI?>(null)
 

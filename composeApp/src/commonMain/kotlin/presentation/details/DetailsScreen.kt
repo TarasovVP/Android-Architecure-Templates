@@ -23,7 +23,7 @@ import com.vnteam.architecturetemplates.presentation.resources.getStringResource
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
-import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
+import org.koin.compose.koinInject
 import presentation.ScreenState
 import presentation.components.avatarImage
 import presentation.components.HeaderText
@@ -33,7 +33,8 @@ import presentation.textWithNoDataHandling
 
 @Composable
 fun DetailsScreen(forkId: String?, screenState: MutableState<ScreenState>) {
-    val viewModel = viewModel(DetailsViewModel::class)
+    val detailsViewModel = koinInject<DetailsViewModel>()
+    val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { detailsViewModel }
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(viewState.value.infoMessage.value) {

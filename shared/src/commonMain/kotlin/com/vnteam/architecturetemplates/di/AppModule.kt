@@ -1,7 +1,6 @@
 package com.vnteam.architecturetemplates.di
 
 import com.vnteam.architecturetemplates.data.BASE_URL
-import com.vnteam.architecturetemplates.data.DEBUG_URL
 import com.vnteam.architecturetemplates.data.database.ForkDao
 import com.vnteam.architecturetemplates.data.database.ForkDaoImpl
 import com.vnteam.architecturetemplates.data.database.SharedDatabase
