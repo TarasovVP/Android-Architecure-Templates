@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import presentation.details.DetailsScreen
 import presentation.list.ListScreen
 
@@ -18,7 +18,7 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
     NavHost(navController = navController, startDestination = "list") {
         composable("list") {
             screenState.value = ScreenState().apply {
-                topAppBarTitle = getStringResources().FORKS
+                topAppBarTitle = LocalStringResources.current.FORKS
             }
             ListScreen(screenState) { forkUI ->
                 navController.navigate("details/${forkUI.id}/${forkUI.name}")

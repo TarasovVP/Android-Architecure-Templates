@@ -4,29 +4,31 @@ import com.vnteam.architecturetemplates.data.database.ForkDao
 import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 class DBRepositoryImpl(private val forkDao: ForkDao, private val forkDBMapper: ForkDBMapper):
     DBRepository {
 
-    override suspend fun insertForksToDB(forks: List<Fork>) {
+    override suspend fun clearForks() {
+        forkDao.clearForks()
+
+    }
+
+    override suspend fun insertForksToDB(forks: List<Fork>): Flow<Unit> = flow {
         forkDao.insertForkWithOwners(forkDBMapper.mapToImplModelList(forks))
+        emit(Unit)
     }
 
-    override suspend fun getForksFromDB(): Flow<List<Fork>> = callbackFlow{
-        forkDao.getForks { forkWithOwners ->
-            trySend(forkDBMapper.mapFromImplModelList(forkWithOwners)).isSuccess
+    override suspend fun getForksFromDB(): Flow<List<Fork>> =
+        forkDao.getForkWithOwners().map { forkWithOwners ->
+            forkDBMapper.mapFromImplModelList(forkWithOwners)
         }
-        awaitClose { }
-    }
 
-    override suspend fun getForkById(forkId: Long): Flow<Fork?> = callbackFlow {
-        forkDao.getForkById(forkId) { forkWithOwner ->
-            trySend(forkWithOwner?.let { forkDBMapper.mapFromImplModel(it) }).isSuccess
+
+    override suspend fun getForkById(forkId: Long): Flow<Fork?> =
+        forkDao.getForkById(forkId).map { forkWithOwner ->
+            forkWithOwner?.let { forkDBMapper.mapFromImplModel(it) }
         }
-        awaitClose { }
-    }
 }

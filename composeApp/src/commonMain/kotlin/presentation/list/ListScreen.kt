@@ -25,13 +25,14 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
-import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
+import org.koin.compose.koinInject
 import presentation.ScreenState
 import presentation.components.AvatarImage
 
 @Composable
 fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> Unit) {
-    val viewModel = viewModel(ListViewModel::class)
+    val listViewModel = koinInject<ListViewModel>()
+    val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { listViewModel }
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
