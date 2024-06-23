@@ -77,6 +77,12 @@ kotlin {
             implementation(npm("sql.js", "1.6.2"))
             implementation(devNpm("copy-webpack-plugin", "9.1.0"))
         }
+        /*wasmJsMain.dependencies {
+            implementation("io.ktor:ktor-client-core:3.0.0-wasm1")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.0-wasm1")
+            implementation("io.ktor:ktor-client-content-negotiation:3.0.0-wasm1")
+            implementation(libs.sqldelight.wasm.driver)
+        }*/
     }
 }
 
