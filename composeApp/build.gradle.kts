@@ -29,9 +29,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64(),
-        macosX64(),
-        macosArm64(),
+        iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
             freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.composeApp"
@@ -52,7 +50,6 @@ kotlin {
     }
     sourceSets {
         val desktopMain by getting
-        //val wasmJsMain by getting
 
         commonMain.dependencies {
             implementation(projects.shared)
