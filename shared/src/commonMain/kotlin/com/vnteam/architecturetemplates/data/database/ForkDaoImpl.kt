@@ -1,8 +1,18 @@
 package com.vnteam.architecturetemplates.data.database
 
+import app.cash.sqldelight.async.coroutines.awaitAsList
+import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import com.vnteam.architecturetemplates.ForkWithOwner
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
+    override suspend fun clearForks() {
+        sharedDatabase { database ->
+            database.appDatabaseQueries.clearForks()
+        }
+    }
 
     override suspend fun insertForkWithOwners(forks: List<ForkWithOwner>) {
         sharedDatabase { database ->
@@ -16,22 +26,25 @@ class ForkDaoImpl(private val sharedDatabase: SharedDatabase): ForkDao {
                         login = fork.login,
                         avatarUrl = fork.avatarUrl,
                         htmlUrl = fork.htmlUrl,
-                        description = fork.description
+                        description = fork.description,
+                        url = fork.url
                     )
                 }
             }
         }
     }
 
-    override suspend fun getForks(forkWithOwners: (List<ForkWithOwner>) -> Unit) {
+    override suspend fun getForkWithOwners(): Flow<List<ForkWithOwner>> = callbackFlow {
         sharedDatabase { database ->
-            forkWithOwners(database.appDatabaseQueries.getForkWithOwners().executeAsList())
+            trySend(database.appDatabaseQueries.getForkWithOwners().awaitAsList()).isSuccess
         }
+        awaitClose { }
     }
 
-    override suspend fun getForkById(id: Long, forkWithOwner: (ForkWithOwner?) -> Unit) {
+    override suspend fun getForkById(id: Long): Flow<ForkWithOwner?> = callbackFlow {
         sharedDatabase { database ->
-            forkWithOwner(database.appDatabaseQueries.getForkWithOwnerById(id).executeAsOneOrNull())
+            trySend(database.appDatabaseQueries.getForkWithOwnerById(id).awaitAsOneOrNull()).isSuccess
         }
+        awaitClose { }
     }
 }
