@@ -7,6 +7,4 @@ data class ScreenState(var topAppBarTitle: String = "",
                        var isSnackbarError: Boolean = false,
                        var snackbarMessage: String = "",
                        var isProgressVisible: Boolean = false,
-                       var isDarkTheme: Boolean = false,
-                       var currentLanguage: String = "EN"
 )

@@ -19,11 +19,11 @@ import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
-import org.koin.compose.koinInject
+import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
 import presentation.ScreenState
 import presentation.components.AvatarImage
 import presentation.components.HeaderText
@@ -32,8 +32,7 @@ import presentation.components.SecondaryText
 
 @Composable
 fun DetailsScreen(forkId: Long?, screenState: MutableState<ScreenState>) {
-    val detailsViewModel = koinInject<DetailsViewModel>()
-    val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { detailsViewModel }
+    val viewModel = viewModel(DetailsViewModel::class)
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(viewState.value.infoMessage.value) {
@@ -61,20 +60,20 @@ fun DetailsContent(viewState: DetailsViewState) {
                 .padding(LocalLargePadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
-            HeaderText(LocalStringResources.current.FORK)
+            HeaderText(getStringResources().FORK)
             Row {
-                SecondaryText(LocalStringResources.current.NAME)
+                SecondaryText(getStringResources().NAME)
                 PrimaryText(viewState.fork?.name.orEmpty())
             }
             Row {
-                SecondaryText(LocalStringResources.current.DESCRIPTION)
+                SecondaryText(getStringResources().DESCRIPTION)
                 PrimaryText(viewState.fork?.description.orEmpty())
             }
             Row {
-                SecondaryText(LocalStringResources.current.URL)
+                SecondaryText(getStringResources().URL)
                 PrimaryText(viewState.fork?.htmlUrl.orEmpty())
             }
-            HeaderText(LocalStringResources.current.OWNER)
+            HeaderText(getStringResources().OWNER)
             OwnerCard(viewState.fork?.owner)
         }
     }
