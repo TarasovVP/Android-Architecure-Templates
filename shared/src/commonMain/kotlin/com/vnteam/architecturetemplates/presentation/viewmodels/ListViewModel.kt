@@ -31,7 +31,6 @@ class ListViewModel(
         when (intent) {
             is ListIntent.ClearForks -> clearForks()
             is ListIntent.LoadForks -> getForksFromApi()
-            is ListIntent.DeleteFork -> getForksFromApi()
         }
     }
 
@@ -63,15 +62,6 @@ class ListViewModel(
     private fun getForksFromDB() {
         viewModelScope.launch(exceptionHandler) {
             listUseCase.getForksFromDB().collect {
-                val forks = forkUIMapper.mapToImplModelList(it)
-                _state.value = state.value.copy(forks = forks, isLoading = false)
-            }
-        }
-    }
-
-    private fun deleteFork() {
-        viewModelScope.launch(exceptionHandler) {
-            forkUseCase.getForksFromDB().collect {
                 val forks = forkUIMapper.mapToImplModelList(it)
                 _state.value = state.value.copy(forks = forks, isLoading = false)
             }
