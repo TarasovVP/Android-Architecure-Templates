@@ -5,7 +5,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface DBRepository {
 
-    suspend fun insertForksToDB(forks: List<Fork>)
+    suspend fun clearForks()
+
+    suspend fun insertForksToDB(forks: List<Fork>): Flow<Unit>
 
     suspend fun getForksFromDB(): Flow<List<Fork>>
 

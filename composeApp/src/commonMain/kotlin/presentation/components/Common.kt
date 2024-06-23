@@ -53,7 +53,7 @@ import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
-import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.InternalResourceApi
@@ -117,7 +117,7 @@ fun SecondaryText(
 fun AvatarImage(avatarUrl: String, avatarSize: Dp) {
     SubcomposeAsyncImage(
         model = avatarUrl,
-        contentDescription = getStringResources().OWNER_AVATAR,
+        contentDescription = LocalStringResources.current.OWNER_AVATAR,
         modifier = Modifier
             .padding(LocalSmallPadding.current.size)
             .wrapContentSize()
@@ -257,8 +257,8 @@ fun SubmitButtons(
             .padding(8.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-        SecondaryButton(text = getStringResources().BUTTON_CANCEL, false, Modifier.weight(1f), onClick = onDismiss)
-        PrimaryButton(text = getStringResources().BUTTON_OK, isEnabled, Modifier.weight(1f)) {
+        SecondaryButton(text = LocalStringResources.current.BUTTON_CANCEL, false, Modifier.weight(1f), onClick = onDismiss)
+        PrimaryButton(text = LocalStringResources.current.BUTTON_OK, isEnabled, Modifier.weight(1f)) {
             onConfirmationClick.invoke()
         }
     }

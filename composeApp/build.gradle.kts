@@ -1,10 +1,12 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -14,38 +16,57 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+            dependencies {
+                debugImplementation(libs.androidx.testManifest)
+                implementation(libs.androidx.junit4)
+            }
+        }
     }
     task("testClasses")
-    js(IR) {
-        browser()
-        binaries.executable()
-    }
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        binaries.executable()
-        browser()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.composeApp"
+            linkerOpts.add("-lsqlite3")
+            baseName = "composeApp"
+            isStatic = true
+        }
     }
     jvm("desktop")
-    macosX64("macos") {
-        binaries {
-            executable {
-                entryPoint = "main"
-                baseName = "MyKMMApp"
+    js(IR) {
+        browser {
+            commonWebpackConfig {
+                outputFileName = "webApp.js"
             }
-        }
-    }
-    macosArm64("macosArm") {
-        binaries {
-            executable {
-                entryPoint = "main"
-                baseName = "MyKMMApp"
-            }
-        }
-    }
 
+        }
+        binaries.executable()
+    }
     sourceSets {
         val desktopMain by getting
-        val wasmJsMain by getting
+
+        commonMain.dependencies {
+            implementation(projects.shared)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.components.resources)
+            implementation(libs.androidx.viewmodel.compose)
+            //Koin
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            //Coil
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
+            //Navigation
+            implementation(libs.navigation.compose)
+
+        }
         androidMain.dependencies {
             implementation(libs.androidx.multidex)
             // Koin
@@ -60,22 +81,24 @@ kotlin {
         desktopMain.dependencies {
             implementation(libs.koin.core)
             implementation(compose.desktop.currentOs)
-            implementation(project(":shared"))
+        }
+        iosMain.dependencies {
+            implementation(libs.koin.core)
         }
         jsMain.dependencies {
             implementation(libs.koin.core)
+            //Compose
             implementation(compose.html.core)
             implementation(compose.runtime)
-            implementation(project(":shared"))
-        }
-        wasmJsMain.dependencies {
-            implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(project(":shared"))
+            implementation(compose.material3)
+            implementation(compose.components.resources)
+            //Koin
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
         }
     }
 }
-
 
 android {
     namespace = "com.vnteam.architecturetemplates"
@@ -119,11 +142,6 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
     }
 }
-dependencies {
-    implementation(project(":shared"))
-    implementation(libs.androidx.monitor)
-    implementation(libs.androidx.junit.ktx)
-}
 
 compose.desktop {
     application {
@@ -137,6 +155,8 @@ compose.desktop {
     }
 }
 
-compose.experimental {
-    web.application {}
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.vnteam.architecturetemplates"
+    generateResClass = always
 }
