@@ -15,7 +15,7 @@ import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import kotlinx.browser.window
 import org.w3c.dom.events.Event
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
-import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
+import presentation.viewModel
 
 
 @Composable

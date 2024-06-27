@@ -1,0 +1,10 @@
+abi_version=1.8.0
+builtins_platform=JS
+compiler_version=2.0.0
+depends=org.jetbrains.kotlinx\:kotlinx-serialization-core org.jetbrains.kotlin\:kotlin-dom-api-compat kotlin
+ir_signature_versions=1,2
+jsOutputName=Android_Architecture_Templates-core
+metadata_version=1.4.1
+serializedIrFileFingerprints=nkchta0tgaby.16nw45d7e9cgj 2en93rba00eqr.2z3odc5ylakem 1y8qz06lx2oab.2yvxeod92tikg 3ldtsp0doy9yb.3sb0o94rztoo1 22k3tlsln0kbe.4jgtzben72m7 y3o218gfxsdp.3v4l4idtm3i1v tko0f29z98v1.3tnio5z1otgeo
+serializedKlibFingerprint=28jdvape2u7i7.rrboof314ihi
+unique_name=Android_Architecture_Templates\:core

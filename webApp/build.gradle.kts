@@ -33,7 +33,7 @@ kotlin {
 
             implementation(npm("sql.js", "1.6.2"))
             implementation(devNpm("copy-webpack-plugin", "6.4.1"))
-
+            implementation(npm("@js-joda/core", "5.5.3"))
             implementation(project(":shared"))
         }
     }

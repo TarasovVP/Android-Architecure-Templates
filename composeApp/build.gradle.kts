@@ -86,7 +86,6 @@ kotlin {
             implementation(libs.koin.core)
         }
         jsMain.dependencies {
-            implementation(libs.koin.core)
             //Compose
             implementation(compose.html.core)
             implementation(compose.runtime)
@@ -96,6 +95,7 @@ kotlin {
             //Koin
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+
         }
     }
 }

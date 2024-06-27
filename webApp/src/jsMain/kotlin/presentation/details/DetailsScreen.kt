@@ -17,7 +17,9 @@ import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.events.Event
 import com.vnteam.architecturetemplates.presentation.resources.getStringResources
-import com.vnteam.architecturetemplates.presentation.viewmodels.viewModel
+import kotlinx.browser.document
+import org.w3c.dom.HTMLTextAreaElement
+import presentation.viewModel
 
 @Composable
 fun DetailsScreen(itemId: String) {
@@ -50,4 +52,25 @@ fun DetailsScreen(itemId: String) {
             CircularProgress()
         }
     }
+}
+
+fun shareText(url: String) {
+    val options = arrayOf("Open in Browser", "Copy to Clipboard", "Cancel")
+    val choice = window.prompt("Choose an action for the text: Open in Browser, Copy to Clipboard, Cancel", options.joinToString(", "))
+
+    when (choice?.lowercase()) {
+        "open in browser" -> window.open(url, "_blank")
+        "copy to clipboard" -> copyToClipboard(url)
+        else -> Unit
+    }
+}
+
+private fun copyToClipboard(text: String) {
+    val textarea = document.createElement("textarea") as HTMLTextAreaElement
+    textarea.value = text
+    document.body?.appendChild(textarea)
+    textarea.select()
+    document.execCommand("copy")
+    document.body?.removeChild(textarea)
+    window.alert("Text copied to clipboard")
 }

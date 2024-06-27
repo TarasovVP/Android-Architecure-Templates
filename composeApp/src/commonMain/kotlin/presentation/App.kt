@@ -34,7 +34,6 @@ fun App() {
     val scope = rememberCoroutineScope()
     val screenState = remember { mutableStateOf(ScreenState()) }
     val snackbarHostState = remember { SnackbarHostState() }
-
     if (screenState.value.snackbarVisible) {
         scope.launch {
             snackbarHostState.showSnackbar(

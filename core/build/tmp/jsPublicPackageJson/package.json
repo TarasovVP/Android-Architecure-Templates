@@ -1,0 +1,13 @@
+{
+  "name": "Android_Architecture_Templates-core",
+  "version": "0.0.0-unspecified",
+  "main": "Android_Architecture_Templates-core.js",
+  "types": "Android_Architecture_Templates-core.d.ts",
+  "devDependencies": {},
+  "dependencies": {
+    "format-util": "^1.0.5"
+  },
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}

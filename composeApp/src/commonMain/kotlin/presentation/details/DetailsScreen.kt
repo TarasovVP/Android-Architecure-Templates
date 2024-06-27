@@ -1,5 +1,6 @@
 package presentation.details
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,7 @@ import presentation.components.avatarImage
 import presentation.components.HeaderText
 import presentation.components.PrimaryText
 import presentation.components.SecondaryText
+import presentation.shareLink
 import presentation.textWithNoDataHandling
 
 @Composable
@@ -71,7 +73,9 @@ fun DetailsContent(viewState: DetailsViewState) {
                 SecondaryText(getStringResources().DESCRIPTION)
                 PrimaryText(viewState.fork?.description.textWithNoDataHandling())
             }
-            Row {
+            Row(modifier = Modifier.padding(top = LocalMediumPadding.current.size).clickable {
+                shareLink(viewState.fork?.htmlUrl.orEmpty())
+            }) {
                 SecondaryText(getStringResources().URL)
                 PrimaryText(viewState.fork?.htmlUrl.textWithNoDataHandling())
             }
