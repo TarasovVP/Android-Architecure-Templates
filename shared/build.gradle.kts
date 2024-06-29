@@ -45,8 +45,6 @@ kotlin {
             implementation(libs.koin.compose)
             //SQLDelight
             implementation(libs.sqldelight.coroutines.extensions)
-            //Settings
-            implementation("com.russhwolf:multiplatform-settings:1.1.1")
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.android)

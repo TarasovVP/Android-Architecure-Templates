@@ -1,9 +1,8 @@
 package com.vnteam.architecturetemplates.presentation.resources
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.text.intl.Locale
+import com.vnteam.architecturetemplates.data.APP_LANG_UK
 
 sealed class StringResources(
     var APP_NAME: String,
@@ -56,7 +55,7 @@ val LocalStringResources: ProvidableCompositionLocal<StringResources> = staticCo
 
 fun getStringResourcesByLocale(locale: String): StringResources {
     return when (locale) {
-        "uk" -> StringResourcesUK()
+        APP_LANG_UK -> StringResourcesUK()
         else -> StringResourcesEN()
     }
 }
