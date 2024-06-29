@@ -1,7 +1,8 @@
 package com.vnteam.architecturetemplates.presentation.resources
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.intl.Locale
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.staticCompositionLocalOf
+import com.vnteam.architecturetemplates.data.APP_LANG_UK
 
 sealed class StringResources(
     var APP_NAME: String,
@@ -48,15 +49,13 @@ class StringResourcesUK : StringResources(
     BUTTON_OK = "Так"
 )
 
-fun getStringResourcesByLocale(locale: String): StringResources {
-    return when (locale) {
-        "uk" -> StringResourcesUK()
-        else -> StringResourcesEN()
-    }
+val LocalStringResources: ProvidableCompositionLocal<StringResources> = staticCompositionLocalOf {
+    error("No StringResources provided")
 }
 
-@Composable
-fun getStringResources(): StringResources {
-    val locale = Locale.current.language
-    return getStringResourcesByLocale(locale)
+fun getStringResourcesByLocale(locale: String): StringResources {
+    return when (locale) {
+        APP_LANG_UK -> StringResourcesUK()
+        else -> StringResourcesEN()
+    }
 }

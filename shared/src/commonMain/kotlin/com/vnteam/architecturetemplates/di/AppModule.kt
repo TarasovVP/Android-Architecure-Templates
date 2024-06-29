@@ -12,11 +12,14 @@ import com.vnteam.architecturetemplates.data.BASE_URL
 import com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory
 import com.vnteam.architecturetemplates.data.repositoryimpl.ApiRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.DBRepositoryImpl
+import com.vnteam.architecturetemplates.data.repositoryimpl.PreferencesRepositoryImpl
 import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
 import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
+import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
+import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
 import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.ListUseCase
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
@@ -31,6 +34,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 import com.vnteam.architecturetemplates.presentation.mappers.OwnerUIMapper
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.AppUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.DetailsUseCaseImpl
 import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
@@ -75,9 +79,13 @@ val appModule = module {
 
     single<DBRepository> { DBRepositoryImpl(get(), get()) }
 
+    single<PreferencesRepository> { PreferencesRepositoryImpl(get()) }
+
     single<OwnerUIMapper> { OwnerUIMapperImpl() }
 
     single<ForkUIMapper> { ForkUIMapperImpl(get()) }
+
+    single<AppUseCase> { AppUseCaseImpl(get()) }
 
     single<ListUseCase> { ListUseCaseImpl(get(), get()) }
 

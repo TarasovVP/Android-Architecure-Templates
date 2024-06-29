@@ -19,6 +19,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,20 +29,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.intl.Locale
 import com.vnteam.architecturetemplates.Res
+import com.vnteam.architecturetemplates.data.APP_LANG_EN
+import com.vnteam.architecturetemplates.data.APP_LANG_UK
+import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
 import com.vnteam.architecturetemplates.ic_dark_mode
 import com.vnteam.architecturetemplates.ic_light_mode
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
-import com.vnteam.architecturetemplates.presentation.resources.StringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import theme.AppTheme
 
 @Composable
-fun App() {
+fun App(appUseCase: AppUseCase) {
     val screenState = remember { mutableStateOf(ScreenState()) }
-    val isDarkTheme = remember { mutableStateOf(screenState.value.isDarkTheme) }
-    val language = remember { mutableStateOf(Locale.current.language) }
+
+    val isDarkTheme = remember { mutableStateOf(appUseCase.getIsDarkTheme()) }
+    val language = remember { mutableStateOf(appUseCase.getLanguage() ?: Locale.current.language) }
+
+    LaunchedEffect(isDarkTheme.value) {
+        appUseCase.setIsDarkTheme(isDarkTheme.value)
+    }
+    LaunchedEffect(language.value) {
+        appUseCase.setLanguage(language.value)
+    }
     CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value)) {
         AppTheme(isDarkTheme.value) {
             ScaffoldContent(screenState, language, isDarkTheme)
@@ -86,7 +97,7 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, language: MutableSta
                 actions = {
                     if (!screenState.value.topAppBarActionVisible) {
                         IconButton(onClick = {
-                            language.value = if (language.value == "en") "uk" else "en"
+                            language.value = if (language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN
                         }) {
                             Text(language.value, color = Color.White)
                         }
