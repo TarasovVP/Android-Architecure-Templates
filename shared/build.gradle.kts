@@ -54,13 +54,13 @@ kotlin {
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-
+            //Datastore
             implementation(libs.androidx.datastore.preferences)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sqldelight.native.driver)
-
+            //Datastore
             implementation(libs.androidx.datastore.preferences)
         }
         jvmMain.dependencies {
