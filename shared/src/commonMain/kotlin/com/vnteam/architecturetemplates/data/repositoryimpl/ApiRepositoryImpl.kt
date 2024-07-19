@@ -16,7 +16,8 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
     override suspend fun getForksFromApi(): Flow<List<Fork>> {
         when (val response = apiService.getForks().handleResponse<List<ForkResponse>>()) {
             is NetworkResult.Success -> {
-                return flowOf( response.data?.map { forkResponseMapper.mapFromImplModel(it) }.orEmpty() )
+                val forks = response.data.orEmpty()
+                return flowOf(forks.map { forkResponseMapper.mapFromImplModel(it) })
             }
             is NetworkResult.Failure -> {
                 println(response.errorMessage)

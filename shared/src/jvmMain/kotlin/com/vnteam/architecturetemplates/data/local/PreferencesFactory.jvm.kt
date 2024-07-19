@@ -7,19 +7,19 @@ actual class PreferencesFactory : Preferences {
 
     private val prefs: java.util.prefs.Preferences = userRoot().node(this::class.java.name)
 
-    override fun putString(key: String, value: String) {
+    override suspend fun putString(key: String, value: String) {
         prefs.put(key, value)
     }
 
-    override fun getString(key: String): String? {
+    override suspend fun getString(key: String): String? {
         return prefs.get(key, null)
     }
 
-    override fun putBoolean(key: String, value: Boolean) {
+    override suspend fun putBoolean(key: String, value: Boolean) {
         prefs.putBoolean(key, value)
     }
 
-    override fun getBoolean(key: String): Boolean {
+    override suspend fun getBoolean(key: String): Boolean {
         return prefs.getBoolean(key, false)
     }
 }

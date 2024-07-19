@@ -48,17 +48,20 @@ kotlin {
             implementation(libs.sqldelight.coroutines.extensions)
         }
         androidMain.dependencies {
+            implementation(libs.androidx.multidex)
             implementation(libs.ktor.client.android)
             implementation(libs.sqldelight.android.driver)
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
 
-            implementation(libs.androidx.multidex)
+            implementation(libs.androidx.datastore.preferences)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sqldelight.native.driver)
+
+            implementation(libs.androidx.datastore.preferences)
         }
         jvmMain.dependencies {
             implementation(libs.koin.core)

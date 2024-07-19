@@ -2,11 +2,11 @@ package com.vnteam.architecturetemplates.domain.usecase
 
 interface AppUseCase {
 
-    fun setIsDarkTheme(isDarkTheme: Boolean)
+    suspend fun setIsDarkTheme(isDarkTheme: Boolean)
 
-    fun getIsDarkTheme(): Boolean
+    suspend fun getIsDarkTheme(): Boolean
 
-    fun setLanguage(language: String)
+    suspend fun setLanguage(language: String)
 
-    fun getLanguage(): String?
+    suspend fun getLanguage(): String?
 }
