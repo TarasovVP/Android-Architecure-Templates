@@ -1,9 +1,9 @@
 package com.vnteam.architecturetemplates.data.local
 
 interface Preferences {
-    fun putString(key: String, value: String)
-    fun getString(key: String): String?
+    suspend fun putString(key: String, value: String)
+    suspend fun getString(key: String): String?
 
-    fun putBoolean(key: String, value: Boolean)
-    fun getBoolean(key: String): Boolean
+    suspend fun putBoolean(key: String, value: Boolean)
+    suspend fun getBoolean(key: String): Boolean
 }

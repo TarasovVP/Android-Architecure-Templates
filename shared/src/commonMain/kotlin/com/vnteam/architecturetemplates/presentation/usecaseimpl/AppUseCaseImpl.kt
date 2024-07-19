@@ -5,19 +5,19 @@ import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
 
 class AppUseCaseImpl(private val preferencesRepository: PreferencesRepository) :
     AppUseCase {
-    override fun setIsDarkTheme(isDarkTheme: Boolean) {
+    override suspend fun setIsDarkTheme(isDarkTheme: Boolean) {
         preferencesRepository.setIsDarkTheme(isDarkTheme)
     }
 
-    override fun getIsDarkTheme(): Boolean {
+    override suspend fun getIsDarkTheme(): Boolean {
         return preferencesRepository.getIsDarkTheme()
     }
 
-    override fun setLanguage(language: String) {
+    override suspend fun setLanguage(language: String) {
         preferencesRepository.setLanguage(language)
     }
 
-    override fun getLanguage(): String? {
+    override suspend fun getLanguage(): String? {
         return preferencesRepository.getLanguage()
     }
 

@@ -44,20 +44,34 @@ import theme.AppTheme
 fun App(appUseCase: AppUseCase) {
     val screenState = remember { mutableStateOf(ScreenState()) }
 
-    val isDarkTheme = remember { mutableStateOf(appUseCase.getIsDarkTheme()) }
-    val language = remember { mutableStateOf(appUseCase.getLanguage() ?: Locale.current.language) }
-
+    val isDarkTheme = remember { mutableStateOf(false) }
+    val language = remember { mutableStateOf(Locale.current.language) }
+    val isLoading = remember { mutableStateOf(true) }
+    LaunchedEffect(Unit) {
+        isDarkTheme.value = appUseCase.getIsDarkTheme()
+        language.value = appUseCase.getLanguage() ?: Locale.current.language
+        isLoading.value = false
+    }
     LaunchedEffect(isDarkTheme.value) {
         appUseCase.setIsDarkTheme(isDarkTheme.value)
     }
     LaunchedEffect(language.value) {
         appUseCase.setLanguage(language.value)
     }
-    CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value)) {
-        AppTheme(isDarkTheme.value) {
-            ScaffoldContent(screenState, language, isDarkTheme)
+    if (isLoading.value) {
+        SplashScreen()
+    } else {
+        CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value)) {
+            AppTheme(isDarkTheme.value) {
+                ScaffoldContent(screenState, language, isDarkTheme)
+            }
         }
     }
+}
+
+@Composable
+fun SplashScreen() {
+    Text("SplashScreen")
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

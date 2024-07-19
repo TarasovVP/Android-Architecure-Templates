@@ -7,19 +7,19 @@ import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepositor
 
 class PreferencesRepositoryImpl(private val preferencesFactory: PreferencesFactory) :
     PreferencesRepository {
-    override fun setIsDarkTheme(isDarkTheme: Boolean) {
+    override suspend fun setIsDarkTheme(isDarkTheme: Boolean) {
         preferencesFactory.putBoolean(IS_DARK_THEME, isDarkTheme)
     }
 
-    override fun getIsDarkTheme(): Boolean {
+    override suspend fun getIsDarkTheme(): Boolean {
         return preferencesFactory.getBoolean(IS_DARK_THEME)
     }
 
-    override fun setLanguage(language: String) {
+    override suspend fun setLanguage(language: String) {
         preferencesFactory.putString(APP_LANGUAGE, language)
     }
 
-    override fun getLanguage(): String? {
+    override suspend fun getLanguage(): String? {
         return preferencesFactory.getString(APP_LANGUAGE)
     }
 
