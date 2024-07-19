@@ -1,5 +1,6 @@
 [versions]
 compileSdk = "34"
+datastorePreferences = "1.1.1"
 minSdk = "24"
 targetSdk = "34"
 
@@ -25,6 +26,7 @@ slf4j = "2.0.12"
 androidx-uiTest = "1.6.7"
 
 [libraries]
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
