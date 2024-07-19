@@ -38,6 +38,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalStringResour
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
+import presentation.components.SplashScreen
 import theme.AppTheme
 
 @Composable
@@ -67,11 +68,6 @@ fun App(appUseCase: AppUseCase) {
             }
         }
     }
-}
-
-@Composable
-fun SplashScreen() {
-    Text("SplashScreen")
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
