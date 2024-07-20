@@ -8,13 +8,13 @@ import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColorScheme(
     primary = Primary200,
-    primaryContainer = Primary700,
+    primaryContainer = Primary800,
     secondary = Neutral200
 )
 
 private val LightColorPalette = lightColorScheme(
     primary = Primary500,
-    primaryContainer = Primary700,
+    primaryContainer = Primary400,
     secondary = Neutral200
 )
 
@@ -29,7 +29,7 @@ fun AppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable ()
     MaterialTheme(
         colorScheme = appColors,
         shapes = Shapes,
-        typography = Typography,
+        typography = Typography(),
         content = content
     )
 }
