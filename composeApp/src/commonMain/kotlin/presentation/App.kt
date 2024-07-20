@@ -90,7 +90,7 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, language: MutableSta
             TopAppBar(
                 title = { Text(screenState.value.topAppBarTitle) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = Color.White
                 ),
                 navigationIcon = {
