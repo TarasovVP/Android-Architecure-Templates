@@ -69,6 +69,8 @@ kotlin {
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.sqldelight.java.driver)
             implementation(libs.slf4j)
+            //Datastore
+            implementation(libs.androidx.datastore.preferences)
         }
         jsMain.dependencies {
             implementation(libs.ktor.client.js)

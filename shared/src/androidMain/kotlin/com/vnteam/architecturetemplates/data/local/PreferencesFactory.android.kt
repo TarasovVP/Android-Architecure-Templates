@@ -1,39 +1,44 @@
 package com.vnteam.architecturetemplates.data.local
 
 import android.content.Context
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
+import com.vnteam.architecturetemplates.data.PREFERENCES_PB
 import kotlinx.coroutines.flow.first
+import okio.Path.Companion.toPath
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class PreferencesFactory(private val context: Context): Preferences {
-    private val Context.dataStore by preferencesDataStore("settings")
+
+    private val dataStore = PreferenceDataStoreFactory.createWithPath(
+        produceFile = { context.filesDir.resolve(PREFERENCES_PB).absolutePath.toPath() }
+    )
 
     override suspend fun putString(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)
-        context.dataStore.edit { preferences ->
+        dataStore.edit { preferences ->
             preferences[preferencesKey] = value
         }
     }
 
     override suspend fun getString(key: String): String? {
         val preferencesKey = stringPreferencesKey(key)
-        val preferences = context.dataStore.data.first()
+        val preferences = dataStore.data.first()
         return preferences[preferencesKey]
     }
 
     override suspend fun putBoolean(key: String, value: Boolean) {
         val preferencesKey = booleanPreferencesKey(key)
-        context.dataStore.edit { preferences ->
+        dataStore.edit { preferences ->
             preferences[preferencesKey] = value
         }
     }
 
     override suspend fun getBoolean(key: String): Boolean {
         val preferencesKey = booleanPreferencesKey(key)
-        val preferences = context.dataStore.data.first()
+        val preferences = dataStore.data.first()
         return preferences[preferencesKey] == true
     }
 }
