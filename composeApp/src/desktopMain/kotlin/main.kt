@@ -9,7 +9,7 @@ import presentation.App
 fun main() {
     doInitKoin()
     application {
-        Window(onCloseRequest = ::exitApplication, title = LocalStringResources.current.APP_NAME) {
+        Window(onCloseRequest = ::exitApplication, title = "LocalStringResources.current.APP_NAME") {
             App(koinInject())
         }
     }
