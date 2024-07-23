@@ -28,27 +28,27 @@ actual class PreferencesFactory : Preferences {
             (documentDirectory?.path + "/$PREFERENCES_PB").toPath()
         }
     )
-    override suspend fun putString(key: String, value: String) {
+    actual override suspend fun putString(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)
         dataStore.edit { preferences ->
             preferences[preferencesKey] = value
         }
     }
 
-    override suspend fun getString(key: String): String? {
+    actual override suspend fun getString(key: String): String? {
         val preferencesKey = stringPreferencesKey(key)
         val preferences = dataStore.data.first()
         return preferences[preferencesKey]
     }
 
-    override suspend fun putBoolean(key: String, value: Boolean) {
+    actual override suspend fun putBoolean(key: String, value: Boolean) {
         val preferencesKey = booleanPreferencesKey(key)
         dataStore.edit { preferences ->
             preferences[preferencesKey] = value
         }
     }
 
-    override suspend fun getBoolean(key: String): Boolean {
+    actual override suspend fun getBoolean(key: String): Boolean {
         val preferencesKey = booleanPreferencesKey(key)
         val preferences = dataStore.data.first()
         return preferences[preferencesKey] == true
