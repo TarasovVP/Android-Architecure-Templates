@@ -84,6 +84,7 @@ kotlin {
         desktopMain.dependencies {
             implementation(libs.koin.core)
             implementation(compose.desktop.currentOs)
+
         }
         iosMain.dependencies {
             implementation(libs.koin.core)
