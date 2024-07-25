@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -10,9 +13,9 @@ plugins {
 
 kotlin {
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
+        tasks.withType<KotlinJvmCompile>().configureEach {
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_1_8)
             }
         }
     }
@@ -29,9 +32,9 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core)
             api(compose.runtime)
+            implementation(compose.ui)
             implementation(compose.foundation)
             implementation(compose.runtime)
-
             implementation(libs.kotlinx.serialization)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.androidx.viewmodel.compose)
@@ -47,17 +50,20 @@ kotlin {
             implementation(libs.sqldelight.coroutines.extensions)
         }
         androidMain.dependencies {
+            implementation(libs.androidx.multidex)
             implementation(libs.ktor.client.android)
             implementation(libs.sqldelight.android.driver)
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-
-            implementation(libs.androidx.multidex)
+            //Datastore
+            implementation(libs.androidx.datastore.preferences)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sqldelight.native.driver)
+            //Datastore
+            implementation(libs.androidx.datastore.preferences)
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -69,6 +75,8 @@ kotlin {
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.sqldelight.java.driver)
             implementation(libs.slf4j)
+            //Datastore
+            implementation(libs.androidx.datastore.preferences)
         }
         jsMain.dependencies {
             implementation(libs.ktor.client.js)
@@ -93,9 +101,9 @@ android {
 sqldelight {
     databases {
         create("AppDatabase") {
-            packageName = "com.vnteam.architecturetemplates"
-            generateAsync = true
-            version = 3
+            packageName.set("com.vnteam.architecturetemplates")
+            generateAsync.set(true)
+            version = 2
         }
     }
 }

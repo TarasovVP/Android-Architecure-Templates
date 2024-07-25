@@ -1,10 +1,7 @@
 package presentation
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import com.vnteam.architecturetemplates.AppApplication
 
 actual fun shareLink(url: String) {
     val intent = Intent(Intent.ACTION_SEND).apply {

@@ -1,12 +1,10 @@
 import androidx.compose.ui.window.ComposeUIViewController
+import org.koin.compose.koinInject
 import platform.UIKit.UIViewController
-import theme.AppTheme
 import presentation.App
 
 fun MainViewController(): UIViewController {
     return ComposeUIViewController {
-        AppTheme {
-            App()
-        }
+        App(koinInject())
     }
 }

@@ -27,7 +27,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatar
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
-import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import org.koin.compose.koinInject
 import presentation.ScreenState
 import presentation.components.avatarImage
@@ -99,7 +99,7 @@ fun ListContent(viewState: ListViewState, onItemClick: (ForkUI, String) -> Unit)
         })
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
-            title = getStringResources().DELETE,
+            title = LocalStringResources.current.DELETE,
             onConfirmationClick = { onItemClick(ForkUI(forkId = viewState.forkToDelete), "delete") },
             onDismiss = { viewState.isConfirmationDialogVisible.value = false })
     }
@@ -117,7 +117,7 @@ fun ForkItem(item: ForkUI, onItemClick: (ForkUI, String) -> Unit) {
                 Icon( modifier = Modifier
                     .size(LocalSmallAvatarSize.current.size),
                     imageVector = Icons.Filled.Delete,
-                    contentDescription = getStringResources().DELETE,
+                    contentDescription = LocalStringResources.current.DELETE,
                 )
             }
         }

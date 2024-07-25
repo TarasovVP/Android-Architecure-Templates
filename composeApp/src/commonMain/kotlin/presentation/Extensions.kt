@@ -15,11 +15,11 @@ import com.vnteam.architecturetemplates.ic_avatar_9
 import com.vnteam.architecturetemplates.ic_avatar_default
 import com.vnteam.architecturetemplates.ic_empty_state
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
-import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
-fun String?.textWithNoDataHandling() = this.takeIf { it.orEmpty().isNotEmpty() } ?: getStringResources().NO_DATA
+fun String?.textWithNoDataHandling() = this.takeIf { it.orEmpty().isNotEmpty() } ?: LocalStringResources.current.NO_DATA
 
 fun DrawableResources.drawableRes(resId: String): DrawableResource {
     return when(resId) {

@@ -3,9 +3,9 @@ package com.vnteam.architecturetemplates
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import org.koin.compose.koinInject
 import presentation.App
 import presentation.setActivityProvider
-import theme.AppTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -13,9 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setActivityProvider { this }
         setContent {
-            AppTheme {
-                App()
-            }
+            App(koinInject())
         }
     }
 }

@@ -29,7 +29,7 @@ import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
-import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
@@ -105,27 +105,27 @@ fun CreateContent(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderText(getStringResources().FORK)
+            HeaderText(LocalStringResources.current.FORK)
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())) },
-                "${getStringResources().NAME}*",
+                "${LocalStringResources.current.NAME}*",
 
                 ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(name = text)
             }
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.description.orEmpty())) },
-                getStringResources().DESCRIPTION,
+                LocalStringResources.current.DESCRIPTION,
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(description = text)
             }
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.htmlUrl.orEmpty())) },
-                getStringResources().URL,
+                LocalStringResources.current.URL,
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
             }
-            HeaderText(getStringResources().OWNER)
+            HeaderText(LocalStringResources.current.OWNER)
             println("avatarTAG avatarUrl: ${viewState.value.fork.value?.owner?.avatarUrl}")
             Box(
                 contentAlignment = Alignment.Center,
@@ -139,7 +139,7 @@ fun CreateContent(
             }
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())) },
-                "${getStringResources().NAME}*",
+                "${LocalStringResources.current.NAME}*",
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(
                     owner = viewState.value.fork.value?.owner?.copy(login = text)
@@ -147,7 +147,7 @@ fun CreateContent(
             }
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())) },
-                getStringResources().URL,
+                LocalStringResources.current.URL,
             ) { text ->
                 viewState.value.fork.value = viewState.value.fork.value?.copy(
                     owner = viewState.value.fork.value?.owner?.copy(url = text)
@@ -162,7 +162,7 @@ fun CreateContent(
                 enabled = originFork.value != viewState.value.fork.value && viewState.value.fork.value?.isForkValid() == true
             ) {
                 Text(
-                    text = getStringResources().SUBMIT, modifier = Modifier
+                    text = LocalStringResources.current.SUBMIT, modifier = Modifier
                         .padding(vertical = LocalSmallPadding.current.size)
                 )
             }

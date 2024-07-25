@@ -20,7 +20,7 @@ import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
-import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
@@ -64,22 +64,22 @@ fun DetailsContent(viewState: DetailsViewState) {
                 .padding(LocalLargePadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
-            HeaderText(getStringResources().FORK)
+            HeaderText(LocalStringResources.current.FORK)
             Row {
-                SecondaryText(getStringResources().NAME)
+                SecondaryText(LocalStringResources.current.NAME)
                 PrimaryText(viewState.fork?.name.textWithNoDataHandling())
             }
             Row {
-                SecondaryText(getStringResources().DESCRIPTION)
+                SecondaryText(LocalStringResources.current.DESCRIPTION)
                 PrimaryText(viewState.fork?.description.textWithNoDataHandling())
             }
             Row(modifier = Modifier.padding(top = LocalMediumPadding.current.size).clickable {
                 shareLink(viewState.fork?.htmlUrl.orEmpty())
             }) {
-                SecondaryText(getStringResources().URL)
+                SecondaryText(LocalStringResources.current.URL)
                 PrimaryText(viewState.fork?.htmlUrl.textWithNoDataHandling())
             }
-            HeaderText(getStringResources().OWNER)
+            HeaderText(LocalStringResources.current.OWNER)
             OwnerCard(viewState.fork?.owner)
         }
     }

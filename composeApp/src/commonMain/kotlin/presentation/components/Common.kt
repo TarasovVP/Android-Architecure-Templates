@@ -1,5 +1,11 @@
 package presentation.components
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -36,12 +42,16 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
@@ -50,12 +60,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.vnteam.architecturetemplates.Res
+import com.vnteam.architecturetemplates.android_architecture_template
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
-import com.vnteam.architecturetemplates.presentation.resources.getStringResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import presentation.drawableRes
@@ -63,6 +75,43 @@ import theme.Neutral400
 import theme.Neutral700
 import theme.Primary400
 import theme.Primary500
+
+@Composable
+fun SplashScreen() {
+    val screenWidth = remember { mutableStateOf(0.dp) }
+    val minSize = screenWidth.value * 0.2f
+    val maxSize = screenWidth.value * 0.7f
+
+    val infiniteTransition = rememberInfiniteTransition()
+    val size = infiniteTransition.animateFloat(
+        initialValue = minSize.value,
+        targetValue = maxSize.value,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 700, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
+    val localDensity = LocalDensity.current
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .onSizeChanged { size ->
+                with(localDensity) {
+                    screenWidth.value = size.width.toDp()
+                }
+            },
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(Res.drawable.android_architecture_template),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.size(size.value.dp).clip(RoundedCornerShape(16.dp))
+        )
+    }
+}
+
 
 @Composable
 fun HeaderText(
@@ -122,7 +171,7 @@ fun SecondaryText(
 fun avatarImage(resId: String, avatarSize: Dp) {
     Image(
         painter = painterResource(DrawableResources.drawableRes(resId)),
-        contentDescription = getStringResources().OWNER_AVATAR,
+        contentDescription = LocalStringResources.current.OWNER_AVATAR,
         modifier = Modifier
             .wrapContentSize()
             .padding(LocalMediumPadding.current.size)
@@ -137,7 +186,7 @@ fun avatarImage(resId: String, avatarSize: Dp) {
 fun CommonTextField(
     inputValue: MutableState<TextFieldValue>,
     placeHolder: String,
-    onValueChanged: (String) -> Unit = {},
+    onValueChanged: (String) -> Unit = {}
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
@@ -156,11 +205,7 @@ fun CommonTextField(
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(
-                start = LocalLargePadding.current.size,
-                top = LocalMediumPadding.current.size,
-                end = LocalLargePadding.current.size
-            ),
+            .padding(start = LocalLargePadding.current.size, top = LocalMediumPadding.current.size, end = LocalLargePadding.current.size),
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = ImeAction.Next
         ),
@@ -220,7 +265,8 @@ fun PrimaryButton(
             .background(
                 color = if (isEnabled) Primary500 else Neutral400,
                 shape = RoundedCornerShape(LocalLargePadding.current.size)
-            ),
+            )
+            .testTag("sign_up_button"),
         onClick = {
             onClick.invoke()
         }
@@ -260,13 +306,8 @@ fun SubmitButtons(
             .padding(8.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-        SecondaryButton(
-            text = getStringResources().BUTTON_CANCEL,
-            false,
-            Modifier.weight(1f),
-            onClick = onDismiss
-        )
-        PrimaryButton(text = getStringResources().BUTTON_OK, isEnabled, Modifier.weight(1f)) {
+        SecondaryButton(text = LocalStringResources.current.BUTTON_CANCEL, false, Modifier.weight(1f), onClick = onDismiss)
+        PrimaryButton(text = LocalStringResources.current.BUTTON_OK, isEnabled, Modifier.weight(1f)) {
             onConfirmationClick.invoke()
         }
     }
@@ -319,7 +360,7 @@ fun EmptyState() {
             contentScale = ContentScale.Fit
         )
         Text(
-            text = getStringResources().EMPTY_STATE,
+            text = LocalStringResources.current.EMPTY_STATE,
             style = MaterialTheme.typography.bodyMedium,
             color = Neutral700
         )
@@ -337,7 +378,7 @@ fun ChangeAvatarDialog(avatarList: List<String>, onDismiss: () -> Unit, onClick:
         dragHandle = { BottomSheetDefaults.DragHandle() }
     ) {
         Text(
-            text = getStringResources().CHANGE_AVATAR,
+            text = LocalStringResources.current.CHANGE_AVATAR,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .fillMaxWidth()
@@ -365,7 +406,7 @@ fun ChangeAvatarDialog(avatarList: List<String>, onDismiss: () -> Unit, onClick:
                 ) {
                     Image(
                         painter = painterResource(DrawableResources.drawableRes(avatar)),
-                        contentDescription = getStringResources().OWNER_AVATAR,
+                        contentDescription = LocalStringResources.current.OWNER_AVATAR,
                         modifier = Modifier
                             .padding(
                                 vertical = LocalMediumPadding.current.size,

@@ -11,10 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
+import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import kotlinx.browser.window
 import org.w3c.dom.events.Event
-import com.vnteam.architecturetemplates.presentation.resources.getStringResources
 import presentation.viewModel
 
 
@@ -25,7 +25,7 @@ fun ListScreen() {
     val forks = viewModel.state.collectAsState()
 
     VerticalLayout {
-        BaseButton(getStringResources().START) {
+        BaseButton(LocalStringResources.current.START) {
             viewModel.processIntent(ListIntent.LoadForks(true))
         }
         DynamicVerticalList(forks.value.forks?.map { it.name.orEmpty() } ?: emptyList()) { itemName ->
