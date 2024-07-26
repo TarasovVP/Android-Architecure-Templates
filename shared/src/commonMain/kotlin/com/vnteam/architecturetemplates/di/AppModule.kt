@@ -10,11 +10,14 @@ import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.architecturetemplates.data.network.ApiService
 import com.vnteam.architecturetemplates.data.repositoryimpl.ApiRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.DBRepositoryImpl
+import com.vnteam.architecturetemplates.data.repositoryimpl.PreferencesRepositoryImpl
 import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
 import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
+import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
+import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
 import com.vnteam.architecturetemplates.domain.usecase.CreateUseCase
 import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.ListUseCase
@@ -30,6 +33,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 import com.vnteam.architecturetemplates.presentation.mappers.OwnerUIMapper
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.AppUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.CreateUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.DetailsUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
@@ -77,9 +81,13 @@ val appModule = module {
 
     single<DBRepository> { DBRepositoryImpl(get(), get()) }
 
+    single<PreferencesRepository> { PreferencesRepositoryImpl(get()) }
+
     single<OwnerUIMapper> { OwnerUIMapperImpl() }
 
     single<ForkUIMapper> { ForkUIMapperImpl(get()) }
+
+    single<AppUseCase> { AppUseCaseImpl(get()) }
 
     single<ListUseCase> { ListUseCaseImpl(get(), get()) }
 
