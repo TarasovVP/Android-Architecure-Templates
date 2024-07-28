@@ -10,12 +10,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.vnteam.architecturetemplates.Res
+import com.vnteam.architecturetemplates.ic_voice
+import com.vnteam.architecturetemplates.presentation.TextToSpeechHelper
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
@@ -24,6 +29,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalStringResour
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
+import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import presentation.ScreenState
 import presentation.components.avatarImage
@@ -87,6 +93,8 @@ fun DetailsContent(viewState: DetailsViewState) {
 
 @Composable
 fun OwnerCard(ownerUI: OwnerUI?) {
+    //TODO improve text to speech
+    val textToSpeechHelper = koinInject<TextToSpeechHelper>()
     Card(modifier = Modifier.padding(top = LocalMediumPadding.current.size).fillMaxSize()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -96,6 +104,11 @@ fun OwnerCard(ownerUI: OwnerUI?) {
             Column(modifier = Modifier.padding(start = LocalLargePadding.current.size, bottom = LocalMediumPadding.current.size))  {
                 PrimaryText(ownerUI?.login.textWithNoDataHandling())
                 SecondaryText(ownerUI?.url.textWithNoDataHandling())
+            }
+            IconButton(onClick = {
+                textToSpeechHelper.speak("Owner name: ${ownerUI?.login.orEmpty()} Owner url: ${ownerUI?.url.orEmpty()}")
+            }) {
+                Icon(painterResource(Res.drawable.ic_voice), contentDescription = null)
             }
         }
     }
