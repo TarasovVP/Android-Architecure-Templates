@@ -2,6 +2,7 @@ package com.vnteam.architecturetemplates.presentation.usecaseimpl
 
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
 import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
+import kotlinx.coroutines.flow.Flow
 
 class AppUseCaseImpl(private val preferencesRepository: PreferencesRepository) :
     AppUseCase {
@@ -9,7 +10,7 @@ class AppUseCaseImpl(private val preferencesRepository: PreferencesRepository) :
         preferencesRepository.setIsDarkTheme(isDarkTheme)
     }
 
-    override suspend fun getIsDarkTheme(): Boolean {
+    override suspend fun getIsDarkTheme(): Flow<Boolean> {
         return preferencesRepository.getIsDarkTheme()
     }
 
@@ -17,7 +18,7 @@ class AppUseCaseImpl(private val preferencesRepository: PreferencesRepository) :
         preferencesRepository.setLanguage(language)
     }
 
-    override suspend fun getLanguage(): String? {
+    override suspend fun getLanguage(): Flow<String?> {
         return preferencesRepository.getLanguage()
     }
 

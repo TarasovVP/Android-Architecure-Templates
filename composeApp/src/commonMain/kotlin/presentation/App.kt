@@ -20,47 +20,39 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.intl.Locale
 import com.vnteam.architecturetemplates.Res
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
-import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
 import com.vnteam.architecturetemplates.ic_dark_mode
 import com.vnteam.architecturetemplates.ic_light_mode
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
+import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
-import presentation.components.SplashScreen
 import theme.AppTheme
 
 @Composable
-fun App(appUseCase: AppUseCase) {
+fun App(appViewModel: AppViewModel) {
     val screenState = remember { mutableStateOf(ScreenState()) }
 
-    val isDarkTheme = remember { mutableStateOf(false) }
-    val language = remember { mutableStateOf(Locale.current.language) }
-    val isLoading = remember { mutableStateOf(true) }
-    LaunchedEffect(Unit) {
-        isDarkTheme.value = appUseCase.getIsDarkTheme()
-        language.value = appUseCase.getLanguage() ?: Locale.current.language
-        isLoading.value = false
+    val isDarkTheme = appViewModel.isDarkTheme.collectAsState()
+    val language = appViewModel.language.collectAsState()
+
+    CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value.orEmpty())) {
+        AppTheme(isDarkTheme.value) {
+            ScaffoldContent(screenState, appViewModel)
+        }
     }
-    LaunchedEffect(isDarkTheme.value) {
-        appUseCase.setIsDarkTheme(isDarkTheme.value)
-    }
-    LaunchedEffect(language.value) {
-        appUseCase.setLanguage(language.value)
-    }
-    if (isLoading.value) {
+    /*if (isLoading.value) {
         SplashScreen()
     } else {
         CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value)) {
@@ -68,12 +60,12 @@ fun App(appUseCase: AppUseCase) {
                 ScaffoldContent(screenState, language, isDarkTheme)
             }
         }
-    }
+    }*/
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScaffoldContent(screenState: MutableState<ScreenState>, language: MutableState<String>, isDarkTheme: MutableState<Boolean>) {
+fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppViewModel) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -108,16 +100,16 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, language: MutableSta
                 actions = {
                     if (!screenState.value.topAppBarActionVisible) {
                         IconButton(onClick = {
-                            language.value = if (language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN
+                            appViewModel.setLanguage(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN)
                         }) {
-                            Text(language.value, color = Color.White)
+                            Text(appViewModel.language.value.orEmpty(), color = Color.White)
                         }
                         IconButton(onClick = {
-                            isDarkTheme.value = !isDarkTheme.value
+                            appViewModel.setIsDarkTheme(!appViewModel.isDarkTheme.value)
                         }) {
                             Icon(
-                                painter = painterResource(if (isDarkTheme.value) Res.drawable.ic_dark_mode else Res.drawable.ic_light_mode),
-                                contentDescription = if (isDarkTheme.value) "Switch to Light Theme" else "Switch to Dark Theme",
+                                painter = painterResource(if (appViewModel.isDarkTheme.value) Res.drawable.ic_dark_mode else Res.drawable.ic_light_mode),
+                                contentDescription = if (appViewModel.isDarkTheme.value) "Switch to Light Theme" else "Switch to Dark Theme",
                                 tint = Color.White
                             )
                         }

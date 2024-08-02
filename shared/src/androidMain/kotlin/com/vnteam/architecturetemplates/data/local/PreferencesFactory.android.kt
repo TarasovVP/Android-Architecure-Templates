@@ -6,7 +6,8 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.vnteam.architecturetemplates.data.PREFERENCES_PB
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import okio.Path.Companion.toPath
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
@@ -23,10 +24,11 @@ actual class PreferencesFactory(private val context: Context): Preferences {
         }
     }
 
-    actual override suspend fun getString(key: String): String? {
+    actual override suspend fun getString(key: String): Flow<String?> {
         val preferencesKey = stringPreferencesKey(key)
-        val preferences = dataStore.data.first()
-        return preferences[preferencesKey]
+        return dataStore.data.map { preferences ->
+            preferences[preferencesKey]
+        }
     }
 
     actual override suspend fun putBoolean(key: String, value: Boolean) {
@@ -36,9 +38,10 @@ actual class PreferencesFactory(private val context: Context): Preferences {
         }
     }
 
-    actual override suspend fun getBoolean(key: String): Boolean {
+    actual override suspend fun getBoolean(key: String): Flow<Boolean> {
         val preferencesKey = booleanPreferencesKey(key)
-        val preferences = dataStore.data.first()
-        return preferences[preferencesKey] == true
+        return dataStore.data.map { preferences ->
+            preferences[preferencesKey] ?: false
+        }
     }
 }

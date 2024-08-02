@@ -37,6 +37,7 @@ import com.vnteam.architecturetemplates.presentation.mappers.OwnerUIMapper
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.AppUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.CreateUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.DetailsUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
@@ -96,6 +97,9 @@ val appModule = module {
 
     single<CreateUseCase> { CreateUseCaseImpl(get(), get()) }
 
+    factory {
+        AppViewModel(get())
+    }
     factory {
         ListViewModel(get(), get())
     }
