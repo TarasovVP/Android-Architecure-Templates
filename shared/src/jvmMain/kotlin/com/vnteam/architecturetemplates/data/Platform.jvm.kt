@@ -4,6 +4,4 @@ import java.util.UUID
 
 actual fun generateUUID(): String = UUID.randomUUID().toString()
 
-actual fun baseUrl(): String {
-    return LOCAL_HOST_URL
-}
+actual fun baseUrl(): String = LOCAL_HOST_URL

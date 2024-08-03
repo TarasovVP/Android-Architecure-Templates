@@ -48,6 +48,8 @@ fun DetailsScreen(forkId: String?, screenState: MutableState<ScreenState>) {
     LaunchedEffect(viewState.value.infoMessage.value) {
         viewState.value.infoMessage.value.takeIf { it != null }?.let {
             screenState.value = screenState.value.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError)
+        } ?: run {
+            screenState.value = screenState.value.copy(snackbarVisible = false)
         }
     }
     LaunchedEffect(viewState.value.isLoading) {

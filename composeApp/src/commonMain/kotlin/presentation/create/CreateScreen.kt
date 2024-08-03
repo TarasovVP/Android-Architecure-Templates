@@ -76,6 +76,8 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
                 snackbarMessage = it.message,
                 isSnackbarError = it.isError
             )
+        } ?: run {
+            screenState.value = screenState.value.copy(snackbarVisible = false)
         }
     }
     LaunchedEffect(viewState.value.isLoading) {
