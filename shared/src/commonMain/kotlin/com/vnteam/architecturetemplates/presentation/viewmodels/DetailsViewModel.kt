@@ -24,7 +24,6 @@ class DetailsViewModel(
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
-        println("ListViewModel Error: ${exception.message}")
     }
 
     fun processIntent(intent: DetailsIntent) {
@@ -39,7 +38,6 @@ class DetailsViewModel(
         }
         viewModelScope.launch(exceptionHandler) {
             detailsUseCase.getForkById(forkId.orEmpty()).collect { fork ->
-                println("DetailsViewModel: fork?.name ${fork?.name}")
                 _state.value = _state.value.copy(fork = fork?.let { forkUIMapper.mapToImplModel(it) }, isLoading = false)
             }
         }

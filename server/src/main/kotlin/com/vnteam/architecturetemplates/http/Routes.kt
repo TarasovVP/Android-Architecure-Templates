@@ -28,7 +28,6 @@ fun Routing.insertForks(forkService: ForkService, forkResponseMapper: ForkRespon
         forkService.insertForks(forks)
         call.respond(HttpStatusCode.Created)
     } catch (e: Exception) {
-        println("insertForksToDB Error: ${e.message}")
         call.respond(HttpStatusCode.BadRequest)
     }
 }
@@ -38,7 +37,6 @@ fun Routing.getForks(forkService: ForkService, forkResponseMapper: ForkResponseM
         val forksList = forkResponseMapper.mapToImplModelList(forkService.getForks().orEmpty().toList())
         call.respond(forksList)
     } catch (e: Exception) {
-        println("getForksFromDB Error: ${e.message}")
         call.respond(HttpStatusCode.BadRequest)
     }
 }

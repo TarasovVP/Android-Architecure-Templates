@@ -50,6 +50,8 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
         viewState.value.infoMessage.value.takeIf { it != null }?.let {
             screenState.value = screenState.value.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError)
             viewState.value.infoMessage.value = null
+        } ?: run {
+            screenState.value = screenState.value.copy(snackbarVisible = false)
         }
     }
 

@@ -31,7 +31,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core)
-            api(compose.runtime)
+            implementation(compose.runtime)
             implementation(compose.ui)
             implementation(compose.foundation)
             implementation(compose.runtime)

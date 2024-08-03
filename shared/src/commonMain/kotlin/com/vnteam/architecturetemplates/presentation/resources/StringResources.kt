@@ -58,7 +58,7 @@ class StringResourcesUK : StringResources(
     OWNER = "Власник",
     URL = "URL",
     BACK = "Назад",
-    ADD = "Добавить",
+    ADD = "Добавити",
     DELETE = "Видалити",
     BUTTON_CANCEL = "Відмінити",
     BUTTON_OK = "Так",

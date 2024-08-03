@@ -6,7 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -38,6 +38,7 @@ import com.vnteam.architecturetemplates.presentation.resources.getStringResource
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
+import presentation.components.SplashScreen
 import theme.AppTheme
 
 @Composable
@@ -46,21 +47,13 @@ fun App(appViewModel: AppViewModel) {
 
     val isDarkTheme = appViewModel.isDarkTheme.collectAsState()
     val language = appViewModel.language.collectAsState()
-
     CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value.orEmpty())) {
-        AppTheme(isDarkTheme.value) {
-            ScaffoldContent(screenState, appViewModel)
-        }
-    }
-    /*if (isLoading.value) {
-        SplashScreen()
-    } else {
-        CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value)) {
-            AppTheme(isDarkTheme.value) {
-                ScaffoldContent(screenState, language, isDarkTheme)
+        isDarkTheme.value?.let {
+            AppTheme(it) {
+                ScaffoldContent(screenState, appViewModel)
             }
-        }
-    }*/
+        } ?: SplashScreen()
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -105,11 +98,11 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
                             Text(appViewModel.language.value.orEmpty(), color = Color.White)
                         }
                         IconButton(onClick = {
-                            appViewModel.setIsDarkTheme(!appViewModel.isDarkTheme.value)
+                            appViewModel.setIsDarkTheme(appViewModel.isDarkTheme.value != true)
                         }) {
                             Icon(
-                                painter = painterResource(if (appViewModel.isDarkTheme.value) Res.drawable.ic_dark_mode else Res.drawable.ic_light_mode),
-                                contentDescription = if (appViewModel.isDarkTheme.value) "Switch to Light Theme" else "Switch to Dark Theme",
+                                painter = painterResource(if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_dark_mode else Res.drawable.ic_light_mode),
+                                contentDescription = if (appViewModel.isDarkTheme.value == true) "Switch to Light Theme" else "Switch to Dark Theme",
                                 tint = Color.White
                             )
                         }
@@ -127,10 +120,10 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
         },
         floatingActionButton = {
             if (screenState.value.floatingActionButtonVisible) {
-                FloatingActionButton(
+                ExtendedFloatingActionButton(
                     onClick = { screenState.value.floatingActionButtonAction() },
                     content = { Text(screenState.value.floatingActionButtonTitle) },
-                    containerColor = MaterialTheme.colorScheme.primary,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = Color.White
                 )
             }

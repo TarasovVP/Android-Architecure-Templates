@@ -26,7 +26,6 @@ class CreateViewModel(
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
-        println("CreateViewModel Error: ${exception.message}")
     }
 
     fun processIntent(intent: CreateIntent) {

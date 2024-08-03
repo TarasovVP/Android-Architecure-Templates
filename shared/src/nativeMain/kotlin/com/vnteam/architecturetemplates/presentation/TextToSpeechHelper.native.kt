@@ -45,8 +45,7 @@ class TextToSpeechInstance : NSObject(), AVSpeechSynthesizerDelegateProtocol {
 
         val utterance = AVSpeechUtterance.speechUtteranceWithString(text)
         utterance.voice = AVSpeechSynthesisVoice.voiceWithLanguage("en-US") // default to english
-        if(utterance.voice == null) {
-            println("Voice not found for language: ${utterance.voice?.language}")
+        if (utterance.voice == null) {
             return
         }
 

@@ -1,6 +1,6 @@
 package com.vnteam.architecturetemplates.di
 
-import com.vnteam.architecturetemplates.data.BASE_URL
+import com.vnteam.architecturetemplates.data.baseUrl
 import com.vnteam.architecturetemplates.data.database.ForkDao
 import com.vnteam.architecturetemplates.data.database.ForkDaoImpl
 import com.vnteam.architecturetemplates.data.database.SharedDatabase
@@ -21,7 +21,6 @@ import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
 import com.vnteam.architecturetemplates.domain.usecase.CreateUseCase
 import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.ListUseCase
-import com.vnteam.architecturetemplates.presentation.TextToSpeechHelper
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import com.vnteam.architecturetemplates.presentation.mapperimpls.ForkUIMapperImpl
@@ -46,7 +45,7 @@ import io.ktor.client.plugins.logging.Logging
 
 val appModule = module {
 
-    single { BASE_URL }
+    single { baseUrl() }
     single { ApiService(get<String>(), get()) }
     single { Json {
         prettyPrint = true

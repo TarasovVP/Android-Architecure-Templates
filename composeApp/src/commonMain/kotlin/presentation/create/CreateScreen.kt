@@ -23,7 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import com.vnteam.architecturetemplates.data.database.generateUUID
+import com.vnteam.architecturetemplates.data.generateUUID
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
@@ -126,7 +126,6 @@ fun CreateContent(
                 viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
             }
             HeaderText(LocalStringResources.current.OWNER)
-            println("avatarTAG avatarUrl: ${viewState.value.fork.value?.owner?.avatarUrl}")
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.wrapContentSize().clickable {
