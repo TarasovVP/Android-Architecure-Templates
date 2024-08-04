@@ -46,19 +46,6 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
         }
     }
 
-    LaunchedEffect(viewState.value.infoMessage.value) {
-        viewState.value.infoMessage.value.takeIf { it != null }?.let {
-            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError))
-            viewState.value.infoMessage.value = null
-        } ?: run {
-            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
-        }
-    }
-
-    LaunchedEffect(viewState.value.isLoading) {
-        screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
-    }
-
     LaunchedEffect(viewState.value.successResult) {
         if (viewState.value.successResult){
             viewModel.processIntent(ListIntent.ClearForks())
