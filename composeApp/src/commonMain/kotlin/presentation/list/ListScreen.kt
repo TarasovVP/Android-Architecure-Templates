@@ -28,8 +28,8 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPaddin
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import org.koin.compose.koinInject
-import presentation.ScreenState
 import presentation.components.avatarImage
 import presentation.components.ConfirmationDialog
 import presentation.components.RefreshableLazyList
@@ -48,10 +48,10 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
 
     LaunchedEffect(viewState.value.infoMessage.value) {
         viewState.value.infoMessage.value.takeIf { it != null }?.let {
-            screenState.value = screenState.value.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError)
+            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError))
             viewState.value.infoMessage.value = null
         } ?: run {
-            screenState.value = screenState.value.copy(snackbarVisible = false)
+            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
         }
     }
 

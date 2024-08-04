@@ -1,5 +1,6 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,7 +8,8 @@ import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
-import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
+import com.vnteam.architecturetemplates.presentation.states.screen.InfoMessageState
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

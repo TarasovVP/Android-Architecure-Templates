@@ -1,5 +1,6 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,8 +8,9 @@ import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.usecase.ListUseCase
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
-import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
+import com.vnteam.architecturetemplates.presentation.states.screen.InfoMessageState
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,14 +19,15 @@ import kotlinx.coroutines.launch
 
 class ListViewModel(
     private val listUseCase: ListUseCase,
-    private val forkUIMapper: ForkUIMapper
+    private val forkUIMapper: ForkUIMapper,
+    private val screenState: MutableState<ScreenState>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ListViewState())
     val state: StateFlow<ListViewState> = _state.asStateFlow()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-        _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
+        screenState.value = screenState.value.copy(isProgressVisible = false, snackBarState = screenState.value.snackBarState.copy(snackbarVisible = true, snackbarMessage = exception.message.orEmpty(), isSnackbarError = true))
     }
 
     fun processIntent(intent: ListIntent) {

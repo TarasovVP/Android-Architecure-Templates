@@ -8,7 +8,7 @@ import com.vnteam.architecturetemplates.domain.usecase.CreateUseCase
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
-import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
+import com.vnteam.architecturetemplates.presentation.states.screen.InfoMessageState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,7 +37,7 @@ class CreateViewModel(
 
     private fun getForkById(forkId: String?) {
         _state.value = _state.value.copy(isLoading = true)
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             createUseCase.getForkById(forkId.orEmpty()).collect { fork ->
                 _state.value = _state.value.copy(fork = mutableStateOf( fork?.let { forkUIMapper.mapToImplModel(it) }), isLoading = false)
             }
@@ -53,7 +53,7 @@ class CreateViewModel(
     }
 
     private fun insertForkToDB(fork: ForkUI?) {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             createUseCase.insertForkToDB(fork?.let { forkUIMapper.mapFromImplModel(it) } ?: Fork()).collect { fork ->
                 _state.value = state.value.copy(isLoading = false, successResult = true, infoMessage = mutableStateOf( InfoMessageState(message = "Successfully created", isError = false)))
             }

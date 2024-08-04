@@ -31,11 +31,11 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import org.koin.compose.koinInject
-import presentation.ScreenState
 import presentation.components.avatarImage
 import presentation.components.ChangeAvatarDialog
 import presentation.components.CommonTextField
@@ -66,18 +66,15 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
     LaunchedEffect(viewState.value.successResult) {
         if (viewState.value.successResult) {
             screenState.value = screenState.value.copy(isScreenUpdatingNeeded = true)
-            screenState.value.topAppBarAction.invoke()
+            screenState.value.topAppBarState.topAppBarAction.invoke()
         }
     }
     LaunchedEffect(viewState.value.infoMessage.value) {
         viewState.value.infoMessage.value.takeIf { it != null }?.let {
-            screenState.value = screenState.value.copy(
-                snackbarVisible = true,
-                snackbarMessage = it.message,
-                isSnackbarError = it.isError
-            )
+            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError))
+            viewState.value.infoMessage.value = null
         } ?: run {
-            screenState.value = screenState.value.copy(snackbarVisible = false)
+            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
         }
     }
     LaunchedEffect(viewState.value.isLoading) {

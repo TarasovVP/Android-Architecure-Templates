@@ -22,12 +22,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.compose.rememberNavController
 import com.vnteam.architecturetemplates.Res
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
@@ -35,22 +35,23 @@ import com.vnteam.architecturetemplates.ic_dark_mode
 import com.vnteam.architecturetemplates.ic_light_mode
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
 import presentation.components.SplashScreen
 import theme.AppTheme
 
 @Composable
 fun App(appViewModel: AppViewModel) {
-    val screenState = remember { mutableStateOf(ScreenState()) }
 
     val isDarkTheme = appViewModel.isDarkTheme.collectAsState()
     val language = appViewModel.language.collectAsState()
     CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value.orEmpty())) {
         isDarkTheme.value?.let {
             AppTheme(it) {
-                ScaffoldContent(screenState, appViewModel)
+                ScaffoldContent(koinInject(), appViewModel)
             }
         } ?: SplashScreen()
     }
@@ -61,27 +62,28 @@ fun App(appViewModel: AppViewModel) {
 fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppViewModel) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+    val navController = rememberNavController()
 
-    if (screenState.value.snackbarVisible) {
+    if (screenState.value.snackBarState.snackbarVisible) {
         scope.launch {
             snackbarHostState.showSnackbar(
-                message = screenState.value.snackbarMessage,
+                message = screenState.value.snackBarState.snackbarMessage,
                 duration = SnackbarDuration.Short,
             )
-            screenState.value = screenState.value.copy(snackbarVisible = false)
+            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
         }
     }
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(screenState.value.topAppBarTitle) },
+                title = { Text(screenState.value.topAppBarState.topAppBarTitle) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = Color.White
                 ),
                 navigationIcon = {
-                    if (screenState.value.topAppBarActionVisible) {
-                        IconButton(onClick = screenState.value.topAppBarAction) {
+                    if (screenState.value.topAppBarState.topAppBarActionVisible) {
+                        IconButton(onClick = screenState.value.topAppBarState.topAppBarAction) {
                             Icon(
                                 tint = Color.White,
                                 imageVector = Icons.AutoMirrored.Default.ArrowBack,
@@ -91,7 +93,7 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
                     }
                 },
                 actions = {
-                    if (!screenState.value.topAppBarActionVisible) {
+                    if (!screenState.value.topAppBarState.topAppBarActionVisible) {
                         IconButton(onClick = {
                             appViewModel.setLanguage(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN)
                         }) {
@@ -114,15 +116,15 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
                 Snackbar(
                     snackbarData = data,
                     actionColor = Color.White,
-                    containerColor = if (screenState.value.isSnackbarError) Color.Red else Color.Green
+                    containerColor = if (screenState.value.snackBarState.isSnackbarError) Color.Red else Color.Green
                 )
             }
         },
         floatingActionButton = {
-            if (screenState.value.floatingActionButtonVisible) {
+            if (screenState.value.floatingActionState.floatingActionButtonVisible) {
                 ExtendedFloatingActionButton(
-                    onClick = { screenState.value.floatingActionButtonAction() },
-                    content = { Text(screenState.value.floatingActionButtonTitle) },
+                    onClick = { screenState.value.floatingActionState.floatingActionButtonAction() },
+                    content = { Text(screenState.value.floatingActionState.floatingActionButtonTitle) },
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = Color.White
                 )
@@ -130,7 +132,7 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
         },
         content = { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
-                AppNavigation(screenState)
+                AppNavigation(navController, koinInject())
                 if (screenState.value.isProgressVisible) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }

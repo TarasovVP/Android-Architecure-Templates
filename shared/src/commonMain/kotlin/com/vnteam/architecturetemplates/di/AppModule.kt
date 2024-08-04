@@ -1,5 +1,7 @@
 package com.vnteam.architecturetemplates.di
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import com.vnteam.architecturetemplates.data.baseUrl
 import com.vnteam.architecturetemplates.data.database.ForkDao
 import com.vnteam.architecturetemplates.data.database.ForkDaoImpl
@@ -33,6 +35,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 import com.vnteam.architecturetemplates.presentation.mappers.OwnerUIMapper
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.AppUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.CreateUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.DetailsUseCaseImpl
@@ -96,11 +99,13 @@ val appModule = module {
 
     single<CreateUseCase> { CreateUseCaseImpl(get(), get()) }
 
+    single<MutableState<ScreenState>> { mutableStateOf( ScreenState() ) }
+
     factory {
         AppViewModel(get())
     }
     factory {
-        ListViewModel(get(), get())
+        ListViewModel(get(), get(), get())
     }
     factory {
         DetailsViewModel(get(), get())

@@ -27,11 +27,11 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
-import presentation.ScreenState
 import presentation.components.avatarImage
 import presentation.components.HeaderText
 import presentation.components.PrimaryText
@@ -47,9 +47,10 @@ fun DetailsScreen(forkId: String?, screenState: MutableState<ScreenState>) {
 
     LaunchedEffect(viewState.value.infoMessage.value) {
         viewState.value.infoMessage.value.takeIf { it != null }?.let {
-            screenState.value = screenState.value.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError)
+            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError))
+            viewState.value.infoMessage.value = null
         } ?: run {
-            screenState.value = screenState.value.copy(snackbarVisible = false)
+            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
         }
     }
     LaunchedEffect(viewState.value.isLoading) {
