@@ -69,17 +69,7 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
             screenState.value.topAppBarState.topAppBarAction.invoke()
         }
     }
-    LaunchedEffect(viewState.value.infoMessage.value) {
-        viewState.value.infoMessage.value.takeIf { it != null }?.let {
-            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError))
-            viewState.value.infoMessage.value = null
-        } ?: run {
-            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
-        }
-    }
-    LaunchedEffect(viewState.value.isLoading) {
-        screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
-    }
+
     viewState.value.fork.value?.let {
         CreateContent(viewState, originFork) {
             viewModel.processIntent(CreateIntent.CreateFork(it))

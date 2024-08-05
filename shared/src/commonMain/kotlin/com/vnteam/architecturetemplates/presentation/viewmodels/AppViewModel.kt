@@ -1,27 +1,24 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
-import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
-import kotlinx.coroutines.CoroutineExceptionHandler
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AppViewModel(
-    private val appUseCase: AppUseCase
-) : ViewModel() {
+    private val appUseCase: AppUseCase,
+    screenState: MutableState<ScreenState>
+) : BaseViewModel(screenState) {
 
     private val _isDarkTheme = MutableStateFlow<Boolean?>(null)
     val isDarkTheme: StateFlow<Boolean?> = _isDarkTheme.asStateFlow()
 
     private val _language = MutableStateFlow<String?>(null)
     val language: StateFlow<String?> = _language.asStateFlow()
-
-    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-
-    }
 
     init {
         getIsDarkTheme()
@@ -37,7 +34,9 @@ class AppViewModel(
     }
 
     fun setIsDarkTheme(isDarkTheme: Boolean) {
+        showProgress(true)
         viewModelScope.launch(exceptionHandler) {
+            showProgress(false)
             appUseCase.setIsDarkTheme(isDarkTheme)
         }
     }
@@ -51,7 +50,9 @@ class AppViewModel(
     }
 
     fun setLanguage(language: String) {
+        showProgress(true)
         viewModelScope.launch(exceptionHandler) {
+            showProgress(false)
             appUseCase.setLanguage(language)
         }
     }

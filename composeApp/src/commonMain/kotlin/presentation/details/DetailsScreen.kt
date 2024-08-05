@@ -45,17 +45,6 @@ fun DetailsScreen(forkId: String?, screenState: MutableState<ScreenState>) {
     val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { detailsViewModel }
     val viewState = viewModel.state.collectAsState()
 
-    LaunchedEffect(viewState.value.infoMessage.value) {
-        viewState.value.infoMessage.value.takeIf { it != null }?.let {
-            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = true, snackbarMessage = it.message, isSnackbarError = it.isError))
-            viewState.value.infoMessage.value = null
-        } ?: run {
-            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
-        }
-    }
-    LaunchedEffect(viewState.value.isLoading) {
-        screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
-    }
     LaunchedEffect(forkId) {
         viewModel.processIntent(DetailsIntent.LoadFork(forkId.orEmpty(), screenState.value.isScreenUpdatingNeeded))
     }

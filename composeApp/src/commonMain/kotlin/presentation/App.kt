@@ -63,14 +63,16 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
-
+    println("messageTAG ScaffoldContent before screenState.value.snackBarState ${screenState.value.snackBarState.snackbarVisible}")
     if (screenState.value.snackBarState.snackbarVisible) {
         scope.launch {
+            println("messageTAG ScaffoldContent launch before screenState.value.snackBarState ${screenState.value.snackBarState.snackbarVisible}")
             snackbarHostState.showSnackbar(
                 message = screenState.value.snackBarState.snackbarMessage,
                 duration = SnackbarDuration.Short,
             )
-            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
+            //screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
+            println("messageTAG ScaffoldContent launch after screenState.value.snackBarState ${screenState.value.snackBarState.snackbarVisible}")
         }
     }
     Scaffold(

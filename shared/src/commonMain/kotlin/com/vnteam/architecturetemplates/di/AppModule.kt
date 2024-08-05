@@ -102,15 +102,15 @@ val appModule = module {
     single<MutableState<ScreenState>> { mutableStateOf( ScreenState() ) }
 
     factory {
-        AppViewModel(get())
+        AppViewModel(get(), get())
     }
     factory {
         ListViewModel(get(), get(), get())
     }
     factory {
-        DetailsViewModel(get(), get())
+        DetailsViewModel(get(), get(), get())
     }
     factory {
-        CreateViewModel(get(), get())
+        CreateViewModel(get(), get(), get())
     }
 }
