@@ -37,6 +37,7 @@ fun Routing.getForks(forkService: ForkService, forkResponseMapper: ForkResponseM
         val forksList = forkResponseMapper.mapToImplModelList(forkService.getForks().orEmpty().toList())
         call.respond(forksList)
     } catch (e: Exception) {
+        println("Routing.getForks Error: ${e.message}")
         call.respond(HttpStatusCode.BadRequest)
     }
 }

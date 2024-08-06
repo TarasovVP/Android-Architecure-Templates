@@ -20,10 +20,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,7 +37,6 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalStringResour
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
-import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import presentation.components.SplashScreen
@@ -60,19 +59,15 @@ fun App(appViewModel: AppViewModel) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppViewModel) {
-    val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
-    println("messageTAG ScaffoldContent before screenState.value.snackBarState ${screenState.value.snackBarState.snackbarVisible}")
-    if (screenState.value.snackBarState.snackbarVisible) {
-        scope.launch {
-            println("messageTAG ScaffoldContent launch before screenState.value.snackBarState ${screenState.value.snackBarState.snackbarVisible}")
+    LaunchedEffect(screenState.value.snackBarState.snackbarVisible) {
+        if (screenState.value.snackBarState.snackbarVisible) {
             snackbarHostState.showSnackbar(
                 message = screenState.value.snackBarState.snackbarMessage,
                 duration = SnackbarDuration.Short,
             )
-            //screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
-            println("messageTAG ScaffoldContent launch after screenState.value.snackBarState ${screenState.value.snackBarState.snackbarVisible}")
+            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
         }
     }
     Scaffold(
