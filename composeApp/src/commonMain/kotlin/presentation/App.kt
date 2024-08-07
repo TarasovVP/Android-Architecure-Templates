@@ -94,13 +94,13 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
                         IconButton(onClick = {
                             appViewModel.setLanguage(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN)
                         }) {
-                            Text(appViewModel.language.value.orEmpty(), color = Color.White)
+                            Text(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN, color = Color.White)
                         }
                         IconButton(onClick = {
                             appViewModel.setIsDarkTheme(appViewModel.isDarkTheme.value != true)
                         }) {
                             Icon(
-                                painter = painterResource(if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_dark_mode else Res.drawable.ic_light_mode),
+                                painter = painterResource(if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode ),
                                 contentDescription = if (appViewModel.isDarkTheme.value == true) "Switch to Light Theme" else "Switch to Dark Theme",
                                 tint = Color.White
                             )
