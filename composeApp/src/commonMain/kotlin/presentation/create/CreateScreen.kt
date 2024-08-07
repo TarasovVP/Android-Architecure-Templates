@@ -1,5 +1,6 @@
 package presentation.create
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,12 +23,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import com.vnteam.architecturetemplates.data.generateUUID
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
@@ -40,6 +43,7 @@ import presentation.components.avatarImage
 import presentation.components.ChangeAvatarDialog
 import presentation.components.CommonTextField
 import presentation.components.HeaderText
+import presentation.components.PrimaryButton
 
 @Composable
 fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>) {
@@ -141,19 +145,12 @@ fun CreateContent(
                     owner = viewState.value.fork.value?.owner?.copy(url = text)
                 )
             }
-            Button(
-                onClick = onClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(LocalLargePadding.current.size),
-                shape = MaterialTheme.shapes.large,
-                enabled = originFork.value != viewState.value.fork.value && viewState.value.fork.value?.isForkValid() == true
-            ) {
-                Text(
-                    text = LocalStringResources.current.SUBMIT, modifier = Modifier
-                        .padding(vertical = LocalSmallPadding.current.size)
-                )
-            }
+            PrimaryButton(
+                LocalStringResources.current.SUBMIT,
+                originFork.value != viewState.value.fork.value && viewState.value.fork.value?.isForkValid() == true,
+                Modifier,
+                onClick = onClick
+            )
         }
     }
     if (viewState.value.isChangeAvatarDialogVisible.value) {

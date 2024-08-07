@@ -233,11 +233,12 @@ fun ConfirmationDialog(
                         modifier = Modifier
                             .wrapContentSize()
                             .border(1.dp, Primary500, shape = RoundedCornerShape(16.dp))
-                            .background(color = Color.White, shape = RoundedCornerShape(16.dp)),
+                            .background(color = MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(16.dp)),
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
                             text = title,
+                            color = Color.White,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(16.dp),
@@ -263,7 +264,7 @@ fun PrimaryButton(
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth()
             .background(
-                color = if (isEnabled) Primary500 else Neutral400,
+                color = if (isEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondary,
                 shape = RoundedCornerShape(LocalLargePadding.current.size)
             )
             .testTag("sign_up_button"),
@@ -285,7 +286,7 @@ fun SecondaryButton(text: String, isDestructive: Boolean, modifier: Modifier, on
             if (isDestructive) Color.Red else Primary400,
             shape = RoundedCornerShape(16.dp)
         )
-        .background(color = Color.Transparent, shape = RoundedCornerShape(16.dp)),
+        .background(color = Color.White, shape = RoundedCornerShape(16.dp)),
         onClick = {
             onClick.invoke()
         }
