@@ -78,6 +78,8 @@ kotlin {
             implementation(libs.slf4j)
             //Datastore
             implementation(libs.androidx.datastore.preferences)
+            //Text to speech
+            implementation("net.sf.sociaal:freetts:1.2.2")
         }
         jsMain.dependencies {
             implementation(libs.ktor.client.js)
