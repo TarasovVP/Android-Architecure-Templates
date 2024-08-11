@@ -1,6 +1,7 @@
 [versions]
 compileSdk = "34"
 datastorePreferences = "1.1.1"
+freetts = "1.2.2"
 minSdk = "24"
 targetSdk = "34"
 
@@ -31,6 +32,7 @@ hikaricp = "5.0.1"
 [libraries]
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+freetts = { module = "net.sf.sociaal:freetts", version.ref = "freetts" }
 hikari-cp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }

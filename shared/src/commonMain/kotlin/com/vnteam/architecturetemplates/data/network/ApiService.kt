@@ -6,7 +6,6 @@ import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
-import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 
@@ -15,50 +14,36 @@ class ApiService(
     private val httpClient: HttpClient,
 ) {
 
-    suspend fun insertForksToApi(forks: List<ForkResponse>): HttpResponse {
-        val httpResponse = try {
+    suspend fun insertForksToApi(forks: List<ForkResponse>): NetworkResult<Unit> {
+        return httpClient.safeRequest<Unit> {
             httpClient.post("${baseUrl}forks") {
                 contentType(ContentType.Application.Json)
                 setBody(forks)
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
         }
-        return httpResponse
     }
 
-    suspend fun getForksFromApi(): HttpResponse {
-        val httpResponse = try {
-            httpClient.get("${baseUrl}forks") {
+    suspend fun getForksFromApi(): NetworkResult<List<ForkResponse>> {
+        return httpClient.safeRequest<List<ForkResponse>> {
+            get("${baseUrl}forks") {
                 contentType(ContentType.Application.Json)
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
         }
-        return httpResponse
     }
 
-    suspend fun getForkById(id: String): HttpResponse {
-        val httpResponse = try {
+    suspend fun getForkById(id: String): NetworkResult<ForkResponse> {
+        return httpClient.safeRequest<ForkResponse> {
             httpClient.get("${baseUrl}forks/$id") {
                 contentType(ContentType.Application.Json)
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
         }
-        return httpResponse
     }
 
-    suspend fun deleteForkById(id: String): HttpResponse {
-        val httpResponse = try {
-            httpClient.delete("${baseUrl}forks/$id")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
+    suspend fun deleteForkById(id: String): NetworkResult<Unit> {
+        return httpClient.safeRequest<Unit> {
+            httpClient.delete("${baseUrl}forks/$id") {
+                contentType(ContentType.Application.Json)
+            }
         }
-        return httpResponse
     }
 }

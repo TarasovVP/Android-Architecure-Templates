@@ -2,8 +2,6 @@ package com.vnteam.architecturetemplates.data.repositoryimpl
 
 import com.vnteam.architecturetemplates.data.network.ApiService
 import com.vnteam.architecturetemplates.data.network.NetworkResult
-import com.vnteam.architecturetemplates.data.network.handleResponse
-import com.vnteam.architecturetemplates.domain.responses.ForkResponse
 import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
 import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
@@ -14,7 +12,7 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
     ApiRepository {
 
     override suspend fun insertForksToApi(forks: List<Fork>?): Flow<Unit> {
-        when (val response = apiService.insertForksToApi(forkResponseMapper.mapToImplModelList(forks.orEmpty())).handleResponse<Unit>()) {
+        when (val response = apiService.insertForksToApi(forkResponseMapper.mapToImplModelList(forks.orEmpty()))) {
             is NetworkResult.Success -> {
                 return flowOf( Unit )
             }
@@ -26,7 +24,7 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
     }
 
     override suspend fun getForksFromApi(): Flow<List<Fork>> {
-        when (val response = apiService.getForksFromApi().handleResponse<List<ForkResponse>>()) {
+        when (val response = apiService.getForksFromApi()) {
             is NetworkResult.Success -> {
                 return flowOf( response.data?.map { forkResponseMapper.mapFromImplModel(it) }.orEmpty() )
             }
@@ -38,7 +36,7 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
     }
 
     override suspend fun getForkById(forkId: String?): Flow<Fork?> {
-        when (val response = apiService.getForkById(forkId.orEmpty()).handleResponse<ForkResponse>()) {
+        when (val response = apiService.getForkById(forkId.orEmpty())) {
             is NetworkResult.Success -> {
                 return flowOf( response.data?.let { forkResponseMapper.mapFromImplModel(it) } )
             }
@@ -50,7 +48,7 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
     }
 
     override suspend fun deleteForkById(forkId: String): Flow<Unit> {
-        when (val response = apiService.deleteForkById(forkId).handleResponse<Unit>()) {
+        when (val response = apiService.deleteForkById(forkId)) {
             is NetworkResult.Success -> {
                 return flowOf( Unit )
             }

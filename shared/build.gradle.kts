@@ -79,7 +79,7 @@ kotlin {
             //Datastore
             implementation(libs.androidx.datastore.preferences)
             //Text to speech
-            implementation("net.sf.sociaal:freetts:1.2.2")
+            implementation(libs.freetts)
         }
         jsMain.dependencies {
             implementation(libs.ktor.client.js)
