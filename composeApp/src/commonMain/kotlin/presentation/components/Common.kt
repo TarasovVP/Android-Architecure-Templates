@@ -48,6 +48,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
@@ -358,12 +359,13 @@ fun EmptyState() {
             modifier = Modifier
                 .fillMaxSize(0.3f)
                 .padding(LocalMediumPadding.current.size),
-            contentScale = ContentScale.Fit
+            contentScale = ContentScale.Fit,
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
         )
         Text(
             text = LocalStringResources.current.EMPTY_STATE,
             style = MaterialTheme.typography.bodyMedium,
-            color = Neutral700
+            color = MaterialTheme.colorScheme.onBackground,
         )
     }
 }
