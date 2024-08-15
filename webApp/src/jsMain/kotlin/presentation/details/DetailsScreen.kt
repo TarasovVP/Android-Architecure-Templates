@@ -3,13 +3,11 @@ package presentation.details
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import components.AppStyles
 import components.BaseButton
-import components.CircularProgress
 import components.OwnerCard
 import components.VerticalLayout
 import kotlinx.browser.window
@@ -27,15 +25,11 @@ fun DetailsScreen(itemId: String) {
     val viewModel = viewModel(DetailsViewModel::class)
 
     val detailsViewStateState = viewModel.state.collectAsState()
-    val error = mutableStateOf(viewModel.state.value.infoMessage.value)
 
     LaunchedEffect(itemId) {
         viewModel.processIntent(DetailsIntent.LoadFork(itemId))
     }
 
-    LaunchedEffect(detailsViewStateState.value) {
-        error.value = viewModel.state.value.infoMessage.value
-    }
     console.log("DetailsScreen ${detailsViewStateState.value.fork?.name}")
     VerticalLayout {
         Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.fork?.name.orEmpty()) }
@@ -46,10 +40,6 @@ fun DetailsScreen(itemId: String) {
         BaseButton(LocalStringResources.current.BACK) {
             window.history.pushState(null, "", "/list")
             window.dispatchEvent(Event("popstate"))
-        }
-
-        if (viewModel.state.value.isLoading) {
-            CircularProgress()
         }
     }
 }

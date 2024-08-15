@@ -10,9 +10,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/composeApp" />
+            <option value="$PROJECT_DIR$/composeUi" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/server" />
             <option value="$PROJECT_DIR$/shared" />
+            <option value="$PROJECT_DIR$/webApp" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

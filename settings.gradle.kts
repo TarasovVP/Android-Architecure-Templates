@@ -17,8 +17,9 @@ dependencyResolutionManagement {
     }
 }
 
+include(":shared")
 include(":core")
+include(":composeUi")
 include(":composeApp")
 include(":server")
-include(":shared")
 include(":webApp")

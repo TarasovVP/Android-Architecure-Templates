@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.flowOf
 class ApiRepositoryImpl(private val apiService: ApiService, private val forkResponseMapper: ForkResponseMapper) :
     ApiRepository {
 
-    override suspend fun insertForksToApi(forks: List<Fork>?): Flow<Unit> {
-        when (val response = apiService.insertForksToApi(forkResponseMapper.mapToImplModelList(forks.orEmpty()))) {
+    override suspend fun getForksFromApi(): Flow<List<Fork>> {
+        when (val response = apiService.getForksFromApi()) {
             is NetworkResult.Success -> {
-                return flowOf( Unit )
+                return flowOf( response.data?.map { forkResponseMapper.mapFromImplModel(it) }.orEmpty() )
             }
             is NetworkResult.Failure -> {
                 println(response.errorMessage)
@@ -23,10 +23,10 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
         }
     }
 
-    override suspend fun getForksFromApi(): Flow<List<Fork>> {
-        when (val response = apiService.getForksFromApi()) {
+    override suspend fun insertForksToApi(forks: List<Fork>?): Flow<Unit> {
+        when (val response = apiService.insertForksToApi(forkResponseMapper.mapToImplModelList(forks.orEmpty()))) {
             is NetworkResult.Success -> {
-                return flowOf( response.data?.map { forkResponseMapper.mapFromImplModel(it) }.orEmpty() )
+                return flowOf( Unit )
             }
             is NetworkResult.Failure -> {
                 println(response.errorMessage)

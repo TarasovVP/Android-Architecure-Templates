@@ -56,6 +56,7 @@ kotlin {
 
         commonMain.dependencies {
             implementation(projects.shared)
+            implementation(projects.composeUi)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
@@ -109,7 +110,6 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
         applicationId = "com.vnteam.architecturetemplates"
@@ -138,7 +138,6 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
         compose = true
     }
     composeOptions {
@@ -156,10 +155,4 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
-}
-
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "com.vnteam.architecturetemplates"
-    generateResClass = always
 }

@@ -31,7 +31,6 @@ kotlin {
 android {
     namespace = "com.vnteam.architecturetemplates.core"
     compileSdk = libs.versions.compileSdk.get().toInt()
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
         multiDexEnabled = true
