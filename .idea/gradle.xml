@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/composeApp" />
             <option value="$PROJECT_DIR$/composeUi" />
+            <option value="$PROJECT_DIR$/composeWebApp" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/server" />
             <option value="$PROJECT_DIR$/shared" />

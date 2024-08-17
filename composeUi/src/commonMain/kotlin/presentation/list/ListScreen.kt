@@ -37,7 +37,8 @@ import presentation.components.RefreshableLazyList
 @Composable
 fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> Unit) {
     val listViewModel = koinInject<ListViewModel>()
-    val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { listViewModel }
+    val viewModel = /*androidx.lifecycle.viewmodel.compose.viewModel { */listViewModel /*}*/
+    println("webAppTAG ListScreen")
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {

@@ -1,0 +1,24 @@
+{
+  "name": "Android_Architecture_Templates-core-test",
+  "version": "0.0.0-unspecified",
+  "main": "Android_Architecture_Templates-core-test.js",
+  "types": "Android_Architecture_Templates-core-test.d.ts",
+  "devDependencies": {
+    "typescript": "5.4.3",
+    "karma": "6.4.3",
+    "karma-mocha": "2.0.1",
+    "mocha": "10.3.0",
+    "karma-webpack": "5.0.1",
+    "webpack": "5.91.0",
+    "webpack-cli": "5.1.4",
+    "source-map-loader": "5.0.0",
+    "karma-sourcemap-loader": "0.4.0",
+    "karma-chrome-launcher": "3.2.0"
+  },
+  "dependencies": {
+    "format-util": "^1.0.5"
+  },
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}
