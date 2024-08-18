@@ -12,6 +12,9 @@ import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import presentation.create.CreateScreen
 import presentation.details.DetailsScreen
 import presentation.list.ListScreen
+import presentation.screens.create.CreateContent
+import presentation.screens.details.DetailsContent
+import presentation.screens.list.ListContent
 
 @Composable
 fun AppNavigation(navController: NavHostController, screenState: MutableState<ScreenState>) {
@@ -31,9 +34,11 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
                     }
                 )
             )
-            ListScreen(screenState) { forkUI ->
+            ListScreen(screenState, { forkUI ->
                 navController.navigate("details/${forkUI.forkId}/${forkUI.name}")
-            }
+            }, { viewState, onItemClick ->
+                ListContent(viewState.value, onItemClick)
+            })
         }
         composable("details/{forkId}/{forkName}", arguments = listOf(navArgument("forkId") {
             type = NavType.StringType
@@ -60,7 +65,9 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
                     }
                 )
             )
-            DetailsScreen(forkId, screenState)
+            DetailsScreen(forkId, screenState) { viewState ->
+                DetailsContent(viewState)
+            }
         }
         composable("create/{forkId}", arguments = listOf(navArgument("forkId") {
             type = NavType.StringType
@@ -79,7 +86,9 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
                 floatingActionState = screenState.value.floatingActionState.copy(
                 floatingActionButtonVisible = false
             ))
-            CreateScreen(forkId, screenState)
+            CreateScreen(forkId, screenState) { viewState, originFork, onClick ->
+                CreateContent(viewState, originFork, onClick)
+            }
         }
     }
 }

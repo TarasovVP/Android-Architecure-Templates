@@ -1,14 +1,10 @@
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,12 +17,14 @@ import com.vnteam.architecturetemplates.presentation.resources.getStringResource
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import kotlinx.browser.window
-import org.koin.compose.koinInject
 import org.w3c.dom.events.Event
 import presentation.components.SplashScreen
 import presentation.create.CreateScreen
 import presentation.details.DetailsScreen
 import presentation.list.ListScreen
+import presentation.screens.create.CreateContent
+import presentation.screens.details.DetailsContent
+import presentation.screens.list.ListContent
 import theme.AppTheme
 
 @Composable
@@ -63,9 +61,17 @@ fun Content() {
         Text(text = "webAppTAG Content currentScreen.value: ${currentScreen.value}", Modifier.align(Alignment.Start).padding(16.dp).background(Color.Gray))
         println("webAppTAG Content  when  { currentScreen.value: ${currentScreen.value}")
         when  {
-            currentScreen.value == "/list" || currentScreen.value.isBlank() || currentScreen.value == "/" -> ListScreen { navigateTo("/details/${it.forkId}") }
-            currentScreen.value.startsWith("/details/") -> DetailsScreen(currentScreen.value.removePrefix("/details/"))
-            else -> CreateScreen(currentScreen.value.removePrefix("/details/"))
+            currentScreen.value == "/list" || currentScreen.value.isBlank() || currentScreen.value == "/" -> ListScreen(onItemClick = { forkUI ->
+                navigateTo("/details/$forkUI")
+            }, content = { viewState, onItemClick ->
+                ListContent(viewState.value, onItemClick)
+            })
+            currentScreen.value.startsWith("/details/") -> DetailsScreen(currentScreen.value.removePrefix("/details/")) { viewState ->
+                DetailsContent(viewState)
+            }
+            else -> CreateScreen(currentScreen.value.removePrefix("/details/")) { viewState, originFork, onClick ->
+                CreateContent(viewState, originFork, onClick)
+            }
         }
     }
 }
