@@ -34,6 +34,7 @@ import presentation.textWithNoDataHandling
 
 @Composable
 fun DetailsContent(viewState: DetailsViewState) {
+    println("webAppTAG DetailsContent viewState: $viewState")
     Box {
         Column(
             modifier = Modifier
@@ -80,7 +81,7 @@ fun OwnerCard(ownerUI: OwnerUI?) {
             IconButton(onClick = {
                 textToSpeechHelper.speak("Owner name: ${ownerUI?.login.orEmpty()} Owner url: ${ownerUI?.url.orEmpty()}")
             }) {
-                Icon(painterResource(Res.drawable.ic_voice), contentDescription = null)
+                //Icon(painterResource(Res.drawable.ic_voice), contentDescription = null)
             }
         }
     }

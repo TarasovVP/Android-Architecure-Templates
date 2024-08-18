@@ -14,7 +14,7 @@ import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import org.koin.compose.koinInject
 
 @Composable
-fun ListScreen(screenState: MutableState<ScreenState> = mutableStateOf(ScreenState()),
+fun ListScreen(screenState: MutableState<ScreenState>,
                onItemClick: (ForkUI) -> Unit,
                content: @Composable (State<ListViewState>, onItemClick: (ForkUI, String) -> Unit) -> Unit) {
     val listViewModel = koinInject<ListViewModel>()

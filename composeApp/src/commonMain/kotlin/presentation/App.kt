@@ -61,13 +61,13 @@ fun App(appViewModel: AppViewModel) {
 fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppViewModel) {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
-    LaunchedEffect(screenState.value.snackBarState.snackbarVisible) {
-        if (screenState.value.snackBarState.snackbarVisible) {
+    LaunchedEffect(screenState.value.appMessageState.messageVisible) {
+        if (screenState.value.appMessageState.messageVisible) {
             snackbarHostState.showSnackbar(
-                message = screenState.value.snackBarState.snackbarMessage,
+                message = screenState.value.appMessageState.messageText,
                 duration = SnackbarDuration.Short,
             )
-            screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = false))
+            screenState.value = screenState.value.copy(appMessageState = screenState.value.appMessageState.copy(messageVisible = false))
         }
     }
     Scaffold(
@@ -113,7 +113,7 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
                 Snackbar(
                     snackbarData = data,
                     actionColor = Color.White,
-                    containerColor = if (screenState.value.snackBarState.isSnackbarError) Color.Red else Color.Green
+                    containerColor = if (screenState.value.appMessageState.isMessageError) Color.Red else Color.Green
                 )
             }
         },

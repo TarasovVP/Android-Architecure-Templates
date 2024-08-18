@@ -18,7 +18,7 @@ import org.koin.compose.koinInject
 import presentation.components.ChangeAvatarDialog
 
 @Composable
-fun CreateScreen(forkId: String, screenState: MutableState<ScreenState> = mutableStateOf(ScreenState()), content: @Composable (State<CreateViewState>,
+fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>, content: @Composable (State<CreateViewState>,
                                                                                                                    originFork: MutableState<ForkUI?>,
                                                                                                                    onClick: () -> Unit) -> Unit) {
     val createViewModel = koinInject<CreateViewModel>()

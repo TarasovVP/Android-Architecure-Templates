@@ -15,7 +15,7 @@ open class BaseViewModel(
     }
 
     protected fun showMessage(message: String, isError: Boolean = false) {
-        screenState.value = screenState.value.copy(snackBarState = screenState.value.snackBarState.copy(snackbarVisible = true, snackbarMessage = message, isSnackbarError = isError))
+        screenState.value = screenState.value.copy(appMessageState = screenState.value.appMessageState.copy(messageVisible = true, messageText = message, isMessageError = isError))
     }
 
     protected fun showProgress(isShow: Boolean) {
