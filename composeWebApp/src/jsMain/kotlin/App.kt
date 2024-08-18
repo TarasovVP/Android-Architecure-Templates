@@ -1,4 +1,7 @@
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -11,6 +14,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
@@ -32,36 +37,36 @@ fun App(appViewModel: AppViewModel) {
     CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value.orEmpty())) {
         isDarkTheme.value?.let {
             AppTheme(it) {
-                Content(koinInject())
+                Content()
             }
         } ?: SplashScreen()
     }
 }
 
 @Composable
-fun Content(screenState: MutableState<ScreenState>) {
+fun Content() {
     val currentScreen = remember { mutableStateOf(window.location.pathname) }
+    println("webAppTAG Content currentScreen ${currentScreen.value}")
     DisposableEffect(Unit) {
         val onPopState: (Event) -> Unit = {
+            println("webAppTAG Content onPopState ${it.type}")
             currentScreen.value = window.location.pathname
+            println("webAppTAG Content onPopState ${it.type} currentScreen.value: ${currentScreen.value}")
         }
-
         window.addEventListener("popstate", onPopState)
 
         onDispose {
             window.removeEventListener("popstate", onPopState)
         }
     }
-    LaunchedEffect(Unit) {
-        window.onpopstate = {
-            window.location.pathname.let { currentScreen.value = it }
+    Column {
+        Text(text = "webAppTAG Content currentScreen.value: ${currentScreen.value}", Modifier.align(Alignment.Start).padding(16.dp).background(Color.Gray))
+        println("webAppTAG Content  when  { currentScreen.value: ${currentScreen.value}")
+        when  {
+            currentScreen.value == "/list" || currentScreen.value.isBlank() || currentScreen.value == "/" -> ListScreen { navigateTo("/details/${it.forkId}") }
+            currentScreen.value.startsWith("/details/") -> DetailsScreen(currentScreen.value.removePrefix("/details/"))
+            else -> CreateScreen(currentScreen.value.removePrefix("/details/"))
         }
-    }
-
-    when  {
-        currentScreen.value == "/list" || currentScreen.value.isBlank() || currentScreen.value == "/" -> ListScreen(screenState) { navigateTo("/details/${it.forkId}") }
-        currentScreen.value.startsWith("/details/") -> DetailsScreen(currentScreen.value.removePrefix("/details/"), screenState)
-        else -> CreateScreen(currentScreen.value.removePrefix("/details/"), screenState)
     }
 }
 
