@@ -406,20 +406,7 @@ fun ChangeAvatarDialog(avatarList: List<String>, onDismiss: () -> Unit, onClick:
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    Image(
-                        painter = painterResource(DrawableResources.drawableRes(avatar)),
-                        contentDescription = LocalStringResources.current.OWNER_AVATAR,
-                        modifier = Modifier
-                            .padding(
-                                vertical = LocalMediumPadding.current.size,
-                                horizontal = LocalLargePadding.current.size
-                            )
-                            .wrapContentSize()
-                            .size(LocalLargeAvatarSize.current.size)
-                            .clip(CircleShape)
-                            .border(1.dp, Color.Gray, CircleShape),
-                        contentScale = ContentScale.Crop
-                    )
+                    avatarImage(avatar, LocalLargeAvatarSize.current.size)
                 }
             }
         }
