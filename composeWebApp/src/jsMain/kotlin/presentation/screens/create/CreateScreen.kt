@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
@@ -68,7 +69,7 @@ fun CreateContent(
             HeaderText(LocalStringResources.current.OWNER)
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.wrapContentSize().clickable {
+                modifier = Modifier.wrapContentSize().padding(20.dp).clickable {
                     viewState.value.isChangeAvatarDialogVisible.value = true
                 }) {
                 avatarImage(

@@ -23,7 +23,8 @@ sealed class StringResources(
     var SUBMIT: String,
     val EMPTY_STATE: String,
     val NO_DATA: String,
-    val CHANGE_AVATAR: String
+    val CHANGE_AVATAR: String,
+    val SPEAK: String
 )
 
 class StringResourcesEN : StringResources(
@@ -45,7 +46,8 @@ class StringResourcesEN : StringResources(
     SUBMIT = "Submit",
     EMPTY_STATE = "No data",
     NO_DATA = "N/A",
-    CHANGE_AVATAR = "Change avatar"
+    CHANGE_AVATAR = "Change avatar",
+    SPEAK = "Speak"
 )
 
 class StringResourcesUK : StringResources(
@@ -67,7 +69,8 @@ class StringResourcesUK : StringResources(
     SUBMIT = "Підтвердити",
     EMPTY_STATE = "Немає даних",
     NO_DATA = "Немає даних",
-    CHANGE_AVATAR = "Змінити аватар"
+    CHANGE_AVATAR = "Змінити аватар",
+    SPEAK = "Проговорити"
 )
 
 val LocalStringResources: ProvidableCompositionLocal<StringResources> = staticCompositionLocalOf {

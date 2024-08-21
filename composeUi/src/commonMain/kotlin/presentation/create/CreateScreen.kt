@@ -48,8 +48,8 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>, content
         }
     }
 
-    viewState.value.fork.value?.let {
-        content(viewState, originFork) {
+    content(viewState, originFork) {
+        viewState.value.fork.value?.let {
             viewModel.processIntent(CreateIntent.CreateFork(it))
         }
     }
