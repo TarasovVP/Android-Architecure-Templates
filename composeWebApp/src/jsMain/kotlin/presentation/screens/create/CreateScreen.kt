@@ -1,13 +1,17 @@
 package presentation.screens.create
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -16,19 +20,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import org.jetbrains.compose.resources.painterResource
 import presentation.components.avatarImage
 import presentation.components.ChangeAvatarDialog
 import presentation.components.CommonTextField
 import presentation.components.HeaderText
 import presentation.components.PrimaryButton
+import presentation.drawableRes
 
 
 @Composable
@@ -72,10 +83,21 @@ fun CreateContent(
                 modifier = Modifier.wrapContentSize().padding(20.dp).clickable {
                     viewState.value.isChangeAvatarDialogVisible.value = true
                 }) {
-                avatarImage(
+                Image(
+                    painter = painterResource(DrawableResources.drawableRes(viewState.value.fork.value?.owner?.avatarUrl.orEmpty())),
+                    contentDescription = LocalStringResources.current.OWNER_AVATAR,
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(LocalMediumPadding.current.size)
+                        .size(LocalLargeAvatarSize.current.size)
+                        .clip(CircleShape)
+                        .border(1.dp, Color.Gray, CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+                /*avatarImage(
                     resId = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
                     avatarSize = LocalLargeAvatarSize.current.size
-                )
+                )*/
             }
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())) },
