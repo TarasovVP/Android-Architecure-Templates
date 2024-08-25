@@ -146,7 +146,7 @@ fun AppContent(screenState: MutableState<ScreenState>) {
                 floatingActionState = screenState.value.floatingActionState.copy(
                     floatingActionButtonVisible = false
                 ))
-            CreateScreen(currentScreen.value.removePrefix("/create/"), screenState) { viewState, originFork, onClick ->
+            CreateScreen(currentScreen.value.removePrefix("/edit/"), screenState) { viewState, originFork, onClick ->
                 CreateContent(viewState, originFork, onClick)
             }
         }

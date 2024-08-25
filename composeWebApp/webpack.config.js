@@ -4,7 +4,7 @@ const path = require('path');
 const fsConfig = require('./webpack.config.d/fs.js');
 const wasmConfig = require('./webpack.config.d/wasm.js');
 
-const finalConfig = merge(fsConfig, wasmConfig, {
+module.exports = merge(fsConfig, wasmConfig, {
     devServer: {
         historyApiFallback: true,
         static: {
@@ -14,7 +14,3 @@ const finalConfig = merge(fsConfig, wasmConfig, {
         open: true,
     }
 });
-
-console.log('Final Config:', finalConfig);
-
-module.exports = finalConfig;
