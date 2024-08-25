@@ -140,7 +140,7 @@ fun AppContent(screenState: MutableState<ScreenState>) {
                 floatingActionState = screenState.value.floatingActionState.copy(
                     floatingActionButtonVisible = false
                 ))
-            CreateScreen("-1", screenState) { viewState, originFork, onClick ->
+            CreateScreen("", screenState) { viewState, originFork, onClick ->
                 println("webAppTAG Content /create/ originFork ${originFork.value}")
                 CreateContent(viewState, originFork, onClick)
             }

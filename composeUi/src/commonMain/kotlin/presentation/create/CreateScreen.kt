@@ -19,15 +19,16 @@ import org.koin.compose.koinInject
 import presentation.components.ChangeAvatarDialog
 
 @Composable
-fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>, content: @Composable (State<CreateViewState>,
-                                                                                                                   originFork: MutableState<ForkUI?>,
-                                                                                                                   onClick: () -> Unit) -> Unit) {
+fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>,
+                 content: @Composable (State<CreateViewState>, originFork: MutableState<ForkUI?>, onClick: () -> Unit) -> Unit) {
+
     val createViewModel = koinInject<CreateViewModel>()
     val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { createViewModel }
     val viewState = viewModel.state.collectAsState()
     val originFork = remember {  mutableStateOf<ForkUI?>(null) }
 
     LaunchedEffect(Unit) {
+        println("webAppTAG CreateScreen LaunchedEffect forkId $forkId")
         if (forkId.isNotEmpty()) {
             viewModel.processIntent(CreateIntent.LoadFork(forkId))
         } else {
