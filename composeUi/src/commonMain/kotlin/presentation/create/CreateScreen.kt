@@ -6,6 +6,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import com.vnteam.architecturetemplates.data.generateUUID
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
@@ -24,7 +25,7 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>, content
     val createViewModel = koinInject<CreateViewModel>()
     val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { createViewModel }
     val viewState = viewModel.state.collectAsState()
-    val originFork = mutableStateOf<ForkUI?>(null)
+    val originFork = remember {  mutableStateOf<ForkUI?>(null) }
 
     LaunchedEffect(Unit) {
         if (forkId.isNotEmpty()) {

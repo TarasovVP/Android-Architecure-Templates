@@ -111,22 +111,6 @@ fun AppContent(screenState: MutableState<ScreenState>) {
     }
     println("webAppTAG Content  when  { currentScreen.value: ${currentScreen.value}")
     when  {
-        currentScreen.value == "/list" || currentScreen.value.isBlank() || currentScreen.value == "/" -> {
-            screenState.value = screenState.value.copy(
-                floatingActionState = screenState.value.floatingActionState.copy(
-                    floatingActionButtonVisible = true,
-                    floatingActionButtonTitle = LocalStringResources.current.ADD,
-                    floatingActionButtonAction = {
-                        navigateTo("create/")
-                    }
-                )
-            )
-            ListScreen(screenState, onItemClick = { forkUI ->
-                navigateTo("details/${forkUI.forkId}")
-            }, content = { viewState, onItemClick ->
-                ListContent(viewState.value, onItemClick)
-            })
-        }
         currentScreen.value.startsWith("/details/") -> {
             screenState.value = screenState.value.copy(
                 floatingActionState = screenState.value.floatingActionState.copy(
@@ -147,17 +131,35 @@ fun AppContent(screenState: MutableState<ScreenState>) {
                     floatingActionButtonVisible = false
                 ))
             CreateScreen(currentScreen.value.removePrefix("/edit/"), screenState) { viewState, originFork, onClick ->
+                println("webAppTAG Content /edit/ originFork ${originFork.value}")
+                CreateContent(viewState, originFork, onClick)
+            }
+        }
+        currentScreen.value.startsWith("/create/") -> {
+            screenState.value = screenState.value.copy(
+                floatingActionState = screenState.value.floatingActionState.copy(
+                    floatingActionButtonVisible = false
+                ))
+            CreateScreen("-1", screenState) { viewState, originFork, onClick ->
+                println("webAppTAG Content /create/ originFork ${originFork.value}")
                 CreateContent(viewState, originFork, onClick)
             }
         }
         else -> {
             screenState.value = screenState.value.copy(
                 floatingActionState = screenState.value.floatingActionState.copy(
-                    floatingActionButtonVisible = false
-                ))
-            CreateScreen("-1", screenState) { viewState, originFork, onClick ->
-                CreateContent(viewState, originFork, onClick)
-            }
+                    floatingActionButtonVisible = true,
+                    floatingActionButtonTitle = LocalStringResources.current.ADD,
+                    floatingActionButtonAction = {
+                        navigateTo("create/")
+                    }
+                )
+            )
+            ListScreen(screenState, onItemClick = { forkUI ->
+                navigateTo("details/${forkUI.forkId}")
+            }, content = { viewState, onItemClick ->
+                ListContent(viewState.value, onItemClick)
+            })
         }
     }
 }

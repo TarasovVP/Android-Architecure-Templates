@@ -95,6 +95,7 @@ fun CreateContent(
                     owner = viewState.value.fork.value?.owner?.copy(url = text)
                 )
             }
+            println("webAppTAG PrimaryButton originFork.value ${originFork.value} viewState.value.fork.value ${viewState.value.fork.value} viewState.value.fork.value?.isForkValid() ${viewState.value.fork.value?.isForkValid()}")
             PrimaryButton(
                 LocalStringResources.current.SUBMIT,
                 originFork.value != viewState.value.fork.value && viewState.value.fork.value?.isForkValid() == true,
