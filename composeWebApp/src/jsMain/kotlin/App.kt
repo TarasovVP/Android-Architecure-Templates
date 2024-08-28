@@ -127,6 +127,11 @@ fun AppContent(screenState: MutableState<ScreenState>) {
         }
         currentScreen.value.startsWith("/edit/") -> {
             screenState.value = screenState.value.copy(
+                topAppBarState = screenState.value.topAppBarState.copy(
+                    topAppBarAction = {
+                        navigateUp()
+                    }
+                ),
                 floatingActionState = screenState.value.floatingActionState.copy(
                     floatingActionButtonVisible = false
                 ))
@@ -137,6 +142,11 @@ fun AppContent(screenState: MutableState<ScreenState>) {
         }
         currentScreen.value.startsWith("/create/") -> {
             screenState.value = screenState.value.copy(
+                topAppBarState = screenState.value.topAppBarState.copy(
+                    topAppBarAction = {
+                        navigateUp()
+                    }
+                ),
                 floatingActionState = screenState.value.floatingActionState.copy(
                     floatingActionButtonVisible = false
                 ))
@@ -167,4 +177,8 @@ fun AppContent(screenState: MutableState<ScreenState>) {
 fun navigateTo(path: String) {
     window.history.pushState(null, "", path)
     window.dispatchEvent(Event("popstate"))
+}
+
+fun navigateUp() {
+    window.history.back()
 }
