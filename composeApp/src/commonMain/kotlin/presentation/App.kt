@@ -73,14 +73,14 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(screenState.value.topAppBarState.topAppBarTitle) },
+                title = { Text(screenState.value.appBarState.appBarTitle) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = Color.White
                 ),
                 navigationIcon = {
-                    if (screenState.value.topAppBarState.topAppBarActionVisible) {
-                        IconButton(onClick = screenState.value.topAppBarState.topAppBarAction) {
+                    if (screenState.value.appBarState.topAppBarActionVisible) {
+                        IconButton(onClick = screenState.value.appBarState.topAppBarAction) {
                             Icon(
                                 tint = Color.White,
                                 imageVector = Icons.AutoMirrored.Default.ArrowBack,
@@ -90,7 +90,7 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
                     }
                 },
                 actions = {
-                    if (!screenState.value.topAppBarState.topAppBarActionVisible) {
+                    if (!screenState.value.appBarState.topAppBarActionVisible) {
                         IconButton(onClick = {
                             appViewModel.setLanguage(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN)
                         }) {

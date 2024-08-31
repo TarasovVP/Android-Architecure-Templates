@@ -22,8 +22,8 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
     NavHost(navController = navController, startDestination = "list") {
         composable("list") {
             screenState.value = screenState.value.copy(
-                topAppBarState = screenState.value.topAppBarState.copy(
-                    topAppBarTitle = LocalStringResources.current.APP_NAME,
+                appBarState = screenState.value.appBarState.copy(
+                    appBarTitle = LocalStringResources.current.APP_NAME,
                     topAppBarActionVisible = false,
                 ),
                 floatingActionState = screenState.value.floatingActionState.copy(
@@ -50,8 +50,8 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
             val forkId = backStackEntry.arguments?.getString("forkId").orEmpty()
             val forkName = backStackEntry.arguments?.getString("forkName").orEmpty()
             screenState.value = screenState.value.copy(
-                topAppBarState = screenState.value.topAppBarState.copy(
-                    topAppBarTitle = forkName,
+                appBarState = screenState.value.appBarState.copy(
+                    appBarTitle = forkName,
                     topAppBarActionVisible = true,
                     topAppBarAction = {
                         navController.popBackStack()
@@ -76,8 +76,8 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
         })) { backStackEntry ->
             val forkId = backStackEntry.arguments?.getString("forkId").takeIf { it?.isNotEmpty() == true && it != "-1"} ?: ""
             screenState.value = screenState.value.copy(
-                topAppBarState = screenState.value.topAppBarState.copy(
-                    topAppBarTitle = if (forkId.isNotEmpty()) LocalStringResources.current.EDIT else LocalStringResources.current.CREATE,
+                appBarState = screenState.value.appBarState.copy(
+                    appBarTitle = if (forkId.isNotEmpty()) LocalStringResources.current.EDIT else LocalStringResources.current.CREATE,
                     topAppBarActionVisible = true,
                     topAppBarAction = {
                         navController.navigateUp()

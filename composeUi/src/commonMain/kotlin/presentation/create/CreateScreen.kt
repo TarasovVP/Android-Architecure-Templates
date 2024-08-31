@@ -46,7 +46,8 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>,
     LaunchedEffect(viewState.value.successResult) {
         if (viewState.value.successResult) {
             screenState.value = screenState.value.copy(isScreenUpdatingNeeded = true)
-            screenState.value.topAppBarState.topAppBarAction.invoke()
+            screenState.value.appBarState.topAppBarAction.invoke()
+            viewState.value.successResult = false
         }
     }
 
