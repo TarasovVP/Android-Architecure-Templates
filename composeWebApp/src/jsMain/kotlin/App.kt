@@ -136,7 +136,7 @@ fun AppContent(screenState: MutableState<ScreenState>) {
                     floatingActionButtonVisible = false
                 ))
             CreateScreen(currentScreen.value.removePrefix("/edit/"), screenState) { viewState, originFork, onClick ->
-                println("webAppTAG Content /edit/ originFork ${originFork.value}")
+                println("webAppTAG CommonTextField Content /edit/ originFork ${originFork.value}")
                 CreateContent(viewState, originFork, onClick)
             }
         }
