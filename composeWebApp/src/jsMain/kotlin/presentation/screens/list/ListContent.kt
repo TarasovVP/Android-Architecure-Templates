@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -16,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
@@ -25,18 +27,15 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import presentation.components.avatarImage
 import presentation.components.ConfirmationDialog
-import presentation.components.RefreshableLazyList
 
 @Composable
 fun ListContent(viewState: ListViewState, onItemClick: (ForkUI, String) -> Unit) {
     Box {
-        RefreshableLazyList(viewState.forks.isNullOrEmpty(), content = {
+        LazyColumn(modifier = Modifier.fillMaxSize().padding(LocalDefaultPadding.current.size)) {
             items(viewState.forks.orEmpty()) { item ->
                 ForkItem(item, onItemClick)
             }
-        }, onRefresh = {
-            onItemClick(ForkUI(), "refresh")
-        })
+        }
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
             title = LocalStringResources.current.DELETE,

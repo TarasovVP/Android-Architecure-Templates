@@ -19,7 +19,7 @@ import com.vnteam.architecturetemplates.Res
 import com.vnteam.architecturetemplates.ic_voice
 import com.vnteam.architecturetemplates.presentation.TextToSpeechHelper
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
@@ -39,7 +39,7 @@ fun DetailsContent(viewState: DetailsViewState) {
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(LocalLargePadding.current.size),
+                .padding(LocalDefaultPadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
             HeaderText(LocalStringResources.current.FORK)
@@ -73,7 +73,7 @@ fun OwnerCard(ownerUI: OwnerUI?) {
             modifier = Modifier.padding(LocalMediumPadding.current.size)
         ) {
             avatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
-            Column(modifier = Modifier.padding(start = LocalLargePadding.current.size, bottom = LocalMediumPadding.current.size))  {
+            Column(modifier = Modifier.padding(start = LocalDefaultPadding.current.size, bottom = LocalMediumPadding.current.size))  {
                 PrimaryText(ownerUI?.login.textWithNoDataHandling())
                 SecondaryText(ownerUI?.url.textWithNoDataHandling())
             }

@@ -55,18 +55,18 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import coil3.compose.rememberAsyncImagePainter
 import com.vnteam.architecturetemplates.Res
 import com.vnteam.architecturetemplates.android_architecture_template
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
@@ -145,7 +145,7 @@ fun PrimaryText(
             .padding(
                 start = LocalSmallPadding.current.size,
                 end = LocalSmallPadding.current.size,
-                top = LocalLargePadding.current.size
+                top = LocalDefaultPadding.current.size
             ),
     )
 }
@@ -163,7 +163,7 @@ fun SecondaryText(
             .padding(
                 start = LocalSmallPadding.current.size,
                 end = LocalSmallPadding.current.size,
-                top = LocalLargePadding.current.size
+                top = LocalDefaultPadding.current.size
             ),
     )
 }
@@ -196,8 +196,9 @@ fun CommonTextField(
             inputValue.value = it
             onValueChanged.invoke(it.text)
         },
-        label = { Text(text = placeHolder) },
+        label = { Text(text = placeHolder, color = MaterialTheme.colorScheme.onBackground) },
         shape = RoundedCornerShape(8.dp),
+        textStyle = TextStyle(color = MaterialTheme.colorScheme.onBackground),
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = MaterialTheme.colorScheme.primary,
             unfocusedBorderColor = Color.Gray,
@@ -206,7 +207,7 @@ fun CommonTextField(
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = LocalLargePadding.current.size, top = LocalMediumPadding.current.size, end = LocalLargePadding.current.size),
+            .padding(start = LocalDefaultPadding.current.size, top = LocalMediumPadding.current.size, end = LocalDefaultPadding.current.size),
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = ImeAction.Next
         ),
@@ -266,7 +267,7 @@ fun PrimaryButton(
             .fillMaxWidth()
             .background(
                 color = if (isEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondary,
-                shape = RoundedCornerShape(LocalLargePadding.current.size)
+                shape = RoundedCornerShape(LocalDefaultPadding.current.size)
             )
             .testTag("sign_up_button"),
         onClick = {
@@ -280,7 +281,7 @@ fun PrimaryButton(
 @Composable
 fun SecondaryButton(text: String, isDestructive: Boolean, modifier: Modifier, onClick: () -> Unit) {
     TextButton(modifier = modifier
-        .padding(horizontal = LocalLargePadding.current.size, vertical = 8.dp)
+        .padding(horizontal = LocalDefaultPadding.current.size, vertical = 8.dp)
         .fillMaxWidth()
         .border(
             1.dp,
@@ -394,9 +395,9 @@ fun ChangeAvatarDialog(avatarList: List<String>, onDismiss: () -> Unit, onClick:
                 .padding(
                     start = LocalMediumPadding.current.size,
                     end = LocalMediumPadding.current.size,
-                    bottom = LocalLargePadding.current.size * 3
+                    bottom = LocalDefaultPadding.current.size * 3
                 ),
-            columns = GridCells.Adaptive(minSize = LocalLargeAvatarSize.current.size + LocalLargePadding.current.size * 2)
+            columns = GridCells.Adaptive(minSize = LocalLargeAvatarSize.current.size + LocalDefaultPadding.current.size * 2)
         ) {
             items(avatarList) { avatar ->
                 Box(
