@@ -35,9 +35,6 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
     when  {
         currentScreen.value.startsWith("/details/") -> {
             screenState.value = screenState.value.copy(
-                appBarState = screenState.value.appBarState.copy(
-                    appBarTitle = LocalStringResources.current.CREATE
-                ),
                 floatingActionState = screenState.value.floatingActionState.copy(
                     floatingActionButtonVisible = true,
                     floatingActionButtonTitle = LocalStringResources.current.EDIT,
@@ -47,6 +44,11 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                 )
             )
             DetailsScreen(currentScreen.value.removePrefix("/details/"), screenState) { viewState ->
+                screenState.value = screenState.value.copy(
+                    appBarState = screenState.value.appBarState.copy(
+                        appBarTitle = viewState.fork?.name.orEmpty()
+                    )
+                )
                 DetailsContent(viewState)
             }
         }

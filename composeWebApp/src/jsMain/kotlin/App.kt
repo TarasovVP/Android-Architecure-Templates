@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.Res
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
@@ -37,6 +38,7 @@ import com.vnteam.architecturetemplates.presentation.resources.getStringResource
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.states.screen.AppBarState
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import presentation.components.SplashScreen
@@ -57,15 +59,11 @@ fun App(appViewModel: AppViewModel) {
 
 @Composable
 fun AppContent(appViewModel: AppViewModel, screenState: MutableState<ScreenState>) {
-    val snackbarHostState = remember { SnackbarHostState() }
+
     LaunchedEffect(screenState.value.appMessageState.messageVisible) {
         if (screenState.value.appMessageState.messageVisible) {
-            snackbarHostState.showSnackbar(
-                message = screenState.value.appMessageState.messageText,
-                duration = SnackbarDuration.Short,
-            )
             screenState.value = screenState.value.copy(
-                appMessageState = screenState.value.appMessageState.copy(messageVisible = false)
+                appMessageState = screenState.value.appMessageState.copy(messageVisible = false, messageText = "")
             )
         }
     }
