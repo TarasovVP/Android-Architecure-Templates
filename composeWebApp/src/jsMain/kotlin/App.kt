@@ -59,9 +59,9 @@ fun App(appViewModel: AppViewModel) {
 
 @Composable
 fun AppContent(appViewModel: AppViewModel, screenState: MutableState<ScreenState>) {
-
     LaunchedEffect(screenState.value.appMessageState.messageVisible) {
         if (screenState.value.appMessageState.messageVisible) {
+            delay(2000)
             screenState.value = screenState.value.copy(
                 appMessageState = screenState.value.appMessageState.copy(messageVisible = false, messageText = "")
             )
@@ -72,9 +72,11 @@ fun AppContent(appViewModel: AppViewModel, screenState: MutableState<ScreenState
             modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.BottomEnd
         ) {
-            Column {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 AppBar(appViewModel, screenState.value.appBarState)
-                AppNavigation(koinInject())
+                Box(modifier = Modifier.fillMaxWidth(0.8f)) {
+                    AppNavigation(koinInject())
+                }
             }
             if (screenState.value.floatingActionState.floatingActionButtonVisible) {
                 ExtendedFloatingActionButton(
