@@ -1,5 +1,4 @@
-import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
-import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
+
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -13,7 +12,6 @@ kotlin {
             commonWebpackConfig {
                 outputFileName = "webApp.js"
             }
-
         }
         binaries.executable()
     }

@@ -5,4 +5,8 @@ config.resolve = {
         crypto: false,
         os: false,
     },
+},
+config.devServer = {
+    ...config.devServer,
+    historyApiFallback: true,
 };
