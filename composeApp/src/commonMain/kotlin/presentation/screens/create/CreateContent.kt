@@ -22,7 +22,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPaddi
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
-import presentation.components.avatarImage
+import presentation.components.AvatarImage
 import presentation.components.CommonTextField
 import presentation.components.HeaderText
 import presentation.components.PrimaryButton
@@ -69,7 +69,7 @@ fun CreateContent(
                 modifier = Modifier.wrapContentSize().clickable {
                     viewState.value.isChangeAvatarDialogVisible.value = true
                 }) {
-                avatarImage(
+                AvatarImage(
                     resId = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
                     avatarSize = LocalLargeAvatarSize.current.size
                 )

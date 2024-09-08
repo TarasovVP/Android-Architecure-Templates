@@ -169,7 +169,7 @@ fun SecondaryText(
 }
 
 @Composable
-fun avatarImage(resId: String, avatarSize: Dp) {
+fun AvatarImage(resId: String, avatarSize: Dp) {
     Image(
         painter = painterResource(DrawableResources.drawableRes(resId)),
         contentDescription = LocalStringResources.current.OWNER_AVATAR,
@@ -408,7 +408,7 @@ fun ChangeAvatarDialog(avatarList: List<String>, onDismiss: () -> Unit, onClick:
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    avatarImage(avatar, LocalLargeAvatarSize.current.size)
+                    AvatarImage(avatar, LocalLargeAvatarSize.current.size)
                 }
             }
         }

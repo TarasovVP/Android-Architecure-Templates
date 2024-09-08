@@ -25,7 +25,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPaddin
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
-import presentation.components.avatarImage
+import presentation.components.AvatarImage
 import presentation.components.ConfirmationDialog
 
 @Composable
@@ -49,7 +49,7 @@ fun ForkItem(item: ForkUI, onItemClick: (ForkUI, String) -> Unit) {
     Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, "details") }) {
         Row(verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalSmallPadding.current.size)) {
-            avatarImage(resId = item.owner?.avatarUrl.orEmpty(), avatarSize = LocalMediumAvatarSize.current.size)
+            AvatarImage(resId = item.owner?.avatarUrl.orEmpty(), avatarSize = LocalMediumAvatarSize.current.size)
             Text(text = item.name.orEmpty(), modifier = Modifier
                 .padding(LocalMediumPadding.current.size).weight(1f))
             IconButton(onClick = { onItemClick(item, "confirm_delete") }) {

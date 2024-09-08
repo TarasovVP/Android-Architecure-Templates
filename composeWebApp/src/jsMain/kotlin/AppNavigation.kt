@@ -4,7 +4,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import kotlinx.browser.window
@@ -12,6 +11,8 @@ import org.w3c.dom.events.Event
 import presentation.create.CreateScreen
 import presentation.details.DetailsScreen
 import presentation.list.ListScreen
+import presentation.navigateTo
+import presentation.navigateUp
 import presentation.screens.create.CreateContent
 import presentation.screens.details.DetailsContent
 import presentation.screens.list.ListContent
@@ -32,7 +33,7 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
             window.removeEventListener("popstate", onPopState)
         }
     }
-    println("webAppTAG Content  when  { currentScreen.value: ${currentScreen.value}")
+    println("webAppTAG Content  when  { currentScreen.value: ${currentScreen.value} screenState.value ${screenState.value}")
     when  {
         currentScreen.value.startsWith("/details/") -> {
             screenState.value = screenState.value.copy(
@@ -40,7 +41,7 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                     floatingActionButtonVisible = true,
                     floatingActionButtonTitle = LocalStringResources.current.EDIT,
                     floatingActionButtonAction = {
-                        navigateTo("edit/${currentScreen.value.removePrefix("/details/")}")
+                        window.navigateTo("edit/${currentScreen.value.removePrefix("/details/")}")
                     }
                 )
             )
@@ -50,6 +51,7 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                         appBarTitle = viewState.fork?.name.orEmpty()
                     )
                 )
+                println("webAppTAG AppNavigation viewState: $viewState")
                 DetailsContent(viewState)
             }
         }
@@ -58,7 +60,7 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                 appBarState = screenState.value.appBarState.copy(
                     appBarTitle = LocalStringResources.current.EDIT,
                     topAppBarAction = {
-                        navigateUp()
+                        window.navigateUp()
                     }
                 ),
                 floatingActionState = screenState.value.floatingActionState.copy(
@@ -74,7 +76,7 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                 appBarState = screenState.value.appBarState.copy(
                     appBarTitle = LocalStringResources.current.CREATE,
                     topAppBarAction = {
-                        navigateUp()
+                        window.navigateUp()
                     }
                 ),
                 floatingActionState = screenState.value.floatingActionState.copy(
@@ -94,24 +96,15 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                     floatingActionButtonVisible = true,
                     floatingActionButtonTitle = LocalStringResources.current.ADD,
                     floatingActionButtonAction = {
-                        navigateTo("create/")
+                        window.navigateTo("create/")
                     }
                 )
             )
             ListScreen(screenState, onItemClick = { forkUI ->
-                navigateTo("details/${forkUI.forkId}")
+                window.navigateTo("details/${forkUI.forkId}")
             }, content = { viewState, onItemClick ->
                 ListContent(viewState.value, onItemClick)
             })
         }
     }
-}
-
-fun navigateTo(path: String) {
-    window.history.pushState(null, "", path)
-    window.dispatchEvent(Event("popstate"))
-}
-
-fun navigateUp() {
-    window.history.back()
 }

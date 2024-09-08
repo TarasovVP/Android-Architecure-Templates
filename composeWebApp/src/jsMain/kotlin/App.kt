@@ -1,3 +1,4 @@
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -5,14 +6,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,28 +20,37 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.Res
+import com.vnteam.architecturetemplates.android_architecture_template
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
+import com.vnteam.architecturetemplates.ic_app_icon
+import com.vnteam.architecturetemplates.ic_avatar_default
 import com.vnteam.architecturetemplates.ic_dark_mode
 import com.vnteam.architecturetemplates.ic_light_mode
+import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumTextSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.states.screen.AppBarState
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
+import kotlinx.browser.window
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import presentation.components.SplashScreen
+import presentation.components.AvatarImage
+import presentation.isMainScreen
+import presentation.navigateTo
+import presentation.navigateToMain
 import theme.AppTheme
 
 @Composable
@@ -117,6 +126,17 @@ fun AppBar(appViewModel: AppViewModel, appBarState: AppBarState) {
             .background(MaterialTheme.colorScheme.primaryContainer),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        IconButton(modifier = Modifier
+            .padding(horizontal = LocalDefaultPadding.current.size)
+            .size(LocalLargeAvatarSize.current.size),
+            onClick = {
+                if (!window.isMainScreen()) window.navigateToMain()
+        }) {
+            Image(
+                painter = painterResource(Res.drawable.ic_app_icon),
+                contentDescription = "Home"
+            )
+        }
         Text(
             text = appBarState.appBarTitle,
             fontSize = LocalMediumTextSize.current.textSize,

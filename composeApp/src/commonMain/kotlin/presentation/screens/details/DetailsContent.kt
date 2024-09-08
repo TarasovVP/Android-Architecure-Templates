@@ -26,7 +26,7 @@ import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
-import presentation.components.avatarImage
+import presentation.components.AvatarImage
 import presentation.components.HeaderText
 import presentation.components.PrimaryText
 import presentation.components.SecondaryText
@@ -72,7 +72,7 @@ fun OwnerCard(ownerUI: OwnerUI?) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalMediumPadding.current.size)
         ) {
-            avatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
+            AvatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
             Column(modifier = Modifier.padding(start = LocalDefaultPadding.current.size, bottom = LocalMediumPadding.current.size))  {
                 PrimaryText(ownerUI?.login.textWithNoDataHandling())
                 SecondaryText(ownerUI?.url.textWithNoDataHandling())
