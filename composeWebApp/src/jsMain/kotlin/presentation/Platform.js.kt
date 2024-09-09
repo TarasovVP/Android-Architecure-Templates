@@ -10,7 +10,7 @@ import org.w3c.dom.Window
 import org.w3c.dom.events.Event
 
 fun Window.isMainScreen(): Boolean {
-    return !window.location.pathname.startsWith("/create") && !window.location.pathname.startsWith("/details")
+    return window.location.pathname == "/"
 }
 
 

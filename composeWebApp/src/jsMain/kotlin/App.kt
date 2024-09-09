@@ -27,15 +27,11 @@ import com.vnteam.architecturetemplates.Res
 import com.vnteam.architecturetemplates.android_architecture_template
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
-import com.vnteam.architecturetemplates.ic_app_icon
-import com.vnteam.architecturetemplates.ic_avatar_default
 import com.vnteam.architecturetemplates.ic_dark_mode
 import com.vnteam.architecturetemplates.ic_light_mode
-import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumTextSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
@@ -47,9 +43,7 @@ import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import presentation.components.SplashScreen
-import presentation.components.AvatarImage
 import presentation.isMainScreen
-import presentation.navigateTo
 import presentation.navigateToMain
 import theme.AppTheme
 
@@ -72,7 +66,10 @@ fun AppContent(appViewModel: AppViewModel, screenState: MutableState<ScreenState
         if (screenState.value.appMessageState.messageVisible) {
             delay(2000)
             screenState.value = screenState.value.copy(
-                appMessageState = screenState.value.appMessageState.copy(messageVisible = false, messageText = "")
+                appMessageState = screenState.value.appMessageState.copy(
+                    messageVisible = false,
+                    messageText = ""
+                )
             )
         }
     }
@@ -130,10 +127,11 @@ fun AppBar(appViewModel: AppViewModel, appBarState: AppBarState) {
             .padding(horizontal = LocalDefaultPadding.current.size)
             .size(LocalLargeAvatarSize.current.size),
             onClick = {
+                println("webAppTAG AppBar mainIcon window.isMainScreen() ${window.isMainScreen()} pathname ${window.location.pathname}")
                 if (!window.isMainScreen()) window.navigateToMain()
-        }) {
+            }) {
             Image(
-                painter = painterResource(Res.drawable.ic_app_icon),
+                painter = painterResource(Res.drawable.android_architecture_template),
                 contentDescription = "Home"
             )
         }

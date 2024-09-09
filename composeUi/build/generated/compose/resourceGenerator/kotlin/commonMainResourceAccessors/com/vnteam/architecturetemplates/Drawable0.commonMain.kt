@@ -9,9 +9,6 @@ private object CommonMainDrawable0 {
   public val android_architecture_template: DrawableResource by 
       lazy { init_android_architecture_template() }
 
-  public val ic_app_icon: DrawableResource by 
-      lazy { init_ic_app_icon() }
-
   public val ic_avatar_1: DrawableResource by 
       lazy { init_ic_avatar_1() }
 
@@ -67,17 +64,6 @@ private fun init_android_architecture_template(): DrawableResource =
     setOf(
       org.jetbrains.compose.resources.ResourceItem(setOf(),
     "composeResources/com.vnteam.architecturetemplates/drawable/android_architecture_template.png", -1, -1),
-    )
-)
-
-public val Res.drawable.ic_app_icon: DrawableResource
-  get() = CommonMainDrawable0.ic_app_icon
-
-private fun init_ic_app_icon(): DrawableResource = org.jetbrains.compose.resources.DrawableResource(
-  "drawable:ic_app_icon",
-    setOf(
-      org.jetbrains.compose.resources.ResourceItem(setOf(),
-    "composeResources/com.vnteam.architecturetemplates/drawable/ic_app_icon.xml", -1, -1),
     )
 )
 
