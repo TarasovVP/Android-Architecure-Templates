@@ -36,7 +36,6 @@ import presentation.textWithNoDataHandling
 
 @Composable
 fun DetailsContent(viewState: DetailsViewState) {
-    println("webAppTAG DetailsContent viewState: $viewState")
     Box {
         Column(
             modifier = Modifier

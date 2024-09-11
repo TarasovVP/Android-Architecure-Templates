@@ -29,14 +29,12 @@ class DetailsViewModel(
 
     private fun getForkById(forkId: String?, isUpdated: Boolean) {
         showProgress(true)
-        println("webAppTAG DetailsViewModel getForkById forkId: $forkId isUpdated $isUpdated")
         if (isUpdated) {
             _state.value = _state.value.copy(fork = null)
         }
         viewModelScope.launch(exceptionHandler) {
             detailsUseCase.getForkById(forkId.orEmpty()).collect { fork ->
                 showProgress(false)
-                println("webAppTAG DetailsViewModel getForkById  viewModelScope.launch fork: $fork ")
                 _state.value = _state.value.copy(fork = fork?.let { forkUIMapper.mapToImplModel(it) })
             }
         }

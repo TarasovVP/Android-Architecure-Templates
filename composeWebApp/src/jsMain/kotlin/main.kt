@@ -3,6 +3,7 @@ import androidx.compose.ui.window.CanvasBasedWindow
 import com.vnteam.architecturetemplates.di.doInitKoin
 import org.jetbrains.skiko.wasm.onWasmReady
 import org.koin.compose.koinInject
+import presentation.App
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {

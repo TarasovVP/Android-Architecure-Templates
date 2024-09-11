@@ -10,7 +10,6 @@ open class BaseViewModel(
 ) : ViewModel() {
 
     protected val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-        println("webAppTAG BaseViewModel exceptionHandler exception ${exception.message.orEmpty()}")
         showProgress(false)
         showMessage(exception.message.orEmpty(), true)
     }

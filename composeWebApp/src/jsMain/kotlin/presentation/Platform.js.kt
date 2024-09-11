@@ -6,27 +6,6 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLParagraphElement
 import org.w3c.dom.HTMLTextAreaElement
-import org.w3c.dom.Window
-import org.w3c.dom.events.Event
-
-fun Window.isMainScreen(): Boolean {
-    return window.location.pathname == "/"
-}
-
-
-fun Window.navigateTo(path: String) {
-    history.pushState(null, "", path)
-    dispatchEvent(Event("popstate"))
-}
-
-fun Window.navigateUp() {
-    history.back()
-}
-
-fun Window.navigateToMain() {
-    history.replaceState(null, "", "/")
-    dispatchEvent(Event("popstate"))
-}
 
 fun shareLink(url: String) {
     showShareDialog(url,

@@ -5,12 +5,19 @@ import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.domain.usecase.CreateUseCase
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flowOf
 
 class CreateUseCaseImpl(private val apiRepository: ApiRepository, private val dbRepository: DBRepository) :
     CreateUseCase {
 
     override suspend fun getForkById(id: String): Flow<Fork?> {
-        return dbRepository.getForkById(id)
+        val dbFork = dbRepository.getForkById(id).firstOrNull()
+        return if (dbFork != null) {
+            flowOf(dbFork)
+        } else {
+            apiRepository.getForkById(id)
+        }
     }
 
     override suspend fun insertForkToDB(fork: Fork): Flow<Unit> {

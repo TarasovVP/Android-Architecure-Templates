@@ -15,7 +15,6 @@ fun DetailsScreen(
     forkId: String?, screenState: MutableState<ScreenState>,
     content: @Composable (DetailsViewState) -> Unit
 ) {
-    println("webAppTAG DetailsScreenTAG forkId: $forkId")
     val detailsViewModel = koinInject<DetailsViewModel>()
     val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { detailsViewModel }
     val viewState = viewModel.state.collectAsState()

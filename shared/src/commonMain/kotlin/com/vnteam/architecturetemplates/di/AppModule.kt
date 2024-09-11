@@ -95,7 +95,7 @@ val appModule = module {
 
     single<ListUseCase> { ListUseCaseImpl(get(), get()) }
 
-    single<DetailsUseCase> { DetailsUseCaseImpl(get()) }
+    single<DetailsUseCase> { DetailsUseCaseImpl(get(), get()) }
 
     single<CreateUseCase> { CreateUseCaseImpl(get(), get()) }
 

@@ -28,7 +28,6 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>,
     val originFork = remember {  mutableStateOf<ForkUI?>(null) }
 
     LaunchedEffect(Unit) {
-        println("webAppTAG CreateScreen LaunchedEffect forkId $forkId")
         if (forkId.isNotEmpty()) {
             viewModel.processIntent(CreateIntent.LoadFork(forkId))
         } else {

@@ -38,7 +38,6 @@ suspend inline fun <reified T> HttpClient.safeRequest(
         val response = block()
         response.handleResponse<T>()
     } catch (e: Exception) {
-        println("Exception: $e")
         val errorMessage = if (baseUrl().contains(":8080/")) CONNECTION_EXCEPTION else e.message
         NetworkResult.Failure(errorMessage)
     }

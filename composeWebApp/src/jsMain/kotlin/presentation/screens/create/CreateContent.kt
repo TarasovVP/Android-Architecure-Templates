@@ -38,11 +38,16 @@ fun CreateContent(
     originFork: MutableState<ForkUI?>,
     onClick: () -> Unit,
 ) {
-    val nameState = remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())) }
-    val descriptionState = remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.description.orEmpty())) }
-    val urlState = remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.htmlUrl.orEmpty())) }
-    val ownerNameState = remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())) }
-    val ownerUrlState = remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())) }
+    val nameState =
+        remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())) }
+    val descriptionState =
+        remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.description.orEmpty())) }
+    val urlState =
+        remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.htmlUrl.orEmpty())) }
+    val ownerNameState =
+        remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())) }
+    val ownerUrlState =
+        remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())) }
 
     LaunchedEffect(viewState.value.fork) {
         nameState.value = TextFieldValue(viewState.value.fork.value?.name.orEmpty())
@@ -51,72 +56,68 @@ fun CreateContent(
         ownerNameState.value = TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())
         ownerUrlState.value = TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())
     }
-    viewState.value.fork.value?.let {
-        Box {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-                    .padding(LocalDefaultPadding.current.size),
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                HeaderText(LocalStringResources.current.FORK)
-                CommonTextField(
-                    nameState,
-                    "${LocalStringResources.current.NAME}*",
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(LocalDefaultPadding.current.size),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        HeaderText(LocalStringResources.current.FORK)
+        CommonTextField(
+            nameState,
+            "${LocalStringResources.current.NAME}*",
 
-                    ) { text ->
-                    viewState.value.fork.value = viewState.value.fork.value?.copy(name = text)
-                }
-                CommonTextField(
-                    descriptionState,
-                    LocalStringResources.current.DESCRIPTION,
-                ) { text ->
-                    viewState.value.fork.value =
-                        viewState.value.fork.value?.copy(description = text)
-                }
-                CommonTextField(
-                    urlState,
-                    LocalStringResources.current.URL,
-                ) { text ->
-                    viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
-                }
-                HeaderText(LocalStringResources.current.OWNER)
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier.wrapContentSize().padding(20.dp).clickable {
-                        viewState.value.isChangeAvatarDialogVisible.value = true
-                    }) {
-                    AvatarImage(
-                        resId = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
-                        avatarSize = LocalLargeAvatarSize.current.size
-                    )
-                }
-                CommonTextField(
-                    ownerNameState,
-                    "${LocalStringResources.current.NAME}*",
-                ) { text ->
-                    viewState.value.fork.value = viewState.value.fork.value?.copy(
-                        owner = viewState.value.fork.value?.owner?.copy(login = text)
-                    )
-                }
-                CommonTextField(
-                    ownerUrlState,
-                    LocalStringResources.current.URL,
-                ) { text ->
-                    viewState.value.fork.value = viewState.value.fork.value?.copy(
-                        owner = viewState.value.fork.value?.owner?.copy(url = text)
-                    )
-                }
-                PrimaryButton(
-                    LocalStringResources.current.SUBMIT,
-                    originFork.value != viewState.value.fork.value && viewState.value.fork.value?.isForkValid() == true,
-                    Modifier,
-                    onClick = onClick
-                )
-            }
+            ) { text ->
+            viewState.value.fork.value = viewState.value.fork.value?.copy(name = text)
         }
+        CommonTextField(
+            descriptionState,
+            LocalStringResources.current.DESCRIPTION,
+        ) { text ->
+            viewState.value.fork.value =
+                viewState.value.fork.value?.copy(description = text)
+        }
+        CommonTextField(
+            urlState,
+            LocalStringResources.current.URL,
+        ) { text ->
+            viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
+        }
+        HeaderText(LocalStringResources.current.OWNER)
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.wrapContentSize().padding(20.dp).clickable {
+                viewState.value.isChangeAvatarDialogVisible.value = true
+            }) {
+            AvatarImage(
+                resId = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
+                avatarSize = LocalLargeAvatarSize.current.size
+            )
+        }
+        CommonTextField(
+            ownerNameState,
+            "${LocalStringResources.current.NAME}*",
+        ) { text ->
+            viewState.value.fork.value = viewState.value.fork.value?.copy(
+                owner = viewState.value.fork.value?.owner?.copy(login = text)
+            )
+        }
+        CommonTextField(
+            ownerUrlState,
+            LocalStringResources.current.URL,
+        ) { text ->
+            viewState.value.fork.value = viewState.value.fork.value?.copy(
+                owner = viewState.value.fork.value?.owner?.copy(url = text)
+            )
+        }
+        PrimaryButton(
+            LocalStringResources.current.SUBMIT,
+            originFork.value != viewState.value.fork.value && viewState.value.fork.value?.isForkValid() == true,
+            Modifier,
+            onClick = onClick
+        )
     }
     ChangeAvatarDialog(viewState)
 }
