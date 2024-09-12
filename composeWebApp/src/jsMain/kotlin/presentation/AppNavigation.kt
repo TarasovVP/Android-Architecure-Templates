@@ -1,14 +1,13 @@
 package presentation
 
-import Constants.PATH_CREATE
-import Constants.PATH_DETAILS
-import Constants.PATH_EDIT
+import Constants.PATH_START
 import Constants.POP_STATE
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import com.vnteam.architecturetemplates.presentation.NavigationScreens
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import kotlinx.browser.window
@@ -36,17 +35,17 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
         }
     }
     when  {
-        currentScreen.value.startsWith("/$PATH_DETAILS/") -> {
+        currentScreen.value.startsWith("$PATH_START${NavigationScreens.DetailsScreen.route}") -> {
             screenState.value = screenState.value.copy(
                 floatingActionState = screenState.value.floatingActionState.copy(
                     floatingActionButtonVisible = true,
                     floatingActionButtonTitle = LocalStringResources.current.EDIT,
                     floatingActionButtonAction = {
-                        window.navigateTo("$PATH_EDIT/${currentScreen.value.removePrefix("/$PATH_DETAILS/")}")
+                        window.navigateTo("${NavigationScreens.EditScreen.route}${currentScreen.value.removePrefix("$PATH_START${NavigationScreens.DetailsScreen.route}")}")
                     }
                 )
             )
-            DetailsScreen(currentScreen.value.removePrefix("/$PATH_DETAILS/"), screenState) { viewState ->
+            DetailsScreen(currentScreen.value.removePrefix("$PATH_START${NavigationScreens.DetailsScreen.route}"), screenState) { viewState ->
                 screenState.value = screenState.value.copy(
                     appBarState = screenState.value.appBarState.copy(
                         appBarTitle = viewState.fork?.name.orEmpty()
@@ -55,7 +54,7 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                 DetailsContent(viewState)
             }
         }
-        currentScreen.value.startsWith("/$PATH_EDIT/") -> {
+        currentScreen.value.startsWith("$PATH_START${NavigationScreens.EditScreen.route}") -> {
             screenState.value = screenState.value.copy(
                 appBarState = screenState.value.appBarState.copy(
                     appBarTitle = LocalStringResources.current.EDIT,
@@ -66,11 +65,11 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                 floatingActionState = screenState.value.floatingActionState.copy(
                     floatingActionButtonVisible = false
                 ))
-            CreateScreen(currentScreen.value.removePrefix("/$PATH_EDIT/"), screenState) { viewState, originFork, onClick ->
+            CreateScreen(currentScreen.value.removePrefix("$PATH_START${NavigationScreens.EditScreen.route}"), screenState) { viewState, originFork, onClick ->
                 CreateContent(viewState, originFork, onClick)
             }
         }
-        currentScreen.value.startsWith("/$PATH_CREATE/") -> {
+        currentScreen.value.startsWith("$PATH_START${NavigationScreens.CreateScreen.route}") -> {
             screenState.value = screenState.value.copy(
                 appBarState = screenState.value.appBarState.copy(
                     appBarTitle = LocalStringResources.current.CREATE,
@@ -94,12 +93,12 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                     floatingActionButtonVisible = true,
                     floatingActionButtonTitle = LocalStringResources.current.ADD,
                     floatingActionButtonAction = {
-                        window.navigateTo("$PATH_CREATE/")
+                        window.navigateTo(NavigationScreens.CreateScreen.route)
                     }
                 )
             )
             ListScreen(screenState, onItemClick = { forkUI ->
-                window.navigateTo("$PATH_DETAILS/${forkUI.forkId}")
+                window.navigateTo("${NavigationScreens.DetailsScreen.route}${forkUI.forkId}")
             }, content = { viewState, onItemClick ->
                 ListContent(viewState.value, onItemClick)
             })

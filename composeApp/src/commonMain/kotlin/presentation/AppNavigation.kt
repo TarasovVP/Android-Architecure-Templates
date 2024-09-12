@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.vnteam.architecturetemplates.presentation.NavigationScreens
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import presentation.create.CreateScreen
@@ -19,8 +20,8 @@ import presentation.screens.list.ListContent
 @Composable
 fun AppNavigation(navController: NavHostController, screenState: MutableState<ScreenState>) {
 
-    NavHost(navController = navController, startDestination = "list") {
-        composable("list") {
+    NavHost(navController = navController, startDestination = NavigationScreens.MainScreen.route) {
+        composable(NavigationScreens.MainScreen.route) {
             screenState.value = screenState.value.copy(
                 appBarState = screenState.value.appBarState.copy(
                     appBarTitle = LocalStringResources.current.APP_NAME,
@@ -30,17 +31,17 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
                     floatingActionButtonVisible = true,
                     floatingActionButtonTitle = LocalStringResources.current.ADD,
                     floatingActionButtonAction = {
-                        navController.navigate("create/-1")
+                        navController.navigate("${NavigationScreens.CreateScreen.route}-1")
                     }
                 )
             )
             ListScreen(screenState, { forkUI ->
-                navController.navigate("details/${forkUI.forkId}/${forkUI.name}")
+                navController.navigate("${NavigationScreens.DetailsScreen.route}${forkUI.forkId}/${forkUI.name}")
             }, { viewState, onItemClick ->
                 ListContent(viewState.value, onItemClick)
             })
         }
-        composable("details/{forkId}/{forkName}", arguments = listOf(navArgument("forkId") {
+        composable("${NavigationScreens.DetailsScreen.route}{forkId}/{forkName}", arguments = listOf(navArgument("forkId") {
             type = NavType.StringType
             defaultValue = ""
         }, navArgument("forkName") {
@@ -61,7 +62,7 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
                     floatingActionButtonVisible = true,
                     floatingActionButtonTitle = LocalStringResources.current.EDIT,
                     floatingActionButtonAction = {
-                        navController.navigate("create/$forkId")
+                        navController.navigate("${NavigationScreens.CreateScreen.route}$forkId")
                     }
                 )
             )
@@ -69,7 +70,7 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
                 DetailsContent(viewState)
             }
         }
-        composable("create/{forkId}", arguments = listOf(navArgument("forkId") {
+        composable("${NavigationScreens.CreateScreen.route}{forkId}", arguments = listOf(navArgument("forkId") {
             type = NavType.StringType
             defaultValue = ""
             nullable = true
