@@ -120,7 +120,6 @@ Below is a list of branches with an overview of the applied approaches:
 **Navigation component:** *androidx.navigation.fragment.NavController*  
 **DI:** *dagger.hilt.android.HiltAndroidApp*  
 
-
 [MVP Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvp_implementation)
 
 **Architecture:** *MVP    

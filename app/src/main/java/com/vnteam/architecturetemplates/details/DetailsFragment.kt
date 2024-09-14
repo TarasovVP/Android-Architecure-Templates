@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import com.squareup.picasso.Picasso
-import com.vnteam.architecturetemplates.AppApplication
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.vnteam.architecturetemplates.R
 import com.vnteam.architecturetemplates.databinding.FragmentDetailsBinding
-import com.vnteam.architecturetemplates.models.Fork
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class DetailsFragment : Fragment(), DetailsViewContract {
+@AndroidEntryPoint
+class DetailsFragment : Fragment() {
 
-    @Inject
-    lateinit var detailsPresenter: DetailsPresenter
-
+    private val detailsViewModel: DetailsViewModel by viewModels()
+    private val args: DetailsFragmentArgs by navArgs()
     private var binding: FragmentDetailsBinding? = null
 
     override fun onCreateView(
@@ -25,47 +26,30 @@ class DetailsFragment : Fragment(), DetailsViewContract {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentDetailsBinding.inflate(LayoutInflater.from(context))
+        observeLiveData()
         binding?.backButton?.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        AppApplication.instance?.appComponent?.injectDetailsFragment(this)
-        detailsPresenter.attachView(this)
-        val forkId =  arguments?.getLong(FORK_ID)
-        detailsPresenter.getForkById(forkId)
+        detailsViewModel.getForkById(args.forkId)
         return binding?.root
     }
 
-    override fun setProgressVisibility(showProgress: Boolean) {
-        binding?.progressBar?.isVisible = showProgress
-    }
-
-    override fun setForkFromDB(fork: Fork) {
-       binding?.apply {
-            forkName.text = fork.fullName
-            ownerName.text = fork.owner?.login
-            forkDescription.text = fork.fullName
-            Picasso.get().load(fork.owner?.avatarUrl).into(ownerAvatar)
-        }
-    }
-
-    override fun showError(errorMessage: String) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onDestroyView() {
-        detailsPresenter.detachView()
-        super.onDestroyView()
-    }
-
-    companion object {
-        const val FORK_ID = "forkId"
-
-        @JvmStatic
-        fun newInstance(forkId: Long?) =
-            DetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable(FORK_ID, forkId)
+    private fun observeLiveData() {
+        with(detailsViewModel) {
+            progressVisibilityLiveData.observe(viewLifecycleOwner) { showProgress ->
+                binding?.progressBar?.isVisible = showProgress
+            }
+            errorLiveData.observe(viewLifecycleOwner) { errorMessage ->
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+            forkLiveData.observe(viewLifecycleOwner) { fork ->
+                binding?.apply {
+                    forkName.text = fork.name
+                    ownerName.text = fork.owner?.login
+                    forkDescription.text = fork.description
+                    context?.let { Glide.with(it).load(fork.owner?.avatarUrl).error(R.drawable.ic_person).into(ownerAvatar) }
                 }
             }
+        }
     }
 }
