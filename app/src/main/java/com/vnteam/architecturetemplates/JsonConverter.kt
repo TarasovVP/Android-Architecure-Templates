@@ -1,5 +1,4 @@
 package com.vnteam.architecturetemplates
-
 import com.squareup.moshi.*
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
