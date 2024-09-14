@@ -2,6 +2,21 @@ package com.vnteam.architecturetemplates
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.OnClick
+
+class MainActivity : AppCompatActivity() {
+
+    @BindView(R.id.progressBar)
+    lateinit var progressBar: ProgressBar
+
+    @BindView(R.id.listView)
+    lateinit var listView: ListView
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -21,6 +36,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        ButterKnife.bind(this)
+    }
+
+    @OnClick(R.id.startButton)
+    fun onStartButtonClick() {
+        progressBar.isVisible = true
+        val ormLiteSqliteDBConnector = OrmLiteSqliteDBConnector(this)
+        val httpClientConnector = OkHttpClientConnector()
+        httpClientConnector.makeHttpUrlConnection({ responseData ->
+            val jsonConverter = JsonConverter()
+            responseData?.let {
+                val forks = jsonConverter.getForkList(responseData)
+                ormLiteSqliteDBConnector.insertDataAsync(jsonConverter.forkListToForkDBList(forks), {
+                    val forkList = ormLiteSqliteDBConnector.getTransformedForks()
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         val sqLiteDBConnector = SQLiteDBConnector(this)
         val listView = findViewById<ListView>(R.id.listView)
@@ -45,6 +74,17 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra(FORK, forkList[position])
                         startActivity(intent)
                     }
+                }, { errorText ->
+                    Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show()
+                })
+            }
+        }, { errorText ->
+            Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    companion object {
+        const val DATABASE_NAME = "AndroidArchitectureTemplates"
                     Log.e("apiTAG", "MainActivity SUCCESS_SQLITE_CONNECTION forksNameList.size ${forkList.size}")
                 }
                 ERROR -> {

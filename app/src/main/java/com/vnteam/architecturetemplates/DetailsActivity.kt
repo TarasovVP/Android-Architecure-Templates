@@ -1,52 +1,49 @@
 package com.vnteam.architecturetemplates
 
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import ccom.vnteam.architecturetemplates.R
-import com.vnteam.architecturetemplates.MainActivity.Companion.ERROR
+import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.OnClick
 import com.vnteam.architecturetemplates.MainActivity.Companion.FORK
-import com.vnteam.architecturetemplates.MainActivity.Companion.SUCCESS_IMAGE_FROM_URL_CONNECTION
 
 class DetailsActivity : AppCompatActivity() {
+
+    @BindView(R.id.forkName)
+    lateinit var forkName: TextView
+
+    @BindView(R.id.ownerName)
+    lateinit var ownerName: TextView
+
+    @BindView(R.id.forkDescription)
+    lateinit var forkDescription: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
+        ButterKnife.bind(this)
         val fork = intent.getSerializableExtra(FORK) as? Fork
-        findViewById<TextView>(R.id.forkName).text = fork?.full_name
-        findViewById<TextView>(R.id.ownerName).text = fork?.owner?.login
-        findViewById<TextView>(R.id.forkDescription).text = fork?.full_name
+        forkName.text = fork?.fullName
+        ownerName.text = fork?.owner?.login
+        forkDescription.text = fork?.fullName
         setOwnerAvatar(fork)
-        findViewById<Button>(R.id.backButton).setOnClickListener {
-            onBackPressed()
-        }
+    }
+
+    @OnClick(R.id.backButton)
+    fun onBackButtonClick() {
+        onBackPressed()
     }
 
     private fun setOwnerAvatar(fork: Fork?) {
         val ownerAvatar = findViewById<ImageView>(R.id.ownerAvatar)
-        val handler = Handler(Looper.getMainLooper()) { message ->
-            when (message.what) {
-                SUCCESS_IMAGE_FROM_URL_CONNECTION -> {
-                    val imageFromUrl = message.obj as? Bitmap
-                    ownerAvatar.setImageBitmap(imageFromUrl)
-                }
-                ERROR -> {
-                    val errorText = message.obj as String
-                    Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show()
-                }
-            }
-            true
-        }
-        val httpUrlConnector = HttpUrlConnector()
-        httpUrlConnector.getBitmapFromHttpUrlUrl(fork?.owner?.avatar_url, handler)
+        val httpClientConnector = OkHttpClientConnector()
+        httpClientConnector.getBitmapFromHttpUrlUrl(fork?.owner?.avatarUrl, { imageFromUrl ->
+            ownerAvatar.setImageBitmap(imageFromUrl)
+        }, { errorText ->
+            Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show()
+        })
     }
-
-
 }
