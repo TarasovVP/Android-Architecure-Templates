@@ -19,7 +19,6 @@ class DetailsFragment : Fragment() {
 
     private val detailsViewModel: DetailsViewModel by viewModels()
     private val args: DetailsFragmentArgs by navArgs()
-
     private var binding: FragmentDetailsBinding? = null
 
     override fun onCreateView(
