@@ -148,7 +148,6 @@ Below is a list of branches with an overview of the applied approaches:
 
 
 [MVC_Native Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_native_implementation)
-
 **Architecture:** *MVC*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity*   
 **Api:** *java.net.HttpURLConnection*  
