@@ -51,6 +51,9 @@ private object CommonMainDrawable0 {
   public val ic_light_mode: DrawableResource by 
       lazy { init_ic_light_mode() }
 
+  public val ic_page_not_found: DrawableResource by 
+      lazy { init_ic_page_not_found() }
+
   public val ic_voice: DrawableResource by 
       lazy { init_ic_voice() }
 }
@@ -223,6 +226,18 @@ private fun init_ic_light_mode(): DrawableResource =
     setOf(
       org.jetbrains.compose.resources.ResourceItem(setOf(),
     "composeResources/com.vnteam.architecturetemplates/drawable/ic_light_mode.xml", -1, -1),
+    )
+)
+
+public val Res.drawable.ic_page_not_found: DrawableResource
+  get() = CommonMainDrawable0.ic_page_not_found
+
+private fun init_ic_page_not_found(): DrawableResource =
+    org.jetbrains.compose.resources.DrawableResource(
+  "drawable:ic_page_not_found",
+    setOf(
+      org.jetbrains.compose.resources.ResourceItem(setOf(),
+    "composeResources/com.vnteam.architecturetemplates/drawable/ic_page_not_found.xml", -1, -1),
     )
 )
 

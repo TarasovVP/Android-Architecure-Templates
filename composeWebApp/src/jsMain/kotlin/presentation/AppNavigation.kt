@@ -20,6 +20,7 @@ import presentation.list.ListScreen
 import presentation.screens.create.CreateContent
 import presentation.screens.details.DetailsContent
 import presentation.screens.list.ListContent
+import presentation.screens.page_not_found.PageNotFound
 
 @Composable
 fun AppNavigation(screenState: MutableState<ScreenState>) {
@@ -35,6 +36,25 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
         }
     }
     when  {
+        currentScreen.value == "" || currentScreen.value == PATH_START -> {
+            screenState.value = screenState.value.copy(
+                appBarState = screenState.value.appBarState.copy(
+                    appBarTitle = LocalStringResources.current.APP_NAME
+                ),
+                floatingActionState = screenState.value.floatingActionState.copy(
+                    floatingActionButtonVisible = true,
+                    floatingActionButtonTitle = LocalStringResources.current.ADD,
+                    floatingActionButtonAction = {
+                        window.navigateTo(NavigationScreens.CreateScreen.route)
+                    }
+                )
+            )
+            ListScreen(screenState, onItemClick = { forkUI ->
+                window.navigateTo("${NavigationScreens.DetailsScreen.route}${forkUI.forkId}")
+            }, content = { viewState, onItemClick ->
+                ListContent(viewState.value, onItemClick)
+            })
+        }
         currentScreen.value.startsWith("$PATH_START${NavigationScreens.DetailsScreen.route}") -> {
             screenState.value = screenState.value.copy(
                 floatingActionState = screenState.value.floatingActionState.copy(
@@ -87,21 +107,9 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
         else -> {
             screenState.value = screenState.value.copy(
                 appBarState = screenState.value.appBarState.copy(
-                    appBarTitle = LocalStringResources.current.APP_NAME
-                ),
-                floatingActionState = screenState.value.floatingActionState.copy(
-                    floatingActionButtonVisible = true,
-                    floatingActionButtonTitle = LocalStringResources.current.ADD,
-                    floatingActionButtonAction = {
-                        window.navigateTo(NavigationScreens.CreateScreen.route)
-                    }
-                )
-            )
-            ListScreen(screenState, onItemClick = { forkUI ->
-                window.navigateTo("${NavigationScreens.DetailsScreen.route}${forkUI.forkId}")
-            }, content = { viewState, onItemClick ->
-                ListContent(viewState.value, onItemClick)
-            })
+                    topAppBarVisible = false
+                ))
+            PageNotFound()
         }
     }
 }

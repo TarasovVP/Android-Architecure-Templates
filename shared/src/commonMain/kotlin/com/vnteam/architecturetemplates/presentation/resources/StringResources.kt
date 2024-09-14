@@ -24,7 +24,8 @@ sealed class StringResources(
     val EMPTY_STATE: String,
     val NO_DATA: String,
     val CHANGE_AVATAR: String,
-    val SPEAK: String
+    val SPEAK: String,
+    val PAGE_NOT_FOUND: String
 )
 
 class StringResourcesEN : StringResources(
@@ -47,7 +48,8 @@ class StringResourcesEN : StringResources(
     EMPTY_STATE = "No data",
     NO_DATA = "N/A",
     CHANGE_AVATAR = "Change avatar",
-    SPEAK = "Speak"
+    SPEAK = "Speak",
+    PAGE_NOT_FOUND = "Page not found"
 )
 
 class StringResourcesUK : StringResources(
@@ -70,7 +72,8 @@ class StringResourcesUK : StringResources(
     EMPTY_STATE = "Немає даних",
     NO_DATA = "Немає даних",
     CHANGE_AVATAR = "Змінити аватар",
-    SPEAK = "Проговорити"
+    SPEAK = "Проговорити",
+    PAGE_NOT_FOUND = "Сторінку не знайдено"
 )
 
 val LocalStringResources: ProvidableCompositionLocal<StringResources> = staticCompositionLocalOf {

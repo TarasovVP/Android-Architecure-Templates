@@ -80,8 +80,10 @@ fun AppContent(appViewModel: AppViewModel, screenState: MutableState<ScreenState
             modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.BottomEnd
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                AppBar(appViewModel, screenState.value.appBarState)
+            Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+                if (screenState.value.appBarState.topAppBarVisible) {
+                    AppBar(appViewModel, screenState.value.appBarState)
+                }
                 Box(modifier = Modifier.fillMaxWidth(0.8f)) {
                     AppNavigation(koinInject())
                 }
