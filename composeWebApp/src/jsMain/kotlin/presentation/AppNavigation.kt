@@ -22,10 +22,10 @@ import presentation.screens.page_not_found.PageNotFound
 
 @Composable
 fun AppNavigation(screenState: MutableState<ScreenState>) {
-    val currentScreen = remember { mutableStateOf(window.location.pathname) }
+    val currentPath = remember { mutableStateOf(window.location.pathname) }
     DisposableEffect(Unit) {
         val onPopState: (Event) -> Unit = {
-            currentScreen.value = window.location.pathname
+            currentPath.value = window.location.pathname
         }
         window.addEventListener(POP_STATE, onPopState)
 
@@ -34,24 +34,24 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
         }
     }
     when  {
-        currentScreen.value == "" || currentScreen.value == PATH_START -> {
+        currentPath.value == "" || currentPath.value == PATH_START -> {
             ListScreen(screenState, onItemClick = { forkUI ->
                 window.navigateTo("${NavigationScreens.DetailsScreen.route}${forkUI.forkId}")
             }, content = { viewState, onItemClick ->
                 ListContent(viewState.value, screenState, onItemClick)
             })
         }
-        currentScreen.value.startsWith("$PATH_START${NavigationScreens.DetailsScreen.route}") -> {
-            DetailsScreen(currentScreen.value.removePrefix("$PATH_START${NavigationScreens.DetailsScreen.route}"), screenState) { viewState ->
+        currentPath.value.startsWith("$PATH_START${NavigationScreens.DetailsScreen.route}") -> {
+            DetailsScreen(currentPath.value.removePrefix("$PATH_START${NavigationScreens.DetailsScreen.route}"), screenState) { viewState ->
                 DetailsContent(viewState, screenState)
             }
         }
-        currentScreen.value.startsWith("$PATH_START${NavigationScreens.EditScreen.route}") -> {
-            CreateScreen(currentScreen.value.removePrefix("$PATH_START${NavigationScreens.EditScreen.route}"), screenState) { viewState, originFork, onClick ->
+        currentPath.value.startsWith("$PATH_START${NavigationScreens.EditScreen.route}") -> {
+            CreateScreen(currentPath.value.removePrefix("$PATH_START${NavigationScreens.EditScreen.route}"), screenState) { viewState, originFork, onClick ->
                 CreateContent(viewState, screenState, originFork, onClick)
             }
         }
-        currentScreen.value.startsWith("$PATH_START${NavigationScreens.CreateScreen.route}") -> {
+        currentPath.value.startsWith("$PATH_START${NavigationScreens.CreateScreen.route}") -> {
             CreateScreen("", screenState) { viewState, originFork, onClick ->
                 CreateContent(viewState, screenState, originFork, onClick)
             }
