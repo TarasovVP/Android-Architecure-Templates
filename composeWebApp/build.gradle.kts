@@ -1,5 +1,3 @@
-
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composeMultiplatform)
@@ -15,7 +13,6 @@ kotlin {
         }
         binaries.executable()
     }
-    task("testClasses")
     sourceSets {
         jsMain.dependencies {
             implementation(projects.composeUi)

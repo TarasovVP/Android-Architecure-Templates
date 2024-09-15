@@ -16,8 +16,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.vnteam.architecturetemplates.presentation.NavigationScreens
 import com.vnteam.architecturetemplates.presentation.TextToSpeechHelper
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
@@ -25,7 +27,11 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatar
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
+import kotlinx.browser.window
+import navigateTo
 import org.koin.compose.koinInject
 import presentation.components.AvatarImage
 import presentation.components.HeaderText
@@ -35,7 +41,8 @@ import presentation.shareLink
 import presentation.textWithNoDataHandling
 
 @Composable
-fun DetailsContent(viewState: DetailsViewState) {
+fun DetailsContent(viewState: DetailsViewState, screenState: MutableState<ScreenState>) {
+    DetailsScreenStateContent(screenState, viewState.fork)
     Box {
         Column(
             modifier = Modifier
@@ -63,6 +70,22 @@ fun DetailsContent(viewState: DetailsViewState) {
             OwnerCard(viewState.fork?.owner)
         }
     }
+}
+
+@Composable
+fun DetailsScreenStateContent(screenState: MutableState<ScreenState>, fork: ForkUI?) {
+    screenState.value = screenState.value.copy(
+        appBarState = screenState.value.appBarState.copy(
+            appBarTitle = fork?.name.orEmpty()
+        ),
+        floatingActionState = screenState.value.floatingActionState.copy(
+            floatingActionButtonVisible = true,
+            floatingActionButtonTitle = LocalStringResources.current.EDIT,
+            floatingActionButtonAction = {
+                window.navigateTo("${NavigationScreens.EditScreen.route}${fork?.forkId}")
+            }
+        )
+    )
 }
 
 @Composable

@@ -15,8 +15,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.vnteam.architecturetemplates.presentation.NavigationScreens
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
@@ -25,11 +27,19 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPaddin
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
+import kotlinx.browser.window
+import navigateTo
 import presentation.components.AvatarImage
 import presentation.components.ConfirmationDialog
 
 @Composable
-fun ListContent(viewState: ListViewState, onItemClick: (ForkUI, String) -> Unit) {
+fun ListContent(
+    viewState: ListViewState,
+    screenState: MutableState<ScreenState>,
+    onItemClick: (ForkUI, String) -> Unit
+) {
+    ListScreenStateContent(screenState)
     Box {
         LazyColumn(modifier = Modifier.fillMaxSize().padding(LocalDefaultPadding.current.size)) {
             items(viewState.forks.orEmpty()) { item ->
@@ -42,6 +52,22 @@ fun ListContent(viewState: ListViewState, onItemClick: (ForkUI, String) -> Unit)
             onConfirmationClick = { onItemClick(ForkUI(forkId = viewState.forkToDelete), "delete") },
             onDismiss = { viewState.isConfirmationDialogVisible.value = false })
     }
+}
+
+@Composable
+fun ListScreenStateContent(screenState: MutableState<ScreenState>) {
+    screenState.value = screenState.value.copy(
+        appBarState = screenState.value.appBarState.copy(
+            appBarTitle = LocalStringResources.current.APP_NAME
+        ),
+        floatingActionState = screenState.value.floatingActionState.copy(
+            floatingActionButtonVisible = true,
+            floatingActionButtonTitle = LocalStringResources.current.ADD,
+            floatingActionButtonAction = {
+                window.navigateTo(NavigationScreens.CreateScreen.route)
+            }
+        )
+    )
 }
 
 @Composable

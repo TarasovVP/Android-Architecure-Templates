@@ -24,7 +24,10 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarS
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import kotlinx.browser.window
+import navigateUp
 import presentation.components.AvatarImage
 import presentation.components.ChangeAvatarDialog
 import presentation.components.CommonTextField
@@ -35,9 +38,11 @@ import presentation.components.PrimaryButton
 @Composable
 fun CreateContent(
     viewState: State<CreateViewState>,
+    screenState: MutableState<ScreenState>,
     originFork: MutableState<ForkUI?>,
     onClick: () -> Unit,
 ) {
+    CreateScreenStateContent(screenState, originFork.value?.name.isNullOrEmpty())
     val nameState =
         remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())) }
     val descriptionState =
@@ -120,6 +125,20 @@ fun CreateContent(
         )
     }
     ChangeAvatarDialog(viewState)
+}
+
+@Composable
+fun CreateScreenStateContent(screenState: MutableState<ScreenState>, isCreate: Boolean) {
+    screenState.value = screenState.value.copy(
+        appBarState = screenState.value.appBarState.copy(
+            appBarTitle = if (isCreate) LocalStringResources.current.CREATE else LocalStringResources.current.EDIT,
+            topAppBarAction = {
+                window.navigateUp()
+            }
+        ),
+        floatingActionState = screenState.value.floatingActionState.copy(
+            floatingActionButtonVisible = false
+        ))
 }
 
 @Composable
