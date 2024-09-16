@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo.models
+package com.vnteam.architecturetemplates.models
 
 import android.os.Parcelable
 import androidx.room.Entity
