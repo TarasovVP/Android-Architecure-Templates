@@ -27,12 +27,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.vnteam.architecturetemplates.Res
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
 import com.vnteam.architecturetemplates.ic_dark_mode
 import com.vnteam.architecturetemplates.ic_light_mode
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
@@ -123,7 +127,8 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
                     onClick = { screenState.value.floatingActionState.floatingActionButtonAction() },
                     content = { Text(screenState.value.floatingActionState.floatingActionButtonTitle) },
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = Color.White
+                    contentColor = Color.White,
+                    modifier = Modifier.padding(horizontal = 48.dp, vertical = LocalSmallPadding.current.size)
                 )
             }
         },

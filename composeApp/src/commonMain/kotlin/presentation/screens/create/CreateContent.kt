@@ -34,6 +34,9 @@ fun CreateContent(
     originFork: MutableState<ForkUI?>,
     onClick: () -> Unit,
 ) {
+    if (originFork.value == null) {
+        return
+    }
     Box {
         Column(
             modifier = Modifier
