@@ -1,5 +1,4 @@
-package com.vnteam.architecturetemplates.models
-
+package com.vnteam.architecturetemplates
 import com.squareup.moshi.Json
 import io.realm.RealmObject
 import java.io.Serializable
