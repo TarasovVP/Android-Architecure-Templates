@@ -1,21 +1,13 @@
-<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/data/database/AppDatabase.kt
-package com.vnteam.architecturetemplates.data.database
-========
-package com.vnteam.architecturetemplates.database
->>>>>>>> 13d1264 (Rename project):app/src/main/java/com/vnteam/architecturetemplates/database/AppDatabase.kt
+package com.vnstudio.cleanarchitecturedemo.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/data/database/AppDatabase.kt
-import com.vnteam.architecturetemplates.data.database.entities.ForkDB
-========
-import com.vnteam.architecturetemplates.models.Fork
->>>>>>>> 13d1264 (Rename project):app/src/main/java/com/vnteam/architecturetemplates/database/AppDatabase.kt
+import com.vnstudio.cleanarchitecturedemo.domain.models.Fork
 
 @Database(
-    entities = [ForkDB::class],
+    entities = [Fork::class],
     version = 1,
     exportSchema = false
 )

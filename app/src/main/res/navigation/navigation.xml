@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.vnteam.architecturetemplates.list.ListFragment" >
+        android:name="com.vnstudio.cleanarchitecturedemo.presentation.list.ListFragment" >
         <action
             android:id="@+id/startDetailsFragment"
             app:destination="@id/detailsFragment" />
@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.vnteam.architecturetemplates.details.DetailsFragment">
+        android:name="com.vnstudio.cleanarchitecturedemo.presentation.details.DetailsFragment">
         <argument
             android:name="forkId"
             app:argType="long" />

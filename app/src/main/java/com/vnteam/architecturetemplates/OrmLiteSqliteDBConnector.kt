@@ -10,7 +10,7 @@ import com.j256.ormlite.support.ConnectionSource
 import com.j256.ormlite.table.TableUtils
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.vnteam.architecturetemplates.MainActivity.Companion.DATABASE_NAME
+import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.DATABASE_NAME
 
 class OrmLiteSqliteDBConnector(context: Context) : OrmLiteSqliteOpenHelper(context, DATABASE_NAME, null, 1) {
 

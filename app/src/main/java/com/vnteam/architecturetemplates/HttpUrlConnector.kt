@@ -3,9 +3,9 @@ package com.vnteam.architecturetemplates
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Handler
-import com.vnteam.architecturetemplates.MainActivity.Companion.ERROR
-import com.vnteam.architecturetemplates.MainActivity.Companion.SUCCESS_HTTP_CONNECTION
-import com.vnteam.architecturetemplates.MainActivity.Companion.SUCCESS_IMAGE_FROM_URL_CONNECTION
+import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.ERROR
+import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.SUCCESS_HTTP_CONNECTION
+import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.SUCCESS_IMAGE_FROM_URL_CONNECTION
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
