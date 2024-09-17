@@ -12,7 +12,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import ccom.vnteam.architecturetemplates.R
 
 class MainActivity : AppCompatActivity() {
 
