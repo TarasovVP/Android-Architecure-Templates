@@ -1,7 +1,8 @@
-package com.vnteam.architecturetemplates
+package com.vnteam.architecturetemplates.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.vnteam.architecturetemplates.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

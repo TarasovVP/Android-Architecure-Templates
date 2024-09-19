@@ -1,10 +1,20 @@
+<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/details/DetailsViewModel.kt
+package com.vnteam.architecturetemplates.presentation.details
+========
 package com.vnteam.architecturetemplates.details
+>>>>>>>> master:app/src/main/java/com/vnteam/architecturetemplates/details/DetailsViewModel.kt
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/details/DetailsViewModel.kt
+import com.vnteam.architecturetemplates.domain.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.domain.repositories.DBRepository
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+========
 import com.vnteam.architecturetemplates.database.ForkRepository
 import com.vnteam.architecturetemplates.models.Fork
+>>>>>>>> master:app/src/main/java/com/vnteam/architecturetemplates/details/DetailsViewModel.kt
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -12,12 +22,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val forkRepository: ForkRepository
+    private val forkRepository: DBRepository,
+    private val forkUIMapper: ForkUIMapper,
 ): ViewModel() {
 
     val progressVisibilityLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<String>()
-    val forkLiveData = MutableLiveData<Fork>()
+    val forkLiveData = MutableLiveData<ForkUI>()
 
     fun getForkById(forkId: Long?) {
         progressVisibilityLiveData.postValue(true)
@@ -26,7 +37,7 @@ class DetailsViewModel @Inject constructor(
             errorLiveData.postValue(exception.localizedMessage)
         }) {
             val fork = forkRepository.getForkById(forkId ?: 0)
-            forkLiveData.postValue(fork)
+            forkLiveData.postValue(forkUIMapper.mapToImplModel(fork))
             progressVisibilityLiveData.postValue(false)
         }
     }

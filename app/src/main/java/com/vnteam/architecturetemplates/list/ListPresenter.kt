@@ -1,7 +1,7 @@
 package com.vnteam.architecturetemplates.list
 
 import android.annotation.SuppressLint
-import com.vnteam.architecturetemplates.MainActivity.Companion.FORKS_URL
+import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.FORKS_URL
 import com.vnteam.architecturetemplates.database.RealmDBConnector
 import com.vnteam.architecturetemplates.models.Fork
 import com.vnteam.architecturetemplates.network.ValleyApiConnector

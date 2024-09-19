@@ -5,8 +5,9 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Handler
-import com.vnteam.architecturetemplates.MainActivity.Companion.DATABASE_NAME
-import com.vnteam.architecturetemplates.MainActivity.Companion.TABLE_NAME
+import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity
+import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.DATABASE_NAME
+import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.TABLE_NAME
 
 class SQLiteDBConnector(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
 

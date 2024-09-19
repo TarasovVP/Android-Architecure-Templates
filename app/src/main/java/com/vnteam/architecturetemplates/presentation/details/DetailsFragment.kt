@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/details/DetailsFragment.kt
+package com.vnteam.architecturetemplates.presentation.details
+========
 package com.vnteam.architecturetemplates.details
+>>>>>>>> master:app/src/main/java/com/vnteam/architecturetemplates/details/DetailsFragment.kt
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +13,11 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/details/DetailsFragment.kt
+import coil.load
+========
 import com.bumptech.glide.Glide
+>>>>>>>> master:app/src/main/java/com/vnteam/architecturetemplates/details/DetailsFragment.kt
 import com.vnteam.architecturetemplates.R
 import com.vnteam.architecturetemplates.databinding.FragmentDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,7 +55,11 @@ class DetailsFragment : Fragment() {
                     forkName.text = fork.name
                     ownerName.text = fork.owner?.login
                     forkDescription.text = fork.description
-                    context?.let { Glide.with(it).load(fork.owner?.avatarUrl).error(R.drawable.ic_person).into(ownerAvatar) }
+                    ownerAvatar.load(fork.owner?.avatarUrl) {
+                        crossfade(true)
+                        placeholder(R.drawable.ic_person)
+                        error(R.drawable.ic_person)
+                    }
                 }
             }
         }

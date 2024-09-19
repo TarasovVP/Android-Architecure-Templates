@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.vnteam.architecturetemplates.MainActivity.Companion.FORK
+import com.vnstudio.cleanarchitecturedemo.presentation.MainActivity.Companion.FORK
 
 class DetailsActivity : AppCompatActivity() {
 

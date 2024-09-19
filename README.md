@@ -105,51 +105,3 @@ Below is a list of branches with an overview of the applied approaches:
 **Observable component:** *androidx.lifecycle.MutableLiveData*  
 **Navigation component:** *androidx.navigation.fragment.NavController*  
 **DI:** *dagger.hilt.android.HiltAndroidApp*  
-
-
-[MVVM Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_implementation)
-
-**Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
-**Api:** *retrofit2.Retrofit*  
-**Image loading:** *com.bumptech.glide.Glide JsonConverter: com.google.gson.Gson*  
-**DB:** *androidx.room.RoomDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *androidx.lifecycle.MutableLiveData*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*  
-
-[MVP Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvp_implementation)
-
-**Architecture:** *MVP    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
-**Api:** *com.android.volley.toolbox.Volley*  
-**Image loading:** *com.squareup.picasso.Picasso*   
-**JsonConverter:** *com.squareup.moshi.Moshi*  
-**DB:** *io.realm.Realm*  
-**Multithreading:** *io.reactivex.RxAndroid*  
-**Architectural component:** *Presenter*  
-**Observable component:** *io.reactivex.Observable*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*  
-
-[MVC_with Async Task Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_async_task_implementation)
-
-**Architecture:** *MVC*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity*   
-**Api:** *java.net.HttpURLConnection*  
-**Image loading:** *BitmapFactory.decodeStream(HttpURLConnection.inputStream)*   
-**JsonConverter:** *com.squareup.moshi.Moshi*  
-**DB:** *com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper*  
-**Multithreading:** *android.os.AsyncTask*  
-
-[MVC_Native Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_native_implementation)
-
-**Architecture:** *MVC*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity*   
-**Api:** *java.net.HttpURLConnection*  
-**Image loading:** *BitmapFactory.decodeStream(HttpURLConnection.inputStream)*   
-**JsonConverter:** *org.json.JSONObject*  
-**DB:** *android.database.sqlite.SQLiteDatabase*  
-**Multithreading:** *android.os.Handler + Thread*  

@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Android Architecture Templates"
-include ':app'
+include(":app")

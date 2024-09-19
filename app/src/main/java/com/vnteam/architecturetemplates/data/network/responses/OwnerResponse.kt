@@ -1,16 +1,11 @@
-package com.vnteam.architecturetemplates.models
+package com.vnteam.architecturetemplates.data.network.responses
 
-import android.os.Parcelable
-import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-@Entity
-data class Owner(
+data class OwnerResponse(
     var login: String? = null,
     @SerializedName("id")
     var ownerId: Long? = null,
     @SerializedName("avatar_url")
     var avatarUrl: String? = null,
-) : Parcelable
+)
