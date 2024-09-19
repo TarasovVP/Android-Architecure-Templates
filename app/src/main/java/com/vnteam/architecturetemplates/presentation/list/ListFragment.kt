@@ -17,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ListFragment : Fragment() {
 
     private val listViewModel: ListViewModel by viewModels()
-
     private var binding: FragmentListBinding? = null
     private var forkAdapter: ForkAdapter? = null
 
