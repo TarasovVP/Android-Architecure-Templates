@@ -1,11 +1,20 @@
+<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/details/DetailsViewModel.kt
 package com.vnteam.architecturetemplates.presentation.details
+========
+package com.vnteam.architecturetemplates.details
+>>>>>>>> master:app/src/main/java/com/vnteam/architecturetemplates/details/DetailsViewModel.kt
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/details/DetailsViewModel.kt
 import com.vnteam.architecturetemplates.domain.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+========
+import com.vnteam.architecturetemplates.database.ForkRepository
+import com.vnteam.architecturetemplates.models.Fork
+>>>>>>>> master:app/src/main/java/com/vnteam/architecturetemplates/details/DetailsViewModel.kt
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch

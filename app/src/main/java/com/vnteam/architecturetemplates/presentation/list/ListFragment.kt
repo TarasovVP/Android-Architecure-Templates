@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/list/ListFragment.kt
 package com.vnteam.architecturetemplates.presentation.list
+========
+package com.vnteam.architecturetemplates.list
+>>>>>>>> master:app/src/main/java/com/vnteam/architecturetemplates/list/ListFragment.kt
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +14,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.vnteam.architecturetemplates.databinding.FragmentListBinding
+<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/list/ListFragment.kt
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+========
+import com.vnteam.architecturetemplates.models.Fork
+>>>>>>>> master:app/src/main/java/com/vnteam/architecturetemplates/list/ListFragment.kt
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
