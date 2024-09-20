@@ -15,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ListFragment : Fragment() {
 
     private val listViewModel: ListViewModel by viewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,

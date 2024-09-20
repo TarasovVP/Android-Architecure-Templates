@@ -14,6 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.vnteam.architecturetemplates"
+        
         minSdk = 24
         targetSdk = 34
         versionCode = 1
