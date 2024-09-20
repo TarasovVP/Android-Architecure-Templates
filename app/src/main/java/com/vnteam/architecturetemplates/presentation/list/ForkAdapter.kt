@@ -1,18 +1,10 @@
-<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/list/ForkAdapter.kt
 package com.vnteam.architecturetemplates.presentation.list
-========
-package com.vnteam.architecturetemplates.list
->>>>>>>> master:app/src/main/java/com/vnteam/architecturetemplates/list/ForkAdapter.kt
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vnteam.architecturetemplates.databinding.ItemForkBinding
-<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/presentation/list/ForkAdapter.kt
 import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
-========
-import com.vnteam.architecturetemplates.models.Fork
->>>>>>>> master:app/src/main/java/com/vnteam/architecturetemplates/list/ForkAdapter.kt
 
 class ForkAdapter(private var forks: List<ForkUI>) :
     RecyclerView.Adapter<ForkAdapter.ViewHolder>() {
