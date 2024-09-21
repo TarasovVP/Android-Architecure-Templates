@@ -1,4 +1,4 @@
-MVC Native Implementation
+MVC Native Implementation  
 **Architecture:** *MVC*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity*   
 **Api:** *java.net.HttpURLConnection*  
