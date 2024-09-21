@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/forkName"
+        android:id="@+id/demoObjectName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/forkOwnerCard"/>
 
     <TextView
-        android:id="@+id/forkDescription"
+        android:id="@+id/demoObjectDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
