@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'ccom.vnteam.architecturetemplates'
+    namespace 'com.vnteam.architecturetemplates'
     compileSdk 33
 
     defaultConfig {

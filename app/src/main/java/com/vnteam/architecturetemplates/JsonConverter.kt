@@ -1,33 +1,33 @@
 package com.vnteam.architecturetemplates
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.squareup.moshi.*
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 class JsonConverter {
 
-    fun getDemoObjectList(responseData: String): ArrayList<DemoObject> {
-        val demoObjectList = ArrayList<DemoObject>()
-        val jsonArray = JSONArray(responseData)
-        for (i in 0 until jsonArray.length()) {
-            val jsonObject = jsonArray.get(i) as JSONObject
-            demoObjectList.add(createForkObject(jsonObject))
-        }
-        return demoObjectList
+    private var moshi: Moshi? = null
+
+    init {
+        moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    }
+    fun getDemoObjectList(responseData: String): List<DemoObject> {
+        val listType = Types.newParameterizedType(List::class.java, DemoObject::class.java)
+        val adapter: JsonAdapter<List<DemoObject>>? = moshi?.adapter(listType)
+        return adapter?.fromJson(responseData) ?: listOf()
     }
 
-    private fun createForkObject(jsonObject: JSONObject): DemoObject {
-        val demoObject = DemoObject()
-        demoObject.id = jsonObject.getLong("id")
-        demoObject.name = jsonObject.getString("name")
-        demoObject.full_name = jsonObject.getString("full_name")
-        demoObject.html_url = jsonObject.getString("html_url")
-        demoObject.description = jsonObject.getString("description")
-        val ownerObject = jsonObject.getJSONObject("owner")
-        val owner = Owner()
-        owner.login = ownerObject.getString("login")
-        owner.id = ownerObject.getLong("id")
-        owner.avatar_url = ownerObject.getString("avatar_url")
-        demoObject.owner = owner
-        return demoObject
+    fun demoObjectListToDemoObjectDBList(demoObjects: List<DemoObject>): List<DemoObjectDB> {
+        val demoObjectDBList = mutableListOf<DemoObjectDB>()
+        demoObjects.forEach { demoObject ->
+            demoObjectDBList.add(DemoObjectDB().apply {
+                id = demoObject.id
+                name = demoObject.name
+                fullName = demoObject.fullName
+                htmlUrl = demoObject.htmlUrl
+                description = demoObject.description
+                owner = moshi?.adapter(Owner::class.java)?.toJson(demoObject.owner)
+            })
+        }
+        return demoObjectDBList
     }
 }
