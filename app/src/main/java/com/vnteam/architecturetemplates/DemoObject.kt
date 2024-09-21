@@ -8,9 +8,6 @@ class DemoObject: Serializable {
     var id: Long? = null
     @Json(name = "name")
     var name: String? = null
-    var full_name: String? = null
-    var owner: Owner? = Owner()
-    var html_url: String? = null
     @Json(name = "full_name")
     var fullName: String? = null
     @Json(name = "owner")
