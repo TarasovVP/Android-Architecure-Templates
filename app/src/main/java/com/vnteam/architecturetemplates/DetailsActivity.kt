@@ -39,8 +39,8 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun setOwnerAvatar(fork: Fork?) {
         val ownerAvatar = findViewById<ImageView>(R.id.ownerAvatar)
-        val httpUrlConnector = HttpUrlConnector()
-        httpUrlConnector.getBitmapFromHttpUrlUrl(fork?.owner?.avatarUrl, { imageFromUrl ->
+        val httpClientConnector = OkHttpClientConnector()
+        httpClientConnector.getBitmapFromHttpUrlUrl(fork?.owner?.avatarUrl, { imageFromUrl ->
             ownerAvatar.setImageBitmap(imageFromUrl)
         }, { errorText ->
             Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show()
