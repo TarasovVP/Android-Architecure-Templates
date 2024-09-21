@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:app/src/main/java/com/vnteam/architecturetemplates/DemoObjectDB.kt
 package com.vnteam.architecturetemplates
+========
+package com.vnstudio.cleanarchitecturedemo.models
+>>>>>>>> 64049960 (Implement dependency inversion):app/src/main/java/com/vnteam/architecturetemplates/models/ForkDB.kt
 
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable

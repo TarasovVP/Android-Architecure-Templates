@@ -2,6 +2,7 @@ package com.vnstudio.cleanarchitecturedemo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.vnstudio.cleanarchitecturedemo.list.ListFragment
 
 class MainActivity : AppCompatActivity() {
 
