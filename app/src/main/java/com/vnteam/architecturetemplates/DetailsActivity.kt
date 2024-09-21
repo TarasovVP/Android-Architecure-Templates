@@ -9,8 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import ccom.vnteam.architecturetemplates.R
 import com.vnteam.architecturetemplates.MainActivity.Companion.ERROR
-import com.vnteam.architecturetemplates.MainActivity.Companion.FORK
+import com.vnteam.architecturetemplates.MainActivity.Companion.DEMO_OBJECT
 import com.vnteam.architecturetemplates.MainActivity.Companion.SUCCESS_IMAGE_FROM_URL_CONNECTION
 
 class DetailsActivity : AppCompatActivity() {
@@ -18,17 +19,17 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
-        val fork = intent.getSerializableExtra(FORK) as? Fork
-        findViewById<TextView>(R.id.forkName).text = fork?.full_name
-        findViewById<TextView>(R.id.ownerName).text = fork?.owner?.login
-        findViewById<TextView>(R.id.forkDescription).text = fork?.full_name
-        setOwnerAvatar(fork)
+        val demoObject = intent.getSerializableExtra(DEMO_OBJECT) as? DemoObject
+        findViewById<TextView>(R.id.demoObjectName).text = demoObject?.full_name
+        findViewById<TextView>(R.id.ownerName).text = demoObject?.owner?.login
+        findViewById<TextView>(R.id.demoObjectDescription).text = demoObject?.full_name
+        setOwnerAvatar(demoObject)
         findViewById<Button>(R.id.backButton).setOnClickListener {
             onBackPressed()
         }
     }
 
-    private fun setOwnerAvatar(fork: Fork?) {
+    private fun setOwnerAvatar(demoObject: DemoObject?) {
         val ownerAvatar = findViewById<ImageView>(R.id.ownerAvatar)
         val handler = Handler(Looper.getMainLooper()) { message ->
             when (message.what) {
@@ -44,7 +45,7 @@ class DetailsActivity : AppCompatActivity() {
             true
         }
         val httpUrlConnector = HttpUrlConnector()
-        httpUrlConnector.getBitmapFromHttpUrlUrl(fork?.owner?.avatar_url, handler)
+        httpUrlConnector.getBitmapFromHttpUrlUrl(demoObject?.owner?.avatar_url, handler)
     }
 
 

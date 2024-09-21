@@ -12,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import ccom.vnteam.architecturetemplates.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,23 +29,23 @@ class MainActivity : AppCompatActivity() {
                 SUCCESS_HTTP_CONNECTION -> {
                     val responseData = message.obj as String
                     val jsonConverter = JsonConverter()
-                    val forks = jsonConverter.getForkList(responseData)
+                    val demoObject = jsonConverter.getDemoObjectList(responseData)
 
-                    sqLiteDBConnector.insertData(handler, forks)
-                    Log.e("apiTAG", "MainActivity SUCCESS_HTTPS_CONNECTION fork $forks")
+                    sqLiteDBConnector.insertData(handler, demoObject)
+                    Log.e("apiTAG", "MainActivity SUCCESS_HTTPS_CONNECTION demoObject $demoObject")
                 }
                 SUCCESS_SQLITE_CONNECTION -> {
-                    val forkList = message.obj as ArrayList<Fork>
-                    val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, forkList.map { it.name })
+                    val demoObjectList = message.obj as ArrayList<DemoObject>
+                    val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, demoObjectList.map { it.name })
                     listView.adapter = adapter
                     progressBar.isVisible = false
                     listView.setOnItemClickListener { _, _, position, _ ->
                         Log.e("apiTAG", "MainActivity SUCCESS_SQLITE_CONNECTION setOnItemClickListener position $position")
                         val intent = Intent(this, DetailsActivity::class.java)
-                        intent.putExtra(FORK, forkList[position])
+                        intent.putExtra(DEMO_OBJECT, demoObjectList[position])
                         startActivity(intent)
                     }
-                    Log.e("apiTAG", "MainActivity SUCCESS_SQLITE_CONNECTION forksNameList.size ${forkList.size}")
+                    Log.e("apiTAG", "MainActivity SUCCESS_SQLITE_CONNECTION demoObjectNameList.size ${demoObjectList.size}")
                 }
                 ERROR -> {
                     progressBar.isVisible = false
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         const val ERROR = 3
         const val SUCCESS_IMAGE_FROM_URL_CONNECTION = 4
         const val DATABASE_NAME = "CleanArchitectureDemo"
-        const val TABLE_NAME = "forks"
-        const val FORK = "fork"
+        const val TABLE_NAME = "demoObjects"
+        const val DEMO_OBJECT = "demoObject"
     }
 }

@@ -2,7 +2,7 @@ package com.vnteam.architecturetemplates
 
 import java.io.Serializable
 
-class Fork: Serializable {
+class DemoObject: Serializable {
     var id: Long? = null
     var name: String? = null
     var full_name: String? = null
