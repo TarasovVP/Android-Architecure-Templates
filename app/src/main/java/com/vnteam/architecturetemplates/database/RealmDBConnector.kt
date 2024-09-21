@@ -1,19 +1,18 @@
-package com.vnstudio.cleanarchitecturedemo.database
+package com.vnteam.architecturetemplates.database
 
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.models.DemoObject
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.realm.Realm
 import io.realm.RealmList
 
 class RealmDBConnector(private val realm: Realm) {
 
-    fun insertForksToDB(forks: List<Fork>): Observable<Unit> {
+    fun insertDemoObjectsToDB(demoObjects: List<DemoObject>): Observable<Unit> {
         return Observable.create<Unit> { emitter ->
             realm.executeTransactionAsync({ realmInstance ->
-                val realmList = RealmList<Fork>()
-                realmList.addAll(forks)
+                val realmList = RealmList<DemoObject>()
+                realmList.addAll(demoObjects)
                 realmInstance.insertOrUpdate(realmList)
                 emitter.onNext(Unit)
                 emitter.onComplete()
@@ -24,11 +23,11 @@ class RealmDBConnector(private val realm: Realm) {
         }.subscribeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getForksFromDB(): Observable<List<Fork>> {
-        return Observable.create<List<Fork>> { emitter ->
+    fun getDemoObjectsFromDB(): Observable<List<DemoObject>> {
+        return Observable.create<List<DemoObject>> { emitter ->
             realm.runCatching {
-                val forks = where(Fork::class.java)?.findAll().orEmpty()
-                emitter.onNext(forks)
+                val demoObjects = where(DemoObject::class.java)?.findAll().orEmpty()
+                emitter.onNext(demoObjects)
                 emitter.onComplete()
             }.onFailure {error ->
                 emitter.onError(error)
@@ -37,11 +36,11 @@ class RealmDBConnector(private val realm: Realm) {
         }.subscribeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getForkById(forkId: Long?): Observable<Fork> {
-        return Observable.create<Fork> { emitter ->
+    fun getDemoObjectById(demoObjectId: Long?): Observable<DemoObject> {
+        return Observable.create<DemoObject> { emitter ->
             realm.runCatching {
-                val fork = where(Fork::class.java)?.equalTo("id", forkId)?.findFirst()
-                fork.takeIf { it != null }?.let { emitter.onNext(it) } ?: emitter.onError(Throwable("Fork is not available"))
+                val demoObject = where(DemoObject::class.java)?.equalTo("id", demoObjectId)?.findFirst()
+                demoObject.takeIf { it != null }?.let { emitter.onNext(it) } ?: emitter.onError(Throwable("DemoObject is not available"))
                 emitter.onComplete()
             }.onFailure {error ->
                 emitter.onError(error)

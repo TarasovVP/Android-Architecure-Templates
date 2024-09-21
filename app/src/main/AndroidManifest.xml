@@ -8,14 +8,14 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:name=".AppApplication"
+        android:name="com.vnteam.architecturetemplates.AppApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.CleanArchitectureDemo"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.vnteam.architecturetemplates.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

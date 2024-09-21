@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo.details
+package com.vnteam.architecturetemplates.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.squareup.picasso.Picasso
-import com.vnstudio.cleanarchitecturedemo.AppApplication
-import com.vnstudio.cleanarchitecturedemo.databinding.FragmentDetailsBinding
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.AppApplication
+import com.vnteam.architecturetemplates.databinding.FragmentDetailsBinding
+import com.vnteam.architecturetemplates.models.DemoObject
 import javax.inject.Inject
 
 class DetailsFragment : Fragment(), DetailsViewContract {
@@ -30,8 +30,8 @@ class DetailsFragment : Fragment(), DetailsViewContract {
         }
         AppApplication.instance?.appComponent?.injectDetailsFragment(this)
         detailsPresenter.attachView(this)
-        val forkId =  arguments?.getLong(FORK_ID)
-        detailsPresenter.getForkById(forkId)
+        val demoObjectId =  arguments?.getLong(DEMO_OBJECT_ID)
+        detailsPresenter.getDemoObjectById(demoObjectId)
         return binding?.root
     }
 
@@ -39,12 +39,12 @@ class DetailsFragment : Fragment(), DetailsViewContract {
         binding?.progressBar?.isVisible = showProgress
     }
 
-    override fun setForkFromDB(fork: Fork) {
+    override fun setDemoObjectFromDB(demoObject: DemoObject) {
        binding?.apply {
-            forkName.text = fork.fullName
-            ownerName.text = fork.owner?.login
-            forkDescription.text = fork.fullName
-            Picasso.get().load(fork.owner?.avatarUrl).into(ownerAvatar)
+            demoObjectName.text = demoObject.fullName
+            ownerName.text = demoObject.owner?.login
+            demoObjectDescription.text = demoObject.fullName
+            Picasso.get().load(demoObject.owner?.avatarUrl).into(ownerAvatar)
         }
     }
 
@@ -58,13 +58,13 @@ class DetailsFragment : Fragment(), DetailsViewContract {
     }
 
     companion object {
-        const val FORK_ID = "forkId"
+        const val DEMO_OBJECT_ID = "demoObjectId"
 
         @JvmStatic
-        fun newInstance(forkId: Long?) =
+        fun newInstance(demoObjectId: Long?) =
             DetailsFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(FORK_ID, forkId)
+                    putSerializable(DEMO_OBJECT_ID, demoObjectId)
                 }
             }
     }

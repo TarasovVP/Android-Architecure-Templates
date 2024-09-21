@@ -1,10 +1,10 @@
-package com.vnstudio.cleanarchitecturedemo.list
+package com.vnteam.architecturetemplates.list
 
 import android.annotation.SuppressLint
-import com.vnstudio.cleanarchitecturedemo.MainActivity.Companion.FORKS_URL
-import com.vnstudio.cleanarchitecturedemo.database.RealmDBConnector
-import com.vnstudio.cleanarchitecturedemo.models.Fork
-import com.vnstudio.cleanarchitecturedemo.network.ValleyApiConnector
+import com.vnteam.architecturetemplates.MainActivity.Companion.DEMO_OBJECT_URL
+import com.vnteam.architecturetemplates.database.RealmDBConnector
+import com.vnteam.architecturetemplates.models.DemoObject
+import com.vnteam.architecturetemplates.network.ValleyApiConnector
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
@@ -20,12 +20,12 @@ class ListPresenter @Inject constructor(
     }
 
     @SuppressLint("CheckResult")
-    fun getForksFromApi() {
+    fun getDemoObjectsFromApi() {
         view?.setProgressVisibility(true)
-        valleyApiConnector.makeRequest(FORKS_URL).observeOn(AndroidSchedulers.mainThread())
+        valleyApiConnector.makeRequest(DEMO_OBJECT_URL).observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { forks ->
-                    view?.insertForksToDB(forks)
+                { demoObjects ->
+                    view?.insertDemoObjectsToDB(demoObjects)
                     view?.setProgressVisibility(false)
                 },
                 { error ->
@@ -36,12 +36,12 @@ class ListPresenter @Inject constructor(
     }
 
     @SuppressLint("CheckResult")
-    fun insertForksToDB(forks: List<Fork>) {
+    fun insertDemoObjectsToDB(demoObjects: List<DemoObject>) {
         view?.setProgressVisibility(true)
-        realmDBConnector.insertForksToDB(forks).observeOn(AndroidSchedulers.mainThread())
+        realmDBConnector.insertDemoObjectsToDB(demoObjects).observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    view?.getForksFromDB()
+                    view?.getDemoObjectsFromDB()
                     view?.setProgressVisibility(false)
                 },
                 { error ->
@@ -52,12 +52,12 @@ class ListPresenter @Inject constructor(
     }
 
     @SuppressLint("CheckResult")
-    fun getForksFromDB() {
+    fun getDemoObjectsFromDB() {
         view?.setProgressVisibility(true)
-        realmDBConnector.getForksFromDB().observeOn(AndroidSchedulers.mainThread())
+        realmDBConnector.getDemoObjectsFromDB().observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { forks ->
-                    view?.setForksFromDB(forks)
+                { demoObjects ->
+                    view?.setDemoObjectsFromDB(demoObjects)
                     view?.setProgressVisibility(false)
                 },
                 { error ->

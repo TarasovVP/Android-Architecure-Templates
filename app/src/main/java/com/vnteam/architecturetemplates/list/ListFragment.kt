@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo.list
+package com.vnteam.architecturetemplates.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import com.vnstudio.cleanarchitecturedemo.*
-import com.vnstudio.cleanarchitecturedemo.databinding.FragmentListBinding
-import com.vnstudio.cleanarchitecturedemo.details.DetailsFragment
-import com.vnstudio.cleanarchitecturedemo.models.Fork
+import com.vnteam.architecturetemplates.details.DetailsFragment
+import com.vnteam.architecturetemplates.models.DemoObject
+import com.vnteam.architecturetemplates.AppApplication
+import com.vnteam.architecturetemplates.R
+import com.vnteam.architecturetemplates.databinding.FragmentListBinding
 import javax.inject.Inject
 
 class ListFragment : Fragment(), ListViewContract {
@@ -19,7 +20,7 @@ class ListFragment : Fragment(), ListViewContract {
     lateinit var listPresenter: ListPresenter
 
     private var binding: FragmentListBinding? = null
-    private var forkAdapter: ForkAdapter? = null
+    private var demoObjectAdapter: DemoObjectAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,19 +29,19 @@ class ListFragment : Fragment(), ListViewContract {
         binding = FragmentListBinding.inflate(LayoutInflater.from(context))
         AppApplication.instance?.appComponent?.injectListFragment(this)
         listPresenter.attachView(this)
-        setForkAdapter()
+        setDemoObjectAdapter()
         binding?.startButton?.setOnClickListener {
-            listPresenter.getForksFromApi()
+            listPresenter.getDemoObjectsFromApi()
         }
         return binding?.root
     }
 
-    private fun setForkAdapter() {
-        forkAdapter = forkAdapter ?: ForkAdapter(listOf())
-        binding?.recyclerView?.adapter = forkAdapter
-        forkAdapter?.setOnForkClickListener(object : OnForkClickListener {
-            override fun onForkClick(fork: Fork) {
-                val detailsFragment = DetailsFragment.newInstance(fork.id)
+    private fun setDemoObjectAdapter() {
+        demoObjectAdapter = demoObjectAdapter ?: DemoObjectAdapter(listOf())
+        binding?.recyclerView?.adapter = demoObjectAdapter
+        demoObjectAdapter?.setOnDemoObjectClickListener(object : OnDemoObjectClickListener {
+            override fun onDemoObjectClick(demoObject: DemoObject) {
+                val detailsFragment = DetailsFragment.newInstance(demoObject.id)
                 parentFragmentManager.beginTransaction().apply {
                     replace(R.id.fragmentContainer, detailsFragment)
                     addToBackStack(null)
@@ -54,16 +55,16 @@ class ListFragment : Fragment(), ListViewContract {
         binding?.progressBar?.isVisible = showProgress
     }
 
-    override fun insertForksToDB(forks: List<Fork>) {
-        listPresenter.insertForksToDB(forks)
+    override fun insertDemoObjectsToDB(demoObjects: List<DemoObject>) {
+        listPresenter.insertDemoObjectsToDB(demoObjects)
     }
 
-    override fun getForksFromDB() {
-        listPresenter.getForksFromDB()
+    override fun getDemoObjectsFromDB() {
+        listPresenter.getDemoObjectsFromDB()
     }
 
-    override fun setForksFromDB(forks: List<Fork>) {
-        forkAdapter?.setForks(forks)
+    override fun setDemoObjectsFromDB(demoObjects: List<DemoObject>) {
+        demoObjectAdapter?.setDemoObjects(demoObjects)
     }
 
     override fun showError(errorMessage: String) {

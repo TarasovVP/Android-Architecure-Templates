@@ -1,7 +1,7 @@
-package com.vnstudio.cleanarchitecturedemo.details
+package com.vnteam.architecturetemplates.details
 
 import android.annotation.SuppressLint
-import com.vnstudio.cleanarchitecturedemo.database.RealmDBConnector
+import com.vnteam.architecturetemplates.database.RealmDBConnector
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
@@ -16,12 +16,12 @@ class DetailsPresenter @Inject constructor(
     }
 
     @SuppressLint("CheckResult")
-    fun getForkById(forkId: Long?) {
+    fun getDemoObjectById(demoObjectId: Long?) {
         view?.setProgressVisibility(true)
-        realmDBConnector.getForkById(forkId).observeOn(AndroidSchedulers.mainThread())
+        realmDBConnector.getDemoObjectById(demoObjectId).observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { fork ->
-                    view?.setForkFromDB(fork)
+                { demoObject ->
+                    view?.setDemoObjectFromDB(demoObject)
                     view?.setProgressVisibility(false)
                 },
                 { error ->

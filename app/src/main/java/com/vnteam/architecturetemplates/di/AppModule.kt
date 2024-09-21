@@ -1,12 +1,12 @@
-package com.vnstudio.cleanarchitecturedemo.di
+package com.vnteam.architecturetemplates.di
 
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
-import com.vnstudio.cleanarchitecturedemo.AppApplication
-import com.vnstudio.cleanarchitecturedemo.database.RealmDBConnector
-import com.vnstudio.cleanarchitecturedemo.details.DetailsPresenter
-import com.vnstudio.cleanarchitecturedemo.network.ValleyApiConnector
-import com.vnstudio.cleanarchitecturedemo.list.ListPresenter
+import com.vnteam.architecturetemplates.AppApplication
+import com.vnteam.architecturetemplates.database.RealmDBConnector
+import com.vnteam.architecturetemplates.details.DetailsPresenter
+import com.vnteam.architecturetemplates.network.ValleyApiConnector
+import com.vnteam.architecturetemplates.list.ListPresenter
 import dagger.Module
 import dagger.Provides
 import io.realm.Realm
