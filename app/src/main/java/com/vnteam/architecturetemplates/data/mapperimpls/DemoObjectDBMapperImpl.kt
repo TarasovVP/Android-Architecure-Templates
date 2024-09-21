@@ -1,16 +1,16 @@
 package com.vnteam.architecturetemplates.data.mapperimpls
 
-import com.vnteam.architecturetemplates.data.database.entities.ForkDB
+import com.vnteam.architecturetemplates.data.database.entities.DemoObjectDB
 import com.vnteam.architecturetemplates.data.database.entities.OwnerDB
-import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectDBMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerDBMapper
-import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 
-class ForkDBMapperImpl(private val ownerDBMapper: OwnerDBMapper) : ForkDBMapper {
+class DemoObjectDBMapperImpl(private val ownerDBMapper: OwnerDBMapper) : DemoObjectDBMapper {
 
-    override fun mapToImplModel(from: Fork): ForkDB {
-        return ForkDB(id = from.id,
+    override fun mapToImplModel(from: DemoObject): DemoObjectDB {
+        return DemoObjectDB(id = from.id,
             name = from.name,
             fullName = from.fullName,
             owner = ownerDBMapper.mapToImplModel(from.owner ?: Owner()),
@@ -18,8 +18,8 @@ class ForkDBMapperImpl(private val ownerDBMapper: OwnerDBMapper) : ForkDBMapper 
             description = from.description)
     }
 
-    override fun mapFromImplModel(to: ForkDB): Fork {
-        return Fork(id = to.id,
+    override fun mapFromImplModel(to: DemoObjectDB): DemoObject {
+        return DemoObject(id = to.id,
         name = to.name,
         fullName = to.fullName,
         owner = ownerDBMapper.mapFromImplModel(to.owner ?: OwnerDB()),
@@ -27,11 +27,11 @@ class ForkDBMapperImpl(private val ownerDBMapper: OwnerDBMapper) : ForkDBMapper 
         description = to.description)
     }
 
-    override fun mapToImplModelList(fromList: List<Fork>): List<ForkDB> {
+    override fun mapToImplModelList(fromList: List<DemoObject>): List<DemoObjectDB> {
         return fromList.map { mapToImplModel(it) }
     }
 
-    override fun mapFromImplModelList(toList: List<ForkDB>): List<Fork> {
+    override fun mapFromImplModelList(toList: List<DemoObjectDB>): List<DemoObject> {
         return toList.map { mapFromImplModel(it) }
     }
 }

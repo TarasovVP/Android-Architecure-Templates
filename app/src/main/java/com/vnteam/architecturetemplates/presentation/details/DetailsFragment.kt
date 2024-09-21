@@ -31,7 +31,7 @@ class DetailsFragment : Fragment() {
         binding?.backButton?.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        detailsViewModel.getForkById(args.forkId)
+        detailsViewModel.getDemoObjectById(args.demoObjectId)
         return binding?.root
     }
 
@@ -43,12 +43,12 @@ class DetailsFragment : Fragment() {
             errorLiveData.observe(viewLifecycleOwner) { errorMessage ->
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
-            forkLiveData.observe(viewLifecycleOwner) { fork ->
+            demoObjectLiveData.observe(viewLifecycleOwner) { demoObject ->
                 binding?.apply {
-                    forkName.text = fork.name
-                    ownerName.text = fork.owner?.login
-                    forkDescription.text = fork.description
-                    ownerAvatar.load(fork.owner?.avatarUrl) {
+                    demoObjectName.text = demoObject.name
+                    ownerName.text = demoObject.owner?.login
+                    demoObjectDescription.text = demoObject.description
+                    ownerAvatar.load(demoObject.owner?.avatarUrl) {
                         crossfade(true)
                         placeholder(R.drawable.ic_person)
                         error(R.drawable.ic_person)

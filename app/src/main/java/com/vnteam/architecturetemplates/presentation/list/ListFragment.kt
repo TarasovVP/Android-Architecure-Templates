@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.vnteam.architecturetemplates.databinding.FragmentListBinding
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +19,7 @@ class ListFragment : Fragment() {
     private val listViewModel: ListViewModel by viewModels()
 
     private var binding: FragmentListBinding? = null
-    private var forkAdapter: ForkAdapter? = null
+    private var demoObjectAdapter: DemoObjectAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,9 +27,9 @@ class ListFragment : Fragment() {
     ): View? {
         binding = FragmentListBinding.inflate(LayoutInflater.from(context))
         binding?.startButton?.setOnClickListener {
-            listViewModel.getForksFromApi()
+            listViewModel.getDemoObjectFromApi()
         }
-        setForkAdapter()
+        setDemoObjectAdapter()
         observeLiveData()
         return binding?.root
     }
@@ -42,26 +42,26 @@ class ListFragment : Fragment() {
             errorLiveData.observe(viewLifecycleOwner) { errorMessage ->
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
-            forksFromApiLiveData.observe(viewLifecycleOwner) { forks ->
-                listViewModel.insertForksToDB(forks)
+            demoObjectsFromApiLiveData.observe(viewLifecycleOwner) { demoObjects ->
+                listViewModel.insertDemoObjectsToDB(demoObjects)
             }
-            forksToDBInsertedLiveData.observe(viewLifecycleOwner) {
-                listViewModel.getForksFromDB()
+            demoObjectsToDBInsertedLiveData.observe(viewLifecycleOwner) {
+                listViewModel.getDemoObjectFromDB()
             }
-            forksFromDBLiveData.observe(viewLifecycleOwner) { forks ->
-                forkAdapter?.setForks(forks)
+            demoObjectsFromDBLiveData.observe(viewLifecycleOwner) { demoObjectUIS ->
+                demoObjectAdapter?.setDemoObjects(demoObjectUIS)
             }
         }
     }
 
-    private fun setForkAdapter() {
-        forkAdapter = forkAdapter ?: ForkAdapter(listOf())
-        binding?.recyclerView?.adapter = forkAdapter
-        forkAdapter?.setOnForkClickListener(object : OnForkClickListener {
-            override fun onForkClick(fork: ForkUI) {
+    private fun setDemoObjectAdapter() {
+        demoObjectAdapter = demoObjectAdapter ?: DemoObjectAdapter(listOf())
+        binding?.recyclerView?.adapter = demoObjectAdapter
+        demoObjectAdapter?.setOnDemoObjectClickListener(object : OnDemoObjectClickListener {
+            override fun onDemoObjectClick(demoObjectUI: DemoObjectUI) {
                 findNavController().navigate(
                     ListFragmentDirections.startDetailsFragment(
-                        fork.id ?: 0
+                        demoObjectUI.id ?: 0
                     )
                 )
             }

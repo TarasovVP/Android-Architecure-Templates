@@ -1,8 +1,10 @@
-package com.vnteam.architecturetemplates.domain.repositories
+package com.vnteam.architecturetemplates.domain.usecase
 
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 
-interface DBRepository {
+interface DemoObjectUseCase {
+
+    suspend fun getDemoObjectsFromApi(): List<DemoObject>?
 
     fun insertDemoObjectsToDB(demoObjects: List<DemoObject>)
 

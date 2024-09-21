@@ -1,22 +1,22 @@
 package com.vnteam.architecturetemplates.data.repositoryimpl
 
-import com.vnteam.architecturetemplates.data.database.ForkDao
-import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
-import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.data.database.DemoObjectDao
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectDBMapper
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 
-class DBRepositoryImpl(private val forkDao: ForkDao, private val forkDBMapper: ForkDBMapper):
+class DBRepositoryImpl(private val demoObjectDao: DemoObjectDao, private val demoObjectDBMapper: DemoObjectDBMapper):
     DBRepository {
 
-    override fun insertForksToDB(forks: List<Fork>) {
-        forkDao.insertForks(forkDBMapper.mapToImplModelList(forks))
+    override fun insertDemoObjectsToDB(demoObjects: List<DemoObject>) {
+        demoObjectDao.insertDemoObjects(demoObjectDBMapper.mapToImplModelList(demoObjects))
     }
 
-    override fun getForksFromDB(): List<Fork> {
-        return forkDBMapper.mapFromImplModelList(forkDao.getForks())
+    override fun getDemoObjectsFromDB(): List<DemoObject> {
+        return demoObjectDBMapper.mapFromImplModelList(demoObjectDao.getDemoObjects())
     }
 
-    override fun getForkById(forkId: Long): Fork {
-        return forkDBMapper.mapFromImplModel(forkDao.getForkById(forkId))
+    override fun getDemoObjectById(demoObjectId: Long): DemoObject {
+        return demoObjectDBMapper.mapFromImplModel(demoObjectDao.getDemoObjectById(demoObjectId))
     }
 }

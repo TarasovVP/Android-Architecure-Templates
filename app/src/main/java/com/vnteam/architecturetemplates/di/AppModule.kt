@@ -6,26 +6,26 @@ import com.google.gson.GsonBuilder
 import com.vnteam.architecturetemplates.presentation.MainActivity.Companion.BASE_URL
 import com.vnteam.architecturetemplates.presentation.MainActivity.Companion.SERVER_TIMEOUT
 import com.vnteam.architecturetemplates.data.database.AppDatabase
-import com.vnteam.architecturetemplates.data.database.ForkDao
-import com.vnteam.architecturetemplates.data.mapperimpls.ForkDBMapperImpl
-import com.vnteam.architecturetemplates.data.mapperimpls.ForkResponseMapperImpl
+import com.vnteam.architecturetemplates.data.database.DemoObjectDao
+import com.vnteam.architecturetemplates.data.mapperimpls.DemoObjectDBMapperImpl
+import com.vnteam.architecturetemplates.data.mapperimpls.DemoObjectResponseMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.OwnerDBMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.DBRepositoryImpl
 import com.vnteam.architecturetemplates.data.network.ApiService
 import com.vnteam.architecturetemplates.data.repositoryimpl.ApiRepositoryImpl
-import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
-import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
-import com.vnteam.architecturetemplates.domain.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectDBMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerDBMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerUIMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
-import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
-import com.vnteam.architecturetemplates.presentation.mapperimpls.ForkUIMapperImpl
+import com.vnteam.architecturetemplates.domain.usecase.DemoObjectUseCase
+import com.vnteam.architecturetemplates.presentation.mapperimpls.DemoObjectUIMapperImpl
 import com.vnteam.architecturetemplates.presentation.mapperimpls.OwnerUIMapperImpl
-import com.vnteam.architecturetemplates.presentation.usecaseimpl.ForkUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.DemoObjectUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -82,8 +82,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideForkDao(appDatabase: AppDatabase): ForkDao {
-        return appDatabase.forkDao()
+    fun provideDemoObjectDao(appDatabase: AppDatabase): DemoObjectDao {
+        return appDatabase.demoObjectDao()
     }
 
     @Singleton
@@ -106,37 +106,37 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideForkResponseMapper(ownerResponseMapper: OwnerResponseMapper): ForkResponseMapper {
-        return ForkResponseMapperImpl(ownerResponseMapper)
+    fun provideDemoObjectResponseMapper(ownerResponseMapper: OwnerResponseMapper): DemoObjectResponseMapper {
+        return DemoObjectResponseMapperImpl(ownerResponseMapper)
     }
 
     @Singleton
     @Provides
-    fun provideForkDBMapper(ownerDBMapper: OwnerDBMapper): ForkDBMapper {
-        return ForkDBMapperImpl(ownerDBMapper)
+    fun provideDemoObjectDBMapper(ownerDBMapper: OwnerDBMapper): DemoObjectDBMapper {
+        return DemoObjectDBMapperImpl(ownerDBMapper)
     }
 
     @Singleton
     @Provides
-    fun provideForkUIMapper(ownerUIMapper: OwnerUIMapper): ForkUIMapper {
-        return ForkUIMapperImpl(ownerUIMapper)
+    fun provideDemoObjectUIMapper(ownerUIMapper: OwnerUIMapper): DemoObjectUIMapper {
+        return DemoObjectUIMapperImpl(ownerUIMapper)
     }
 
     @Singleton
     @Provides
-    fun provideApiRepository(apiService: ApiService, forkResponseMapper: ForkResponseMapper): ApiRepository {
-        return ApiRepositoryImpl(apiService, forkResponseMapper)
+    fun provideApiRepository(apiService: ApiService, demoObjectResponseMapper: DemoObjectResponseMapper): ApiRepository {
+        return ApiRepositoryImpl(apiService, demoObjectResponseMapper)
     }
 
     @Singleton
     @Provides
-    fun provideDBRepository(forkDao: ForkDao, forkDBMapper: ForkDBMapper): DBRepository {
-        return DBRepositoryImpl(forkDao, forkDBMapper)
+    fun provideDBRepository(demoObjectDao: DemoObjectDao, demoObjectDBMapper: DemoObjectDBMapper): DBRepository {
+        return DBRepositoryImpl(demoObjectDao, demoObjectDBMapper)
     }
 
     @Singleton
     @Provides
-    fun provideForkUseCase(apiRepository: ApiRepository, dbRepository: DBRepository): ForkUseCase {
-        return ForkUseCaseImpl(apiRepository, dbRepository)
+    fun provideDemoObjectUseCase(apiRepository: ApiRepository, dbRepository: DBRepository): DemoObjectUseCase {
+        return DemoObjectUseCaseImpl(apiRepository, dbRepository)
     }
 }

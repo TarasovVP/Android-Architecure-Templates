@@ -1,17 +1,17 @@
 package com.vnteam.architecturetemplates.data.mapperimpls
 
-import com.vnteam.architecturetemplates.data.network.responses.ForkResponse
+import com.vnteam.architecturetemplates.data.network.responses.DemoObjectResponse
 import com.vnteam.architecturetemplates.data.network.responses.OwnerResponse
-import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerResponseMapper
-import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 
-class ForkResponseMapperImpl(private val ownerResponseMapper: OwnerResponseMapper) :
-    ForkResponseMapper {
+class DemoObjectResponseMapperImpl(private val ownerResponseMapper: OwnerResponseMapper) :
+    DemoObjectResponseMapper {
 
-    override fun mapToImplModel(from: Fork): ForkResponse {
-        return ForkResponse(
+    override fun mapToImplModel(from: DemoObject): DemoObjectResponse {
+        return DemoObjectResponse(
             id = from.id,
             name = from.name,
             fullName = from.fullName,
@@ -21,8 +21,8 @@ class ForkResponseMapperImpl(private val ownerResponseMapper: OwnerResponseMappe
         )
     }
 
-    override fun mapFromImplModel(to: ForkResponse): Fork {
-        return Fork(
+    override fun mapFromImplModel(to: DemoObjectResponse): DemoObject {
+        return DemoObject(
             id = to.id,
             name = to.name,
             fullName = to.fullName,
@@ -32,11 +32,11 @@ class ForkResponseMapperImpl(private val ownerResponseMapper: OwnerResponseMappe
         )
     }
 
-    override fun mapToImplModelList(fromList: List<Fork>): List<ForkResponse> {
+    override fun mapToImplModelList(fromList: List<DemoObject>): List<DemoObjectResponse> {
         return fromList.map { mapToImplModel(it) }
     }
 
-    override fun mapFromImplModelList(toList: List<ForkResponse>): List<Fork> {
+    override fun mapFromImplModelList(toList: List<DemoObjectResponse>): List<DemoObject> {
         return toList.map { mapFromImplModel(it) }
     }
 }

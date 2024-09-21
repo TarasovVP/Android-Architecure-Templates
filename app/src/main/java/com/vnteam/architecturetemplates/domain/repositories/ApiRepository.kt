@@ -1,8 +1,8 @@
 package com.vnteam.architecturetemplates.domain.repositories
 
-import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 
 interface ApiRepository {
 
-    suspend fun getForksFromApi(): List<Fork>?
+    suspend fun getDemoObjectsFromApi(): List<DemoObject>?
 }

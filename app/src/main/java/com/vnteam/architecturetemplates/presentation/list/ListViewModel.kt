@@ -3,10 +3,10 @@ package com.vnteam.architecturetemplates.presentation.list
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vnteam.architecturetemplates.domain.mappers.ForkUIMapper
-import com.vnteam.architecturetemplates.domain.models.Fork
-import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
+import com.vnteam.architecturetemplates.domain.models.DemoObject
+import com.vnteam.architecturetemplates.domain.usecase.DemoObjectUseCase
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -14,47 +14,47 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    private val forkUseCase: ForkUseCase,
-    private val forkUIMapper: ForkUIMapper,
+    private val demoObjectUseCase: DemoObjectUseCase,
+    private val demoObjectUIMapper: DemoObjectUIMapper,
 ) : ViewModel() {
 
     val progressVisibilityLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<String>()
-    val forksFromApiLiveData = MutableLiveData<List<Fork>>()
-    val forksToDBInsertedLiveData = MutableLiveData<Unit>()
-    val forksFromDBLiveData = MutableLiveData<List<ForkUI>>()
+    val demoObjectsFromApiLiveData = MutableLiveData<List<DemoObject>>()
+    val demoObjectsToDBInsertedLiveData = MutableLiveData<Unit>()
+    val demoObjectsFromDBLiveData = MutableLiveData<List<DemoObjectUI>>()
 
-    fun getForksFromApi() {
+    fun getDemoObjectFromApi() {
         progressVisibilityLiveData.postValue(true)
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
         }) {
-            val forks = forkUseCase.getForksFromApi()
-            forks?.let { forksFromApiLiveData.postValue(it) }
+            val demoObjects = demoObjectUseCase.getDemoObjectsFromApi()
+            demoObjects?.let { demoObjectsFromApiLiveData.postValue(it) }
         }
     }
 
-    fun insertForksToDB(forks: List<Fork>) {
+    fun insertDemoObjectsToDB(demoObjects: List<DemoObject>) {
         progressVisibilityLiveData.postValue(true)
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
         }) {
-            forkUseCase.insertForksToDB(forks)
+            demoObjectUseCase.insertDemoObjectsToDB(demoObjects)
             progressVisibilityLiveData.postValue(false)
-            forksToDBInsertedLiveData.postValue(Unit)
+            demoObjectsToDBInsertedLiveData.postValue(Unit)
         }
     }
 
-    fun getForksFromDB() {
+    fun getDemoObjectFromDB() {
         progressVisibilityLiveData.postValue(true)
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             progressVisibilityLiveData.postValue(false)
             errorLiveData.postValue(exception.localizedMessage)
         }) {
-            val forks = forkUIMapper.mapToImplModelList(forkUseCase.getForksFromDB())
-            forksFromDBLiveData.postValue(forks)
+            val demoObjects = demoObjectUIMapper.mapToImplModelList(demoObjectUseCase.getDemoObjectsFromDB())
+            demoObjectsFromDBLiveData.postValue(demoObjects)
             progressVisibilityLiveData.postValue(false)
         }
     }

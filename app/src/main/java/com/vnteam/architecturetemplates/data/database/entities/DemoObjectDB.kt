@@ -4,8 +4,8 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity("forks")
-data class ForkDB(
+@Entity("demoObjects")
+data class DemoObjectDB(
     @PrimaryKey
     var id: Long? = null,
     var name: String? = null,

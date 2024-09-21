@@ -16,7 +16,7 @@
         android:id="@+id/detailsFragment"
         android:name="com.vnteam.architecturetemplates.presentation.details.DetailsFragment">
         <argument
-            android:name="forkId"
+            android:name="demoObjectId"
             app:argType="long" />
     </fragment>
 

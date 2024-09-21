@@ -2,7 +2,7 @@ package com.vnteam.architecturetemplates.data.network.responses
 
 import com.google.gson.annotations.SerializedName
 
-data class ForkResponse(
+data class DemoObjectResponse(
     var id: Long? = null,
     var name: String? = null,
     @SerializedName("full_name")
