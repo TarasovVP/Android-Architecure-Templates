@@ -1,11 +1,11 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable
 import java.io.Serializable
 
 @DatabaseTable
-class ForkDB: Serializable {
+class DemoObjectDB: Serializable {
     @DatabaseField(columnName = "id")
     var id: Long? = null
     @DatabaseField(columnName = "name")

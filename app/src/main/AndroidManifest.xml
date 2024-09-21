@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.vnstudio.cleanarchitecturedemo.DetailsActivity" />
+        <activity android:name="com.vnteam.architecturetemplates.DetailsActivity" />
     </application>
 
 </manifest>

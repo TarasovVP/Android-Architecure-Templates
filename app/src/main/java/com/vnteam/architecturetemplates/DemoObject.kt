@@ -1,9 +1,9 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import com.squareup.moshi.Json
 import java.io.Serializable
 
-class Fork: Serializable {
+class DemoObject: Serializable {
     @Json(name = "id")
     var id: Long? = null
     @Json(name = "name")

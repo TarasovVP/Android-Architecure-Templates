@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.vnstudio.cleanarchitecturedemo'
+    namespace 'com.vnteam.architecturetemplates'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.vnstudio.cleanarchitecturedemo"
+        applicationId "com.vnteam.architecturetemplates"
         minSdk 24
         targetSdk 33
         versionCode 1

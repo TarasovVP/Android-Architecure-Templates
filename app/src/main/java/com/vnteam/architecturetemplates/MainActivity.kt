@@ -1,4 +1,4 @@
-package com.vnstudio.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import android.content.Intent
 import android.os.Bundle
@@ -32,16 +32,16 @@ class MainActivity : AppCompatActivity() {
         httpClientConnector.makeHttpUrlConnection({ responseData ->
             val jsonConverter = JsonConverter()
             responseData?.let {
-                val forks = jsonConverter.getForkList(responseData)
-                ormLiteSqliteDBConnector.insertDataAsync(jsonConverter.forkListToForkDBList(forks), {
-                    val forkList = ormLiteSqliteDBConnector.getTransformedForks()
-                    val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, forkList.map { it.name })
+                val demoObjects = jsonConverter.getDemoObjectList(responseData)
+                ormLiteSqliteDBConnector.insertDataAsync(jsonConverter.demoObjectListToDemoObjectDBList(demoObjects), {
+                    val demoObjectList = ormLiteSqliteDBConnector.getTransformedDemoObjects()
+                    val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, demoObjectList.map { it.name })
                     listView.adapter = adapter
                     progressBar.isVisible = false
                     listView.setOnItemClickListener { _, _, position, _ ->
                         Log.e("apiTAG", "MainActivity SUCCESS_SQLITE_CONNECTION setOnItemClickListener position $position")
                         val intent = Intent(this, DetailsActivity::class.java)
-                        intent.putExtra(FORK, forkList[position])
+                        intent.putExtra(DEMO_OBJECT, demoObjectList[position])
                         startActivity(intent)
                     }
                 }, { errorText ->
@@ -55,6 +55,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val DATABASE_NAME = "CleanArchitectureDemo"
-        const val FORK = "fork"
+        const val DEMO_OBJECT = "demoObject"
     }
 }
