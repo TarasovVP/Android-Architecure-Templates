@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ForkUI(
+data class DemoObjectUI(
     var id: Long? = null,
     var name: String? = null,
     var fullName: String? = null,

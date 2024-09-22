@@ -21,13 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ListScreen(onItemClick: (Long) -> Unit) {
     val viewModel: ListViewModel = koinViewModel()
-    val fork = viewModel.forksFromDBFlow.collectAsState()
+    val demoObjects = viewModel.demoObjectsFromDBFlow.collectAsState()
     val isLoading = viewModel.progressVisibilityFlow.collectAsState()
     val error = viewModel.errorFlow.collectAsState()
     val context = LocalContext.current
@@ -36,13 +36,13 @@ fun ListScreen(onItemClick: (Long) -> Unit) {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
-    ListContent(fork.value, isLoading.value, onItemClick) {
-        viewModel.getForksFromApi()
+    ListContent(demoObjects.value, isLoading.value, onItemClick) {
+        viewModel.getDemoObjectsFromApi()
     }
 }
 
 @Composable
-fun ListContent(forks: List<ForkUI>?, isLoading: Boolean?, onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
+fun ListContent(demoObjectUIS: List<DemoObjectUI>?, isLoading: Boolean?, onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
 
     Box {
         Column(
@@ -60,7 +60,7 @@ fun ListContent(forks: List<ForkUI>?, isLoading: Boolean?, onItemClick: (Long) -
                 Text(text = "Start")
             }
             LazyColumn {
-                items(forks.orEmpty()) { item ->
+                items(demoObjectUIS.orEmpty()) { item ->
                     Card(modifier = Modifier.padding(8.dp)) {
                         Text(text = item.name.orEmpty(), modifier = Modifier
                             .padding(8.dp)

@@ -2,10 +2,10 @@ package com.vnteam.architecturetemplates.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vnteam.architecturetemplates.domain.mappers.ForkUIMapper
-import com.vnteam.architecturetemplates.domain.models.Fork
-import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
+import com.vnteam.architecturetemplates.domain.models.DemoObject
+import com.vnteam.architecturetemplates.domain.usecase.DemoObjectUseCase
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ListViewModel(
-    private val forkUseCase: ForkUseCase,
-    private val forkUIMapper: ForkUIMapper,
+    private val demoObjectUseCase: DemoObjectUseCase,
+    private val demoObjectUIMapper: DemoObjectUIMapper,
 ) : ViewModel() {
 
     private val _progressVisibilityFlow = MutableStateFlow(false)
@@ -24,41 +24,41 @@ class ListViewModel(
     private val _errorFlow = MutableStateFlow<String?>(null)
     val errorFlow: StateFlow<String?> = _errorFlow.asStateFlow()
 
-    private val _forksFromDBFlow = MutableStateFlow<List<ForkUI>>(emptyList())
-    val forksFromDBFlow: StateFlow<List<ForkUI>> = _forksFromDBFlow.asStateFlow()
+    private val _demoObjectsFromDBFlow = MutableStateFlow<List<DemoObjectUI>>(emptyList())
+    val demoObjectsFromDBFlow: StateFlow<List<DemoObjectUI>> = _demoObjectsFromDBFlow.asStateFlow()
 
-    fun getForksFromApi() {
+    fun getDemoObjectsFromApi() {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             _progressVisibilityFlow.value = false
             _errorFlow.value = exception.localizedMessage
         }) {
             _progressVisibilityFlow.value = true
-            val forks = forkUseCase.getForksFromApi()
-            insertForksToDB(forks)
-            getForksFromDB()
+            val demoObjects = demoObjectUseCase.getDemoObjectsFromApi()
+            insertDemoObjectsToDB(demoObjects)
+            getDemoObjectsFromDB()
         }
     }
 
-    private fun insertForksToDB(forks: Flow<List<Fork>?>) {
+    private fun insertDemoObjectsToDB(demoObjects: Flow<List<DemoObject>?>) {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             _progressVisibilityFlow.value = false
             _errorFlow.value = exception.localizedMessage
         }) {
-            forks.collect {
+            demoObjects.collect {
                 it ?: return@collect
-                forkUseCase.insertForksToDB(it)
+                demoObjectUseCase.insertDemoObjectsToDB(it)
             }
         }
     }
 
-    private fun getForksFromDB() {
+    private fun getDemoObjectsFromDB() {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             _progressVisibilityFlow.value = false
             _errorFlow.value = exception.localizedMessage
         }) {
-            forkUseCase.getForksFromDB().collect {
-                val forks = forkUIMapper.mapToImplModelList(it)
-                _forksFromDBFlow.value = forks
+            demoObjectUseCase.getDemoObjectsFromDB().collect {
+                val demoObjectUIS = demoObjectUIMapper.mapToImplModelList(it)
+                _demoObjectsFromDBFlow.value = demoObjectUIS
                 _progressVisibilityFlow.value = false
             }
         }

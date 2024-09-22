@@ -26,17 +26,17 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.vnteam.architecturetemplates.R
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
+fun DetailsScreen(demoObjectId: Long?, onClick: () -> Unit) {
     val viewModel: DetailsViewModel = koinViewModel()
-    val fork = viewModel.forkFlow.collectAsState()
+    val demoObject = viewModel.demoObjectFlow.collectAsState()
     val isLoading = viewModel.progressVisibilityFlow.collectAsState()
     val error = viewModel.errorFlow.collectAsState()
-    LaunchedEffect(forkId) {
-        viewModel.getForkById(forkId)
+    LaunchedEffect(demoObjectId) {
+        viewModel.getDemoObjectById(demoObjectId)
     }
     val context = LocalContext.current
     LaunchedEffect(error.value) {
@@ -44,11 +44,11 @@ fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
-    DetailsContent(fork.value, isLoading.value, onClick)
+    DetailsContent(demoObject.value, isLoading.value, onClick)
 }
 
 @Composable
-fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
+fun DetailsContent(demoObject: DemoObjectUI?, isLoading: Boolean?, onClick: () -> Unit) {
     Box {
         Column(
             modifier = Modifier
@@ -57,13 +57,13 @@ fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
             verticalArrangement = Arrangement.Top
         ) {
             Text(
-                text = fork?.name.orEmpty(),
+                text = demoObject?.name.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             )
             Text(
-                text = fork?.owner?.login.orEmpty(),
+                text = demoObject?.owner?.login.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -72,7 +72,7 @@ fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(fork?.owner?.avatarUrl.orEmpty())
+                            .data(demoObject?.owner?.avatarUrl.orEmpty())
                             .crossfade(true)
                             .error(R.drawable.ic_person)
                             .placeholder(R.drawable.ic_person)
@@ -85,7 +85,7 @@ fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
                         contentScale = ContentScale.Crop
                     )
                     Text(
-                        text = fork?.description.orEmpty(),
+                        text = demoObject?.description.orEmpty(),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)
@@ -99,7 +99,7 @@ fun DetailsContent(fork: ForkUI?, isLoading: Boolean?, onClick: () -> Unit) {
                     .padding(16.dp)
             )
             Text(
-                text = fork?.description.orEmpty(),
+                text = demoObject?.description.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)

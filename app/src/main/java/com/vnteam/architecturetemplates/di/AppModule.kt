@@ -3,28 +3,28 @@ package com.vnteam.architecturetemplates.di
 import android.util.Log
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.vnteam.architecturetemplates.AppDatabase
-import com.vnteam.architecturetemplates.data.database.ForkDao
-import com.vnteam.architecturetemplates.data.database.ForkDaoImpl
-import com.vnteam.architecturetemplates.data.mapperimpls.ForkDBMapperImpl
-import com.vnteam.architecturetemplates.data.mapperimpls.ForkResponseMapperImpl
+import com.vnteam.architecturetemplates.data.database.DemoObjectDao
+import com.vnteam.architecturetemplates.data.database.DemoObjectDaoImpl
+import com.vnteam.architecturetemplates.data.mapperimpls.DemoObjectDBMapperImpl
+import com.vnteam.architecturetemplates.data.mapperimpls.DemoObjectResponseMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.architecturetemplates.data.network.ApiService
 import com.vnteam.architecturetemplates.data.repositoryimpl.ApiRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.DBRepositoryImpl
-import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
-import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
-import com.vnteam.architecturetemplates.domain.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectDBMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerUIMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
-import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
+import com.vnteam.architecturetemplates.domain.usecase.DemoObjectUseCase
 import com.vnteam.architecturetemplates.presentation.MainActivity.Companion.BASE_URL
 import com.vnteam.architecturetemplates.presentation.details.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.list.ListViewModel
-import com.vnteam.architecturetemplates.presentation.mapperimpls.ForkUIMapperImpl
+import com.vnteam.architecturetemplates.presentation.mapperimpls.DemoObjectUIMapperImpl
 import com.vnteam.architecturetemplates.presentation.mapperimpls.OwnerUIMapperImpl
-import com.vnteam.architecturetemplates.presentation.usecaseimpl.ForkUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.DemoObjectUseCaseImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -70,28 +70,28 @@ val appModule = module {
         val sqlDriver = AndroidSqliteDriver(
             schema = AppDatabase.Schema,
             context = androidContext(),
-            name = "forks.db"
+            name = "demoObjects.db"
         )
         AppDatabase(sqlDriver)
     }
 
-    single<ForkDao> { ForkDaoImpl(get<AppDatabase>().appDatabaseQueries) }
+    single<DemoObjectDao> { DemoObjectDaoImpl(get<AppDatabase>().appDatabaseQueries) }
 
     single<OwnerResponseMapper> { OwnerResponseMapperImpl() }
 
     single<OwnerUIMapper> { OwnerUIMapperImpl() }
 
-    single<ForkResponseMapper> { ForkResponseMapperImpl(get()) }
+    single<DemoObjectResponseMapper> { DemoObjectResponseMapperImpl(get()) }
 
-    single<ForkDBMapper> { ForkDBMapperImpl() }
+    single<DemoObjectDBMapper> { DemoObjectDBMapperImpl() }
 
-    single<ForkUIMapper> { ForkUIMapperImpl(get()) }
+    single<DemoObjectUIMapper> { DemoObjectUIMapperImpl(get()) }
 
     single<ApiRepository> { ApiRepositoryImpl(get(), get()) }
 
     single<DBRepository> { DBRepositoryImpl(get(), get()) }
 
-    single<ForkUseCase> { ForkUseCaseImpl(get(), get()) }
+    single<DemoObjectUseCase> { DemoObjectUseCaseImpl(get(), get()) }
 
     viewModel {
         ListViewModel(get(), get())

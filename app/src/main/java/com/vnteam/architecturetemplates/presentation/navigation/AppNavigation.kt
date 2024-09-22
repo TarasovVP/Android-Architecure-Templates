@@ -15,9 +15,9 @@ fun AppNavigation() {
         composable("list") { ListScreen() {
             navController.navigate("details/$it")
         } }
-        composable("details/{forkId}") { backStackEntry ->
-            val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
-            DetailsScreen(forkId) {
+        composable("details/{demoObjectId}") { backStackEntry ->
+            val demoObjectId = backStackEntry.arguments?.getString("demoObjectId").orEmpty().toLong()
+            DetailsScreen(demoObjectId) {
                 navController.popBackStack()
             }
         }

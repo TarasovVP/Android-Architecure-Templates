@@ -1,9 +1,11 @@
-package com.vnteam.architecturetemplates.domain.repositories
+package com.vnteam.architecturetemplates.domain.usecase
 
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import kotlinx.coroutines.flow.Flow
 
-interface DBRepository {
+interface DemoObjectUseCase {
+
+    suspend fun getDemoObjectsFromApi(): Flow<List<DemoObject>?>
 
     fun insertDemoObjectsToDB(demoObjects: List<DemoObject>)
 
