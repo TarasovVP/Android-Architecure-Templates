@@ -1,4 +1,4 @@
-package com.vnteam.cleanarchitecturedemo
+package com.vnteam.architecturetemplates
 
 import org.junit.Test
 
