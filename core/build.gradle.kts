@@ -8,7 +8,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "17"
             }
         }
     }
@@ -34,5 +34,9 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
         multiDexEnabled = true
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }

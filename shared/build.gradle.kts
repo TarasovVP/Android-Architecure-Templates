@@ -16,7 +16,7 @@ kotlin {
     androidTarget {
         tasks.withType<KotlinJvmCompile>().configureEach {
             compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_1_8)
+                jvmTarget.set(JvmTarget.JVM_17)
             }
         }
     }
@@ -98,6 +98,10 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
         multiDexEnabled = true
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
