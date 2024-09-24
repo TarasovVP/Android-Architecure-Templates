@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Fork(
+data class DemoObject(
     var id: Long? = null,
     var name: String? = null,
     @SerializedName("full_name")

@@ -38,10 +38,10 @@ fun ListScreen() {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
-    ListContent(viewState.value, { forkId ->
-        navigator.push(NavigationScreen.DetailsContentScreen(forkId))
+    ListContent(viewState.value, { demoObjectId ->
+        navigator.push(NavigationScreen.DetailsContentScreen(demoObjectId))
     }, {
-        viewModel.getForksFromApi()
+        viewModel.getDemoObjectsFromApi()
     })
 }
 
@@ -64,7 +64,7 @@ fun ListContent(viewState: ListViewState, onItemClick: (Long) -> Unit, onButtonC
                 Text(text = "Start")
             }
             LazyColumn {
-                items(viewState.forks.orEmpty()) { item ->
+                items(viewState.demoObjects.orEmpty()) { item ->
                     Card(modifier = Modifier.padding(8.dp)) {
                         Text(text = item.name.orEmpty(), modifier = Modifier
                             .padding(8.dp)
