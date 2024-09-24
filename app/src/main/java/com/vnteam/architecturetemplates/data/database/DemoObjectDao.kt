@@ -4,7 +4,7 @@ import com.vnteam.architecturetemplates.DemoObjectWithOwner
 
 interface DemoObjectDao {
 
-    fun insertDemoObjectWithOwners(demoObjects: List<DemoObjectWithOwner>)
+    fun insertDemoObjectWithOwners(demoObjectWithOwners: List<DemoObjectWithOwner>)
 
     fun getDemoObjects(): List<DemoObjectWithOwner>
 

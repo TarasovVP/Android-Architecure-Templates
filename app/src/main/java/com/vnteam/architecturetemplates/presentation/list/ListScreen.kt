@@ -21,28 +21,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.vnteam.architecturetemplates.presentation.navigation.NavigationScreen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ListScreen(onItemClick: (Long) -> Unit) {
+fun ListScreen() {
+    val navigator = LocalNavigator.currentOrThrow
     val viewModel: ListViewModel = koinViewModel()
-    val demoObjects = viewModel.demoObjectsFromDBFlow.collectAsState()
-    val isLoading = viewModel.progressVisibilityFlow.collectAsState()
-    val error = viewModel.errorFlow.collectAsState()
+    val viewState = viewModel.state.collectAsState()
+
     val context = LocalContext.current
-    LaunchedEffect(error.value) {
-        error.value?.let {
+    LaunchedEffect(viewState.value.error) {
+        viewState.value.error?.let {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
-    ListContent(demoObjects.value, isLoading.value, onItemClick) {
+    ListContent(viewState.value, { demoObjectId ->
+        navigator.push(NavigationScreen.DetailsContentScreen(demoObjectId))
+    }, {
         viewModel.getDemoObjectsFromApi()
-    }
+    })
 }
 
 @Composable
-fun ListContent(demoObjectUIS: List<DemoObjectUI>?, isLoading: Boolean?, onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
+fun ListContent(viewState: ListViewState, onItemClick: (Long) -> Unit, onButtonClick: () -> Unit) {
 
     Box {
         Column(
@@ -60,7 +64,7 @@ fun ListContent(demoObjectUIS: List<DemoObjectUI>?, isLoading: Boolean?, onItemC
                 Text(text = "Start")
             }
             LazyColumn {
-                items(demoObjectUIS.orEmpty()) { item ->
+                items(viewState.demoObjects.orEmpty()) { item ->
                     Card(modifier = Modifier.padding(8.dp)) {
                         Text(text = item.name.orEmpty(), modifier = Modifier
                             .padding(8.dp)
@@ -69,7 +73,7 @@ fun ListContent(demoObjectUIS: List<DemoObjectUI>?, isLoading: Boolean?, onItemC
                 }
             }
         }
-        if (isLoading == true) {
+        if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }

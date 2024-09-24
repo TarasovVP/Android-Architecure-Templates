@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.usecase.DemoObjectUseCase
-import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,21 +17,20 @@ class ListViewModel(
     private val demoObjectUIMapper: DemoObjectUIMapper,
 ) : ViewModel() {
 
-    private val _progressVisibilityFlow = MutableStateFlow(false)
-    val progressVisibilityFlow: StateFlow<Boolean> = _progressVisibilityFlow.asStateFlow()
+    private val _state = MutableStateFlow(ListViewState())
+    val state: StateFlow<ListViewState> = _state.asStateFlow()
 
-    private val _errorFlow = MutableStateFlow<String?>(null)
-    val errorFlow: StateFlow<String?> = _errorFlow.asStateFlow()
-
-    private val _demoObjectsFromDBFlow = MutableStateFlow<List<DemoObjectUI>>(emptyList())
-    val demoObjectsFromDBFlow: StateFlow<List<DemoObjectUI>> = _demoObjectsFromDBFlow.asStateFlow()
+    fun processIntent(intent: ListIntent) {
+        when (intent) {
+            is ListIntent.LoadDemoObjects -> getDemoObjectsFromApi()
+        }
+    }
 
     fun getDemoObjectsFromApi() {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            _progressVisibilityFlow.value = false
-            _errorFlow.value = exception.localizedMessage
+            _state.value = state.value.copy(isLoading = false, error = exception.localizedMessage)
         }) {
-            _progressVisibilityFlow.value = true
+            _state.value = state.value.copy(isLoading = true)
             val demoObjects = demoObjectUseCase.getDemoObjectsFromApi()
             insertDemoObjectsToDB(demoObjects)
             getDemoObjectsFromDB()
@@ -41,8 +39,7 @@ class ListViewModel(
 
     private fun insertDemoObjectsToDB(demoObjects: Flow<List<DemoObject>?>) {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            _progressVisibilityFlow.value = false
-            _errorFlow.value = exception.localizedMessage
+            _state.value = state.value.copy(isLoading = false, error = exception.localizedMessage)
         }) {
             demoObjects.collect {
                 it ?: return@collect
@@ -53,13 +50,11 @@ class ListViewModel(
 
     private fun getDemoObjectsFromDB() {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            _progressVisibilityFlow.value = false
-            _errorFlow.value = exception.localizedMessage
+            _state.value = state.value.copy(isLoading = false, error = exception.localizedMessage)
         }) {
             demoObjectUseCase.getDemoObjectsFromDB().collect {
-                val demoObjectUIS = demoObjectUIMapper.mapToImplModelList(it)
-                _demoObjectsFromDBFlow.value = demoObjectUIS
-                _progressVisibilityFlow.value = false
+                val demoObjects = demoObjectUIMapper.mapToImplModelList(it)
+                _state.value = state.value.copy(demoObjects = demoObjects, isLoading = false)
             }
         }
     }

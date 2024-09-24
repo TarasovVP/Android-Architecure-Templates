@@ -5,9 +5,9 @@ import com.vnteam.architecturetemplates.DemoObjectWithOwner
 
 class DemoObjectDaoImpl(private val appDatabaseQueries: AppDatabaseQueries): DemoObjectDao {
 
-    override fun insertDemoObjectWithOwners(demoObjects: List<DemoObjectWithOwner>) {
+    override fun insertDemoObjectWithOwners(demoObjectWithOwners: List<DemoObjectWithOwner>) {
         appDatabaseQueries.transaction {
-            demoObjects.forEach { demoObject ->
+            demoObjectWithOwners.forEach { demoObject ->
                 appDatabaseQueries.insertDemoObjectWithOwner(
                     id = demoObject.id,
                     name = demoObject.name,

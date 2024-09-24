@@ -23,32 +23,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.vnteam.architecturetemplates.R
-import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun DetailsScreen(demoObjectId: Long?, onClick: () -> Unit) {
+fun DetailsScreen(demoObjectId: Long?) {
+    val navigator = LocalNavigator.currentOrThrow
     val viewModel: DetailsViewModel = koinViewModel()
-    val demoObject = viewModel.demoObjectFlow.collectAsState()
-    val isLoading = viewModel.progressVisibilityFlow.collectAsState()
-    val error = viewModel.errorFlow.collectAsState()
+    val viewState = viewModel.state.collectAsState()
+
+    LaunchedEffect(demoObjectId) {
+        viewModel.processIntent(DetailsIntent.LoadDemoObject(demoObjectId ?: 0))
+    }
+
     LaunchedEffect(demoObjectId) {
         viewModel.getDemoObjectById(demoObjectId)
     }
     val context = LocalContext.current
-    LaunchedEffect(error.value) {
-        error.value?.let {
+    LaunchedEffect(viewState.value.error) {
+        viewState.value.error?.let {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
-    DetailsContent(demoObject.value, isLoading.value, onClick)
+    DetailsContent(viewState.value) {
+        navigator.pop()
+    }
 }
 
 @Composable
-fun DetailsContent(demoObject: DemoObjectUI?, isLoading: Boolean?, onClick: () -> Unit) {
+fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
     Box {
         Column(
             modifier = Modifier
@@ -57,13 +64,13 @@ fun DetailsContent(demoObject: DemoObjectUI?, isLoading: Boolean?, onClick: () -
             verticalArrangement = Arrangement.Top
         ) {
             Text(
-                text = demoObject?.name.orEmpty(),
+                text = viewState.demoObject?.name.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             )
             Text(
-                text = demoObject?.owner?.login.orEmpty(),
+                text = viewState.demoObject?.owner?.login.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -72,7 +79,7 @@ fun DetailsContent(demoObject: DemoObjectUI?, isLoading: Boolean?, onClick: () -
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(demoObject?.owner?.avatarUrl.orEmpty())
+                            .data(viewState.demoObject?.owner?.avatarUrl.orEmpty())
                             .crossfade(true)
                             .error(R.drawable.ic_person)
                             .placeholder(R.drawable.ic_person)
@@ -85,7 +92,7 @@ fun DetailsContent(demoObject: DemoObjectUI?, isLoading: Boolean?, onClick: () -
                         contentScale = ContentScale.Crop
                     )
                     Text(
-                        text = demoObject?.description.orEmpty(),
+                        text = viewState.demoObject?.description.orEmpty(),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)
@@ -99,7 +106,7 @@ fun DetailsContent(demoObject: DemoObjectUI?, isLoading: Boolean?, onClick: () -
                     .padding(16.dp)
             )
             Text(
-                text = demoObject?.description.orEmpty(),
+                text = viewState.demoObject?.description.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -113,7 +120,7 @@ fun DetailsContent(demoObject: DemoObjectUI?, isLoading: Boolean?, onClick: () -
                 Text(text = "Back")
             }
         }
-        if (isLoading == true) {
+        if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
