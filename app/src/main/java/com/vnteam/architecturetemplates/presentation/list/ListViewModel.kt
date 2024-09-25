@@ -2,9 +2,9 @@ package com.vnteam.architecturetemplates.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
-import com.vnteam.architecturetemplates.domain.models.Fork
-import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
+import com.vnteam.architecturetemplates.presentation.mappers.DemoObjectUIMapper
+import com.vnteam.architecturetemplates.domain.models.DemoObject
+import com.vnteam.architecturetemplates.domain.usecase.DemoObjectUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ListViewModel(
-    private val forkUseCase: ForkUseCase,
-    private val forkUIMapper: ForkUIMapper,
+    private val demoObjectUseCase: DemoObjectUseCase,
+    private val demoObjectUIMapper: DemoObjectUIMapper,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ListViewState())
@@ -22,39 +22,39 @@ class ListViewModel(
 
     fun processIntent(intent: ListIntent) {
         when (intent) {
-            is ListIntent.LoadForks -> getForksFromApi()
+            is ListIntent.LoadDemoObjects -> getDemoObjectsFromApi()
         }
     }
 
-    fun getForksFromApi() {
+    fun getDemoObjectsFromApi() {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             _state.value = state.value.copy(isLoading = false, error = exception.localizedMessage)
         }) {
             _state.value = state.value.copy(isLoading = true)
-            val forks = forkUseCase.getForksFromApi()
-            insertForksToDB(forks)
-            getForksFromDB()
+            val demoObjects = demoObjectUseCase.getDemoObjectsFromApi()
+            insertDemoObjectsToDB(demoObjects)
+            getDemoObjectsFromDB()
         }
     }
 
-    private fun insertForksToDB(forks: Flow<List<Fork>?>) {
+    private fun insertDemoObjectsToDB(demoObjects: Flow<List<DemoObject>?>) {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             _state.value = state.value.copy(isLoading = false, error = exception.localizedMessage)
         }) {
-            forks.collect {
+            demoObjects.collect {
                 it ?: return@collect
-                forkUseCase.insertForksToDB(it)
+                demoObjectUseCase.insertDemoObjectsToDB(it)
             }
         }
     }
 
-    private fun getForksFromDB() {
+    private fun getDemoObjectsFromDB() {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
             _state.value = state.value.copy(isLoading = false, error = exception.localizedMessage)
         }) {
-            forkUseCase.getForksFromDB().collect {
-                val forks = forkUIMapper.mapToImplModelList(it)
-                _state.value = state.value.copy(forks = forks, isLoading = false)
+            demoObjectUseCase.getDemoObjectsFromDB().collect {
+                val demoObjects = demoObjectUIMapper.mapToImplModelList(it)
+                _state.value = state.value.copy(demoObjects = demoObjects, isLoading = false)
             }
         }
     }

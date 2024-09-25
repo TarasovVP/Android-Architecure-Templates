@@ -3,16 +3,16 @@ package com.vnteam.architecturetemplates.di
 import com.vnteam.architecturetemplates.data.network.BASE_URL
 import com.vnteam.architecturetemplates.AppDatabase
 import com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory
-import com.vnteam.architecturetemplates.data.database.ForkDao
-import com.vnteam.architecturetemplates.data.database.ForkDaoImpl
-import com.vnteam.architecturetemplates.data.mapperimpls.ForkDBMapperImpl
-import com.vnteam.architecturetemplates.data.mapperimpls.ForkResponseMapperImpl
+import com.vnteam.architecturetemplates.data.database.DemoObject
+import com.vnteam.architecturetemplates.data.database.DemoObjectImpl
+import com.vnteam.architecturetemplates.data.mapperimpls.DemoObjectDBMapperImpl
+import com.vnteam.architecturetemplates.data.mapperimpls.DemoObjectResponseMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.architecturetemplates.data.network.ApiService
 import com.vnteam.architecturetemplates.data.repositoryimpl.ApiRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.DBRepositoryImpl
-import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
-import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectDBMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
@@ -49,13 +49,13 @@ val appModule = module {
         AppDatabase(sqlDriver)
     }
 
-    single<ForkDao> { ForkDaoImpl(get<AppDatabase>().appDatabaseQueries) }
+    single<DemoObject> { DemoObjectImpl(get<AppDatabase>().appDatabaseQueries) }
 
     single<OwnerResponseMapper> { OwnerResponseMapperImpl() }
 
-    single<ForkResponseMapper> { ForkResponseMapperImpl(get()) }
+    single<DemoObjectResponseMapper> { DemoObjectResponseMapperImpl(get()) }
 
-    single<ForkDBMapper> { ForkDBMapperImpl() }
+    single<DemoObjectDBMapper> { DemoObjectDBMapperImpl() }
 
     single<ApiRepository> { ApiRepositoryImpl(get(), get()) }
 
