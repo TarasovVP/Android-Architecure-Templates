@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Fork(
+data class DemoObject(
     var id: Long? = null,
     var name: String? = null,
     @SerialName("full_name")
