@@ -2,8 +2,8 @@ package com.vnteam.architecturetemplates.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import com.vnteam.architecturetemplates.domain.usecase.ForkUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.Flow
@@ -23,12 +23,13 @@ class ListViewModel(
     fun processIntent(intent: ListIntent) {
         when (intent) {
             is ListIntent.LoadForks -> getForksFromApi()
+            else -> Unit
         }
     }
 
-    fun getForksFromApi() {
+    private fun getForksFromApi() {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            _state.value = state.value.copy(isLoading = false, error = exception.localizedMessage)
+            _state.value = state.value.copy(isLoading = false, error = exception.message)
         }) {
             _state.value = state.value.copy(isLoading = true)
             val forks = forkUseCase.getForksFromApi()
@@ -39,7 +40,7 @@ class ListViewModel(
 
     private fun insertForksToDB(forks: Flow<List<Fork>?>) {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            _state.value = state.value.copy(isLoading = false, error = exception.localizedMessage)
+            _state.value = state.value.copy(isLoading = false, error = exception.message)
         }) {
             forks.collect {
                 it ?: return@collect
@@ -50,7 +51,7 @@ class ListViewModel(
 
     private fun getForksFromDB() {
         viewModelScope.launch(CoroutineExceptionHandler { _, exception ->
-            _state.value = state.value.copy(isLoading = false, error = exception.localizedMessage)
+            _state.value = state.value.copy(isLoading = false, error = exception.message)
         }) {
             forkUseCase.getForksFromDB().collect {
                 val forks = forkUIMapper.mapToImplModelList(it)

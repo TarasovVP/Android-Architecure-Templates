@@ -9,41 +9,28 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
-import com.vnteam.architecturetemplates.NavigationScreen
-import com.vnteam.architecturetemplates.PlatformMessageDisplayer
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.resources.getStringResources
 import org.koin.compose.koinInject
 
 @Composable
-fun ListScreen() {
-
-    val viewModel: ListViewModel = koinInject()
-    val platformMessageDisplayer: PlatformMessageDisplayer = koinInject()
+fun ListScreen(onItemClick: (Long) -> Unit) {
+    val viewModel: ListViewModel = koinInject<ListViewModel>()
     val viewState = viewModel.state.collectAsState()
 
-    LaunchedEffect(viewState.value.error) {
-        viewState.value.error?.let { message ->
-            platformMessageDisplayer.showPopupMessage(message)
-        }
-    }
-
-    val navigator = LocalNavigator.currentOrThrow
-    ListContent(viewState.value, { forkId ->
-        navigator.push(NavigationScreen.DetailsContentScreen(forkId))
-    }, {
+    ListContent(viewState.value, onItemClick) {
         viewModel.processIntent(ListIntent.LoadForks())
-    })
+    }
 }
 
 @Composable
@@ -53,29 +40,33 @@ fun ListContent(viewState: ListViewState, onItemClick: (Long) -> Unit, onButtonC
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(LocalLargePadding.current.margin),
             verticalArrangement = Arrangement.Top
         ) {
             Button(
                 onClick = onButtonClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(LocalLargePadding.current.margin)
             ) {
-                Text(text = "Start")
+                Text(text = getStringResources().START)
             }
             LazyColumn {
                 items(viewState.forks.orEmpty()) { item ->
-                    Card(modifier = Modifier.padding(8.dp)) {
-                        Text(text = item.name.orEmpty(), modifier = Modifier
-                            .padding(8.dp)
-                            .clickable { onItemClick(item.id ?: 0) })
-                    }
+                    ForkItem(item, onItemClick)
                 }
             }
         }
         if (viewState.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
+    }
+}
+
+@Composable
+fun ForkItem(item: ForkUI, onItemClick: (Long) -> Unit) {
+    Card(modifier = Modifier.padding(LocalMediumPadding.current.margin).clickable { onItemClick(item.id ?: 0) }) {
+        Text(text = item.name.orEmpty(), modifier = Modifier
+            .padding(LocalMediumPadding.current.margin))
     }
 }
