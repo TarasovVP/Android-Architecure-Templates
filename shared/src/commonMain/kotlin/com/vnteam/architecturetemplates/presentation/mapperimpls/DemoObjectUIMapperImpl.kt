@@ -1,16 +1,16 @@
 package com.vnteam.architecturetemplates.presentation.mapperimpls
 
-import com.vnteam.architecturetemplates.presentation.mappers.DemoObjectUIMapper
-import com.vnteam.architecturetemplates.presentation.mappers.OwnerUIMapper
-import com.vnteam.architecturetemplates.domain.models.DemoObject
+import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
+import presentation.mappers.OwnerUIMapper
+import com.vnteam.architecturetemplates.domain.models.Fork
 import com.vnteam.architecturetemplates.domain.models.Owner
-import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 
-class DemoObjectUIMapperImpl(private val owner: OwnerUIMapper) : DemoObjectUIMapper {
+class ForkUIMapperImpl(private val owner: OwnerUIMapper) : ForkUIMapper {
 
-    override fun mapToImplModel(from: DemoObject): DemoObjectUI {
-        return DemoObjectUI(
+    override fun mapToImplModel(from: Fork): ForkUI {
+        return ForkUI(
             id = from.id,
             name = from.name,
             fullName = from.fullName.orEmpty(),
@@ -20,8 +20,8 @@ class DemoObjectUIMapperImpl(private val owner: OwnerUIMapper) : DemoObjectUIMap
         )
     }
 
-    override fun mapFromImplModel(to: DemoObjectUI): DemoObject {
-        return DemoObject(
+    override fun mapFromImplModel(to: ForkUI): Fork {
+        return Fork(
             id = to.id,
             name = to.name,
             fullName = to.fullName,
@@ -31,11 +31,11 @@ class DemoObjectUIMapperImpl(private val owner: OwnerUIMapper) : DemoObjectUIMap
         )
     }
 
-    override fun mapToImplModelList(fromList: List<DemoObject>): List<DemoObjectUI> {
+    override fun mapToImplModelList(fromList: List<Fork>): List<ForkUI> {
         return fromList.map { mapToImplModel(it) }
     }
 
-    override fun mapFromImplModelList(toList: List<DemoObjectUI>): List<DemoObject> {
+    override fun mapFromImplModelList(toList: List<ForkUI>): List<Fork> {
         return toList.map { mapFromImplModel(it) }
     }
 }
