@@ -1,12 +1,15 @@
 package com.vnteam.architecturetemplates.data.database
 
 import com.vnteam.architecturetemplates.DemoObjectWithOwner
+import kotlinx.coroutines.flow.Flow
 
 interface DemoObjectDao {
 
-    fun insertDemoObjectWithOwners(demoObjects: List<DemoObjectWithOwner>)
+    suspend fun clearDemoObjects()
 
-    fun getDemoObjects(): List<DemoObjectWithOwner>
+    suspend fun insertDemoObjectWithOwners(demoObjects: List<DemoObjectWithOwner>)
 
-    fun getDemoObjectById(id: Long): DemoObjectWithOwner?
+    suspend fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>>
+
+    suspend fun getDemoObjectById(id: Long): Flow<DemoObjectWithOwner?>
 }

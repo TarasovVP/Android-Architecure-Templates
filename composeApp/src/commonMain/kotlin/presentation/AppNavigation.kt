@@ -18,29 +18,29 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
     NavHost(navController = navController, startDestination = "list") {
         composable("list") {
             screenState.value = ScreenState().apply {
-                topAppBarTitle = LocalStringResources.current.FORKS
+                topAppBarTitle = LocalStringResources.current.DEMO_OBJECTS
             }
-            ListScreen(screenState) { forkUI ->
-                navController.navigate("details/${forkUI.id}/${forkUI.name}")
+            ListScreen(screenState) { demoObjectUI ->
+                navController.navigate("details/${demoObjectUI.id}/${demoObjectUI.name}")
             }
         }
-        composable("details/{forkId}/{forkName}", arguments = listOf(navArgument("forkId") {
+        composable("details/{demoObjectId}/{demoObjectName}", arguments = listOf(navArgument("demoObjectId") {
             type = NavType.StringType
             defaultValue = ""
-        }, navArgument("forkName") {
+        }, navArgument("demoObjectName") {
             type = NavType.StringType
             defaultValue = ""
         })) { backStackEntry ->
-            val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
-            val forkName = backStackEntry.arguments?.getString("forkName").orEmpty()
+            val demoObjectId = backStackEntry.arguments?.getString("demoObjectId").orEmpty().toLong()
+            val demoObjectName = backStackEntry.arguments?.getString("demoObjectName").orEmpty()
             screenState.value = ScreenState().apply {
-                topAppBarTitle = forkName
+                topAppBarTitle = demoObjectName
                 topAppBarActionVisible = true
                 topAppBarAction = {
                     navController.popBackStack()
                 }
             }
-            DetailsScreen(forkId, screenState)
+            DetailsScreen(demoObjectId, screenState)
         }
     }
 }

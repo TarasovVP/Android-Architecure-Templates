@@ -22,14 +22,14 @@ import org.w3c.dom.events.Event
 fun ListScreen() {
 
     val viewModel = viewModel(ListViewModel::class)
-    val forks = viewModel.state.collectAsState()
+    val demoObjects = viewModel.state.collectAsState()
 
     VerticalLayout {
         BaseButton(LocalStringResources.current.START) {
-            viewModel.processIntent(ListIntent.LoadForks())
+            viewModel.processIntent(ListIntent.LoadDemoObjects())
         }
-        DynamicVerticalList(forks.value.forks?.map { it.fullName } ?: emptyList()) { itemName ->
-            val item = forks.value.forks?.find { it.fullName == itemName }
+        DynamicVerticalList(demoObjects.value.demoObject?.map { it.fullName } ?: emptyList()) { itemName ->
+            val item = demoObjects.value.demoObject?.find { it.fullName == itemName }
             window.history.pushState(null, "", "/details/${item?.id}")
             window.dispatchEvent(Event("popstate"))
         }

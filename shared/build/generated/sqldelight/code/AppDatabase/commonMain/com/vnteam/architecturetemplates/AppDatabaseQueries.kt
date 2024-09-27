@@ -12,7 +12,7 @@ import kotlin.String
 public class AppDatabaseQueries(
   driver: SqlDriver,
 ) : SuspendingTransacterImpl(driver) {
-  public fun <T : Any> getForkWithOwners(mapper: (
+  public fun <T : Any> getDemoObjectWithOwners(mapper: (
     id: Long,
     name: String?,
     fullName: String?,
@@ -22,9 +22,9 @@ public class AppDatabaseQueries(
     ownerId: Long?,
     avatarUrl: String?,
     url: String?,
-  ) -> T): Query<T> = Query(-1_198_519_084, arrayOf("ForkWithOwner"), driver, "AppDatabase.sq",
-      "getForkWithOwners",
-      "SELECT ForkWithOwner.id, ForkWithOwner.name, ForkWithOwner.fullName, ForkWithOwner.htmlUrl, ForkWithOwner.description, ForkWithOwner.login, ForkWithOwner.ownerId, ForkWithOwner.avatarUrl, ForkWithOwner.url FROM ForkWithOwner") {
+  ) -> T): Query<T> = Query(1_798_923_796, arrayOf("DemoObjectWithOwner"), driver, "AppDatabase.sq",
+      "getDemoObjectWithOwners",
+      "SELECT DemoObjectWithOwner.id, DemoObjectWithOwner.name, DemoObjectWithOwner.fullName, DemoObjectWithOwner.htmlUrl, DemoObjectWithOwner.description, DemoObjectWithOwner.login, DemoObjectWithOwner.ownerId, DemoObjectWithOwner.avatarUrl, DemoObjectWithOwner.url FROM DemoObjectWithOwner") {
       cursor ->
     mapper(
       cursor.getLong(0)!!,
@@ -39,9 +39,9 @@ public class AppDatabaseQueries(
     )
   }
 
-  public fun getForkWithOwners(): Query<ForkWithOwner> = getForkWithOwners { id, name, fullName,
-      htmlUrl, description, login, ownerId, avatarUrl, url ->
-    ForkWithOwner(
+  public fun getDemoObjectWithOwners(): Query<DemoObjectWithOwner> = getDemoObjectWithOwners { id,
+      name, fullName, htmlUrl, description, login, ownerId, avatarUrl, url ->
+    DemoObjectWithOwner(
       id,
       name,
       fullName,
@@ -54,7 +54,7 @@ public class AppDatabaseQueries(
     )
   }
 
-  public fun <T : Any> getForkWithOwnerById(id: Long, mapper: (
+  public fun <T : Any> getDemoObjectWithOwnerById(id: Long, mapper: (
     id: Long,
     name: String?,
     fullName: String?,
@@ -64,7 +64,7 @@ public class AppDatabaseQueries(
     ownerId: Long?,
     avatarUrl: String?,
     url: String?,
-  ) -> T): Query<T> = GetForkWithOwnerByIdQuery(id) { cursor ->
+  ) -> T): Query<T> = GetDemoObjectWithOwnerByIdQuery(id) { cursor ->
     mapper(
       cursor.getLong(0)!!,
       cursor.getString(1),
@@ -78,9 +78,10 @@ public class AppDatabaseQueries(
     )
   }
 
-  public fun getForkWithOwnerById(id: Long): Query<ForkWithOwner> = getForkWithOwnerById(id) { id_,
-      name, fullName, htmlUrl, description, login, ownerId, avatarUrl, url ->
-    ForkWithOwner(
+  public fun getDemoObjectWithOwnerById(id: Long): Query<DemoObjectWithOwner> =
+      getDemoObjectWithOwnerById(id) { id_, name, fullName, htmlUrl, description, login, ownerId,
+      avatarUrl, url ->
+    DemoObjectWithOwner(
       id_,
       name,
       fullName,
@@ -93,14 +94,14 @@ public class AppDatabaseQueries(
     )
   }
 
-  public suspend fun clearForks() {
-    driver.execute(1_061_931_374, """DELETE FROM ForkWithOwner""", 0).await()
-    notifyQueries(1_061_931_374) { emit ->
-      emit("ForkWithOwner")
+  public suspend fun clearDemoObjects() {
+    driver.execute(484_767_086, """DELETE FROM DemoObjectWithOwner""", 0).await()
+    notifyQueries(484_767_086) { emit ->
+      emit("DemoObjectWithOwner")
     }
   }
 
-  public suspend fun insertForkWithOwner(
+  public suspend fun insertDemoObjectWithOwner(
     id: Long?,
     name: String?,
     fullName: String?,
@@ -111,8 +112,8 @@ public class AppDatabaseQueries(
     avatarUrl: String?,
     url: String?,
   ) {
-    driver.execute(434_123_816, """
-        |INSERT OR REPLACE INTO ForkWithOwner(id, name, fullName, htmlUrl, description, login, ownerId, avatarUrl, url)
+    driver.execute(-1_310_207_960, """
+        |INSERT OR REPLACE INTO DemoObjectWithOwner(id, name, fullName, htmlUrl, description, login, ownerId, avatarUrl, url)
         |VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """.trimMargin(), 9) {
           bindLong(0, id)
@@ -125,39 +126,39 @@ public class AppDatabaseQueries(
           bindString(7, avatarUrl)
           bindString(8, url)
         }.await()
-    notifyQueries(434_123_816) { emit ->
-      emit("ForkWithOwner")
+    notifyQueries(-1_310_207_960) { emit ->
+      emit("DemoObjectWithOwner")
     }
   }
 
-  public suspend fun deleteForkWithOwnerById(id: Long) {
-    driver.execute(-1_712_853_144, """DELETE FROM ForkWithOwner WHERE id = ?""", 1) {
+  public suspend fun deleteDemoObjectWithOwnerById(id: Long) {
+    driver.execute(1_224_497_384, """DELETE FROM DemoObjectWithOwner WHERE id = ?""", 1) {
           bindLong(0, id)
         }.await()
-    notifyQueries(-1_712_853_144) { emit ->
-      emit("ForkWithOwner")
+    notifyQueries(1_224_497_384) { emit ->
+      emit("DemoObjectWithOwner")
     }
   }
 
-  private inner class GetForkWithOwnerByIdQuery<out T : Any>(
+  private inner class GetDemoObjectWithOwnerByIdQuery<out T : Any>(
     public val id: Long,
     mapper: (SqlCursor) -> T,
   ) : Query<T>(mapper) {
     override fun addListener(listener: Query.Listener) {
-      driver.addListener("ForkWithOwner", listener = listener)
+      driver.addListener("DemoObjectWithOwner", listener = listener)
     }
 
     override fun removeListener(listener: Query.Listener) {
-      driver.removeListener("ForkWithOwner", listener = listener)
+      driver.removeListener("DemoObjectWithOwner", listener = listener)
     }
 
     override fun <R> execute(mapper: (SqlCursor) -> QueryResult<R>): QueryResult<R> =
-        driver.executeQuery(-1_020_240_911,
-        """SELECT ForkWithOwner.id, ForkWithOwner.name, ForkWithOwner.fullName, ForkWithOwner.htmlUrl, ForkWithOwner.description, ForkWithOwner.login, ForkWithOwner.ownerId, ForkWithOwner.avatarUrl, ForkWithOwner.url FROM ForkWithOwner WHERE id = ?""",
+        driver.executeQuery(-864_453_967,
+        """SELECT DemoObjectWithOwner.id, DemoObjectWithOwner.name, DemoObjectWithOwner.fullName, DemoObjectWithOwner.htmlUrl, DemoObjectWithOwner.description, DemoObjectWithOwner.login, DemoObjectWithOwner.ownerId, DemoObjectWithOwner.avatarUrl, DemoObjectWithOwner.url FROM DemoObjectWithOwner WHERE id = ?""",
         mapper, 1) {
       bindLong(0, id)
     }
 
-    override fun toString(): String = "AppDatabase.sq:getForkWithOwnerById"
+    override fun toString(): String = "AppDatabase.sq:getDemoObjectWithOwnerById"
   }
 }

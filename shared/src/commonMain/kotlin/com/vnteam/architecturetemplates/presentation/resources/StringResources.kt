@@ -6,12 +6,12 @@ import com.vnteam.architecturetemplates.data.APP_LANG_UK
 
 sealed class StringResources(
     var APP_NAME: String,
-    var FORKS: String,
+    var DEMO_OBJECTS: String,
     var START: String,
     var OWNER_AVATAR: String,
     var DESCRIPTION: String,
     var NAME: String,
-    var FORK: String,
+    var DEMO_OBJECT: String,
     var OWNER: String,
     var URL: String,
     val BACK: String,
@@ -21,12 +21,12 @@ sealed class StringResources(
 
 class StringResourcesEN : StringResources(
     APP_NAME = "Architecture Templates",
-    FORKS = "Forks",
+    DEMO_OBJECTS = "DemoObjects",
     START = "Start",
     OWNER_AVATAR = "Owner avatar",
     DESCRIPTION = "Description:",
     NAME = "Name",
-    FORK = "Fork",
+    DEMO_OBJECT = "DemoObject",
     OWNER = "Owner",
     URL = "URL",
     BACK = "Back",
@@ -37,11 +37,11 @@ class StringResourcesEN : StringResources(
 class StringResourcesUK : StringResources(
     APP_NAME = "Architecture Templates",
     START = "Початок",
-    FORKS = "Форки",
+    DEMO_OBJECTS = "Форки",
     OWNER_AVATAR = "Owner avatar",
     DESCRIPTION = "Опис:",
     NAME = "Ім'я",
-    FORK = "Форк",
+    DEMO_OBJECT = "Форк",
     OWNER = "Власник",
     URL = "URL",
     BACK = "Назад",

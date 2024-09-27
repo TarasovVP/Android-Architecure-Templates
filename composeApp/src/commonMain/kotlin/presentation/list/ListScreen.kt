@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
 import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
@@ -30,15 +30,15 @@ import presentation.ScreenState
 import presentation.components.AvatarImage
 
 @Composable
-fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> Unit) {
+fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (DemoObjectUI) -> Unit) {
     val listViewModel = koinInject<ListViewModel>()
     val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { listViewModel }
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewState.value.takeIf { it.forks == null }?.let {
-            viewModel.processIntent(ListIntent.ClearForks())
-            viewModel.processIntent(ListIntent.LoadForks())
+        viewState.value.takeIf { it.demoObject == null }?.let {
+            viewModel.processIntent(ListIntent.ClearDemoObjects())
+            viewModel.processIntent(ListIntent.LoadDemoObjects())
         }
     }
 
@@ -55,7 +55,7 @@ fun ListScreen(screenState: MutableState<ScreenState>, onItemClick: (ForkUI) -> 
 }
 
 @Composable
-fun ListContent(viewState: ListViewState, onItemClick: (ForkUI) -> Unit) {
+fun ListContent(viewState: ListViewState, onItemClick: (DemoObjectUI) -> Unit) {
     Box {
         Column(
             modifier = Modifier
@@ -64,8 +64,8 @@ fun ListContent(viewState: ListViewState, onItemClick: (ForkUI) -> Unit) {
             verticalArrangement = Arrangement.Top
         ) {
             LazyColumn {
-                items(viewState.forks.orEmpty()) { item ->
-                    ForkItem(item, onItemClick)
+                items(viewState.demoObject.orEmpty()) { item ->
+                    DemoObjectItem(item, onItemClick)
                 }
             }
         }
@@ -73,7 +73,7 @@ fun ListContent(viewState: ListViewState, onItemClick: (ForkUI) -> Unit) {
 }
 
 @Composable
-fun ForkItem(item: ForkUI, onItemClick: (ForkUI) -> Unit) {
+fun DemoObjectItem(item: DemoObjectUI, onItemClick: (DemoObjectUI) -> Unit) {
     Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item) }) {
         Row(verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalSmallPadding.current.size)) {

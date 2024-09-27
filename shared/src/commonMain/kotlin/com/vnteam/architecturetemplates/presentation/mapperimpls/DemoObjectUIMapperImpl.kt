@@ -1,7 +1,7 @@
 package com.vnteam.architecturetemplates.presentation.mapperimpls
 
 import com.vnteam.architecturetemplates.presentation.mappers.DemoObjectUIMapper
-import presentation.mappers.OwnerUIMapper
+import com.vnteam.architecturetemplates.presentation.mappers.OwnerUIMapper
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
@@ -13,7 +13,7 @@ class DemoObjectUIMapperImpl(private val owner: OwnerUIMapper) : DemoObjectUIMap
         return DemoObjectUI(
             id = from.id,
             name = from.name,
-            fullName = from.fullName,
+            fullName = from.fullName.orEmpty(),
             owner = owner.mapToImplModel(from.owner ?: Owner()),
             htmlUrl = from.htmlUrl,
             description = from.description

@@ -28,19 +28,19 @@ fun DetailsScreen(itemId: String) {
     val error = mutableStateOf(viewModel.state.value.infoMessage.value)
 
     LaunchedEffect(itemId) {
-        viewModel.processIntent(DetailsIntent.LoadFork(itemId.toLong()))
+        viewModel.processIntent(DetailsIntent.LoadDemoObject(itemId.toLong()))
     }
 
     LaunchedEffect(detailsViewStateState.value) {
         error.value = viewModel.state.value.infoMessage.value
     }
-    console.log("DetailsScreen ${detailsViewStateState.value.fork?.name}")
+    console.log("DetailsScreen ${detailsViewStateState.value.demoObject?.name}")
     VerticalLayout {
-        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.fork?.name.orEmpty()) }
-        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.fork?.owner?.login.orEmpty()) }
-        OwnerCard(detailsViewStateState.value.fork?.owner)
+        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.demoObject?.name.orEmpty()) }
+        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.demoObject?.owner?.login.orEmpty()) }
+        OwnerCard(detailsViewStateState.value.demoObject?.owner)
         Div(attrs = { classes(AppStyles.textStyle) }) { Text("Description:") }
-        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.fork?.description.orEmpty()) }
+        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.demoObject?.description.orEmpty()) }
         BaseButton(LocalStringResources.current.BACK) {
             window.history.pushState(null, "", "/list")
             window.dispatchEvent(Event("popstate"))

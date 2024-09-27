@@ -33,7 +33,7 @@ import presentation.components.SecondaryText
 import presentation.shareLink
 
 @Composable
-fun DetailsScreen(forkId: Long?, screenState: MutableState<ScreenState>) {
+fun DetailsScreen(demoObjectId: Long?, screenState: MutableState<ScreenState>) {
     val detailsViewModel = koinInject<DetailsViewModel>()
     val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { detailsViewModel }
     val viewState = viewModel.state.collectAsState()
@@ -46,8 +46,8 @@ fun DetailsScreen(forkId: Long?, screenState: MutableState<ScreenState>) {
     LaunchedEffect(viewState.value.isLoading) {
         screenState.value = screenState.value.copy(isProgressVisible = viewState.value.isLoading)
     }
-    LaunchedEffect(forkId) {
-        viewModel.processIntent(DetailsIntent.LoadFork(forkId ?: 0))
+    LaunchedEffect(demoObjectId) {
+        viewModel.processIntent(DetailsIntent.LoadDemoObject(demoObjectId ?: 0))
     }
 
     DetailsContent(viewState.value)
@@ -63,23 +63,23 @@ fun DetailsContent(viewState: DetailsViewState) {
                 .padding(LocalLargePadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
-            HeaderText(LocalStringResources.current.FORK)
+            HeaderText(LocalStringResources.current.DEMO_OBJECT)
             Row {
                 SecondaryText(LocalStringResources.current.NAME)
-                PrimaryText(viewState.fork?.name.orEmpty())
+                PrimaryText(viewState.demoObject?.name.orEmpty())
             }
             Row {
                 SecondaryText(LocalStringResources.current.DESCRIPTION)
-                PrimaryText(viewState.fork?.description.orEmpty())
+                PrimaryText(viewState.demoObject?.description.orEmpty())
             }
             Row(modifier = Modifier.padding(top = LocalMediumPadding.current.size).clickable {
-                shareLink(viewState.fork?.htmlUrl.orEmpty())
+                shareLink(viewState.demoObject?.htmlUrl.orEmpty())
             }) {
                 SecondaryText(LocalStringResources.current.URL)
-                PrimaryText(viewState.fork?.htmlUrl.orEmpty())
+                PrimaryText(viewState.demoObject?.htmlUrl.orEmpty())
             }
             HeaderText(LocalStringResources.current.OWNER)
-            OwnerCard(viewState.fork?.owner)
+            OwnerCard(viewState.demoObject?.owner)
         }
     }
 }
