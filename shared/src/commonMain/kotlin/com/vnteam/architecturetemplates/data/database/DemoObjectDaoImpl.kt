@@ -1,32 +1,50 @@
 package com.vnteam.architecturetemplates.data.database
 
-import com.vnteam.architecturetemplates.AppDatabaseQueries
+import app.cash.sqldelight.async.coroutines.awaitAsList
+import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import com.vnteam.architecturetemplates.DemoObjectWithOwner
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
-class DemoObjectDaoImpl(private val appDatabaseQueries: AppDatabaseQueries): DemoObjectDao {
+class DemoObjectDaoImpl(private val sharedDatabase: SharedDatabase): DemoObjectDao {
+    override suspend fun clearDemoObjects() {
+        sharedDatabase { database ->
+            database.appDatabaseQueries.clearDemoObjects()
+        }
+    }
 
-    override fun insertDemoObjectWithOwners(demoObjects: List<DemoObjectWithOwner>) {
-        appDatabaseQueries.transaction {
-            demoObjects.forEach { demoObject ->
-                appDatabaseQueries.insertDemoObjectWithOwner(
-                    id = demoObject.id,
-                    name = demoObject.name,
-                    fullName = demoObject.fullName,
-                    ownerId = demoObject.ownerId,
-                    login = demoObject.login,
-                    avatarUrl = demoObject.avatarUrl,
-                    htmlUrl = demoObject.htmlUrl,
-                    description = demoObject.description
-                )
+    override suspend fun insertDemoObjectWithOwners(demoObjects: List<DemoObjectWithOwner>) {
+        sharedDatabase { database ->
+            database.appDatabaseQueries.transaction {
+                demoObjects.forEach { demoObject ->
+                    database.appDatabaseQueries.insertDemoObjectWithOwner(
+                        id = demoObject.id,
+                        name = demoObject.name,
+                        fullName = demoObject.fullName,
+                        ownerId = demoObject.ownerId,
+                        login = demoObject.login,
+                        avatarUrl = demoObject.avatarUrl,
+                        htmlUrl = demoObject.htmlUrl,
+                        description = demoObject.description,
+                        url = demoObject.url
+                    )
+                }
             }
         }
     }
 
-    override fun getDemoObjects(): List<DemoObjectWithOwner> {
-        return appDatabaseQueries.getDemoObjectWithOwners().executeAsList()
+    override suspend fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>> = callbackFlow {
+        sharedDatabase { database ->
+            trySend(database.appDatabaseQueries.getDemoObjectWithOwners().awaitAsList()).isSuccess
+        }
+        awaitClose { }
     }
 
-    override fun getDemoObjectById(id: Long): DemoObjectWithOwner? {
-        return appDatabaseQueries.getDemoObjectWithOwnerById(id).executeAsOneOrNull()
+    override suspend fun getDemoObjectById(id: Long): Flow<DemoObjectWithOwner?> = callbackFlow {
+        sharedDatabase { database ->
+            trySend(database.appDatabaseQueries.getDemoObjectWithOwnerById(id).awaitAsOneOrNull()).isSuccess
+        }
+        awaitClose { }
     }
 }

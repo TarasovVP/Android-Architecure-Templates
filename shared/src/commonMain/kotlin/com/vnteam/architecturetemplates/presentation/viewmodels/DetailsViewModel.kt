@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
-import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.presentation.mappers.DemoObjectUIMapper
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class DetailsViewModel(
     private val detailsUseCase: DetailsUseCase,
-    private val forkUIMapper: ForkUIMapper
+    private val demoObjectUIMapper: DemoObjectUIMapper
 ): ViewModel() {
 
     private val _state = MutableStateFlow(DetailsViewState())
@@ -25,13 +25,13 @@ class DetailsViewModel(
 
     fun processIntent(intent: DetailsIntent) {
         when (intent) {
-            is DetailsIntent.LoadFork -> getForkById(intent.forkId)
+            is DetailsIntent.LoadDemoObject -> getDemoObjectById(intent.demoObjectId)
         }
     }
 
-    private fun getForkById(forkId: Long?) {
+    private fun getDemoObjectById(demoObjectId: Long?) {
         viewModelScope.launch {
-            detailsUseCase.getForkById(forkId ?: 0)
+            detailsUseCase.getDemoObjectById(demoObjectId ?: 0)
                 .onStart {
                     _state.value = _state.value.copy(isLoading = true)
                 }
@@ -39,8 +39,8 @@ class DetailsViewModel(
                     _state.value = state.value.copy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
                     println("Error: ${exception.message}")
                 }
-                .collect { fork ->
-                    _state.value = _state.value.copy(fork = fork?.let { forkUIMapper.mapToImplModel(it) }, isLoading = false)
+                .collect { demoObject ->
+                    _state.value = _state.value.copy(demoObject = demoObject?.let { demoObjectUIMapper.mapToImplModel(it) }, isLoading = false)
                 }
         }
     }

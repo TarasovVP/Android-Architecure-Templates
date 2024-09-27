@@ -28,7 +28,7 @@ private class AppDatabaseImpl(
 
     override fun create(driver: SqlDriver): QueryResult.AsyncValue<Unit> = QueryResult.AsyncValue {
       driver.execute(null, """
-          |CREATE TABLE IF NOT EXISTS ForkWithOwner (
+          |CREATE TABLE IF NOT EXISTS DemoObjectWithOwner (
           |    id INTEGER PRIMARY KEY,
           |    name TEXT,
           |    fullName TEXT,

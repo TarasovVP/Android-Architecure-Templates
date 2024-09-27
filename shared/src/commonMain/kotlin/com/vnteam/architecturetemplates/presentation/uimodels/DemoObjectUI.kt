@@ -3,7 +3,7 @@ package com.vnteam.architecturetemplates.presentation.uimodels
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ForkUI(
+data class DemoObjectUI(
     var id: Long? = null,
     var name: String? = null,
     var fullName: String = "",

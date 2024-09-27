@@ -3,7 +3,7 @@ package com.vnteam.architecturetemplates
 import kotlin.Long
 import kotlin.String
 
-public data class ForkWithOwner(
+public data class DemoObjectWithOwner(
   public val id: Long,
   public val name: String?,
   public val fullName: String?,
