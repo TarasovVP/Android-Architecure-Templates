@@ -1,14 +1,14 @@
 package com.vnteam.architecturetemplates.data.mapperimpls
 
-import com.vnteam.architecturetemplates.ForkWithOwner
-import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
-import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.DemoObjectWithOwner
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectDBMapper
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 
-class ForkDBMapperImpl : ForkDBMapper {
+class DemoObjectDBMapperImpl : DemoObjectDBMapper {
 
-    override fun mapToImplModel(from: Fork): ForkWithOwner {
-        return ForkWithOwner(id = from.id ?: 0,
+    override fun mapToImplModel(from: DemoObject): DemoObjectWithOwner {
+        return DemoObjectWithOwner(id = from.id ?: 0,
             name = from.name,
             fullName = from.fullName,
             ownerId = from.owner?.ownerId,
@@ -18,8 +18,8 @@ class ForkDBMapperImpl : ForkDBMapper {
             description = from.description)
     }
 
-    override fun mapFromImplModel(to: ForkWithOwner): Fork {
-        return Fork(id = to.id,
+    override fun mapFromImplModel(to: DemoObjectWithOwner): DemoObject {
+        return DemoObject(id = to.id,
         name = to.name,
         fullName = to.fullName,
         owner = Owner(ownerId = to.ownerId,
@@ -29,11 +29,11 @@ class ForkDBMapperImpl : ForkDBMapper {
         description = to.description)
     }
 
-    override fun mapToImplModelList(fromList: List<Fork>): List<ForkWithOwner> {
+    override fun mapToImplModelList(fromList: List<DemoObject>): List<DemoObjectWithOwner> {
         return fromList.map { mapToImplModel(it) }
     }
 
-    override fun mapFromImplModelList(toList: List<ForkWithOwner>): List<Fork> {
+    override fun mapFromImplModelList(toList: List<DemoObjectWithOwner>): List<DemoObject> {
         return toList.map { mapFromImplModel(it) }
     }
 }
