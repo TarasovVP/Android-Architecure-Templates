@@ -1,8 +1,6 @@
 package com.vnteam.architecturetemplates.presentation.details
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
@@ -23,34 +20,25 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Paint
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
-import coil3.request.ImageRequest
 import com.vnteam.architecturetemplates.presentation.components.painterRes
 import com.vnteam.architecturetemplates.resources.DrawableResources
-import com.vnteam.architecturetemplates.resources.LocalAvatarSize
 import com.vnteam.architecturetemplates.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.resources.getStringResources
 import org.koin.compose.koinInject
 
 @Composable
-fun DetailsScreen(forkId: Long?, onClick: () -> Unit) {
+fun DetailsScreen(demoObjectId: Long?, onClick: () -> Unit) {
     val viewModel = koinInject<DetailsViewModel>()
     val viewState = viewModel.state.collectAsState()
 
-    LaunchedEffect(forkId) {
-        viewModel.processIntent(DetailsIntent.LoadFork(forkId ?: 0))
+    LaunchedEffect(demoObjectId) {
+        viewModel.processIntent(DetailsIntent.LoadDemoObject(demoObjectId ?: 0))
     }
 
     DetailsContent(viewState.value, onClick)
@@ -66,20 +54,20 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
             verticalArrangement = Arrangement.Top
         ) {
             Text(
-                text = viewState.fork?.name.orEmpty(),
+                text = viewState.demoObject?.name.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(LocalLargePadding.current.margin)
             )
             Text(
-                text = viewState.fork?.owner?.login.orEmpty(),
+                text = viewState.demoObject?.owner?.login.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(LocalLargePadding.current.margin)
             )
             OwnerCard(
-                avatarUrl = viewState.fork?.owner?.avatarUrl.orEmpty(),
-                description = viewState.fork?.description.orEmpty()
+                avatarUrl = viewState.demoObject?.owner?.avatarUrl.orEmpty(),
+                description = viewState.demoObject?.description.orEmpty()
             )
             Text(
                 text = "Description:",
@@ -88,7 +76,7 @@ fun DetailsContent(viewState: DetailsViewState, onClick: () -> Unit) {
                     .padding(LocalLargePadding.current.margin)
             )
             Text(
-                text = viewState.fork?.description.orEmpty(),
+                text = viewState.demoObject?.description.orEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(LocalLargePadding.current.margin)

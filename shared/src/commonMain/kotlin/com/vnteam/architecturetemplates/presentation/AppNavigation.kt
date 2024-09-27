@@ -17,13 +17,13 @@ fun AppNavigation() {
 
         composable("list") {
             ListScreen {
-            val forkId = it.toString()
-            navController.navigate("details/$forkId")
+            val demoObjectId = it.toString()
+            navController.navigate("details/$demoObjectId")
         } }
-        composable("details/{forkId}", arguments = listOf(navArgument("forkId") { type = NavType.StringType
+        composable("details/{demoObjectId}", arguments = listOf(navArgument("demoObjectId") { type = NavType.StringType
             defaultValue = "" })) { backStackEntry ->
-            val forkId = backStackEntry.arguments?.getString("forkId").orEmpty().toLong()
-            DetailsScreen(forkId) {
+            val demoObjectId = backStackEntry.arguments?.getString("demoObjectId").orEmpty().toLong()
+            DetailsScreen(demoObjectId) {
                 navController.popBackStack()
             }
         }
