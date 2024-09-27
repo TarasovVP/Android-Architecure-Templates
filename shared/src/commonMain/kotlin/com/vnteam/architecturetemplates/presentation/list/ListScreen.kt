@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.resources.getStringResources
@@ -29,7 +29,7 @@ fun ListScreen(onItemClick: (Long) -> Unit) {
     val viewState = viewModel.state.collectAsState()
 
     ListContent(viewState.value, onItemClick) {
-        viewModel.processIntent(ListIntent.LoadForks())
+        viewModel.processIntent(ListIntent.LoadDemoObjects())
     }
 }
 
@@ -52,8 +52,8 @@ fun ListContent(viewState: ListViewState, onItemClick: (Long) -> Unit, onButtonC
                 Text(text = getStringResources().START)
             }
             LazyColumn {
-                items(viewState.forks.orEmpty()) { item ->
-                    ForkItem(item, onItemClick)
+                items(viewState.demoObjects.orEmpty()) { item ->
+                    DemoObjectItem(item, onItemClick)
                 }
             }
         }
@@ -64,7 +64,7 @@ fun ListContent(viewState: ListViewState, onItemClick: (Long) -> Unit, onButtonC
 }
 
 @Composable
-fun ForkItem(item: ForkUI, onItemClick: (Long) -> Unit) {
+fun DemoObjectItem(item: DemoObjectUI, onItemClick: (Long) -> Unit) {
     Card(modifier = Modifier.padding(LocalMediumPadding.current.margin).clickable { onItemClick(item.id ?: 0) }) {
         Text(text = item.name.orEmpty(), modifier = Modifier
             .padding(LocalMediumPadding.current.margin))

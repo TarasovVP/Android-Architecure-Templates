@@ -8,7 +8,7 @@ import kotlin.String
 import kotlin.Unit
 
 public interface AppDatabaseQueries : Transacter {
-  public fun <T : Any> getForkWithOwners(mapper: (
+  public fun <T : Any> getDemoObjectWithOwners(mapper: (
     id: Long,
     name: String?,
     fullName: String?,
@@ -19,9 +19,9 @@ public interface AppDatabaseQueries : Transacter {
     avatarUrl: String?
   ) -> T): Query<T>
 
-  public fun getForkWithOwners(): Query<ForkWithOwner>
+  public fun getDemoObjectWithOwners(): Query<DemoObjectWithOwner>
 
-  public fun <T : Any> getForkWithOwnerById(id: Long, mapper: (
+  public fun <T : Any> getDemoObjectWithOwnerById(id: Long, mapper: (
     id: Long,
     name: String?,
     fullName: String?,
@@ -32,9 +32,9 @@ public interface AppDatabaseQueries : Transacter {
     avatarUrl: String?
   ) -> T): Query<T>
 
-  public fun getForkWithOwnerById(id: Long): Query<ForkWithOwner>
+  public fun getDemoObjectWithOwnerById(id: Long): Query<DemoObjectWithOwner>
 
-  public fun insertForkWithOwner(
+  public fun insertDemoObjectWithOwner(
     id: Long?,
     name: String?,
     fullName: String?,

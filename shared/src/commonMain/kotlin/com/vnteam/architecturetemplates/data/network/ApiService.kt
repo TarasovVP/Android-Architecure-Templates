@@ -10,7 +10,7 @@ class ApiService(
     private val httpClient: HttpClient,
 ) {
 
-    suspend fun getForks(): HttpResponse {
+    suspend fun getDemoObjects(): HttpResponse {
         val httpResponse = try {
             httpClient.get("${baseUrl}repos/octocat/Spoon-Knife/forks")
         } catch (e: Exception) {
