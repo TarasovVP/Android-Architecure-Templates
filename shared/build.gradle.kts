@@ -33,6 +33,7 @@ kotlin {
             implementation("junit:junit:4.13.2")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0-alpha01")
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)

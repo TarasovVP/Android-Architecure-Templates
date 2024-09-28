@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class SharedAppDatabaseCompanion, SharedForkWithOwner, SharedRuntimeQuery<__covariant RowType>, UIViewController, SharedFork, SharedForkResponse, SharedOwner, SharedOwnerResponse, SharedKtor_client_coreHttpClient, SharedKtor_client_coreHttpResponse, SharedNetworkResult<__covariant T>, SharedNetworkResultFailure, SharedKotlinNothing, SharedNetworkResultSuccess<T>, SharedForkResponseCompanion, SharedOwnerResponseCompanion, SharedApiService, SharedForkCompanion, SharedOwnerCompanion, SharedDetailsIntent, SharedDetailsIntentLoadFork, SharedForkUI, SharedDetailsViewState, SharedListIntent, SharedListViewState, SharedOwnerUI, SharedForkUICompanion, SharedOwnerUICompanion, SharedKtor_client_coreHttpClientCall, SharedKtor_utilsGMTDate, SharedKtor_httpHttpStatusCode, SharedKtor_httpHttpProtocolVersion, SharedKoin_coreModule, SharedKoin_coreKoinApplication, SharedRuntimeTransacterTransaction, SharedKtor_client_coreHttpClientEngineConfig, SharedKtor_client_coreHttpClientConfig<T>, SharedKtor_eventsEvents, SharedKtor_client_coreHttpReceivePipeline, SharedKtor_client_coreHttpRequestPipeline, SharedKtor_client_coreHttpResponsePipeline, SharedKtor_client_coreHttpSendPipeline, SharedKotlinThrowable, SharedKotlinArray<T>, SharedKotlinException, SharedKotlinRuntimeException, SharedKotlinIllegalStateException, SharedKtor_client_coreHttpRequestData, SharedKtor_client_coreHttpResponseData, SharedKtor_client_coreHttpClientCallCompanion, SharedKtor_utilsTypeInfo, SharedKtor_ioMemory, SharedKtor_ioChunkBuffer, SharedKtor_ioBuffer, SharedKotlinByteArray, SharedKtor_ioByteReadPacket, SharedKtor_utilsGMTDateCompanion, SharedKtor_utilsWeekDay, SharedKtor_utilsMonth, SharedKtor_httpHttpStatusCodeCompanion, SharedKtor_httpHttpProtocolVersionCompanion, SharedKoin_coreKoinDefinition<R>, SharedKoin_coreScope, SharedKoin_coreParametersHolder, SharedKoin_coreInstanceFactory<T>, SharedKoin_coreSingleInstanceFactory<T>, SharedKoin_coreScopeDSL, SharedKoin_coreKoinApplicationCompanion, SharedKoin_coreLogger, SharedKoin_coreLevel, SharedKoin_coreKoin, SharedKotlinx_coroutines_coreCoroutineDispatcher, SharedKtor_client_coreProxyConfig, SharedKtor_utilsAttributeKey<T>, SharedKtor_eventsEventDefinition<T>, SharedKtor_utilsPipelinePhase, SharedKtor_utilsPipeline<TSubject, TContext>, SharedKtor_client_coreHttpReceivePipelinePhases, SharedKotlinUnit, SharedKtor_client_coreHttpRequestPipelinePhases, SharedKtor_client_coreHttpRequestBuilder, SharedKtor_client_coreHttpResponsePipelinePhases, SharedKtor_client_coreHttpResponseContainer, SharedKtor_client_coreHttpSendPipelinePhases, SharedKotlinx_serialization_coreSerializersModule, SharedKotlinx_serialization_coreSerialKind, SharedKtor_httpUrl, SharedKtor_httpHttpMethod, SharedKtor_httpOutgoingContent, SharedKtor_ioMemoryCompanion, SharedKtor_ioBufferCompanion, SharedKtor_ioChunkBufferCompanion, SharedKotlinByteIterator, SharedKtor_ioInputCompanion, SharedKtor_ioInput, SharedKtor_ioByteReadPacketCompanion, SharedKotlinEnumCompanion, SharedKotlinEnum<E>, SharedKtor_utilsWeekDayCompanion, SharedKtor_utilsMonthCompanion, SharedKoin_coreLockable, SharedKotlinLazyThreadSafetyMode, SharedStately_concurrencyThreadLocalRef<T>, SharedKoin_coreBeanDefinition<T>, SharedKoin_coreInstanceFactoryCompanion, SharedKoin_coreInstanceContext, SharedKoin_coreExtensionManager, SharedKoin_coreInstanceRegistry, SharedKoin_corePropertyRegistry, SharedKoin_coreScopeRegistry, SharedKotlinAbstractCoroutineContextElement, SharedKotlinx_coroutines_coreCoroutineDispatcherKey, SharedKtor_httpHeadersBuilder, SharedKtor_client_coreHttpRequestBuilderCompanion, SharedKtor_httpURLBuilder, SharedKtor_httpUrlCompanion, SharedKtor_httpURLProtocol, SharedKtor_httpHttpMethodCompanion, SharedKtor_httpContentType, SharedKotlinCancellationException, SharedKotlinKTypeProjection, SharedKoin_coreKind, SharedKoin_coreCallbacks<T>, SharedKoin_coreScopeRegistryCompanion, SharedKotlinAbstractCoroutineContextKey<B, E>, SharedKtor_utilsStringValuesBuilderImpl, SharedKtor_httpURLBuilderCompanion, SharedKtor_httpURLProtocolCompanion, SharedKtor_httpHeaderValueParam, SharedKtor_httpHeaderValueWithParametersCompanion, SharedKtor_httpHeaderValueWithParameters, SharedKtor_httpContentTypeCompanion, SharedKotlinKVariance, SharedKotlinKTypeProjectionCompanion;
+@class SharedAppDatabaseCompanion, SharedForkWithOwner, SharedRuntimeQuery<__covariant RowType>, UIViewController, SharedFork, SharedForkResponse, SharedOwner, SharedOwnerResponse, SharedKtor_client_coreHttpClient, SharedKtor_client_coreHttpResponse, SharedNetworkResult<__covariant T>, SharedNetworkResultFailure, SharedKotlinNothing, SharedNetworkResultSuccess<T>, SharedForkResponseCompanion, SharedOwnerResponseCompanion, SharedApiService, SharedForkCompanion, SharedOwnerCompanion, SharedDetailsIntent, SharedDetailsIntentLoadFork, SharedKotlinArray<T>, SharedLifecycle_viewmodelViewModel, SharedForkUI, SharedDetailsViewState, SharedListIntent, SharedListViewState, SharedOwnerUI, SharedForkUICompanion, SharedOwnerUICompanion, SharedKtor_client_coreHttpClientCall, SharedKtor_utilsGMTDate, SharedKtor_httpHttpStatusCode, SharedKtor_httpHttpProtocolVersion, SharedKoin_coreModule, SharedKoin_coreKoinApplication, SharedRuntimeTransacterTransaction, SharedKtor_client_coreHttpClientEngineConfig, SharedKtor_client_coreHttpClientConfig<T>, SharedKtor_eventsEvents, SharedKtor_client_coreHttpReceivePipeline, SharedKtor_client_coreHttpRequestPipeline, SharedKtor_client_coreHttpResponsePipeline, SharedKtor_client_coreHttpSendPipeline, SharedKotlinThrowable, SharedKotlinException, SharedKotlinRuntimeException, SharedKotlinIllegalStateException, SharedKtor_client_coreHttpRequestData, SharedKtor_client_coreHttpResponseData, SharedKtor_client_coreHttpClientCallCompanion, SharedKtor_utilsTypeInfo, SharedKtor_ioMemory, SharedKtor_ioChunkBuffer, SharedKtor_ioBuffer, SharedKotlinByteArray, SharedKtor_ioByteReadPacket, SharedKtor_utilsGMTDateCompanion, SharedKtor_utilsWeekDay, SharedKtor_utilsMonth, SharedKtor_httpHttpStatusCodeCompanion, SharedKtor_httpHttpProtocolVersionCompanion, SharedKoin_coreKoinDefinition<R>, SharedKoin_coreScope, SharedKoin_coreParametersHolder, SharedKoin_coreInstanceFactory<T>, SharedKoin_coreSingleInstanceFactory<T>, SharedKoin_coreScopeDSL, SharedKoin_coreKoinApplicationCompanion, SharedKoin_coreLogger, SharedKoin_coreLevel, SharedKoin_coreKoin, SharedKotlinx_coroutines_coreCoroutineDispatcher, SharedKtor_client_coreProxyConfig, SharedKtor_utilsAttributeKey<T>, SharedKtor_eventsEventDefinition<T>, SharedKtor_utilsPipelinePhase, SharedKtor_utilsPipeline<TSubject, TContext>, SharedKtor_client_coreHttpReceivePipelinePhases, SharedKotlinUnit, SharedKtor_client_coreHttpRequestPipelinePhases, SharedKtor_client_coreHttpRequestBuilder, SharedKtor_client_coreHttpResponsePipelinePhases, SharedKtor_client_coreHttpResponseContainer, SharedKtor_client_coreHttpSendPipelinePhases, SharedKotlinx_serialization_coreSerializersModule, SharedKotlinx_serialization_coreSerialKind, SharedKtor_httpUrl, SharedKtor_httpHttpMethod, SharedKtor_httpOutgoingContent, SharedKtor_ioMemoryCompanion, SharedKtor_ioBufferCompanion, SharedKtor_ioChunkBufferCompanion, SharedKotlinByteIterator, SharedKtor_ioInputCompanion, SharedKtor_ioInput, SharedKtor_ioByteReadPacketCompanion, SharedKotlinEnumCompanion, SharedKotlinEnum<E>, SharedKtor_utilsWeekDayCompanion, SharedKtor_utilsMonthCompanion, SharedKoin_coreLockable, SharedKotlinLazyThreadSafetyMode, SharedStately_concurrencyThreadLocalRef<T>, SharedKoin_coreBeanDefinition<T>, SharedKoin_coreInstanceFactoryCompanion, SharedKoin_coreInstanceContext, SharedKoin_coreExtensionManager, SharedKoin_coreInstanceRegistry, SharedKoin_corePropertyRegistry, SharedKoin_coreScopeRegistry, SharedKotlinAbstractCoroutineContextElement, SharedKotlinx_coroutines_coreCoroutineDispatcherKey, SharedKtor_httpHeadersBuilder, SharedKtor_client_coreHttpRequestBuilderCompanion, SharedKtor_httpURLBuilder, SharedKtor_httpUrlCompanion, SharedKtor_httpURLProtocol, SharedKtor_httpHttpMethodCompanion, SharedKtor_httpContentType, SharedKotlinCancellationException, SharedKotlinKTypeProjection, SharedKoin_coreKind, SharedKoin_coreCallbacks<T>, SharedKoin_coreScopeRegistryCompanion, SharedKotlinAbstractCoroutineContextKey<B, E>, SharedKtor_utilsStringValuesBuilderImpl, SharedKtor_httpURLBuilderCompanion, SharedKtor_httpURLProtocolCompanion, SharedKtor_httpHeaderValueParam, SharedKtor_httpHeaderValueWithParametersCompanion, SharedKtor_httpHeaderValueWithParameters, SharedKtor_httpContentTypeCompanion, SharedKotlinKVariance, SharedKotlinKTypeProjectionCompanion;
 
-@protocol SharedAppDatabaseQueries, SharedRuntimeTransactionWithoutReturn, SharedRuntimeTransactionWithReturn, SharedRuntimeTransacter, SharedAppDatabase, SharedRuntimeSqlDriver, SharedRuntimeSqlDriverSchema, SharedPlatform, SharedForkDao, SharedBaseMapper, SharedForkDBMapper, SharedForkResponseMapper, SharedOwnerResponseMapper, SharedKotlinx_serialization_coreKSerializer, SharedKotlinx_coroutines_coreFlow, SharedApiRepository, SharedDBRepository, SharedForkUIMapper, SharedKotlinx_coroutines_coreStateFlow, SharedForkUseCase, SharedOwnerUIMapper, SharedKtor_httpHeaders, SharedKtor_httpHttpMessage, SharedKotlinCoroutineContext, SharedKotlinx_coroutines_coreCoroutineScope, SharedKtor_ioByteReadChannel, SharedRuntimeTransactionCallbacks, SharedRuntimeSqlPreparedStatement, SharedRuntimeSqlCursor, SharedRuntimeCloseable, SharedRuntimeQueryListener, SharedKtor_ioCloseable, SharedKtor_client_coreHttpClientEngine, SharedKtor_client_coreHttpClientEngineCapability, SharedKtor_utilsAttributes, SharedKotlinx_serialization_coreEncoder, SharedKotlinx_serialization_coreSerialDescriptor, SharedKotlinx_serialization_coreSerializationStrategy, SharedKotlinx_serialization_coreDecoder, SharedKotlinx_serialization_coreDeserializationStrategy, SharedKotlinx_coroutines_coreFlowCollector, SharedKotlinx_coroutines_coreSharedFlow, SharedKotlinMapEntry, SharedKtor_utilsStringValues, SharedKotlinCoroutineContextElement, SharedKotlinCoroutineContextKey, SharedKtor_client_coreHttpRequest, SharedKtor_ioReadSession, SharedKotlinSuspendFunction1, SharedKotlinAppendable, SharedKotlinComparable, SharedKoin_coreQualifier, SharedKtor_client_coreHttpClientPlugin, SharedKotlinx_coroutines_coreDisposableHandle, SharedKotlinSuspendFunction2, SharedKotlinIterator, SharedKotlinx_serialization_coreCompositeEncoder, SharedKotlinAnnotation, SharedKotlinx_serialization_coreCompositeDecoder, SharedKotlinx_coroutines_coreJob, SharedKotlinKClass, SharedKotlinKType, SharedKtor_ioObjectPool, SharedKotlinFunction, SharedKotlinLazy, SharedKoin_coreScopeCallback, SharedKoin_coreKoinScopeComponent, SharedKotlinContinuation, SharedKotlinContinuationInterceptor, SharedKotlinx_coroutines_coreRunnable, SharedKtor_httpHttpMessageBuilder, SharedKotlinx_serialization_coreSerializersModuleCollector, SharedKtor_httpParameters, SharedKotlinx_coroutines_coreChildHandle, SharedKotlinx_coroutines_coreChildJob, SharedKotlinSequence, SharedKotlinx_coroutines_coreSelectClause0, SharedKotlinKDeclarationContainer, SharedKotlinKAnnotatedElement, SharedKotlinKClassifier, SharedKoin_coreKoinComponent, SharedKoin_coreKoinExtension, SharedKtor_utilsStringValuesBuilder, SharedKtor_httpParametersBuilder, SharedKotlinx_coroutines_coreParentJob, SharedKotlinx_coroutines_coreSelectInstance, SharedKotlinx_coroutines_coreSelectClause;
+@protocol SharedAppDatabaseQueries, SharedRuntimeTransactionWithoutReturn, SharedRuntimeTransactionWithReturn, SharedRuntimeTransacter, SharedAppDatabase, SharedRuntimeSqlDriver, SharedRuntimeSqlDriverSchema, SharedPlatform, SharedForkDao, SharedBaseMapper, SharedForkDBMapper, SharedForkResponseMapper, SharedOwnerResponseMapper, SharedKotlinx_serialization_coreKSerializer, SharedKotlinx_coroutines_coreFlow, SharedApiRepository, SharedDBRepository, SharedKotlinAutoCloseable, SharedKotlinx_coroutines_coreCoroutineScope, SharedForkUIMapper, SharedKotlinx_coroutines_coreStateFlow, SharedForkUseCase, SharedOwnerUIMapper, SharedKtor_httpHeaders, SharedKtor_httpHttpMessage, SharedKotlinCoroutineContext, SharedKtor_ioByteReadChannel, SharedRuntimeTransactionCallbacks, SharedRuntimeSqlPreparedStatement, SharedRuntimeSqlCursor, SharedRuntimeCloseable, SharedRuntimeQueryListener, SharedKtor_ioCloseable, SharedKtor_client_coreHttpClientEngine, SharedKtor_client_coreHttpClientEngineCapability, SharedKtor_utilsAttributes, SharedKotlinx_serialization_coreEncoder, SharedKotlinx_serialization_coreSerialDescriptor, SharedKotlinx_serialization_coreSerializationStrategy, SharedKotlinx_serialization_coreDecoder, SharedKotlinx_serialization_coreDeserializationStrategy, SharedKotlinx_coroutines_coreFlowCollector, SharedKotlinIterator, SharedKotlinx_coroutines_coreSharedFlow, SharedKotlinMapEntry, SharedKtor_utilsStringValues, SharedKotlinCoroutineContextElement, SharedKotlinCoroutineContextKey, SharedKtor_client_coreHttpRequest, SharedKtor_ioReadSession, SharedKotlinSuspendFunction1, SharedKotlinAppendable, SharedKotlinComparable, SharedKoin_coreQualifier, SharedKtor_client_coreHttpClientPlugin, SharedKotlinx_coroutines_coreDisposableHandle, SharedKotlinSuspendFunction2, SharedKotlinx_serialization_coreCompositeEncoder, SharedKotlinAnnotation, SharedKotlinx_serialization_coreCompositeDecoder, SharedKotlinx_coroutines_coreJob, SharedKotlinKClass, SharedKotlinKType, SharedKtor_ioObjectPool, SharedKotlinFunction, SharedKotlinLazy, SharedKoin_coreScopeCallback, SharedKoin_coreKoinScopeComponent, SharedKotlinContinuation, SharedKotlinContinuationInterceptor, SharedKotlinx_coroutines_coreRunnable, SharedKtor_httpHttpMessageBuilder, SharedKotlinx_serialization_coreSerializersModuleCollector, SharedKtor_httpParameters, SharedKotlinx_coroutines_coreChildHandle, SharedKotlinx_coroutines_coreChildJob, SharedKotlinSequence, SharedKotlinx_coroutines_coreSelectClause0, SharedKotlinKDeclarationContainer, SharedKotlinKAnnotatedElement, SharedKotlinKClassifier, SharedKoin_coreKoinComponent, SharedKoin_coreKoinExtension, SharedKtor_utilsStringValuesBuilder, SharedKtor_httpParametersBuilder, SharedKotlinx_coroutines_coreParentJob, SharedKotlinx_coroutines_coreSelectInstance, SharedKotlinx_coroutines_coreSelectClause;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -569,10 +569,32 @@ __attribute__((swift_name("DetailsIntent.LoadFork")))
 @property (readonly) int64_t forkId __attribute__((swift_name("forkId")));
 @end
 
+__attribute__((swift_name("Lifecycle_viewmodelViewModel")))
+@interface SharedLifecycle_viewmodelViewModel : SharedBase
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (instancetype)initWithCloseables:(SharedKotlinArray<id<SharedKotlinAutoCloseable>> *)closeables __attribute__((swift_name("init(closeables:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithViewModelScope:(id<SharedKotlinx_coroutines_coreCoroutineScope>)viewModelScope __attribute__((swift_name("init(viewModelScope:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithViewModelScope:(id<SharedKotlinx_coroutines_coreCoroutineScope>)viewModelScope closeables:(SharedKotlinArray<id<SharedKotlinAutoCloseable>> *)closeables __attribute__((swift_name("init(viewModelScope:closeables:)"))) __attribute__((objc_designated_initializer));
+- (void)addCloseableCloseable:(id<SharedKotlinAutoCloseable>)closeable __attribute__((swift_name("addCloseable(closeable:)")));
+- (void)addCloseableKey:(NSString *)key closeable:(id<SharedKotlinAutoCloseable>)closeable __attribute__((swift_name("addCloseable(key:closeable:)")));
+- (id<SharedKotlinAutoCloseable> _Nullable)getCloseableKey:(NSString *)key __attribute__((swift_name("getCloseable(key:)")));
+
+/**
+ * @note This method has protected visibility in Kotlin source and is intended only for use by subclasses.
+*/
+- (void)onCleared __attribute__((swift_name("onCleared()")));
+@end
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("DetailsViewModel")))
-@interface SharedDetailsViewModel : SharedBase
+@interface SharedDetailsViewModel : SharedLifecycle_viewmodelViewModel
 - (instancetype)initWithForkRepository:(id<SharedDBRepository>)forkRepository forkUIMapper:(id<SharedForkUIMapper>)forkUIMapper __attribute__((swift_name("init(forkRepository:forkUIMapper:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
+- (instancetype)initWithCloseables:(SharedKotlinArray<id<SharedKotlinAutoCloseable>> *)closeables __attribute__((swift_name("init(closeables:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithViewModelScope:(id<SharedKotlinx_coroutines_coreCoroutineScope>)viewModelScope __attribute__((swift_name("init(viewModelScope:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithViewModelScope:(id<SharedKotlinx_coroutines_coreCoroutineScope>)viewModelScope closeables:(SharedKotlinArray<id<SharedKotlinAutoCloseable>> *)closeables __attribute__((swift_name("init(viewModelScope:closeables:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (void)getForkByIdForkId:(SharedLong * _Nullable)forkId __attribute__((swift_name("getForkById(forkId:)")));
 - (void)processIntentIntent:(SharedDetailsIntent *)intent __attribute__((swift_name("processIntent(intent:)")));
 @property (readonly) id<SharedKotlinx_coroutines_coreStateFlow> state __attribute__((swift_name("state")));
@@ -604,8 +626,13 @@ __attribute__((swift_name("ListIntent.LoadForks")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ListViewModel")))
-@interface SharedListViewModel : SharedBase
+@interface SharedListViewModel : SharedLifecycle_viewmodelViewModel
 - (instancetype)initWithForkUseCase:(id<SharedForkUseCase>)forkUseCase forkUIMapper:(id<SharedForkUIMapper>)forkUIMapper __attribute__((swift_name("init(forkUseCase:forkUIMapper:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
+- (instancetype)initWithCloseables:(SharedKotlinArray<id<SharedKotlinAutoCloseable>> *)closeables __attribute__((swift_name("init(closeables:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithViewModelScope:(id<SharedKotlinx_coroutines_coreCoroutineScope>)viewModelScope __attribute__((swift_name("init(viewModelScope:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithViewModelScope:(id<SharedKotlinx_coroutines_coreCoroutineScope>)viewModelScope closeables:(SharedKotlinArray<id<SharedKotlinAutoCloseable>> *)closeables __attribute__((swift_name("init(viewModelScope:closeables:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (void)processIntentIntent:(SharedListIntent *)intent __attribute__((swift_name("processIntent(intent:)")));
 @property (readonly) id<SharedKotlinx_coroutines_coreStateFlow> state __attribute__((swift_name("state")));
 @end
@@ -976,6 +1003,30 @@ __attribute__((swift_name("Kotlinx_coroutines_coreFlow")))
  * Other uncaught Kotlin exceptions are fatal.
 */
 - (void)collectCollector:(id<SharedKotlinx_coroutines_coreFlowCollector>)collector completionHandler:(void (^)(NSError * _Nullable))completionHandler __attribute__((swift_name("collect(collector:completionHandler:)")));
+@end
+
+
+/**
+ * @note annotations
+ *   kotlin.SinceKotlin(version="1.8")
+ *   kotlin.ExperimentalStdlibApi
+*/
+__attribute__((swift_name("KotlinAutoCloseable")))
+@protocol SharedKotlinAutoCloseable
+@required
+- (void)close __attribute__((swift_name("close()")));
+@end
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinArray")))
+@interface SharedKotlinArray<T> : SharedBase
++ (instancetype)arrayWithSize:(int32_t)size init:(T _Nullable (^)(SharedInt *))init __attribute__((swift_name("init(size:init:)")));
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (T _Nullable)getIndex:(int32_t)index __attribute__((swift_name("get(index:)")));
+- (id<SharedKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
+- (void)setIndex:(int32_t)index value:(T _Nullable)value __attribute__((swift_name("set(index:value:)")));
+@property (readonly) int32_t size __attribute__((swift_name("size")));
 @end
 
 __attribute__((swift_name("Kotlinx_coroutines_coreSharedFlow")))
@@ -1484,18 +1535,6 @@ __attribute__((swift_name("Ktor_client_coreHttpSendPipeline")))
 @property (readonly) BOOL developmentMode __attribute__((swift_name("developmentMode")));
 @end
 
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("KotlinArray")))
-@interface SharedKotlinArray<T> : SharedBase
-+ (instancetype)arrayWithSize:(int32_t)size init:(T _Nullable (^)(SharedInt *))init __attribute__((swift_name("init(size:init:)")));
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (T _Nullable)getIndex:(int32_t)index __attribute__((swift_name("get(index:)")));
-- (id<SharedKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
-- (void)setIndex:(int32_t)index value:(T _Nullable)value __attribute__((swift_name("set(index:value:)")));
-@property (readonly) int32_t size __attribute__((swift_name("size")));
-@end
-
 __attribute__((swift_name("Kotlinx_serialization_coreEncoder")))
 @protocol SharedKotlinx_serialization_coreEncoder
 @required
@@ -1648,6 +1687,13 @@ __attribute__((swift_name("Kotlinx_coroutines_coreFlowCollector")))
 - (void)emitValue:(id _Nullable)value completionHandler:(void (^)(NSError * _Nullable))completionHandler __attribute__((swift_name("emit(value:completionHandler:)")));
 @end
 
+__attribute__((swift_name("KotlinIterator")))
+@protocol SharedKotlinIterator
+@required
+- (BOOL)hasNext __attribute__((swift_name("hasNext()")));
+- (id _Nullable)next_ __attribute__((swift_name("next_()")));
+@end
+
 __attribute__((swift_name("KotlinMapEntry")))
 @protocol SharedKotlinMapEntry
 @required
@@ -1789,7 +1835,7 @@ __attribute__((swift_name("Ktor_ioChunkBuffer")))
 - (SharedKtor_ioChunkBuffer *)duplicate __attribute__((swift_name("duplicate()")));
 - (void)releasePool:(id<SharedKtor_ioObjectPool>)pool __attribute__((swift_name("release(pool:)")));
 - (void)reset __attribute__((swift_name("reset()")));
-@property (getter=next_) SharedKtor_ioChunkBuffer * _Nullable next __attribute__((swift_name("next")));
+@property (getter=next__) SharedKtor_ioChunkBuffer * _Nullable next __attribute__((swift_name("next")));
 @property (readonly) SharedKtor_ioChunkBuffer * _Nullable origin __attribute__((swift_name("origin")));
 @property (readonly) int32_t referenceCount __attribute__((swift_name("referenceCount")));
 @end
@@ -2455,13 +2501,6 @@ __attribute__((swift_name("Ktor_client_coreHttpSendPipeline.Phases")))
 @property (readonly) SharedKtor_utilsPipelinePhase *State __attribute__((swift_name("State")));
 @end
 
-__attribute__((swift_name("KotlinIterator")))
-@protocol SharedKotlinIterator
-@required
-- (BOOL)hasNext __attribute__((swift_name("hasNext()")));
-- (id _Nullable)next__ __attribute__((swift_name("next_()")));
-@end
-
 __attribute__((swift_name("Kotlinx_serialization_coreCompositeEncoder")))
 @protocol SharedKotlinx_serialization_coreCompositeEncoder
 @required
@@ -2742,7 +2781,7 @@ __attribute__((swift_name("KotlinByteIterator")))
 @interface SharedKotlinByteIterator : SharedBase <SharedKotlinIterator>
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (SharedByte *)next__ __attribute__((swift_name("next_()")));
+- (SharedByte *)next_ __attribute__((swift_name("next_()")));
 - (int8_t)nextByte __attribute__((swift_name("nextByte()")));
 @end
 
