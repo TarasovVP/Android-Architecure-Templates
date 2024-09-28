@@ -1,11 +1,8 @@
 
 plugins {
-    kotlin("multiplatform")
-    id("com.android.application")
-    id("kotlin-parcelize")
-    id("kotlinx-serialization")
-    id("org.jetbrains.compose") version "1.6.1"
-    id("com.squareup.sqldelight")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.composeMultiplatform)
 }
 
 kotlin {
@@ -17,28 +14,17 @@ kotlin {
         }
     }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.app"
-            baseName = "app"
-            isStatic = true
-        }
-    }
     task("testClasses")
     sourceSets {
         androidMain.dependencies {
             // Koin
-            implementation("io.insert-koin:koin-android:3.5.6")
-            implementation("io.insert-koin:koin-androidx-compose:3.5.6")
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
 
             //Compose
             implementation(compose.material3)
-            implementation("androidx.compose.material:material-ripple:1.7.0-alpha05")
-            implementation("androidx.activity:activity-compose:1.9.0")
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.material.ripple)
             implementation(project(":shared"))
         }
     }
@@ -47,7 +33,7 @@ kotlin {
 
 android {
     namespace = "com.vnteam.architecturetemplates"
-    compileSdk = 34
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
@@ -55,8 +41,8 @@ android {
 
     defaultConfig {
         applicationId = "com.vnteam.architecturetemplates"
-        minSdk = 24
-        targetSdk = 34
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -82,14 +68,6 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11"
+        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
     }
-    compileSdk = 34
-}
-
-dependencies {
-
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
