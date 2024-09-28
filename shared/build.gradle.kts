@@ -48,8 +48,6 @@ kotlin {
             //Coil
             implementation("io.coil-kt.coil3:coil-compose:3.0.0-alpha06")
             implementation("io.coil-kt.coil3:coil-network-ktor:3.0.0-alpha06")
-            //Navigation
-            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha01")
         }
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-android:2.3.7")
@@ -57,10 +55,14 @@ kotlin {
             // Koin
             implementation("io.insert-koin:koin-android:3.5.3")
             implementation("io.insert-koin:koin-androidx-compose:3.5.3")
+            //Navigation
+            implementation("androidx.navigation:navigation-compose:2.8.0-alpha07")
         }
         iosMain.dependencies {
             implementation("io.ktor:ktor-client-darwin:2.3.7")
             implementation("com.squareup.sqldelight:native-driver:1.5.5")
+            //Navigation
+            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha01")
         }
         nativeMain.dependencies {
             implementation("io.ktor:ktor-client-darwin:2.3.7")
