@@ -1,12 +1,9 @@
-buildscript {
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-serialization:1.9.23")
-        classpath("com.squareup.sqldelight:gradle-plugin:1.5.5")
-    }
-}
 
 plugins {
-    id("org.jetbrains.kotlin.android") version "1.9.23" apply false
-    id("com.android.application") version "8.3.0" apply false
-    id("com.android.library") version "8.3.0" apply false
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.composeMultiplatform) apply false
+    alias(libs.plugins.kotlinMultiplatform) apply false
+    alias(libs.plugins.kotlinSerialization) apply false
+    alias(libs.plugins.sqlDelight) apply false
 }

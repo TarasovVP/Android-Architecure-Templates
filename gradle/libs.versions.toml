@@ -7,13 +7,21 @@ kotlinCompilerExtensionVersion = "1.5.11"
 
 kotlinxSerialization = "1.6.3"
 coroutines = "1.8.0"
+<<<<<<< HEAD
 viewmodelCompose = "2.8.0-beta01"
+=======
+viewmodelCompose = "2.8.0-alpha01"
+>>>>>>> be326853 (Improve gradle files)
 ktor = "2.3.9"
 koin = "3.5.6"
 koinComposeMultiplatform = "1.1.5"
 sqldelight = "1.5.5"
 coilCompose = "3.0.0-alpha06"
+<<<<<<< HEAD
 navigationCompose = "2.8.0-alpha02"
+=======
+navigationCompose = "2.8.0-alpha01"
+>>>>>>> be326853 (Improve gradle files)
 activity = "1.9.0"
 materialRipple = "1.7.0-alpha05"
 agp = "8.2.2"
