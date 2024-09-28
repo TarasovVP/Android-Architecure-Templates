@@ -36,6 +36,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.components.resources)
 
             //Ktor
             implementation(libs.ktor.client.core)
@@ -70,7 +71,7 @@ kotlin {
 android {
     namespace = "com.vnteam.architecturetemplates.shared"
     compileSdk = libs.versions.compileSdk.get().toInt()
-
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 }
 
 sqldelight {
