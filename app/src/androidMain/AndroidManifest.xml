@@ -10,7 +10,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:name=".AppApplication"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Architecture Templates"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar"
         tools:targetApi="31">
