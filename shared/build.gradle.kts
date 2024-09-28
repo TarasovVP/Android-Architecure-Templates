@@ -32,7 +32,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization)
-            implementation(libs.kotlinx.coroutines)
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.androidx.viewmodel.compose)
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -69,6 +69,7 @@ kotlin {
         jvmMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.ktor.client.java)
+            implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.sqldelight.java.driver)
         }
     }
