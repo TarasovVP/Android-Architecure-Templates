@@ -21,7 +21,7 @@ sealed class StringResources(
 
 class StringResourcesEN : StringResources(
     APP_NAME = "Architecture Templates",
-    DEMO_OBJECTS = "DemoObjects",
+    DEMO_OBJECTS = "Demo Objects",
     START = "Start",
     OWNER_AVATAR = "Owner avatar",
     DESCRIPTION = "Description:",
@@ -37,7 +37,7 @@ class StringResourcesEN : StringResources(
 class StringResourcesUK : StringResources(
     APP_NAME = "Architecture Templates",
     START = "Початок",
-    DEMO_OBJECTS = "Форки",
+    DEMO_OBJECTS = "Демо об'єкти",
     OWNER_AVATAR = "Owner avatar",
     DESCRIPTION = "Опис:",
     NAME = "Ім'я",
