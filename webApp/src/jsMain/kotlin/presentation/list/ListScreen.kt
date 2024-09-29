@@ -1,4 +1,5 @@
 package presentation.list
+
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDuration
