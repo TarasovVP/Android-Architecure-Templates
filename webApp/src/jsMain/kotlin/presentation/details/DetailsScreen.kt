@@ -4,9 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import components.AppStyles
 import components.BaseButton
@@ -18,6 +16,7 @@ import org.jetbrains.compose.web.css.Style
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.events.Event
+import presentation.viewModel
 
 @Composable
 fun DetailsScreen(itemId: String) {
@@ -41,7 +40,7 @@ fun DetailsScreen(itemId: String) {
         OwnerCard(detailsViewStateState.value.demoObject?.owner)
         Div(attrs = { classes(AppStyles.textStyle) }) { Text("Description:") }
         Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.demoObject?.description.orEmpty()) }
-        BaseButton(LocalStringResources.current.BACK) {
+        BaseButton("Back") {
             window.history.pushState(null, "", "/list")
             window.dispatchEvent(Event("popstate"))
         }
