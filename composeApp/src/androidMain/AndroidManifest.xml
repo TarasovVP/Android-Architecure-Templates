@@ -8,24 +8,25 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:name=".AppApplication"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Architecture Templates"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:name="architecturetemplates.AppApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="Architecture Templates"
         android:supportsRtl="true"
-<<<<<<<< HEAD:composeApp/src/androidMain/AndroidManifest.xml
         android:usesCleartextTraffic="true"
-========
->>>>>>>> c0ecbca7 (Fix merge conflicts):app/src/androidMain/AndroidManifest.xml
         android:theme="@android:style/Theme.Material.Light.NoActionBar"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
-<<<<<<<< HEAD:composeApp/src/androidMain/AndroidManifest.xml
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
-========
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             android:exported="true">
->>>>>>>> c0ecbca7 (Fix merge conflicts):app/src/androidMain/AndroidManifest.xml
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

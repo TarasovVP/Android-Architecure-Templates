@@ -1,12 +1,4 @@
-<<<<<<<< HEAD:composeApp/src/androidTest/java/com/vnteam/architecturetemplates/ExampleInstrumentedTest.kt
-<<<<<<<< HEAD:app/src/androidTest/java/com/vnstudio/cleanarchitecturedemo/ExampleInstrumentedTest.kt
-package com.vnstudio.cleanarchitecturedemo
-========
 package com.vnteam.architecturetemplates
->>>>>>>> 49c2f929 (Init branch):app/src/androidTest/java/com/vnteam/architecturetemplates/ExampleInstrumentedTest.kt
-========
-package com.vnteam.architecturetemplates
->>>>>>>> 746b1039 (Init branch):app/src/androidTest/java/com/vnteam/architecturetemplates/ExampleInstrumentedTest.kt
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
