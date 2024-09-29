@@ -8,6 +8,8 @@ import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.presentation.mappers.DemoObjectUIMapper
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.states.InfoMessageState
+import com.vnteam.architecturetemplates.domain.repositories.DBRepository
+import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,6 +20,8 @@ import kotlinx.coroutines.launch
 class DetailsViewModel(
     private val detailsUseCase: DetailsUseCase,
     private val demoObjectUIMapper: DemoObjectUIMapper
+    private val forkRepository: DBRepository,
+    private val forkUIMapper: ForkUIMapper,
 ): ViewModel() {
 
     private val _state = MutableStateFlow(DetailsViewState())
@@ -32,6 +36,13 @@ class DetailsViewModel(
     private fun getDemoObjectById(demoObjectId: Long?) {
         viewModelScope.launch {
             detailsUseCase.getDemoObjectById(demoObjectId ?: 0)
+            is DetailsIntent.LoadFork -> getForkById(intent.forkId)
+            else -> Unit
+        }
+    }
+    private fun getForkById(forkId: Long?) {
+        viewModelScope.launch {
+            forkRepository.getForkById(forkId ?: 0)
                 .onStart {
                     _state.value = _state.value.copy(isLoading = true)
                 }
@@ -40,7 +51,11 @@ class DetailsViewModel(
                     println("Error: ${exception.message}")
                 }
                 .collect { demoObject ->
-                    _state.value = _state.value.copy(demoObject = demoObject?.let { demoObjectUIMapper.mapToImplModel(it) }, isLoading = false)
+                   _state.value = state.value.c opy(isLoading = false, infoMessage = mutableStateOf( InfoMessageState(message = exception.message.orEmpty(), isError = true)))
+                    println("Error: ${exception.message}")
+                }
+                .collect { fork ->
+                    _state.value = _state.value.copy(fork = fork?.let { forkUIMapper.mapToImplModel(it) }, isLoading = false)
                 }
         }
     }
