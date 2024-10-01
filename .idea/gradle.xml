@@ -5,11 +5,15 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="jbr-17" />
+        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/composeApp" />
+            <option value="$PROJECT_DIR$/composeUi" />
+            <option value="$PROJECT_DIR$/composeWebApp" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/server" />
             <option value="$PROJECT_DIR$/shared" />
             <option value="$PROJECT_DIR$/webApp" />
           </set>
