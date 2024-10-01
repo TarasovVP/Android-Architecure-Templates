@@ -130,23 +130,3 @@ fun getMachineLocalIpAddress(): String {
     return "localhost"
 }
 
-tasks.register("generateBuildConfig") {
-    doLast {
-        val buildConfigFile = file("src/commonMain/kotlin/config/BuildConfig.kt")
-
-        buildConfigFile.parentFile.mkdirs()
-        buildConfigFile.writeText("""
-            package config
-
-            object BuildConfig {
-                val LOCAL_IP: String = "${getMachineLocalIpAddress()}"
-            }
-        """.trimIndent())
-    }
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    dependsOn("generateBuildConfig")
-}
-
-
