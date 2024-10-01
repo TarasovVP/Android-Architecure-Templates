@@ -11,9 +11,8 @@ class DemoObjectUIMapperImpl(private val owner: OwnerUIMapper) : DemoObjectUIMap
 
     override fun mapToImplModel(from: DemoObject): DemoObjectUI {
         return DemoObjectUI(
-            id = from.id,
+            demoObjectId = from.demoObjectId,
             name = from.name,
-            fullName = from.fullName.orEmpty(),
             owner = owner.mapToImplModel(from.owner ?: Owner()),
             htmlUrl = from.htmlUrl,
             description = from.description
@@ -22,9 +21,8 @@ class DemoObjectUIMapperImpl(private val owner: OwnerUIMapper) : DemoObjectUIMap
 
     override fun mapFromImplModel(to: DemoObjectUI): DemoObject {
         return DemoObject(
-            id = to.id,
+            demoObjectId = to.demoObjectId,
             name = to.name,
-            fullName = to.fullName,
             owner = owner.mapFromImplModel(to.owner ?: OwnerUI()),
             htmlUrl = to.htmlUrl,
             description = to.description

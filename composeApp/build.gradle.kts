@@ -56,6 +56,7 @@ kotlin {
 
         commonMain.dependencies {
             implementation(projects.shared)
+            implementation(projects.composeUi)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
@@ -101,13 +102,11 @@ kotlin {
             implementation("org.jetbrains.skiko:skiko-awt-runtime-$target:$version")
             implementation(libs.koin.core)
             implementation(compose.desktop.currentOs)
-
         }
         iosMain.dependencies {
             implementation(libs.koin.core)
         }
         jsMain.dependencies {
-            implementation(libs.koin.core)
             //Compose
             implementation(compose.html.core)
             implementation(compose.runtime)
@@ -127,7 +126,6 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
         applicationId = "com.vnteam.architecturetemplates"
@@ -156,7 +154,6 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
         compose = true
     }
     composeOptions {
@@ -174,10 +171,4 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
-}
-
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "com.vnteam.architecturetemplates"
-    generateResClass = always
 }

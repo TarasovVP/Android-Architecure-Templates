@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -21,81 +22,69 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.vnteam.architecturetemplates.Res
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
-import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
 import com.vnteam.architecturetemplates.ic_dark_mode
 import com.vnteam.architecturetemplates.ic_light_mode
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
-import kotlinx.coroutines.launch
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
+import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
 import presentation.components.SplashScreen
 import theme.AppTheme
 
 @Composable
-fun App(appUseCase: AppUseCase) {
-    val screenState = remember { mutableStateOf(ScreenState()) }
+fun App(appViewModel: AppViewModel) {
 
-    val isDarkTheme = remember { mutableStateOf(false) }
-    val language = remember { mutableStateOf(Locale.current.language) }
-    val isLoading = remember { mutableStateOf(true) }
-    LaunchedEffect(Unit) {
-        isDarkTheme.value = appUseCase.getIsDarkTheme()
-        language.value = appUseCase.getLanguage() ?: Locale.current.language
-        isLoading.value = false
-    }
-    LaunchedEffect(isDarkTheme.value) {
-        appUseCase.setIsDarkTheme(isDarkTheme.value)
-    }
-    LaunchedEffect(language.value) {
-        appUseCase.setLanguage(language.value)
-    }
-    if (isLoading.value) {
-        SplashScreen()
-    } else {
-        CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value)) {
-            AppTheme(isDarkTheme.value) {
-                ScaffoldContent(screenState, language, isDarkTheme)
+    val isDarkTheme = appViewModel.isDarkTheme.collectAsState()
+    val language = appViewModel.language.collectAsState()
+    CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value.orEmpty())) {
+        isDarkTheme.value?.let {
+            AppTheme(it) {
+                ScaffoldContent(koinInject(), appViewModel)
             }
-        }
+        } ?: SplashScreen()
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScaffoldContent(screenState: MutableState<ScreenState>, language: MutableState<String>, isDarkTheme: MutableState<Boolean>) {
-    val scope = rememberCoroutineScope()
+fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppViewModel) {
     val snackbarHostState = remember { SnackbarHostState() }
-
-    if (screenState.value.snackbarVisible) {
-        scope.launch {
+    val navController = rememberNavController()
+    LaunchedEffect(screenState.value.appMessageState.messageVisible) {
+        if (screenState.value.appMessageState.messageVisible) {
             snackbarHostState.showSnackbar(
-                message = screenState.value.snackbarMessage,
+                message = screenState.value.appMessageState.messageText,
                 duration = SnackbarDuration.Short,
             )
-            screenState.value = screenState.value.copy(snackbarVisible = false)
+            screenState.value = screenState.value.copy(appMessageState = screenState.value.appMessageState.copy(messageVisible = false))
         }
     }
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(screenState.value.topAppBarTitle) },
+                title = { Text(screenState.value.appBarState.appBarTitle) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = Color.White
                 ),
                 navigationIcon = {
-                    if (screenState.value.topAppBarActionVisible) {
-                        IconButton(onClick = screenState.value.topAppBarAction) {
+                    if (screenState.value.appBarState.topAppBarActionVisible) {
+                        IconButton(onClick = screenState.value.appBarState.topAppBarAction) {
                             Icon(
                                 tint = Color.White,
                                 imageVector = Icons.AutoMirrored.Default.ArrowBack,
@@ -105,18 +94,18 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, language: MutableSta
                     }
                 },
                 actions = {
-                    if (!screenState.value.topAppBarActionVisible) {
+                    if (!screenState.value.appBarState.topAppBarActionVisible) {
                         IconButton(onClick = {
-                            language.value = if (language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN
+                            appViewModel.setLanguage(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN)
                         }) {
-                            Text(language.value, color = Color.White)
+                            Text(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN, color = Color.White)
                         }
                         IconButton(onClick = {
-                            isDarkTheme.value = !isDarkTheme.value
+                            appViewModel.setIsDarkTheme(appViewModel.isDarkTheme.value != true)
                         }) {
                             Icon(
-                                painter = painterResource(if (isDarkTheme.value) Res.drawable.ic_dark_mode else Res.drawable.ic_light_mode),
-                                contentDescription = if (isDarkTheme.value) "Switch to Light Theme" else "Switch to Dark Theme",
+                                painter = painterResource(if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode ),
+                                contentDescription = if (appViewModel.isDarkTheme.value == true) "Switch to Light Theme" else "Switch to Dark Theme",
                                 tint = Color.White
                             )
                         }
@@ -128,13 +117,24 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, language: MutableSta
                 Snackbar(
                     snackbarData = data,
                     actionColor = Color.White,
-                    containerColor = if (screenState.value.isSnackbarError) Color.Red else Color.Green
+                    containerColor = if (screenState.value.appMessageState.isMessageError) Color.Red else Color.Green
+                )
+            }
+        },
+        floatingActionButton = {
+            if (screenState.value.floatingActionState.floatingActionButtonVisible) {
+                ExtendedFloatingActionButton(
+                    onClick = { screenState.value.floatingActionState.floatingActionButtonAction() },
+                    content = { Text(screenState.value.floatingActionState.floatingActionButtonTitle) },
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = Color.White,
+                    modifier = Modifier.padding(horizontal = 48.dp, vertical = LocalSmallPadding.current.size)
                 )
             }
         },
         content = { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
-                AppNavigation(screenState)
+                AppNavigation(navController, koinInject())
                 if (screenState.value.isProgressVisible) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }

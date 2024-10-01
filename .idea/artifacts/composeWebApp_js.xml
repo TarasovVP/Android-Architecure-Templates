@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="composeWebApp-js">
+    <output-path>$PROJECT_DIR$/composeWebApp/build/libs</output-path>
+    <root id="archive" name="composeWebApp-js.jar">
+      <element id="module-output" name="Android_Architecture_Templates.composeWebApp.jsMain" />
+    </root>
+  </artifact>
+</component>

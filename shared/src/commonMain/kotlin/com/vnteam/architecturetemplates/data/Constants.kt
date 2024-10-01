@@ -1,6 +1,7 @@
 package com.vnteam.architecturetemplates.data
 
-const val BASE_URL = "https://api.github.com/"
+//TODO change this to your server url
+const val LOCAL_HOST_URL = "http://localhost:8080/"
 const val DEMO_OBJECTS_DB = "demoObjects.db"
 const val PREFERENCES_PB = "aat.preferences_pb"
 const val IS_DARK_THEME = "isDarkTheme.db"

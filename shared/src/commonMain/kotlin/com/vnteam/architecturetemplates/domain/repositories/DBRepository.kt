@@ -11,5 +11,7 @@ interface DBRepository {
 
     suspend fun getDemoObjectsFromDB(): Flow<List<DemoObject>>
 
-    suspend fun getDemoObjectById(demoObjectId: Long): Flow<DemoObject?>
+    suspend fun getDemoObjectById(demoObjectId: String): Flow<DemoObject?>
+
+    suspend fun deleteDemoObjectById(demoObjectId: String): Flow<Unit>
 }

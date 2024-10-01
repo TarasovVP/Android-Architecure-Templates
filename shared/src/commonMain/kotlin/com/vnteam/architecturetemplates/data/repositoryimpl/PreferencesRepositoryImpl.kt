@@ -4,6 +4,7 @@ import com.vnteam.architecturetemplates.data.IS_DARK_THEME
 import com.vnteam.architecturetemplates.data.APP_LANGUAGE
 import com.vnteam.architecturetemplates.data.local.PreferencesFactory
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
+import kotlinx.coroutines.flow.Flow
 
 class PreferencesRepositoryImpl(private val preferencesFactory: PreferencesFactory) :
     PreferencesRepository {
@@ -11,7 +12,7 @@ class PreferencesRepositoryImpl(private val preferencesFactory: PreferencesFacto
         preferencesFactory.putBoolean(IS_DARK_THEME, isDarkTheme)
     }
 
-    override suspend fun getIsDarkTheme(): Boolean {
+    override suspend fun getIsDarkTheme(): Flow<Boolean> {
         return preferencesFactory.getBoolean(IS_DARK_THEME)
     }
 
@@ -19,7 +20,7 @@ class PreferencesRepositoryImpl(private val preferencesFactory: PreferencesFacto
         preferencesFactory.putString(APP_LANGUAGE, language)
     }
 
-    override suspend fun getLanguage(): String? {
+    override suspend fun getLanguage(): Flow<String?> {
         return preferencesFactory.getString(APP_LANGUAGE)
     }
 

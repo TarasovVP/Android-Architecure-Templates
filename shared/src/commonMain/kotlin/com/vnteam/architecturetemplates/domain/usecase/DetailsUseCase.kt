@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface DetailsUseCase {
 
-    suspend fun getDemoObjectById(id: Long): Flow<DemoObject?>
+    suspend fun getDemoObjectById(id: String): Flow<DemoObject?>
 }

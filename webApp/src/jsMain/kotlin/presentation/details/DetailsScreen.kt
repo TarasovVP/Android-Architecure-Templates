@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
+import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import components.AppStyles
 import components.BaseButton
@@ -19,33 +20,33 @@ import org.w3c.dom.events.Event
 import presentation.viewModel
 
 @Composable
-fun DetailsScreen(itemId: String) {
+fun DetailsScreen(itemId: String, screenState: ScreenState) {
     Style(AppStyles)
     val viewModel = viewModel(DetailsViewModel::class)
 
     val detailsViewStateState = viewModel.state.collectAsState()
-    val error = mutableStateOf(viewModel.state.value.infoMessage.value)
+    val messageState = mutableStateOf(screenState.appMessageState)
 
     LaunchedEffect(itemId) {
-        viewModel.processIntent(DetailsIntent.LoadDemoObject(itemId.toLong()))
+        viewModel.processIntent(DetailsIntent.LoadDemoObject(itemId))
     }
 
     LaunchedEffect(detailsViewStateState.value) {
-        error.value = viewModel.state.value.infoMessage.value
+        messageState.value = screenState.appMessageState
     }
-    console.log("DetailsScreen ${detailsViewStateState.value.demoObject?.name}")
+    console.log("DetailsScreen ${detailsViewStateState.value.demoObjectUI?.name}")
     VerticalLayout {
-        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.demoObject?.name.orEmpty()) }
-        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.demoObject?.owner?.login.orEmpty()) }
-        OwnerCard(detailsViewStateState.value.demoObject?.owner)
+        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.demoObjectUI?.name.orEmpty()) }
+        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.demoObjectUI?.owner?.login.orEmpty()) }
+        OwnerCard(detailsViewStateState.value.demoObjectUI?.owner)
         Div(attrs = { classes(AppStyles.textStyle) }) { Text("Description:") }
-        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.demoObject?.description.orEmpty()) }
+        Div(attrs = { classes(AppStyles.textStyle) }) { Text(detailsViewStateState.value.demoObjectUI?.description.orEmpty()) }
         BaseButton("Back") {
             window.history.pushState(null, "", "/list")
             window.dispatchEvent(Event("popstate"))
         }
 
-        if (viewModel.state.value.isLoading) {
+        if (screenState.isProgressVisible) {
             CircularProgress()
         }
     }

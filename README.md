@@ -1,4 +1,4 @@
-**Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS)*  
+**Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS), Server(Ktor+SqlDelight(dialect-PostgreSQL))*  
 **Architecture**: *MVI*  
 **Screens:** *(Android/ComponentActivity, iOS/ContentView, Desktop/androidx.compose.ui.window.Window, Web/org.jetbrains.compose.web.renderComposable) + @Composable*  
 **Api:** *io.ktor.client.HttpClient*  
@@ -9,4 +9,4 @@
 **Architectural component:** *androidx.lifecycle.ViewModel*  
 **Observable component:** *kotlinx.coroutines.flow.StateFlow*  
 **Navigation component:** *org.jetbrains.androidx.navigation*  
-**DI:** *org.koin.core.KoinApplication*  
+**DI:** *org.koin.core.KoinApplication*   
