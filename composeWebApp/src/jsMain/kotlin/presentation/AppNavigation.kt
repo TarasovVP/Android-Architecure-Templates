@@ -35,8 +35,8 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
     }
     when  {
         currentPath.value == "" || currentPath.value == PATH_START -> {
-            ListScreen(screenState, onItemClick = { forkUI ->
-                window.navigateTo("${NavigationScreens.DetailsScreen.route}${forkUI.forkId}")
+            ListScreen(screenState, onItemClick = { demoObjectUI ->
+                window.navigateTo("${NavigationScreens.DetailsScreen.route}${demoObjectUI.demoObjectId}")
             }, content = { viewState, onItemClick ->
                 ListContent(viewState.value, screenState, onItemClick)
             })
@@ -47,13 +47,13 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
             }
         }
         currentPath.value.startsWith("$PATH_START${NavigationScreens.EditScreen.route}") -> {
-            CreateScreen(currentPath.value.removePrefix("$PATH_START${NavigationScreens.EditScreen.route}"), screenState) { viewState, originFork, onClick ->
-                CreateContent(viewState, screenState, originFork, onClick)
+            CreateScreen(currentPath.value.removePrefix("$PATH_START${NavigationScreens.EditScreen.route}"), screenState) { viewState, originDemoObject, onClick ->
+                CreateContent(viewState, screenState, originDemoObject, onClick)
             }
         }
         currentPath.value.startsWith("$PATH_START${NavigationScreens.CreateScreen.route}") -> {
-            CreateScreen("", screenState) { viewState, originFork, onClick ->
-                CreateContent(viewState, screenState, originFork, onClick)
+            CreateScreen("", screenState) { viewState, originDemoObject, onClick ->
+                CreateContent(viewState, screenState, originDemoObject, onClick)
             }
         }
         else -> {

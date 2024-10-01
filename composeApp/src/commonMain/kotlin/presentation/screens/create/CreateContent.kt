@@ -21,7 +21,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarS
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import presentation.components.AvatarImage
 import presentation.components.CommonTextField
 import presentation.components.HeaderText
@@ -31,10 +31,10 @@ import presentation.components.PrimaryButton
 @Composable
 fun CreateContent(
     viewState: State<CreateViewState>,
-    originFork: MutableState<ForkUI?>,
+    originDemoObject: MutableState<DemoObjectUI?>,
     onClick: () -> Unit,
 ) {
-    if (originFork.value == null) {
+    if (originDemoObject.value == null) {
         return
     }
     Box {
@@ -46,25 +46,25 @@ fun CreateContent(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderText(LocalStringResources.current.FORK)
+            HeaderText(LocalStringResources.current.DEMO_OBJECT)
             CommonTextField(
-                remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())) },
+                remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.name.orEmpty())) },
                 "${LocalStringResources.current.NAME}*",
 
                 ) { text ->
-                viewState.value.fork.value = viewState.value.fork.value?.copy(name = text)
+                viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(name = text)
             }
             CommonTextField(
-                remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.description.orEmpty())) },
+                remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.description.orEmpty())) },
                 LocalStringResources.current.DESCRIPTION,
             ) { text ->
-                viewState.value.fork.value = viewState.value.fork.value?.copy(description = text)
+                viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(description = text)
             }
             CommonTextField(
-                remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.htmlUrl.orEmpty())) },
+                remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.htmlUrl.orEmpty())) },
                 LocalStringResources.current.URL,
             ) { text ->
-                viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
+                viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(htmlUrl = text)
             }
             HeaderText(LocalStringResources.current.OWNER)
             Box(
@@ -73,29 +73,29 @@ fun CreateContent(
                     viewState.value.isChangeAvatarDialogVisible.value = true
                 }) {
                 AvatarImage(
-                    resId = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
+                    resId = viewState.value.demoObject.value?.owner?.avatarUrl.orEmpty(),
                     avatarSize = LocalLargeAvatarSize.current.size
                 )
             }
             CommonTextField(
-                remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())) },
+                remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.owner?.login.orEmpty())) },
                 "${LocalStringResources.current.NAME}*",
             ) { text ->
-                viewState.value.fork.value = viewState.value.fork.value?.copy(
-                    owner = viewState.value.fork.value?.owner?.copy(login = text)
+                viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(
+                    owner = viewState.value.demoObject.value?.owner?.copy(login = text)
                 )
             }
             CommonTextField(
-                remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())) },
+                remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.owner?.url.orEmpty())) },
                 LocalStringResources.current.URL,
             ) { text ->
-                viewState.value.fork.value = viewState.value.fork.value?.copy(
-                    owner = viewState.value.fork.value?.owner?.copy(url = text)
+                viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(
+                    owner = viewState.value.demoObject.value?.owner?.copy(url = text)
                 )
             }
             PrimaryButton(
                 LocalStringResources.current.SUBMIT,
-                originFork.value != viewState.value.fork.value && viewState.value.fork.value?.isForkValid() == true,
+                originDemoObject.value != viewState.value.demoObject.value && viewState.value.demoObject.value?.isDemoObjectValid() == true,
                 Modifier,
                 onClick = onClick
             )

@@ -1,6 +1,6 @@
-CREATE TABLE IF NOT EXISTS ForkWithOwner (
+CREATE TABLE IF NOT EXISTS DemoObjectWithOwner (
     id SERIAL PRIMARY KEY,
-    forkId TEXT UNIQUE NOT NULL,
+    demoObjectId TEXT UNIQUE NOT NULL,
     name TEXT,
     htmlUrl TEXT,
     description TEXT,
@@ -10,10 +10,10 @@ CREATE TABLE IF NOT EXISTS ForkWithOwner (
     url TEXT
 );
 
-insertForkWithOwner {
-    INSERT INTO ForkWithOwner(forkId, name, htmlUrl, description, login, ownerId, avatarUrl, url)
+insertDemoObjectWithOwner {
+    INSERT INTO DemoObjectWithOwner(demoObjectId, name, htmlUrl, description, login, ownerId, avatarUrl, url)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ON CONFLICT (forkId) DO UPDATE SET
+    ON CONFLICT (demoObjectId) DO UPDATE SET
         name = EXCLUDED.name,
         htmlUrl = EXCLUDED.htmlUrl,
         description = EXCLUDED.description,
@@ -23,11 +23,11 @@ insertForkWithOwner {
         url = EXCLUDED.url;
 }
 
-getForkWithOwners:
-SELECT * FROM ForkWithOwner;
+getDemoObjectWithOwners:
+SELECT * FROM DemoObjectWithOwner;
 
-getForkWithOwnerById:
-SELECT * FROM ForkWithOwner WHERE forkId = ?;
+getDemoObjectWithOwnerById:
+SELECT * FROM DemoObjectWithOwner WHERE demoObjectId = ?;
 
-deleteForkWithOwnerById:
-DELETE FROM ForkWithOwner WHERE forkId = ?;
+deleteDemoObjectWithOwnerById:
+DELETE FROM DemoObjectWithOwner WHERE demoObjectId = ?;

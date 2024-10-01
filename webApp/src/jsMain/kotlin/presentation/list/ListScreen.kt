@@ -22,11 +22,11 @@ fun ListScreen(screenState: ScreenState) {
 
     VerticalLayout {
         BaseButton("Load") {
-            viewModel.processIntent(ListIntent.LoadForks(true))
+            viewModel.processIntent(ListIntent.LoadDemoObjects(true))
         }
-        DynamicVerticalList(demoObjects.value.forks?.map { it.name.orEmpty() }.orEmpty()) { itemName ->
-            val item = demoObjects.value.forks?.find { it.name == itemName }
-            window.history.pushState(null, "", "/details/${item?.forkId}")
+        DynamicVerticalList(demoObjects.value.demoObjectUIs?.map { it.name.orEmpty() }.orEmpty()) { itemName ->
+            val item = demoObjects.value.demoObjectUIs?.find { it.name == itemName }
+            window.history.pushState(null, "", "/details/${item?.demoObjectId}")
             window.dispatchEvent(Event("popstate"))
         }
         if (screenState.isProgressVisible) {

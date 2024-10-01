@@ -4,7 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
-import com.vnteam.architecturetemplates.presentation.mappers.ForkUIMapper
+import com.vnteam.architecturetemplates.presentation.mappers.DemoObjectUIMapper
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class DetailsViewModel(
     private val detailsUseCase: DetailsUseCase,
-    private val forkUIMapper: ForkUIMapper,
+    private val demoObjectUIMapper: DemoObjectUIMapper,
     screenState: MutableState<ScreenState>
 ) : BaseViewModel(screenState) {
 
@@ -23,19 +23,19 @@ class DetailsViewModel(
 
     fun processIntent(intent: DetailsIntent) {
         when (intent) {
-            is DetailsIntent.LoadFork -> getForkById(intent.forkId, intent.isUpdated)
+            is DetailsIntent.LoadDemoObject -> getDemoObjectById(intent.demoObjectId, intent.isUpdated)
         }
     }
 
-    private fun getForkById(forkId: String?, isUpdated: Boolean) {
+    private fun getDemoObjectById(demoObjectId: String?, isUpdated: Boolean) {
         showProgress(true)
         if (isUpdated) {
-            _state.value = _state.value.copy(fork = null)
+            _state.value = _state.value.copy(demoObjectUI = null)
         }
         viewModelScope.launch(exceptionHandler) {
-            detailsUseCase.getForkById(forkId.orEmpty()).collect { fork ->
+            detailsUseCase.getDemoObjectById(demoObjectId.orEmpty()).collect { demoObject ->
                 showProgress(false)
-                _state.value = _state.value.copy(fork = fork?.let { forkUIMapper.mapToImplModel(it) })
+                _state.value = _state.value.copy(demoObjectUI = demoObject?.let { demoObjectUIMapper.mapToImplModel(it) })
             }
         }
     }

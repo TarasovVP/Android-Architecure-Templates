@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.presentation.NavigationScreens
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
@@ -37,19 +37,19 @@ import presentation.components.ConfirmationDialog
 fun ListContent(
     viewState: ListViewState,
     screenState: MutableState<ScreenState>,
-    onItemClick: (ForkUI, String) -> Unit
+    onItemClick: (DemoObjectUI, String) -> Unit
 ) {
     ListScreenStateContent(screenState)
     Box {
         LazyColumn(modifier = Modifier.fillMaxSize().padding(LocalDefaultPadding.current.size)) {
-            items(viewState.forks.orEmpty()) { item ->
-                ForkItem(item, onItemClick)
+            items(viewState.demoObjectUIs.orEmpty()) { item ->
+                DemoObjectItem(item, onItemClick)
             }
         }
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
             title = LocalStringResources.current.DELETE,
-            onConfirmationClick = { onItemClick(ForkUI(forkId = viewState.forkToDelete), "delete") },
+            onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), "delete") },
             onDismiss = { viewState.isConfirmationDialogVisible.value = false })
     }
 }
@@ -71,7 +71,7 @@ fun ListScreenStateContent(screenState: MutableState<ScreenState>) {
 }
 
 @Composable
-fun ForkItem(item: ForkUI, onItemClick: (ForkUI, String) -> Unit) {
+fun DemoObjectItem(item: DemoObjectUI, onItemClick: (DemoObjectUI, String) -> Unit) {
     Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, "details") }) {
         Row(verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalSmallPadding.current.size)) {

@@ -28,9 +28,9 @@ private class ServerDatabaseImpl(
 
     override fun create(driver: SqlDriver): QueryResult.Value<Unit> {
       driver.execute(null, """
-          |CREATE TABLE IF NOT EXISTS ForkWithOwner (
+          |CREATE TABLE IF NOT EXISTS DemoObjectWithOwner (
           |    id SERIAL PRIMARY KEY,
-          |    forkId TEXT UNIQUE NOT NULL,
+          |    demoObjectId TEXT UNIQUE NOT NULL,
           |    name TEXT,
           |    htmlUrl TEXT,
           |    description TEXT,

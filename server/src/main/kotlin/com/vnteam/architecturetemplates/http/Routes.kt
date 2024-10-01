@@ -1,8 +1,8 @@
 package com.vnteam.architecturetemplates.http
 
-import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
-import com.vnteam.architecturetemplates.domain.responses.ForkResponse
-import com.vnteam.architecturetemplates.fork_service.ForkService
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
+import com.vnteam.architecturetemplates.domain.responses.DemoObjectResponse
+import com.vnteam.architecturetemplates.demo_object_service.DemoObjectService
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
@@ -14,43 +14,43 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 
-fun Application.apiRoutes(forkService: ForkService, forkResponseMapper: ForkResponseMapper) {
+fun Application.apiRoutes(demoObjectService: DemoObjectService, demoObjectResponseMapper: DemoObjectResponseMapper) {
     routing {
-        insertForks(forkService, forkResponseMapper)
-        getForks(forkService, forkResponseMapper)
-        getForkById(forkService, forkResponseMapper)
-        deleteForkById(forkService)
+        insertDemoObjects(demoObjectService, demoObjectResponseMapper)
+        getDemoObjects(demoObjectService, demoObjectResponseMapper)
+        getDemoObjectById(demoObjectService, demoObjectResponseMapper)
+        deleteDemoObjectById(demoObjectService)
     }
 }
-fun Routing.insertForks(forkService: ForkService, forkResponseMapper: ForkResponseMapper) = post("/forks") {
+fun Routing.insertDemoObjects(demoObjectService: DemoObjectService, demoObjectResponseMapper: DemoObjectResponseMapper) = post("/demoObjects") {
     try {
-        val forks = forkResponseMapper.mapFromImplModelList(call.receive<List<ForkResponse>>())
-        forkService.insertForks(forks)
+        val demoObjects = demoObjectResponseMapper.mapFromImplModelList(call.receive<List<DemoObjectResponse>>())
+        demoObjectService.insertDemoObjects(demoObjects)
         call.respond(HttpStatusCode.Created)
     } catch (e: Exception) {
         call.respond(HttpStatusCode.BadRequest)
     }
 }
 
-fun Routing.getForks(forkService: ForkService, forkResponseMapper: ForkResponseMapper) = get("/forks") {
+fun Routing.getDemoObjects(demoObjectService: DemoObjectService, demoObjectResponseMapper: DemoObjectResponseMapper) = get("/demoObjects") {
     try {
-        val forksList = forkResponseMapper.mapToImplModelList(forkService.getForks().orEmpty().toList())
-        call.respond(forksList)
+        val demoObjectsList = demoObjectResponseMapper.mapToImplModelList(demoObjectService.getDemoObjects().orEmpty().toList())
+        call.respond(demoObjectsList)
     } catch (e: Exception) {
         call.respond(HttpStatusCode.BadRequest)
     }
 }
 
-fun Routing.getForkById(forkService: ForkService, forkResponseMapper: ForkResponseMapper) = get("/forks/{id}") {
+fun Routing.getDemoObjectById(demoObjectService: DemoObjectService, demoObjectResponseMapper: DemoObjectResponseMapper) = get("/demoObjects/{id}") {
     try {
-        val forkId = call.parameters["id"]
-        if (forkId == null) {
+        val demoObjectId = call.parameters["id"]
+        if (demoObjectId == null) {
             call.respond(HttpStatusCode.BadRequest)
             return@get
         }
-        val fork = forkService.getForkById(forkId)?.let { it1 -> forkResponseMapper.mapToImplModel(it1) }
-        if (fork != null) {
-            call.respond(fork)
+        val demoObject = demoObjectService.getDemoObjectById(demoObjectId)?.let { it1 -> demoObjectResponseMapper.mapToImplModel(it1) }
+        if (demoObject != null) {
+            call.respond(demoObject)
         } else {
             call.respond(HttpStatusCode.NotFound)
         }
@@ -59,15 +59,15 @@ fun Routing.getForkById(forkService: ForkService, forkResponseMapper: ForkRespon
     }
 }
 
-fun Routing.deleteForkById(forkService: ForkService) = delete("/forks/{id}") {
+fun Routing.deleteDemoObjectById(demoObjectService: DemoObjectService) = delete("/demoObjects/{id}") {
     try {
-        val forkId = call.parameters["id"]
-        if (forkId == null) {
+        val demoObjectId = call.parameters["id"]
+        if (demoObjectId == null) {
             call.respond(HttpStatusCode.BadRequest)
             return@delete
         }
         try {
-            forkService.deleteForkById(forkId)
+            demoObjectService.deleteDemoObjectById(demoObjectId)
             call.respond(HttpStatusCode.OK)
         } catch (e: Exception) {
             call.respond(HttpStatusCode.InternalServerError)

@@ -5,53 +5,52 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
 import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import org.koin.compose.koinInject
 
 @Composable
 fun ListScreen(screenState: MutableState<ScreenState>,
-               onItemClick: (ForkUI) -> Unit,
-               content: @Composable (State<ListViewState>, onItemClick: (ForkUI, String) -> Unit) -> Unit) {
+               onItemClick: (DemoObjectUI) -> Unit,
+               content: @Composable (State<ListViewState>, onItemClick: (DemoObjectUI, String) -> Unit) -> Unit) {
     val listViewModel = koinInject<ListViewModel>()
     val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { listViewModel }
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewState.value.takeIf { it.forks == null }?.let {
-            viewModel.processIntent(ListIntent.ClearForks())
+        viewState.value.takeIf { it.demoObjectUIs == null }?.let {
+            viewModel.processIntent(ListIntent.ClearDemoObjects())
         }
     }
 
     LaunchedEffect(viewState.value.successResult) {
         if (viewState.value.successResult){
-            viewModel.processIntent(ListIntent.ClearForks())
+            viewModel.processIntent(ListIntent.ClearDemoObjects())
         }
     }
 
     LaunchedEffect(screenState.value.isScreenUpdatingNeeded) {
-        if (screenState.value.isScreenUpdatingNeeded && viewState.value.forks != null) {
-            viewModel.processIntent(ListIntent.LoadForks(true))
+        if (screenState.value.isScreenUpdatingNeeded && viewState.value.demoObjectUIs != null) {
+            viewModel.processIntent(ListIntent.LoadDemoObjects(true))
             screenState.value = screenState.value.copy(isScreenUpdatingNeeded = false)
         }
     }
 
-    content(viewState) { forkUI, action ->
+    content(viewState) { demoObjectUI, action ->
         when (action) {
-            "refresh" -> viewModel.processIntent(ListIntent.LoadForks(false))
-            "details" -> onItemClick(forkUI)
+            "refresh" -> viewModel.processIntent(ListIntent.LoadDemoObjects(false))
+            "details" -> onItemClick(demoObjectUI)
             "confirm_delete" -> {
                 viewState.value.isConfirmationDialogVisible.value = true
-                viewState.value.forkToDelete = forkUI.forkId.orEmpty()
+                viewState.value.demoObjectToDelete = demoObjectUI.demoObjectId.orEmpty()
             }
             "delete" -> {
                 viewState.value.isConfirmationDialogVisible.value = false
-                viewState.value.forkToDelete = ""
-                viewModel.processIntent(ListIntent.DeleteFork( forkUI.forkId.orEmpty() ))
+                viewState.value.demoObjectToDelete = ""
+                viewModel.processIntent(ListIntent.DeleteDemoObject( demoObjectUI.demoObjectId.orEmpty() ))
             }
         }
     }

@@ -3,11 +3,11 @@ package com.vnteam.architecturetemplates.di
 import com.vnteam.architecturetemplates.ServerDatabase
 import com.vnteam.architecturetemplates.ServerDatabase.Companion.Schema
 import com.vnteam.architecturetemplates.db.DatabaseDriverFactory
-import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
 import com.vnteam.architecturetemplates.domain.mappers.OwnerResponseMapper
-import com.vnteam.architecturetemplates.fork_service.ForkService
-import com.vnteam.architecturetemplates.fork_service.ForkServiceImpl
-import com.vnteam.architecturetemplates.mapperimpls.ForkResponseMapperImpl
+import com.vnteam.architecturetemplates.demo_object_service.DemoObjectService
+import com.vnteam.architecturetemplates.demo_object_service.DemoObjectServiceImpl
+import com.vnteam.architecturetemplates.mapperimpls.DemoObjectResponseMapperImpl
 import com.vnteam.architecturetemplates.mapperimpls.OwnerResponseMapperImpl
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
@@ -33,8 +33,8 @@ val serverModule = module {
         }
     }
     single<OwnerResponseMapper> { OwnerResponseMapperImpl() }
-    single<ForkResponseMapper> { ForkResponseMapperImpl(get()) }
-    single<ForkService> {
-        ForkServiceImpl(get())
+    single<DemoObjectResponseMapper> { DemoObjectResponseMapperImpl(get()) }
+    single<DemoObjectService> {
+        DemoObjectServiceImpl(get())
     }
 }

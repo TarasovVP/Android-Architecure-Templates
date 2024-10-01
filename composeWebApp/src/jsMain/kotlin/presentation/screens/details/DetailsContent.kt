@@ -28,7 +28,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPaddin
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import kotlinx.browser.window
 import navigateTo
@@ -42,7 +42,7 @@ import presentation.textWithNoDataHandling
 
 @Composable
 fun DetailsContent(viewState: DetailsViewState, screenState: MutableState<ScreenState>) {
-    DetailsScreenStateContent(screenState, viewState.fork)
+    DetailsScreenStateContent(screenState, viewState.demoObjectUI)
     Box {
         Column(
             modifier = Modifier
@@ -51,38 +51,38 @@ fun DetailsContent(viewState: DetailsViewState, screenState: MutableState<Screen
                 .padding(LocalDefaultPadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
-            HeaderText(LocalStringResources.current.FORK)
+            HeaderText(LocalStringResources.current.DEMO_OBJECT)
             Row {
                 SecondaryText(LocalStringResources.current.NAME)
-                PrimaryText(viewState.fork?.name.textWithNoDataHandling())
+                PrimaryText(viewState.demoObjectUI?.name.textWithNoDataHandling())
             }
             Row {
                 SecondaryText(LocalStringResources.current.DESCRIPTION)
-                PrimaryText(viewState.fork?.description.textWithNoDataHandling())
+                PrimaryText(viewState.demoObjectUI?.description.textWithNoDataHandling())
             }
             Row(modifier = Modifier.padding(top = LocalMediumPadding.current.size).clickable {
-                shareLink(viewState.fork?.htmlUrl.orEmpty())
+                shareLink(viewState.demoObjectUI?.htmlUrl.orEmpty())
             }) {
                 SecondaryText(LocalStringResources.current.URL)
-                PrimaryText(viewState.fork?.htmlUrl.textWithNoDataHandling())
+                PrimaryText(viewState.demoObjectUI?.htmlUrl.textWithNoDataHandling())
             }
             HeaderText(LocalStringResources.current.OWNER)
-            OwnerCard(viewState.fork?.owner)
+            OwnerCard(viewState.demoObjectUI?.owner)
         }
     }
 }
 
 @Composable
-fun DetailsScreenStateContent(screenState: MutableState<ScreenState>, fork: ForkUI?) {
+fun DetailsScreenStateContent(screenState: MutableState<ScreenState>, demoObject: DemoObjectUI?) {
     screenState.value = screenState.value.copy(
         appBarState = screenState.value.appBarState.copy(
-            appBarTitle = fork?.name.orEmpty()
+            appBarTitle = demoObject?.name.orEmpty()
         ),
         floatingActionState = screenState.value.floatingActionState.copy(
             floatingActionButtonVisible = true,
             floatingActionButtonTitle = LocalStringResources.current.EDIT,
             floatingActionButtonAction = {
-                window.navigateTo("${NavigationScreens.EditScreen.route}${fork?.forkId}")
+                window.navigateTo("${NavigationScreens.EditScreen.route}${demoObject?.demoObjectId}")
             }
         )
     )

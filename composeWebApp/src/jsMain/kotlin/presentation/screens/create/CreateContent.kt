@@ -25,7 +25,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPaddi
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import kotlinx.browser.window
 import navigateUp
 import presentation.components.AvatarImage
@@ -39,27 +39,27 @@ import presentation.components.PrimaryButton
 fun CreateContent(
     viewState: State<CreateViewState>,
     screenState: MutableState<ScreenState>,
-    originFork: MutableState<ForkUI?>,
+    originDemoObject: MutableState<DemoObjectUI?>,
     onClick: () -> Unit,
 ) {
-    CreateScreenStateContent(screenState, originFork.value?.name.isNullOrEmpty())
+    CreateScreenStateContent(screenState, originDemoObject.value?.name.isNullOrEmpty())
     val nameState =
-        remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.name.orEmpty())) }
+        remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.name.orEmpty())) }
     val descriptionState =
-        remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.description.orEmpty())) }
+        remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.description.orEmpty())) }
     val urlState =
-        remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.htmlUrl.orEmpty())) }
+        remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.htmlUrl.orEmpty())) }
     val ownerNameState =
-        remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())) }
+        remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.owner?.login.orEmpty())) }
     val ownerUrlState =
-        remember { mutableStateOf(TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())) }
+        remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.owner?.url.orEmpty())) }
 
-    LaunchedEffect(viewState.value.fork) {
-        nameState.value = TextFieldValue(viewState.value.fork.value?.name.orEmpty())
-        descriptionState.value = TextFieldValue(viewState.value.fork.value?.description.orEmpty())
-        urlState.value = TextFieldValue(viewState.value.fork.value?.htmlUrl.orEmpty())
-        ownerNameState.value = TextFieldValue(viewState.value.fork.value?.owner?.login.orEmpty())
-        ownerUrlState.value = TextFieldValue(viewState.value.fork.value?.owner?.url.orEmpty())
+    LaunchedEffect(viewState.value.demoObject) {
+        nameState.value = TextFieldValue(viewState.value.demoObject.value?.name.orEmpty())
+        descriptionState.value = TextFieldValue(viewState.value.demoObject.value?.description.orEmpty())
+        urlState.value = TextFieldValue(viewState.value.demoObject.value?.htmlUrl.orEmpty())
+        ownerNameState.value = TextFieldValue(viewState.value.demoObject.value?.owner?.login.orEmpty())
+        ownerUrlState.value = TextFieldValue(viewState.value.demoObject.value?.owner?.url.orEmpty())
     }
     Column(
         modifier = Modifier
@@ -69,26 +69,26 @@ fun CreateContent(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HeaderText(LocalStringResources.current.FORK)
+        HeaderText(LocalStringResources.current.DEMO_OBJECT)
         CommonTextField(
             nameState,
             "${LocalStringResources.current.NAME}*",
 
             ) { text ->
-            viewState.value.fork.value = viewState.value.fork.value?.copy(name = text)
+            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(name = text)
         }
         CommonTextField(
             descriptionState,
             LocalStringResources.current.DESCRIPTION,
         ) { text ->
-            viewState.value.fork.value =
-                viewState.value.fork.value?.copy(description = text)
+            viewState.value.demoObject.value =
+                viewState.value.demoObject.value?.copy(description = text)
         }
         CommonTextField(
             urlState,
             LocalStringResources.current.URL,
         ) { text ->
-            viewState.value.fork.value = viewState.value.fork.value?.copy(htmlUrl = text)
+            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(htmlUrl = text)
         }
         HeaderText(LocalStringResources.current.OWNER)
         Box(
@@ -97,7 +97,7 @@ fun CreateContent(
                 viewState.value.isChangeAvatarDialogVisible.value = true
             }) {
             AvatarImage(
-                resId = viewState.value.fork.value?.owner?.avatarUrl.orEmpty(),
+                resId = viewState.value.demoObject.value?.owner?.avatarUrl.orEmpty(),
                 avatarSize = LocalLargeAvatarSize.current.size
             )
         }
@@ -105,21 +105,21 @@ fun CreateContent(
             ownerNameState,
             "${LocalStringResources.current.NAME}*",
         ) { text ->
-            viewState.value.fork.value = viewState.value.fork.value?.copy(
-                owner = viewState.value.fork.value?.owner?.copy(login = text)
+            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(
+                owner = viewState.value.demoObject.value?.owner?.copy(login = text)
             )
         }
         CommonTextField(
             ownerUrlState,
             LocalStringResources.current.URL,
         ) { text ->
-            viewState.value.fork.value = viewState.value.fork.value?.copy(
-                owner = viewState.value.fork.value?.owner?.copy(url = text)
+            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(
+                owner = viewState.value.demoObject.value?.owner?.copy(url = text)
             )
         }
         PrimaryButton(
             LocalStringResources.current.SUBMIT,
-            originFork.value != viewState.value.fork.value && viewState.value.fork.value?.isForkValid() == true,
+            originDemoObject.value != viewState.value.demoObject.value && viewState.value.demoObject.value?.isDemoObjectValid() == true,
             Modifier,
             onClick = onClick
         )
@@ -152,8 +152,8 @@ fun ChangeAvatarDialog(viewState: State<CreateViewState>) {
         ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
             viewState.value.isChangeAvatarDialogVisible.value = false
         }, onClick = { avatar ->
-            viewState.value.fork.value = viewState.value.fork.value?.copy(
-                owner = viewState.value.fork.value?.owner?.copy(avatarUrl = avatar)
+            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(
+                owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar)
             )
             viewState.value.isChangeAvatarDialogVisible.value = false
         })

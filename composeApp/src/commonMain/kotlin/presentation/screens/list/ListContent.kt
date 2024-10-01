@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
@@ -28,25 +28,25 @@ import presentation.components.ConfirmationDialog
 import presentation.components.RefreshableLazyList
 
 @Composable
-fun ListContent(viewState: ListViewState, onItemClick: (ForkUI, String) -> Unit) {
+fun ListContent(viewState: ListViewState, onItemClick: (DemoObjectUI, String) -> Unit) {
     Box {
-        RefreshableLazyList(viewState.forks.isNullOrEmpty(), content = {
-            items(viewState.forks.orEmpty()) { item ->
-                ForkItem(item, onItemClick)
+        RefreshableLazyList(viewState.demoObjectUIs.isNullOrEmpty(), content = {
+            items(viewState.demoObjectUIs.orEmpty()) { item ->
+                DemoObjectItem(item, onItemClick)
             }
         }, onRefresh = {
-            onItemClick(ForkUI(), "refresh")
+            onItemClick(DemoObjectUI(), "refresh")
         })
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
             title = LocalStringResources.current.DELETE,
-            onConfirmationClick = { onItemClick(ForkUI(forkId = viewState.forkToDelete), "delete") },
+            onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), "delete") },
             onDismiss = { viewState.isConfirmationDialogVisible.value = false })
     }
 }
 
 @Composable
-fun ForkItem(item: ForkUI, onItemClick: (ForkUI, String) -> Unit) {
+fun DemoObjectItem(item: DemoObjectUI, onItemClick: (DemoObjectUI, String) -> Unit) {
     Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, "details") }) {
         Row(verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalSmallPadding.current.size)) {

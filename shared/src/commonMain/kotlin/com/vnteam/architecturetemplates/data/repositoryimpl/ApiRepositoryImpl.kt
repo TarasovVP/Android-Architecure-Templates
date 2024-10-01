@@ -2,19 +2,19 @@ package com.vnteam.architecturetemplates.data.repositoryimpl
 
 import com.vnteam.architecturetemplates.data.network.ApiService
 import com.vnteam.architecturetemplates.data.network.NetworkResult
-import com.vnteam.architecturetemplates.domain.mappers.ForkResponseMapper
-import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-class ApiRepositoryImpl(private val apiService: ApiService, private val forkResponseMapper: ForkResponseMapper) :
+class ApiRepositoryImpl(private val apiService: ApiService, private val demoObjectResponseMapper: DemoObjectResponseMapper) :
     ApiRepository {
 
-    override suspend fun getForksFromApi(): Flow<List<Fork>> {
-        when (val response = apiService.getForksFromApi()) {
+    override suspend fun getDemoObjectsFromApi(): Flow<List<DemoObject>> {
+        when (val response = apiService.getDemoObjectsFromApi()) {
             is NetworkResult.Success -> {
-                return flowOf( response.data?.map { forkResponseMapper.mapFromImplModel(it) }.orEmpty() )
+                return flowOf( response.data?.map { demoObjectResponseMapper.mapFromImplModel(it) }.orEmpty() )
             }
             is NetworkResult.Failure -> {
                 println(response.errorMessage)
@@ -23,8 +23,8 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
         }
     }
 
-    override suspend fun insertForksToApi(forks: List<Fork>?): Flow<Unit> {
-        when (val response = apiService.insertForksToApi(forkResponseMapper.mapToImplModelList(forks.orEmpty()))) {
+    override suspend fun insertDemoObjectsToApi(demoObjects: List<DemoObject>?): Flow<Unit> {
+        when (val response = apiService.insertDemoObjectsToApi(demoObjectResponseMapper.mapToImplModelList(demoObjects.orEmpty()))) {
             is NetworkResult.Success -> {
                 return flowOf( Unit )
             }
@@ -35,10 +35,10 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
         }
     }
 
-    override suspend fun getForkById(forkId: String?): Flow<Fork?> {
-        when (val response = apiService.getForkById(forkId.orEmpty())) {
+    override suspend fun getDemoObjectById(demoObjectId: String?): Flow<DemoObject?> {
+        when (val response = apiService.getDemoObjectById(demoObjectId.orEmpty())) {
             is NetworkResult.Success -> {
-                return flowOf( response.data?.let { forkResponseMapper.mapFromImplModel(it) } )
+                return flowOf( response.data?.let { demoObjectResponseMapper.mapFromImplModel(it) } )
             }
             is NetworkResult.Failure -> {
                 println(response.errorMessage)
@@ -47,8 +47,8 @@ class ApiRepositoryImpl(private val apiService: ApiService, private val forkResp
         }
     }
 
-    override suspend fun deleteForkById(forkId: String): Flow<Unit> {
-        when (val response = apiService.deleteForkById(forkId)) {
+    override suspend fun deleteDemoObjectById(demoObjectId: String): Flow<Unit> {
+        when (val response = apiService.deleteDemoObjectById(demoObjectId)) {
             is NetworkResult.Success -> {
                 return flowOf( Unit )
             }

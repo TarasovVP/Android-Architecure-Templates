@@ -1,7 +1,7 @@
 package com.vnteam.architecturetemplates.presentation.intents
 
 sealed class ListIntent {
-     class ClearForks : ListIntent()
-     class LoadForks(val isInit: Boolean) : ListIntent()
-     class DeleteFork(val id: String) : ListIntent()
+     class ClearDemoObjects : ListIntent()
+     class LoadDemoObjects(val isInit: Boolean) : ListIntent()
+     class DeleteDemoObject(val id: String) : ListIntent()
 }

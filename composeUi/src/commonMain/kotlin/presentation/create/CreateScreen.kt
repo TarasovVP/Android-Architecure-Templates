@@ -12,35 +12,35 @@ import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
-import com.vnteam.architecturetemplates.presentation.uimodels.ForkUI
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import org.koin.compose.koinInject
 import presentation.components.ChangeAvatarDialog
 
 @Composable
-fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>,
-                 content: @Composable (State<CreateViewState>, originFork: MutableState<ForkUI?>, onClick: () -> Unit) -> Unit) {
+fun CreateScreen(demoObjectId: String, screenState: MutableState<ScreenState>,
+                 content: @Composable (State<CreateViewState>, originDemoObject: MutableState<DemoObjectUI?>, onClick: () -> Unit) -> Unit) {
 
     val createViewModel = koinInject<CreateViewModel>()
     val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { createViewModel }
     val viewState = viewModel.state.collectAsState()
-    val originFork = remember {  mutableStateOf<ForkUI?>(null) }
+    val originDemoObject = remember {  mutableStateOf<DemoObjectUI?>(null) }
 
     LaunchedEffect(Unit) {
-        if (forkId.isNotEmpty()) {
-            viewModel.processIntent(CreateIntent.LoadFork(forkId))
+        if (demoObjectId.isNotEmpty()) {
+            viewModel.processIntent(CreateIntent.LoadDemoObject(demoObjectId))
         } else {
-            viewModel.state.value.fork = mutableStateOf(
-                ForkUI(
-                    forkId = generateUUID(),
+            viewModel.state.value.demoObject = mutableStateOf(
+                DemoObjectUI(
+                    demoObjectId = generateUUID(),
                     owner = OwnerUI(ownerId = generateUUID())
                 )
             )
         }
     }
     LaunchedEffect(viewState.value) {
-        originFork.value = viewState.value.fork.value
+        originDemoObject.value = viewState.value.demoObject.value
     }
     LaunchedEffect(viewState.value.successResult) {
         if (viewState.value.successResult) {
@@ -50,9 +50,9 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>,
         }
     }
 
-    content(viewState, originFork) {
-        viewState.value.fork.value?.let {
-            viewModel.processIntent(CreateIntent.CreateFork(it))
+    content(viewState, originDemoObject) {
+        viewState.value.demoObject.value?.let {
+            viewModel.processIntent(CreateIntent.CreateDemoObject(it))
         }
     }
     screenState.value = screenState.value.copy()
@@ -60,8 +60,8 @@ fun CreateScreen(forkId: String, screenState: MutableState<ScreenState>,
         ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
             viewState.value.isChangeAvatarDialogVisible.value = false
         }, onClick = { avatar ->
-            viewState.value.fork.value = viewState.value.fork.value?.copy(
-                owner = viewState.value.fork.value?.owner?.copy(avatarUrl = avatar)
+            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(
+                owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar)
             )
             viewState.value.isChangeAvatarDialogVisible.value = false
         })

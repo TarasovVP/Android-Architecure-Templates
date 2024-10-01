@@ -1,6 +1,6 @@
-CREATE TABLE IF NOT EXISTS ForkWithOwner (
+CREATE TABLE IF NOT EXISTS DemoObjectWithOwner (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    forkId TEXT UNIQUE NOT NULL,
+    demoObjectId TEXT UNIQUE NOT NULL,
     name TEXT,
     htmlUrl TEXT,
     description TEXT,
@@ -10,18 +10,18 @@ CREATE TABLE IF NOT EXISTS ForkWithOwner (
     url TEXT
 );
 
-clearForks:
-DELETE FROM ForkWithOwner;
+clearDemoObjects:
+DELETE FROM DemoObjectWithOwner;
 
-insertForkWithOwner:
-INSERT OR REPLACE INTO ForkWithOwner( forkId, name, htmlUrl, description, login, ownerId, avatarUrl, url)
+insertDemoObjectWithOwner:
+INSERT OR REPLACE INTO DemoObjectWithOwner( demoObjectId, name, htmlUrl, description, login, ownerId, avatarUrl, url)
 VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);
 
-getForkWithOwners:
-SELECT * FROM ForkWithOwner;
+getDemoObjectWithOwners:
+SELECT * FROM DemoObjectWithOwner;
 
-getForkWithOwnerById:
-SELECT * FROM ForkWithOwner WHERE forkId = ?;
+getDemoObjectWithOwnerById:
+SELECT * FROM DemoObjectWithOwner WHERE demoObjectId = ?;
 
-deleteForkWithOwnerById:
-DELETE FROM ForkWithOwner WHERE forkId = ?;
+deleteDemoObjectWithOwnerById:
+DELETE FROM DemoObjectWithOwner WHERE demoObjectId = ?;

@@ -1,15 +1,15 @@
 package com.vnteam.architecturetemplates.data.mapperimpls
 
-import com.vnteam.architecturetemplates.ForkWithOwner
-import com.vnteam.architecturetemplates.domain.mappers.ForkDBMapper
-import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.DemoObjectWithOwner
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectDBMapper
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 
-class ForkDBMapperImpl : ForkDBMapper {
+class DemoObjectDBMapperImpl : DemoObjectDBMapper {
 
-    override fun mapToImplModel(from: Fork): ForkWithOwner {
-        return ForkWithOwner(id = 0,
-            forkId = from.forkId.orEmpty(),
+    override fun mapToImplModel(from: DemoObject): DemoObjectWithOwner {
+        return DemoObjectWithOwner(id = 0,
+            demoObjectId = from.demoObjectId.orEmpty(),
             name = from.name,
             ownerId = from.owner?.ownerId,
             login = from.owner?.login,
@@ -19,8 +19,8 @@ class ForkDBMapperImpl : ForkDBMapper {
             url = from.owner?.url)
     }
 
-    override fun mapFromImplModel(to: ForkWithOwner): Fork {
-        return Fork(forkId = to.forkId,
+    override fun mapFromImplModel(to: DemoObjectWithOwner): DemoObject {
+        return DemoObject(demoObjectId = to.demoObjectId,
         name = to.name,
         owner = Owner(ownerId = to.ownerId,
             login = to.login,
@@ -30,11 +30,11 @@ class ForkDBMapperImpl : ForkDBMapper {
         description = to.description)
     }
 
-    override fun mapToImplModelList(fromList: List<Fork>): List<ForkWithOwner> {
+    override fun mapToImplModelList(fromList: List<DemoObject>): List<DemoObjectWithOwner> {
         return fromList.map { mapToImplModel(it) }
     }
 
-    override fun mapFromImplModelList(toList: List<ForkWithOwner>): List<Fork> {
+    override fun mapFromImplModelList(toList: List<DemoObjectWithOwner>): List<DemoObject> {
         return toList.map { mapFromImplModel(it) }
     }
 }

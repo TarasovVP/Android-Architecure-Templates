@@ -1,6 +1,6 @@
 package com.vnteam.architecturetemplates.data.network
 
-import com.vnteam.architecturetemplates.domain.responses.ForkResponse
+import com.vnteam.architecturetemplates.domain.responses.DemoObjectResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
@@ -14,34 +14,34 @@ class ApiService(
     private val httpClient: HttpClient,
 ) {
 
-    suspend fun insertForksToApi(forks: List<ForkResponse>): NetworkResult<Unit> {
+    suspend fun insertDemoObjectsToApi(demoObjects: List<DemoObjectResponse>): NetworkResult<Unit> {
         return httpClient.safeRequest<Unit> {
-            httpClient.post("${baseUrl}forks") {
+            httpClient.post("${baseUrl}demoObjects") {
                 contentType(ContentType.Application.Json)
-                setBody(forks)
+                setBody(demoObjects)
             }
         }
     }
 
-    suspend fun getForksFromApi(): NetworkResult<List<ForkResponse>> {
-        return httpClient.safeRequest<List<ForkResponse>> {
-            get("${baseUrl}forks") {
-                contentType(ContentType.Application.Json)
-            }
-        }
-    }
-
-    suspend fun getForkById(id: String): NetworkResult<ForkResponse> {
-        return httpClient.safeRequest<ForkResponse> {
-            httpClient.get("${baseUrl}forks/$id") {
+    suspend fun getDemoObjectsFromApi(): NetworkResult<List<DemoObjectResponse>> {
+        return httpClient.safeRequest<List<DemoObjectResponse>> {
+            get("${baseUrl}demoObjects") {
                 contentType(ContentType.Application.Json)
             }
         }
     }
 
-    suspend fun deleteForkById(id: String): NetworkResult<Unit> {
+    suspend fun getDemoObjectById(id: String): NetworkResult<DemoObjectResponse> {
+        return httpClient.safeRequest<DemoObjectResponse> {
+            httpClient.get("${baseUrl}demoObjects/$id") {
+                contentType(ContentType.Application.Json)
+            }
+        }
+    }
+
+    suspend fun deleteDemoObjectById(id: String): NetworkResult<Unit> {
         return httpClient.safeRequest<Unit> {
-            httpClient.delete("${baseUrl}forks/$id") {
+            httpClient.delete("${baseUrl}demoObjects/$id") {
                 contentType(ContentType.Application.Json)
             }
         }

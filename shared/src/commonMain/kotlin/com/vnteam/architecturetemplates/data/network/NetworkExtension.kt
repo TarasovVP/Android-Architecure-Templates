@@ -13,6 +13,7 @@ suspend inline fun <reified T> HttpResponse?.handleResponse(): NetworkResult<T> 
     return when {
         this == null -> NetworkResult.Failure(UNKNOWN_ERROR)
         status.value in 400..405 -> {
+            println("Error ${bodyAsText()}")
             NetworkResult.Failure(CONNECTION_EXCEPTION)
         }
         status.value !in 200..299 -> {

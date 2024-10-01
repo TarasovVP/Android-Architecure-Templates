@@ -42,23 +42,23 @@ fun DetailsContent(viewState: DetailsViewState) {
                 .padding(LocalDefaultPadding.current.size),
             verticalArrangement = Arrangement.Top
         ) {
-            HeaderText(LocalStringResources.current.FORK)
+            HeaderText(LocalStringResources.current.DEMO_OBJECT)
             Row {
                 SecondaryText(LocalStringResources.current.NAME)
-                PrimaryText(viewState.fork?.name.textWithNoDataHandling())
+                PrimaryText(viewState.demoObjectUI?.name.textWithNoDataHandling())
             }
             Row {
                 SecondaryText(LocalStringResources.current.DESCRIPTION)
-                PrimaryText(viewState.fork?.description.textWithNoDataHandling())
+                PrimaryText(viewState.demoObjectUI?.description.textWithNoDataHandling())
             }
             Row(modifier = Modifier.padding(top = LocalMediumPadding.current.size).clickable {
-                //shareLink(viewState.fork?.htmlUrl.orEmpty())
+                //shareLink(viewState.demoObject?.htmlUrl.orEmpty())
             }) {
                 SecondaryText(LocalStringResources.current.URL)
-                PrimaryText(viewState.fork?.htmlUrl.textWithNoDataHandling())
+                PrimaryText(viewState.demoObjectUI?.htmlUrl.textWithNoDataHandling())
             }
             HeaderText(LocalStringResources.current.OWNER)
-            OwnerCard(viewState.fork?.owner)
+            OwnerCard(viewState.demoObjectUI?.owner)
         }
     }
 }

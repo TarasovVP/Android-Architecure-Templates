@@ -1,14 +1,14 @@
 package com.vnteam.architecturetemplates.mapperimpls
 
-import com.vnteam.architecturetemplates.ForkWithOwner
-import com.vnteam.architecturetemplates.domain.models.Fork
+import com.vnteam.architecturetemplates.DemoObjectWithOwner
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 
-fun ForkWithOwner.toFork() = Fork(
-  forkId = forkId,
-  name = name,
-  htmlUrl = htmlUrl,
-  description = description,
+fun DemoObjectWithOwner.toDemoObject() = DemoObject(
+    demoObjectId = demoObjectId,
+    name = name,
+    htmlUrl = htmlUrl,
+    description = description,
     owner = Owner(
         login = login,
         ownerId = ownerId,

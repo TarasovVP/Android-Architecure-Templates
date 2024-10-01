@@ -35,24 +35,24 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
                     }
                 )
             )
-            ListScreen(screenState, { forkUI ->
-                navController.navigate("${NavigationScreens.DetailsScreen.route}${forkUI.forkId}/${forkUI.name}")
+            ListScreen(screenState, { demoObjectUI ->
+                navController.navigate("${NavigationScreens.DetailsScreen.route}${demoObjectUI.demoObjectId}/${demoObjectUI.name}")
             }, { viewState, onItemClick ->
                 ListContent(viewState.value, onItemClick)
             })
         }
-        composable("${NavigationScreens.DetailsScreen.route}{forkId}/{forkName}", arguments = listOf(navArgument("forkId") {
+        composable("${NavigationScreens.DetailsScreen.route}{demoObjectId}/{demoObjectName}", arguments = listOf(navArgument("demoObjectId") {
             type = NavType.StringType
             defaultValue = ""
-        }, navArgument("forkName") {
+        }, navArgument("demoObjectName") {
             type = NavType.StringType
             defaultValue = ""
         })) { backStackEntry ->
-            val forkId = backStackEntry.arguments?.getString("forkId").orEmpty()
-            val forkName = backStackEntry.arguments?.getString("forkName").orEmpty()
+            val demoObjectId = backStackEntry.arguments?.getString("demoObjectId").orEmpty()
+            val demoObjectName = backStackEntry.arguments?.getString("demoObjectName").orEmpty()
             screenState.value = screenState.value.copy(
                 appBarState = screenState.value.appBarState.copy(
-                    appBarTitle = forkName,
+                    appBarTitle = demoObjectName,
                     topAppBarActionVisible = true,
                     topAppBarAction = {
                         navController.popBackStack()
@@ -62,23 +62,23 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
                     floatingActionButtonVisible = true,
                     floatingActionButtonTitle = LocalStringResources.current.EDIT,
                     floatingActionButtonAction = {
-                        navController.navigate("${NavigationScreens.CreateScreen.route}$forkId")
+                        navController.navigate("${NavigationScreens.CreateScreen.route}$demoObjectId")
                     }
                 )
             )
-            DetailsScreen(forkId, screenState) { viewState ->
+            DetailsScreen(demoObjectId, screenState) { viewState ->
                 DetailsContent(viewState)
             }
         }
-        composable("${NavigationScreens.CreateScreen.route}{forkId}", arguments = listOf(navArgument("forkId") {
+        composable("${NavigationScreens.CreateScreen.route}{demoObjectId}", arguments = listOf(navArgument("demoObjectId") {
             type = NavType.StringType
             defaultValue = ""
             nullable = true
         })) { backStackEntry ->
-            val forkId = backStackEntry.arguments?.getString("forkId").takeIf { it?.isNotEmpty() == true && it != "-1"} ?: ""
+            val demoObjectId = backStackEntry.arguments?.getString("demoObjectId").takeIf { it?.isNotEmpty() == true && it != "-1"} ?: ""
             screenState.value = screenState.value.copy(
                 appBarState = screenState.value.appBarState.copy(
-                    appBarTitle = if (forkId.isNotEmpty()) LocalStringResources.current.EDIT else LocalStringResources.current.CREATE,
+                    appBarTitle = if (demoObjectId.isNotEmpty()) LocalStringResources.current.EDIT else LocalStringResources.current.CREATE,
                     topAppBarActionVisible = true,
                     topAppBarAction = {
                         navController.navigateUp()
@@ -87,8 +87,8 @@ fun AppNavigation(navController: NavHostController, screenState: MutableState<Sc
                 floatingActionState = screenState.value.floatingActionState.copy(
                 floatingActionButtonVisible = false
             ))
-            CreateScreen(forkId, screenState) { viewState, originFork, onClick ->
-                CreateContent(viewState, originFork, onClick)
+            CreateScreen(demoObjectId, screenState) { viewState, originDemoObject, onClick ->
+                CreateContent(viewState, originDemoObject, onClick)
             }
         }
     }
