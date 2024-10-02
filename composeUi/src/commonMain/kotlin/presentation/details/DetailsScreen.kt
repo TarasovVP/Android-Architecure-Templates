@@ -15,8 +15,7 @@ fun DetailsScreen(
     demoObjectId: String?, screenState: MutableState<ScreenState>,
     content: @Composable (DetailsViewState) -> Unit
 ) {
-    val detailsViewModel = koinInject<DetailsViewModel>()
-    val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { detailsViewModel }
+    val viewModel = koinInject<DetailsViewModel>()
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(demoObjectId) {

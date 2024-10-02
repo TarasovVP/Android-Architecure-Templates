@@ -22,8 +22,7 @@ import presentation.components.ChangeAvatarDialog
 fun CreateScreen(demoObjectId: String, screenState: MutableState<ScreenState>,
                  content: @Composable (State<CreateViewState>, originDemoObject: MutableState<DemoObjectUI?>, onClick: () -> Unit) -> Unit) {
 
-    val createViewModel = koinInject<CreateViewModel>()
-    val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { createViewModel }
+    val viewModel = koinInject<CreateViewModel>()
     val viewState = viewModel.state.collectAsState()
     val originDemoObject = remember {  mutableStateOf<DemoObjectUI?>(null) }
 
