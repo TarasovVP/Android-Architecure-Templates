@@ -1,7 +1,7 @@
-MVVM with Compose Navigation Implementation
+MVI with Compose Implementation
 
-**Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*   
+**Architecture**: *MVI*  
+**Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*  
 **Api:** *io.ktor.client.HttpClient*  
 **Image loading:** *coil.compose.AsyncImage*   
 **JsonConverter:** *kotlinx.serialization.SerialName*  
@@ -9,5 +9,5 @@ MVVM with Compose Navigation Implementation
 **Multithreading:** *kotlinx.coroutines.CoroutineScope*  
 **Architectural component:** *androidx.lifecycle.ViewModel*  
 **Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *androidx.navigation.compose.NavHost*  
+**Navigation component:** *cafe.adriel.voyager.navigator.Navigator*  
 **DI:** *org.koin.core.KoinApplication*
