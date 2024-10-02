@@ -11,5 +11,7 @@ interface DemoObjectDao {
 
     suspend fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>>
 
-    suspend fun getDemoObjectById(id: Long): Flow<DemoObjectWithOwner?>
+    suspend fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?>
+
+    suspend fun deleteDemoObjectById(id: String)
 }

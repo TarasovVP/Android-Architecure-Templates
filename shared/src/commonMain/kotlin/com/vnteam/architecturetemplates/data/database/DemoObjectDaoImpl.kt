@@ -19,9 +19,8 @@ class DemoObjectDaoImpl(private val sharedDatabase: SharedDatabase): DemoObjectD
             database.appDatabaseQueries.transaction {
                 demoObjects.forEach { demoObject ->
                     database.appDatabaseQueries.insertDemoObjectWithOwner(
-                        id = demoObject.id,
+                        demoObjectId = demoObject.demoObjectId,
                         name = demoObject.name,
-                        fullName = demoObject.fullName,
                         ownerId = demoObject.ownerId,
                         login = demoObject.login,
                         avatarUrl = demoObject.avatarUrl,
@@ -41,10 +40,16 @@ class DemoObjectDaoImpl(private val sharedDatabase: SharedDatabase): DemoObjectD
         awaitClose { }
     }
 
-    override suspend fun getDemoObjectById(id: Long): Flow<DemoObjectWithOwner?> = callbackFlow {
+    override suspend fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?> = callbackFlow {
         sharedDatabase { database ->
             trySend(database.appDatabaseQueries.getDemoObjectWithOwnerById(id).awaitAsOneOrNull()).isSuccess
         }
         awaitClose { }
+    }
+
+    override suspend fun deleteDemoObjectById(id: String) {
+        sharedDatabase { database ->
+            database.appDatabaseQueries.deleteDemoObjectWithOwnerById(id)
+        }
     }
 }

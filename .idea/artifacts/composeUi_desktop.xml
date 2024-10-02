@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="composeUi-desktop">
+    <output-path>$PROJECT_DIR$/composeUi/build/libs</output-path>
+    <root id="archive" name="composeUi-desktop.jar">
+      <element id="module-output" name="Android_Architecture_Templates.composeUi.desktopMain" />
+    </root>
+  </artifact>
+</component>

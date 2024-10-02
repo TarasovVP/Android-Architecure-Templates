@@ -8,9 +8,9 @@ import com.vnteam.architecturetemplates.domain.models.Owner
 class DemoObjectDBMapperImpl : DemoObjectDBMapper {
 
     override fun mapToImplModel(from: DemoObject): DemoObjectWithOwner {
-        return DemoObjectWithOwner(id = from.id ?: 0,
+        return DemoObjectWithOwner(id = 0,
+            demoObjectId = from.demoObjectId.orEmpty(),
             name = from.name,
-            fullName = from.fullName,
             ownerId = from.owner?.ownerId,
             login = from.owner?.login,
             avatarUrl = from.owner?.avatarUrl,
@@ -20,9 +20,8 @@ class DemoObjectDBMapperImpl : DemoObjectDBMapper {
     }
 
     override fun mapFromImplModel(to: DemoObjectWithOwner): DemoObject {
-        return DemoObject(id = to.id,
+        return DemoObject(demoObjectId = to.demoObjectId,
         name = to.name,
-        fullName = to.fullName,
         owner = Owner(ownerId = to.ownerId,
             login = to.login,
             avatarUrl = to.avatarUrl,

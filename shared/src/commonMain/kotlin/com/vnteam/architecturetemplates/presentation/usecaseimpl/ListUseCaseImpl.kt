@@ -24,4 +24,8 @@ class ListUseCaseImpl(private val apiRepository: ApiRepository, private val dbRe
     override suspend fun getDemoObjectsFromDB(): Flow<List<DemoObject>> {
         return dbRepository.getDemoObjectsFromDB()
     }
+
+    override suspend fun deleteDemoObjectById(id: String): Flow<Unit> {
+        return apiRepository.deleteDemoObjectById(id)
+    }
 }

@@ -27,8 +27,13 @@ class DBRepositoryImpl(private val demoObjectDao: DemoObjectDao, private val dem
         }
 
 
-    override suspend fun getDemoObjectById(demoObjectId: Long): Flow<DemoObject?> =
+    override suspend fun getDemoObjectById(demoObjectId: String): Flow<DemoObject?> =
         demoObjectDao.getDemoObjectById(demoObjectId).map { demoObjectWithOwner ->
             demoObjectWithOwner?.let { demoObjectDBMapper.mapFromImplModel(it) }
         }
+
+    override suspend fun deleteDemoObjectById(demoObjectId: String): Flow<Unit> = flow {
+        demoObjectDao.deleteDemoObjectById(demoObjectId)
+        emit(Unit)
+    }
 }

@@ -6,7 +6,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.vnteam.architecturetemplates.data.PREFERENCES_PB
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import okio.Path.Companion.toPath
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
@@ -35,10 +36,11 @@ actual class PreferencesFactory : Preferences {
         }
     }
 
-    actual override suspend fun getString(key: String): String? {
+    actual override suspend fun getString(key: String): Flow<String?> {
         val preferencesKey = stringPreferencesKey(key)
-        val preferences = dataStore.data.first()
-        return preferences[preferencesKey]
+        return dataStore.data.map { preferences ->
+            preferences[preferencesKey]
+        }
     }
 
     actual override suspend fun putBoolean(key: String, value: Boolean) {
@@ -48,9 +50,10 @@ actual class PreferencesFactory : Preferences {
         }
     }
 
-    actual override suspend fun getBoolean(key: String): Boolean {
+    actual override suspend fun getBoolean(key: String): Flow<Boolean> {
         val preferencesKey = booleanPreferencesKey(key)
-        val preferences = dataStore.data.first()
-        return preferences[preferencesKey] == true
+        return dataStore.data.map { preferences ->
+            preferences[preferencesKey] ?: false
+        }
     }
 }

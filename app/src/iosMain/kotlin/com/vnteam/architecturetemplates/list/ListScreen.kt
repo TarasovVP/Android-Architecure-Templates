@@ -24,28 +24,11 @@ import com.vnteam.architecturetemplates.resources.getStringResources
 import org.koin.compose.koinInject
 
 @Composable
-<<<<<<<< HEAD:app/src/iosMain/kotlin/com/vnteam/architecturetemplates/list/ListScreen.kt
-fun ListScreen() {
-    val navigator = LocalNavigator.currentOrThrow
-    val viewModel: ListViewModel = koinInject()
-    val platformMessageDisplayer: PlatformMessageDisplayer = koinInject()
-    val viewState = viewModel.state.collectAsState()
-
-    LaunchedEffect(viewState.value.error) {
-        viewState.value.error?.let { message ->
-            platformMessageDisplayer.showPopupMessage(message)
-        }
-    }
-    ListContent(viewState.value, { forkId ->
-        navigator.push(NavigationScreen.DetailsContentScreen(forkId))
-    }, {
-========
 fun ListScreen(onItemClick: (Long) -> Unit) {
     val viewModel: ListViewModel = koinInject<ListViewModel>()
     val viewState = viewModel.state.collectAsState()
 
     ListContent(viewState.value, onItemClick) {
->>>>>>>> 7f13da3a (Fix merge conflicts):shared/src/commonMain/kotlin/com/vnteam/architecturetemplates/presentation/list/ListScreen.kt
         viewModel.processIntent(ListIntent.LoadForks())
     }
 }

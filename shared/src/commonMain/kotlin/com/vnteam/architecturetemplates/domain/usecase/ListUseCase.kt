@@ -12,4 +12,6 @@ interface ListUseCase {
     suspend fun insertDemoObjectsToDB(demoObjects: List<DemoObject>): Flow<Unit>
 
     suspend fun getDemoObjectsFromDB(): Flow<List<DemoObject>>
+
+    suspend fun deleteDemoObjectById(id: String): Flow<Unit>
 }
