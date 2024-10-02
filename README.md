@@ -1,3 +1,5 @@
+MVVM with Compose Navigation Implementation
+
 **Architecture:** *MVVM*    
 **Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*   
 **Api:** *io.ktor.client.HttpClient*  
@@ -8,4 +10,4 @@
 **Architectural component:** *androidx.lifecycle.ViewModel*  
 **Observable component:** *kotlinx.coroutines.flow.StateFlow*  
 **Navigation component:** *androidx.navigation.compose.NavHost*  
-**DI:** *org.koin.core.KoinApplication*  
+**DI:** *org.koin.core.KoinApplication*
