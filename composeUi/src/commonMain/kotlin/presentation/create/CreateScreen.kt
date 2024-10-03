@@ -15,14 +15,14 @@ import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import presentation.components.ChangeAvatarDialog
 
 @Composable
 fun CreateScreen(demoObjectId: String, screenState: MutableState<ScreenState>,
                  content: @Composable (State<CreateViewState>, originDemoObject: MutableState<DemoObjectUI?>, onClick: () -> Unit) -> Unit) {
 
-    val viewModel = koinInject<CreateViewModel>()
+    val viewModel = koinViewModel<CreateViewModel>()
     val viewState = viewModel.state.collectAsState()
     val originDemoObject = remember {  mutableStateOf<DemoObjectUI?>(null) }
 

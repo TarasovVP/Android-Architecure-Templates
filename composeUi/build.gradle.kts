@@ -31,10 +31,11 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.components.resources)
             implementation(libs.androidx.viewmodel.compose)
-            //Koin
+            // Koin
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
-            //Coil
+            implementation(libs.koin.compose.viewmodel)
+            // Coil
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
         }
