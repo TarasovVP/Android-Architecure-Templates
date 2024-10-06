@@ -13,7 +13,6 @@ class DatabaseDriverFactory {
     fun createDriver(): SqlDriver {
         val config = HikariConfig().apply {
             jdbcUrl = JDBC_URL
-
             driverClassName = DRIVER_CLASS_NAME
 
             username = DB_USER_NAME
