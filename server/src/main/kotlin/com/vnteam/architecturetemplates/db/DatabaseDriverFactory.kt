@@ -12,10 +12,18 @@ import com.zaxxer.hikari.HikariDataSource
 class DatabaseDriverFactory {
     fun createDriver(): SqlDriver {
         val config = HikariConfig().apply {
-            setJdbcUrl(JDBC_URL)
+            jdbcUrl = JDBC_URL
+
             driverClassName = DRIVER_CLASS_NAME
+
             username = DB_USER_NAME
             password = DB_USER_PASSWORD
+
+            maximumPoolSize = 5
+            minimumIdle = 2
+            idleTimeout = 10000
+            connectionTimeout = 30000
+            maxLifetime = 1800000
         }
         val dataSource = HikariDataSource(config)
         return dataSource.asJdbcDriver()

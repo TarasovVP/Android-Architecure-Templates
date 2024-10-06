@@ -12,8 +12,7 @@ kotlinxSerialization = "1.7.1"
 coroutines = "1.8.1"
 viewmodelCompose = "2.8.0-rc01"
 ktor = "2.3.12"
-koin = "3.6.0-alpha3"
-koinComposeMultiplatform = "1.2.0-alpha3"
+koin = "4.0.0"
 sqldelight = "2.0.2"
 coilCompose = "3.0.0-alpha06"
 navigationCompose = "2.8.0-alpha02"
@@ -27,6 +26,7 @@ androidx-uiTest = "1.7.2"
 logback = "1.5.6"
 ktorServerConfigYaml = "2.3.12"
 postgresql = "42.7.3"
+postgresSocketFactory = "1.6.0"
 hikaricp = "5.0.1"
 
 [libraries]
@@ -50,11 +50,13 @@ ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref =
 ktor-client-js = { group = "io.ktor", name = "ktor-client-js", version.ref = "ktor" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinComposeMultiplatform" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
 
+postgres-socket-factory = { module = "com.google.cloud.sql:postgres-socket-factory", version.ref = "postgresSocketFactory" }
 sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }

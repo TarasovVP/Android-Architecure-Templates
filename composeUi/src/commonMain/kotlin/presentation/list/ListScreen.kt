@@ -10,14 +10,13 @@ import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ListScreen(screenState: MutableState<ScreenState>,
                onItemClick: (DemoObjectUI) -> Unit,
                content: @Composable (State<ListViewState>, onItemClick: (DemoObjectUI, String) -> Unit) -> Unit) {
-    val listViewModel = koinInject<ListViewModel>()
-    val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { listViewModel }
+    val viewModel = koinViewModel<ListViewModel>()
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {

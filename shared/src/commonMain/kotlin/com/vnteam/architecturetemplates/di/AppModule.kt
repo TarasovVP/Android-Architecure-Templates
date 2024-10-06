@@ -2,6 +2,7 @@ package com.vnteam.architecturetemplates.di
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vnteam.architecturetemplates.data.baseUrl
 import com.vnteam.architecturetemplates.data.database.DemoObjectDao
 import com.vnteam.architecturetemplates.data.database.DemoObjectDaoImpl
@@ -45,6 +46,7 @@ import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import org.koin.core.module.dsl.viewModel
 
 val appModule = module {
 
@@ -101,16 +103,16 @@ val appModule = module {
 
     single<MutableState<ScreenState>> { mutableStateOf( ScreenState() ) }
 
-    factory {
+    viewModel {
         AppViewModel(get(), get())
     }
-    factory {
+    viewModel {
         ListViewModel(get(), get(), get())
     }
-    factory {
+    viewModel {
         DetailsViewModel(get(), get(), get())
     }
-    factory {
+    viewModel {
         CreateViewModel(get(), get(), get())
     }
 }

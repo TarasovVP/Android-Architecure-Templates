@@ -8,15 +8,14 @@ import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun DetailsScreen(
     demoObjectId: String?, screenState: MutableState<ScreenState>,
     content: @Composable (DetailsViewState) -> Unit
 ) {
-    val detailsViewModel = koinInject<DetailsViewModel>()
-    val viewModel = androidx.lifecycle.viewmodel.compose.viewModel { detailsViewModel }
+    val viewModel = koinViewModel<DetailsViewModel>()
     val viewState = viewModel.state.collectAsState()
 
     LaunchedEffect(demoObjectId) {

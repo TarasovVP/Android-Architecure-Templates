@@ -33,6 +33,7 @@ dependencies {
     implementation(libs.postgresql)
     implementation(libs.hikari.cp)
     implementation(libs.jdbc.driver)
+    implementation(libs.postgres.socket.factory)
 }
 
 sqldelight {
@@ -41,5 +42,17 @@ sqldelight {
             packageName = "com.vnteam.architecturetemplates"
             dialect("app.cash.sqldelight:postgresql-dialect:2.0.2")
         }
+    }
+}
+
+tasks {
+    register<Jar>("fatJar") {
+        archiveBaseName.set("ktor-server")
+        manifest {
+            attributes["Main-Class"] = "com.vnteam.architecturetemplates.ApplicationKt"
+        }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+        from(sourceSets.main.get().output)
     }
 }
