@@ -1,7 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
-import java.net.InetAddress
-import java.net.NetworkInterface
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -114,40 +112,6 @@ sqldelight {
             version = 2
         }
     }
-}
-
-// Until server is in local network
-fun getMachineLocalIpAddress(): String {
-    val networkInterface = NetworkInterface.getByName("en0")
-    networkInterface?.let {
-        val addresses = it.inetAddresses
-        while (addresses.hasMoreElements()) {
-            val inetAddress = addresses.nextElement()
-            if (!inetAddress.isLoopbackAddress && inetAddress is InetAddress && inetAddress.hostAddress.indexOf(':') == -1) {
-                return inetAddress.hostAddress
-            }
-        }
-    }
-    return "localhost"
-}
-
-tasks.register("generateBuildConfig") {
-    doLast {
-        val buildConfigFile = file("src/commonMain/kotlin/config/BuildConfig.kt")
-
-        buildConfigFile.parentFile.mkdirs()
-        buildConfigFile.writeText("""
-            package config
-
-            object BuildConfig {
-                val LOCAL_IP: String = "${getMachineLocalIpAddress()}"
-            }
-        """.trimIndent())
-    }
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    dependsOn("generateBuildConfig")
 }
 
 
