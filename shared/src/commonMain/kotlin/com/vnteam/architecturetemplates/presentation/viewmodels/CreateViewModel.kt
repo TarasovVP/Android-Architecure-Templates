@@ -1,6 +1,5 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.domain.models.DemoObject
@@ -8,7 +7,6 @@ import com.vnteam.architecturetemplates.domain.usecase.CreateUseCase
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.mappers.DemoObjectUIMapper
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
-import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,9 +15,8 @@ import kotlinx.coroutines.launch
 
 class CreateViewModel(
     private val createUseCase: CreateUseCase,
-    private val demoObjectUIMapper: DemoObjectUIMapper,
-    screenState: MutableState<ScreenState>
-) : BaseViewModel(screenState) {
+    private val demoObjectUIMapper: DemoObjectUIMapper
+) : BaseViewModel() {
 
     private val _state = MutableStateFlow(CreateViewState())
     val state: StateFlow<CreateViewState> = _state.asStateFlow()

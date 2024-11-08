@@ -1,13 +1,13 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import kotlinx.coroutines.CoroutineExceptionHandler
 
-open class BaseViewModel(
-    private val screenState: MutableState<ScreenState>
-) : ViewModel() {
+open class BaseViewModel : ViewModel() {
+
+    val screenState = mutableStateOf( ScreenState() )
 
     protected val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         showProgress(false)
