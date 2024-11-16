@@ -21,7 +21,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -34,15 +33,11 @@ import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
 import com.vnteam.architecturetemplates.ic_dark_mode
 import com.vnteam.architecturetemplates.ic_light_mode
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
-import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import org.jetbrains.compose.resources.painterResource
-import org.koin.compose.koinInject
 import presentation.components.SplashScreen
 import theme.AppTheme
 
@@ -54,7 +49,7 @@ fun App(appViewModel: AppViewModel) {
     CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value.orEmpty())) {
         isDarkTheme.value?.let {
             AppTheme(it) {
-                ScaffoldContent(koinInject(), appViewModel)
+                ScaffoldContent(appViewModel)
             }
         } ?: SplashScreen()
     }
@@ -62,7 +57,8 @@ fun App(appViewModel: AppViewModel) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppViewModel) {
+fun ScaffoldContent(appViewModel: AppViewModel) {
+    val screenState = appViewModel.screenState
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
     LaunchedEffect(screenState.value.appMessageState.messageVisible) {
@@ -134,7 +130,7 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
         },
         content = { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
-                AppNavigation(navController, koinInject())
+                AppNavigation(navController, screenState)
                 if (screenState.value.isProgressVisible) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
