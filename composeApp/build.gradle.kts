@@ -55,7 +55,7 @@ kotlin {
         val desktopMain by getting
 
         commonMain.dependencies {
-            implementation(projects.shared)
+            //implementation(projects.shared)
             implementation(projects.composeUi)
             implementation(compose.foundation)
             implementation(compose.material3)

@@ -26,7 +26,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization)
-            implementation(projects.shared)
+            //implementation(projects.shared)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
