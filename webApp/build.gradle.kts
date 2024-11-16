@@ -34,7 +34,7 @@ kotlin {
             implementation(npm("sql.js", "1.6.2"))
             implementation(devNpm("copy-webpack-plugin", "6.4.1"))
 
-            implementation(project(":shared"))
+            implementation(projects.shared)
         }
     }
 }
