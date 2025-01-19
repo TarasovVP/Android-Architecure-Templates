@@ -84,7 +84,7 @@ fun AppContent(appViewModel: AppViewModel) {
                     AppBar(appViewModel, screenState.value.appBarState)
                 }
                 Box(modifier = Modifier.fillMaxWidth(0.8f)) {
-                    AppNavigation(koinInject())
+                    AppNavigation(screenState)
                 }
             }
             if (screenState.value.floatingActionState.floatingActionButtonVisible) {

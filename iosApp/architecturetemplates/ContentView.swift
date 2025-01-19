@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import composeApp
+import mobile
 
 struct ComposeView: UIViewControllerRepresentable {
 
