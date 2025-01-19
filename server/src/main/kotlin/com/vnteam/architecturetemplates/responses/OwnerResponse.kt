@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.domain.responses
+package com.vnteam.architecturetemplates.responses
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

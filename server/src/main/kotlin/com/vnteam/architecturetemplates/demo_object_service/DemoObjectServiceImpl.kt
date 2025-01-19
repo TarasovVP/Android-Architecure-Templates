@@ -1,8 +1,8 @@
 package com.vnteam.architecturetemplates.demo_object_service
 
 import com.vnteam.architecturetemplates.ServerDatabaseQueries
-import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.mapperimpls.toDemoObject
+import com.vnteam.architecturetemplates.models.DemoObject
 
 class DemoObjectServiceImpl(private val serverDatabaseQueries: ServerDatabaseQueries):
     DemoObjectService {

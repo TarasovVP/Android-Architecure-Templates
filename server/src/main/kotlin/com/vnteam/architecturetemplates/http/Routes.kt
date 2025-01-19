@@ -1,8 +1,8 @@
 package com.vnteam.architecturetemplates.http
 
-import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
-import com.vnteam.architecturetemplates.domain.responses.DemoObjectResponse
+import com.vnteam.architecturetemplates.responses.DemoObjectResponse
 import com.vnteam.architecturetemplates.demo_object_service.DemoObjectService
+import com.vnteam.architecturetemplates.mappers.DemoObjectResponseMapper
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.call

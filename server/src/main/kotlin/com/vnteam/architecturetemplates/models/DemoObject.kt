@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.domain.models
+package com.vnteam.architecturetemplates.models
 
 data class DemoObject(
     var demoObjectId: String? = null,

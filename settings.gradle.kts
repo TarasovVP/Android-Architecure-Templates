@@ -17,7 +17,6 @@ dependencyResolutionManagement {
     }
 }
 
-include(":core")
 include(":shared")
 include(":mobile")
 include(":desktop")

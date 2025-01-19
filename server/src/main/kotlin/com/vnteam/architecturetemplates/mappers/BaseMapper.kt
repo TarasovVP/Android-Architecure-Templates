@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.domain.mappers
+package com.vnteam.architecturetemplates.mappers
 
 interface BaseMapper<From, To> {
 
