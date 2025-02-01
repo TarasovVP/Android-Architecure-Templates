@@ -1,6 +1,7 @@
 package com.vnteam.architecturetemplates.di_android
 
 import com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory
+import com.vnteam.architecturetemplates.data.local.Preferences
 import com.vnteam.architecturetemplates.data.local.PreferencesFactory
 import com.vnteam.architecturetemplates.presentation.TextToSpeechHelper
 import org.koin.android.ext.koin.androidContext
@@ -10,7 +11,7 @@ val androidModule = module {
     single {
         DatabaseDriverFactory(androidContext())
     }
-    single {
+    single<Preferences> {
         PreferencesFactory(androidContext())
     }
     single {

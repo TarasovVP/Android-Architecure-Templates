@@ -2,11 +2,12 @@ package com.vnteam.architecturetemplates.data.repositoryimpl
 
 import com.vnteam.architecturetemplates.data.IS_DARK_THEME
 import com.vnteam.architecturetemplates.data.APP_LANGUAGE
+import com.vnteam.architecturetemplates.data.local.Preferences
 import com.vnteam.architecturetemplates.data.local.PreferencesFactory
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
 import kotlinx.coroutines.flow.Flow
 
-class PreferencesRepositoryImpl(private val preferencesFactory: PreferencesFactory) :
+class PreferencesRepositoryImpl(private val preferencesFactory: Preferences) :
     PreferencesRepository {
     override suspend fun setIsDarkTheme(isDarkTheme: Boolean) {
         preferencesFactory.putBoolean(IS_DARK_THEME, isDarkTheme)

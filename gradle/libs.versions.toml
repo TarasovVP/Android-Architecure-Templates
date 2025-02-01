@@ -21,6 +21,7 @@ materialRipple = "1.7.2"
 agp = "8.5.2"
 compose-multiplatform = "1.6.10-rc03"
 kotlin = "2.0.20"
+kotlin-test = "1.10.1"
 slf4j = "2.0.12"
 androidx-uiTest = "1.7.2"
 logback = "1.5.6"
@@ -34,11 +35,14 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 freetts = { module = "net.sf.sociaal:freetts", version.ref = "freetts" }
 hikari-cp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
+androidx-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "viewmodelCompose" }
+
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-test" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "coroutines" }
-androidx-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "viewmodelCompose" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
@@ -55,6 +59,7 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
 postgres-socket-factory = { module = "com.google.cloud.sql:postgres-socket-factory", version.ref = "postgresSocketFactory" }
 sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
