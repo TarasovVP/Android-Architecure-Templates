@@ -29,16 +29,19 @@ kotlin {
     jvm()
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.core)
+
+            implementation(libs.kotlinx.serialization)
+            implementation(libs.kotlinx.coroutines.core)
+            // Compose
+            implementation(libs.androidx.viewmodel.compose)
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(compose.foundation)
             implementation(compose.runtime)
             implementation(compose.material3)
             implementation(compose.components.resources)
-            implementation(libs.kotlinx.serialization)
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.androidx.viewmodel.compose)
-            //Ktor
+            // Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
@@ -47,7 +50,7 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
-            //SQLDelight
+            // SQLDelight
             implementation(libs.sqldelight.coroutines.extensions)
         }
         androidMain.dependencies {
@@ -57,13 +60,13 @@ kotlin {
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-            //Datastore
+            // Datastore
             implementation(libs.androidx.datastore.preferences)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sqldelight.native.driver)
-            //Datastore
+            // Datastore
             implementation(libs.androidx.datastore.preferences)
         }
         nativeMain.dependencies {
@@ -76,9 +79,9 @@ kotlin {
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.sqldelight.java.driver)
             implementation(libs.slf4j)
-            //Datastore
+            // Datastore
             implementation(libs.androidx.datastore.preferences)
-            //Text to speech
+            // Text to speech
             implementation(libs.freetts)
         }
         jsMain.dependencies {

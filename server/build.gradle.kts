@@ -15,6 +15,7 @@ application {
 }
 
 dependencies {
+    implementation(projects.core)
     implementation(libs.logback)
     implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.ktor.server.tests)

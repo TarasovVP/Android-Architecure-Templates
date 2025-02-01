@@ -1,6 +1,6 @@
 package com.vnteam.architecturetemplates.demo_object_service
 
-import com.vnteam.architecturetemplates.models.DemoObject
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 
 interface DemoObjectService {
 
