@@ -1,10 +1,13 @@
 package com.vnteam.architecturetemplates.data.repositoryimpl
 
+import com.vnteam.architecturetemplates.data.APP_LANG_EN
+import com.vnteam.architecturetemplates.data.APP_LANG_UK
+import com.vnteam.architecturetemplates.data.IS_DARK_THEME
+import com.vnteam.architecturetemplates.data.local.FakePreferencesFactory
 import com.vnteam.architecturetemplates.data.local.Preferences
+import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -23,61 +26,46 @@ class PreferencesRepositoryTest : KoinTest {
     private val repository by inject<PreferencesRepository>()
     private val preferencesFactory by inject<Preferences>()
 
-    private val testModule = module {
-        single<Preferences> { FakePreferencesFactory() }
-        single<PreferencesRepository> { PreferencesRepositoryImpl(get()) }
-    }
-
     @BeforeTest
     fun setup() {
+        val overrideModule = module {
+            single<Preferences> { FakePreferencesFactory() }
+        }
         startKoin {
-            modules(testModule)
+            modules(testModule + overrideModule)
         }
     }
 
     @Test
-    fun setIsDarkThemeTrue() = runTest {
+    fun testIsDarkThemeTrue() = runTest {
         repository.setIsDarkTheme(true)
-        val actual = preferencesFactory.getBoolean("is_dark_theme").first()
+        val actual = preferencesFactory.getBoolean(IS_DARK_THEME).first()
         assertTrue(actual)
     }
 
     @Test
-    fun getIsDarkThemeReturnsFalseByDefault() = runTest {
-        val actual = repository.getIsDarkTheme().first()
+    fun testIsDarkThemeFalse() = runTest {
+        repository.setIsDarkTheme(false)
+        val actual = preferencesFactory.getBoolean(IS_DARK_THEME).first()
         assertFalse(actual)
     }
 
     @Test
-    fun setLanguageEnAndGetBack() = runTest {
-        repository.setLanguage("en")
+    fun testLanguageEn() = runTest {
+        repository.setLanguage(APP_LANG_EN)
         val actual = repository.getLanguage().first()
-        assertEquals("en", actual)
+        assertEquals(APP_LANG_EN, actual)
+    }
+
+    @Test
+    fun testLanguageUk() = runTest {
+        repository.setLanguage(APP_LANG_UK)
+        val actual = repository.getLanguage().first()
+        assertEquals(APP_LANG_UK, actual)
     }
 
     @AfterTest
     fun tearDown() {
         stopKoin()
-    }
-
-    class FakePreferencesFactory : Preferences {
-        private val booleanPrefs = mutableMapOf<String, Boolean>()
-        private val stringPrefs = mutableMapOf<String, String?>()
-
-        override suspend fun putBoolean(key: String, value: Boolean) {
-            booleanPrefs[key] = value
-        }
-
-        override suspend fun getBoolean(key: String): Flow<Boolean> = flow {
-            emit(booleanPrefs[key] ?: false)
-        }
-
-        override suspend fun putString(key: String, value: String) {
-            stringPrefs[key] = value
-        }
-
-        override suspend fun getString(key: String): Flow<String?> = flow {
-            emit(stringPrefs[key])
-        }
     }
 }
