@@ -1,5 +1,6 @@
-package com.vnteam.architecturetemplates.data.local
+package com.vnteam.architecturetemplates.fake.data.local
 
+import com.vnteam.architecturetemplates.data.local.Preferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

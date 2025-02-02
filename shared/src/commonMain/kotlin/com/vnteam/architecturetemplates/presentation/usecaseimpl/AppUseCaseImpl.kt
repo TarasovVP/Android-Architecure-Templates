@@ -21,5 +21,4 @@ class AppUseCaseImpl(private val preferencesRepository: PreferencesRepository) :
     override suspend fun getLanguage(): Flow<String?> {
         return preferencesRepository.getLanguage()
     }
-
 }

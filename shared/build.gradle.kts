@@ -25,6 +25,9 @@ kotlin {
     js(IR) {
         useCommonJs()
         browser()
+        testRuns {
+            nodejs()
+        }
     }
     jvm()
     sourceSets {

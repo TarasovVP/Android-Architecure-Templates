@@ -1,17 +1,16 @@
 package com.vnteam.architecturetemplates.data.repositoryimpl
 
+import com.vnteam.architecturetemplates.data.APP_LANGUAGE
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
 import com.vnteam.architecturetemplates.data.IS_DARK_THEME
-import com.vnteam.architecturetemplates.data.local.FakePreferencesFactory
 import com.vnteam.architecturetemplates.data.local.Preferences
-import com.vnteam.architecturetemplates.di.testModule
+import com.vnteam.architecturetemplates.fake.di.testModule
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.AfterTest
@@ -28,11 +27,8 @@ class PreferencesRepositoryTest : KoinTest {
 
     @BeforeTest
     fun setup() {
-        val overrideModule = module {
-            single<Preferences> { FakePreferencesFactory() }
-        }
         startKoin {
-            modules(testModule + overrideModule)
+            modules(testModule)
         }
     }
 
@@ -51,15 +47,43 @@ class PreferencesRepositoryTest : KoinTest {
     }
 
     @Test
-    fun testLanguageEn() = runTest {
+    fun testGetDarkThemeTrue() = runTest {
+        preferencesFactory.putBoolean(IS_DARK_THEME, true)
+        val actual = repository.getIsDarkTheme().first()
+        assertTrue(actual)
+    }
+
+    @Test
+    fun testGetDarkThemeFalse() = runTest {
+        preferencesFactory.putBoolean(IS_DARK_THEME, false)
+        val actual = repository.getIsDarkTheme().first()
+        assertFalse(actual)
+    }
+
+    @Test
+    fun testSetLanguageEn() = runTest {
         repository.setLanguage(APP_LANG_EN)
+        val actual = preferencesFactory.getString(APP_LANGUAGE).first()
+        assertEquals(APP_LANG_EN, actual)
+    }
+
+    @Test
+    fun testSetLanguageUk() = runTest {
+        repository.setLanguage(APP_LANG_UK)
+        val actual = preferencesFactory.getString(APP_LANGUAGE).first()
+        assertEquals(APP_LANG_UK, actual)
+    }
+
+    @Test
+    fun testGetLanguageEn() = runTest {
+        preferencesFactory.putString(APP_LANGUAGE, APP_LANG_EN)
         val actual = repository.getLanguage().first()
         assertEquals(APP_LANG_EN, actual)
     }
 
     @Test
-    fun testLanguageUk() = runTest {
-        repository.setLanguage(APP_LANG_UK)
+    fun testGetLanguageUk() = runTest {
+        preferencesFactory.putString(APP_LANGUAGE, APP_LANG_UK)
         val actual = repository.getLanguage().first()
         assertEquals(APP_LANG_UK, actual)
     }
