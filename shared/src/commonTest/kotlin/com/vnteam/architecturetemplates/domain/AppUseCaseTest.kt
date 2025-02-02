@@ -27,11 +27,12 @@ class AppUseCaseTest : KoinTest {
 
     @BeforeTest
     fun setup() {
-        val overrideModule = module {
-            single<PreferencesRepository> { FakePreferencesRepository() }
-        }
         startKoin {
-            modules(testModule + overrideModule)
+            modules(
+                testModule + module {
+                    single<PreferencesRepository> { FakePreferencesRepository() }
+                }
+            )
         }
     }
 

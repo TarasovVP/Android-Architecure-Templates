@@ -6,6 +6,8 @@ import com.vnteam.architecturetemplates.data.repositoryimpl.PreferencesRepositor
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
 import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.AppUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val testModule = module(true) {
@@ -15,4 +17,8 @@ val testModule = module(true) {
     single<PreferencesRepository> { PreferencesRepositoryImpl(get()) }
 
     single<AppUseCase> { AppUseCaseImpl(get()) }
+
+    viewModel {
+        AppViewModel(get())
+    }
 }

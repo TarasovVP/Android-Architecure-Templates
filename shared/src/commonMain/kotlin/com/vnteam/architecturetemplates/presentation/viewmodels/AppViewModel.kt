@@ -22,7 +22,7 @@ class AppViewModel(
         getLanguage()
     }
 
-    private fun getIsDarkTheme() {
+    fun getIsDarkTheme() {
         viewModelScope.launch(exceptionHandler) {
             appUseCase.getIsDarkTheme().collect {
                 _isDarkTheme.value = it
@@ -33,12 +33,12 @@ class AppViewModel(
     fun setIsDarkTheme(isDarkTheme: Boolean) {
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            showProgress(false)
             appUseCase.setIsDarkTheme(isDarkTheme)
+            showProgress(false)
         }
     }
 
-    private fun getLanguage() {
+    fun getLanguage() {
         viewModelScope.launch(exceptionHandler) {
             appUseCase.getLanguage().collect {
                 _language.value = it
@@ -49,8 +49,8 @@ class AppViewModel(
     fun setLanguage(language: String) {
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            showProgress(false)
             appUseCase.setLanguage(language)
+            showProgress(false)
         }
     }
 }
