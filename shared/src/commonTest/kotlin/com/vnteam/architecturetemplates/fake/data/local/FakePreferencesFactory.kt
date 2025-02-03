@@ -12,7 +12,7 @@ class FakePreferencesFactory : Preferences {
         booleanPrefs[key] = value
     }
 
-    override suspend fun getBoolean(key: String): Flow<Boolean> = flow {
+    override fun getBoolean(key: String): Flow<Boolean> = flow {
         emit(booleanPrefs[key] ?: false)
     }
 
@@ -20,7 +20,7 @@ class FakePreferencesFactory : Preferences {
         stringPrefs[key] = value
     }
 
-    override suspend fun getString(key: String): Flow<String?> = flow {
+    override fun getString(key: String): Flow<String?> = flow {
         emit(stringPrefs[key])
     }
 }

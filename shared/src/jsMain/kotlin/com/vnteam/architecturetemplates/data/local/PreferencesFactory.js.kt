@@ -31,7 +31,7 @@ actual class PreferencesFactory : Preferences {
         stringFlows[key]?.value = value
     }
 
-    actual override suspend fun getString(key: String): Flow<String?> {
+    actual override fun getString(key: String): Flow<String?> {
         val flow = stringFlows.getOrPut(key) { MutableStateFlow(localStorage.getItem(key)) }
         return flow
     }
@@ -41,7 +41,7 @@ actual class PreferencesFactory : Preferences {
         booleanFlows[key]?.value = value
     }
 
-    actual override suspend fun getBoolean(key: String): Flow<Boolean> {
+    actual override fun getBoolean(key: String): Flow<Boolean> {
         val flow = booleanFlows.getOrPut(key) { MutableStateFlow(localStorage.getItem(key)?.toBoolean() ?: false) }
         return flow
     }

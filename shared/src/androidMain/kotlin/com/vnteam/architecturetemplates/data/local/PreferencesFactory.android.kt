@@ -24,7 +24,7 @@ actual class PreferencesFactory(private val context: Context): Preferences {
         }
     }
 
-    actual override suspend fun getString(key: String): Flow<String?> {
+    actual override fun getString(key: String): Flow<String?> {
         val preferencesKey = stringPreferencesKey(key)
         return dataStore.data.map { preferences ->
             preferences[preferencesKey]
@@ -38,7 +38,7 @@ actual class PreferencesFactory(private val context: Context): Preferences {
         }
     }
 
-    actual override suspend fun getBoolean(key: String): Flow<Boolean> {
+    actual override fun getBoolean(key: String): Flow<Boolean> {
         val preferencesKey = booleanPreferencesKey(key)
         return dataStore.data.map { preferences ->
             preferences[preferencesKey] ?: false

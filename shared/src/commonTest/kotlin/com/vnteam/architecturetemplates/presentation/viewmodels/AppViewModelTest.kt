@@ -1,11 +1,12 @@
-package com.vnteam.architecturetemplates.presentation
+package com.vnteam.architecturetemplates.presentation.viewmodels
 
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
-import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
+import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
+import com.vnteam.architecturetemplates.domain.usecase.LanguageUseCase
 import com.vnteam.architecturetemplates.fake.di.testModule
-import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeAppUseCase
-import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
+import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeIsDarkThemeUseCase
+import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeLanguageUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -30,14 +31,16 @@ import kotlin.test.assertTrue
 class AppViewModelTest : KoinTest {
 
     private val appViewModel by inject<AppViewModel>()
-    private val appUseCase by inject<AppUseCase>()
+    private val isDarkThemeUseCase by inject<IsDarkThemeUseCase>()
+    private val languageUseCase by inject<LanguageUseCase>()
 
     @BeforeTest
     fun setup() {
         startKoin {
             modules(
                 testModule + module {
-                    single<AppUseCase> { FakeAppUseCase() }
+                    single<IsDarkThemeUseCase> { FakeIsDarkThemeUseCase() }
+                    single<LanguageUseCase> { FakeLanguageUseCase() }
                 }
             )
         }
@@ -48,7 +51,7 @@ class AppViewModelTest : KoinTest {
     fun testSetIsDarkThemeTrue() = runTest {
         appViewModel.setIsDarkTheme(true)
         runCurrent()
-        val actual = appUseCase.getIsDarkTheme().first()
+        val actual = isDarkThemeUseCase.get().first() == true
         assertTrue(actual)
     }
 
@@ -56,13 +59,13 @@ class AppViewModelTest : KoinTest {
     fun testSetIsDarkThemeFalse() = runTest {
         appViewModel.setIsDarkTheme(false)
         runCurrent()
-        val actual = appUseCase.getIsDarkTheme().first()
+        val actual = isDarkThemeUseCase.get().first() == true
         assertFalse(actual)
     }
 
     @Test
     fun testGetIsDarkThemeTrue() = runTest {
-        appUseCase.setIsDarkTheme(true)
+        isDarkThemeUseCase.set(true)
         appViewModel.getIsDarkTheme()
         runCurrent()
         val actual = appViewModel.isDarkTheme.first() == true
@@ -71,7 +74,7 @@ class AppViewModelTest : KoinTest {
 
     @Test
     fun testGetIsDarkThemeFalse() = runTest {
-        appUseCase.setIsDarkTheme(false)
+        isDarkThemeUseCase.set(false)
         appViewModel.getIsDarkTheme()
         runCurrent()
         val actual = appViewModel.isDarkTheme.first() == true
@@ -82,7 +85,7 @@ class AppViewModelTest : KoinTest {
     fun testSetLanguageEn() = runTest {
         appViewModel.setLanguage(APP_LANG_EN)
         runCurrent()
-        val actual = appUseCase.getLanguage().first()
+        val actual = languageUseCase.get().first()
         assertEquals(APP_LANG_EN, actual)
     }
 
@@ -90,13 +93,13 @@ class AppViewModelTest : KoinTest {
     fun testSetLanguageUk() = runTest {
         appViewModel.setLanguage(APP_LANG_UK)
         runCurrent()
-        val actual = appUseCase.getLanguage().first()
+        val actual = languageUseCase.get().first()
         assertEquals(APP_LANG_UK, actual)
     }
 
     @Test
     fun testGetLanguageEn() = runTest {
-        appUseCase.setLanguage(APP_LANG_EN)
+        languageUseCase.set(APP_LANG_EN)
         appViewModel.getLanguage()
         runCurrent()
         val actual = appViewModel.language.first()
@@ -105,7 +108,7 @@ class AppViewModelTest : KoinTest {
 
     @Test
     fun testGetLanguageUk() = runTest {
-        appUseCase.setLanguage(APP_LANG_UK)
+        languageUseCase.set(APP_LANG_UK)
         appViewModel.getLanguage()
         runCurrent()
         val actual = appViewModel.language.first()

@@ -17,7 +17,6 @@ import com.vnteam.architecturetemplates.data.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
-import com.vnteam.architecturetemplates.domain.usecase.AppUseCase
 import com.vnteam.architecturetemplates.domain.usecase.CreateUseCase
 import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.ListUseCase
@@ -33,9 +32,12 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 import com.vnteam.architecturetemplates.domain.mappers.OwnerUIMapper
-import com.vnteam.architecturetemplates.presentation.usecaseimpl.AppUseCaseImpl
+import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
+import com.vnteam.architecturetemplates.domain.usecase.LanguageUseCase
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.CreateUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.DetailsUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.IsDarkThemeUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.LanguageUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import io.ktor.client.plugins.logging.DEFAULT
@@ -89,7 +91,9 @@ val appModule = module {
 
     single<DemoObjectUIMapper> { DemoObjectUIMapperImpl(get()) }
 
-    single<AppUseCase> { AppUseCaseImpl(get()) }
+    single<IsDarkThemeUseCase> { IsDarkThemeUseCaseImpl(get()) }
+
+    single<LanguageUseCase> { LanguageUseCaseImpl(get()) }
 
     single<ListUseCase> { ListUseCaseImpl(get(), get()) }
 
@@ -98,7 +102,7 @@ val appModule = module {
     single<CreateUseCase> { CreateUseCaseImpl(get(), get()) }
 
     viewModel {
-        AppViewModel(get())
+        AppViewModel(get(), get())
     }
     viewModel {
         ListViewModel(get(), get())

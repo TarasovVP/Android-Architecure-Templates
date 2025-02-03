@@ -12,7 +12,7 @@ class FakePreferencesRepository : PreferencesRepository {
         darkTheme = isDarkTheme
     }
 
-    override suspend fun getIsDarkTheme(): Flow<Boolean> {
+    override fun getIsDarkTheme(): Flow<Boolean> {
         return flow {
             emit(darkTheme)
         }
@@ -22,7 +22,7 @@ class FakePreferencesRepository : PreferencesRepository {
         this.language = language
     }
 
-    override suspend fun getLanguage(): Flow<String?> {
+    override fun getLanguage(): Flow<String?> {
         return flow {
             emit(language)
         }
