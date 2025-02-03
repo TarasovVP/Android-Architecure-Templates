@@ -17,7 +17,6 @@ import com.vnteam.architecturetemplates.data.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
-import com.vnteam.architecturetemplates.domain.usecase.CreateUseCase
 import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.ListUseCase
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
@@ -32,10 +31,15 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 import com.vnteam.architecturetemplates.domain.mappers.OwnerUIMapper
+import com.vnteam.architecturetemplates.domain.usecase.CreateDemoObjectUseCase
+import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
+import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
 import com.vnteam.architecturetemplates.domain.usecase.LanguageUseCase
-import com.vnteam.architecturetemplates.presentation.usecaseimpl.CreateUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.CreateDemoObjectUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.DetailsUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.GetDemoObjectUseCaseImpl
+import com.vnteam.architecturetemplates.presentation.usecaseimpl.InsertDemoObjectUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.IsDarkThemeUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.LanguageUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
@@ -99,7 +103,11 @@ val appModule = module {
 
     single<DetailsUseCase> { DetailsUseCaseImpl(get(), get()) }
 
-    single<CreateUseCase> { CreateUseCaseImpl(get(), get()) }
+    single<GetDemoObjectUseCase> { GetDemoObjectUseCaseImpl(get(), get()) }
+
+    single<CreateDemoObjectUseCase> { CreateDemoObjectUseCaseImpl(get()) }
+
+    single<InsertDemoObjectUseCase> { InsertDemoObjectUseCaseImpl(get()) }
 
     viewModel {
         AppViewModel(get(), get())
@@ -111,6 +119,6 @@ val appModule = module {
         DetailsViewModel(get(), get())
     }
     viewModel {
-        CreateViewModel(get(), get())
+        CreateViewModel(get(), get(), get(), get())
     }
 }
