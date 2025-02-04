@@ -3,7 +3,12 @@ package com.vnteam.architecturetemplates.presentation.viewmodels
 import androidx.lifecycle.viewModelScope
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
-import com.vnteam.architecturetemplates.domain.usecase.ListUseCase
+import com.vnteam.architecturetemplates.domain.usecase.ClearDemoObjectUseCase
+import com.vnteam.architecturetemplates.domain.usecase.DeleteDemoObjectUseCase
+import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseCase
+import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCase
+import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
+import com.vnteam.architecturetemplates.domain.usecase.execute
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +17,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ListViewModel(
-    private val listUseCase: ListUseCase,
+    private val clearDemoObjectUseCase: ClearDemoObjectUseCase,
+    private val getDemoObjectsFromDBUseCase: GetDemoObjectsFromDBUseCase,
+    private val getDemoObjectsFromApiUseCase: GetDemoObjectsFromApiUseCase,
+    private val insertDemoObjectsUseCase: InsertDemoObjectsUseCase,
+    private val deleteDemoObjectUseCase: DeleteDemoObjectUseCase,
     private val demoObjectUIMapper: DemoObjectUIMapper
 ) : BaseViewModel() {
 
@@ -29,7 +38,7 @@ class ListViewModel(
 
     private fun clearDemoObjects() {
         viewModelScope.launch(exceptionHandler) {
-            listUseCase.clearDemoObjects()
+            clearDemoObjectUseCase.execute()
             getDemoObjectsFromApi(true)
         }
     }
@@ -37,7 +46,7 @@ class ListViewModel(
     private fun getDemoObjectsFromApi(isInit: Boolean) {
         if (isInit) showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            listUseCase.getDemoObjectsFromApi().collect { demoObjects ->
+            getDemoObjectsFromApiUseCase.execute().collect { demoObjects ->
                 insertDemoObjectsToDB(demoObjects)
             }
         }
@@ -46,7 +55,7 @@ class ListViewModel(
     private fun insertDemoObjectsToDB(demoObjects: List<DemoObject>?) {
         viewModelScope.launch(exceptionHandler) {
             demoObjects?.let {
-                listUseCase.insertDemoObjectsToDB(it).collect {
+                insertDemoObjectsUseCase.execute(it).collect {
                     getDemoObjectsFromDB()
                 }
             }
@@ -55,8 +64,8 @@ class ListViewModel(
 
     private fun getDemoObjectsFromDB() {
         viewModelScope.launch(exceptionHandler) {
-            listUseCase.getDemoObjectsFromDB().collect {
-                val demoObjects = demoObjectUIMapper.mapToImplModelList(it)
+            getDemoObjectsFromDBUseCase.execute().collect {
+                val demoObjects = demoObjectUIMapper.mapToImplModelList(it.orEmpty())
                 _state.value = state.value.copy(demoObjectUIs = demoObjects)
                 showProgress(false)
             }
@@ -67,7 +76,7 @@ class ListViewModel(
         showProgress(true)
         _state.value = state.value.copy(successResult = false)
         viewModelScope.launch(exceptionHandler) {
-            listUseCase.deleteDemoObjectById(demoObjectId).collect {
+            deleteDemoObjectUseCase.execute(demoObjectId).collect {
                 _state.value = state.value.copy(successResult = true)
                 showMessage("Successfully deleted", false)
                 showProgress(false)

@@ -7,7 +7,7 @@ import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
 import com.vnteam.architecturetemplates.domain.usecase.CreateDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
-import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectUseCase
+import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class CreateViewModel(
     private val getDemoObjectUseCase: GetDemoObjectUseCase,
-    private val insertDemoObjectUseCase: InsertDemoObjectUseCase,
+    private val insertDemoObjectsUseCase: InsertDemoObjectsUseCase,
     private val createDemoObjectUseCase: CreateDemoObjectUseCase,
     private val demoObjectUIMapper: DemoObjectUIMapper
 ) : BaseViewModel() {
@@ -54,7 +54,7 @@ class CreateViewModel(
     private fun insertDemoObjectToDB(demoObject: DemoObjectUI?) {
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            insertDemoObjectUseCase.execute(demoObject?.let { demoObjectUIMapper.mapFromImplModel(it) } ?: DemoObject()).collect { demoObject ->
+            insertDemoObjectsUseCase.execute(listOf( demoObject?.let { demoObjectUIMapper.mapFromImplModel(it) } ?: DemoObject())).collect { _ ->
                 showProgress(false)
                 showMessage("Successfully created", false)
                 _state.value = state.value.copy(successResult = true)

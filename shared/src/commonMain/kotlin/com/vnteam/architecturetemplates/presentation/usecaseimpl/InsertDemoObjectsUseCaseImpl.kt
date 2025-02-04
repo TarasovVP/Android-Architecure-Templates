@@ -2,14 +2,14 @@ package com.vnteam.architecturetemplates.presentation.usecaseimpl
 
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
-import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectFromDBUseCase
+import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
 import kotlinx.coroutines.flow.Flow
 
-class GetDemoObjectFromDBUseCaseImpl(
+class InsertDemoObjectsUseCaseImpl(
     private val dbRepository: DBRepository
-) : GetDemoObjectFromDBUseCase {
+) : InsertDemoObjectsUseCase {
 
-    override suspend fun execute(params: String): Flow<DemoObject?> {
-        return dbRepository.getDemoObjectById(params)
+    override suspend fun execute(params: List<DemoObject>): Flow<Unit> {
+        return dbRepository.insertDemoObjectsToDB(params)
     }
 }

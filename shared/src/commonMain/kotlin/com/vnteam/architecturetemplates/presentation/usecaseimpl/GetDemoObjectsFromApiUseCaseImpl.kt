@@ -2,14 +2,14 @@ package com.vnteam.architecturetemplates.presentation.usecaseimpl
 
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
-import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectFromApiUseCase
+import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseCase
 import kotlinx.coroutines.flow.Flow
 
-class GetDemoObjectFromApiUseCaseImpl(
+class GetDemoObjectsFromApiUseCaseImpl(
     private val apiRepository: ApiRepository
-) : GetDemoObjectFromApiUseCase {
+) : GetDemoObjectsFromApiUseCase {
 
-    override suspend fun execute(params: String): Flow<DemoObject?> {
-        return apiRepository.getDemoObjectById(params)
+    override suspend fun execute(params: Nothing?): Flow<List<DemoObject>?> {
+        return apiRepository.getDemoObjectsFromApi()
     }
 }

@@ -3,4 +3,4 @@ package com.vnteam.architecturetemplates.domain.usecase
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import kotlinx.coroutines.flow.Flow
 
-interface InsertDemoObjectUseCase : UseCase<DemoObject, Flow<Unit>>
+interface GetDemoObjectsFromDBUseCase : UseCase<Nothing?, Flow<List<DemoObject>?>>
