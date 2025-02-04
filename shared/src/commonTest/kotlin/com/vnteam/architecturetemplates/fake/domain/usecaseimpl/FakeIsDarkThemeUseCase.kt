@@ -1,7 +1,6 @@
 package com.vnteam.architecturetemplates.fake.domain.usecaseimpl
 
 import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakeIsDarkThemeUseCase : IsDarkThemeUseCase {
@@ -11,9 +10,5 @@ class FakeIsDarkThemeUseCase : IsDarkThemeUseCase {
         darkTheme = params
     }
 
-    override fun get(): Flow<Boolean?> {
-        return flow {
-            emit(darkTheme)
-        }
-    }
+    override fun get() = flow { emit(darkTheme) }
 }

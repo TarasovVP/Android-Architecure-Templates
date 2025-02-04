@@ -1,7 +1,6 @@
 package com.vnteam.architecturetemplates.fake.domain.usecaseimpl
 
 import com.vnteam.architecturetemplates.domain.usecase.LanguageUseCase
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakeLanguageUseCase : LanguageUseCase {
@@ -11,9 +10,5 @@ class FakeLanguageUseCase : LanguageUseCase {
         language = params
     }
 
-    override fun get(): Flow<String?> {
-        return flow {
-            emit(language)
-        }
-    }
+    override fun get() = flow { emit(language) }
 }

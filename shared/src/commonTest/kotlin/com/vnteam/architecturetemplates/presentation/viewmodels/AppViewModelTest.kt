@@ -41,6 +41,18 @@ class AppViewModelTest : KoinTest {
                 testModule + module {
                     single<IsDarkThemeUseCase> { FakeIsDarkThemeUseCase() }
                     single<LanguageUseCase> { FakeLanguageUseCase() }
+
+                    single<LanguageUseCase> { object : LanguageUseCase {
+                        private var language: String? = null
+
+                        override suspend fun set(params: String) {
+                            language = params
+                        }
+
+                        override fun get() = kotlinx.coroutines.flow.flow {
+                            emit(language)
+                        }
+                    } }
                 }
             )
         }
