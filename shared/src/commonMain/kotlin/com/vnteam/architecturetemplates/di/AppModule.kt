@@ -17,14 +17,12 @@ import com.vnteam.architecturetemplates.data.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
-import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.ListUseCase
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import com.vnteam.architecturetemplates.presentation.mapperimpls.DemoObjectUIMapperImpl
 import com.vnteam.architecturetemplates.presentation.mapperimpls.OwnerUIMapperImpl
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
-import com.vnteam.architecturetemplates.presentation.usecaseimpl.ListUseCaseImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
@@ -37,7 +35,6 @@ import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
 import com.vnteam.architecturetemplates.domain.usecase.LanguageUseCase
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.CreateDemoObjectUseCaseImpl
-import com.vnteam.architecturetemplates.presentation.usecaseimpl.DetailsUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.GetDemoObjectUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.InsertDemoObjectUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.IsDarkThemeUseCaseImpl
@@ -100,8 +97,6 @@ val appModule = module {
     single<LanguageUseCase> { LanguageUseCaseImpl(get()) }
 
     single<ListUseCase> { ListUseCaseImpl(get(), get()) }
-
-    single<DetailsUseCase> { DetailsUseCaseImpl(get(), get()) }
 
     single<GetDemoObjectUseCase> { GetDemoObjectUseCaseImpl(get(), get()) }
 

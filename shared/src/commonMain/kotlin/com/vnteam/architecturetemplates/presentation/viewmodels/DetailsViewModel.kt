@@ -1,9 +1,9 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
 import androidx.lifecycle.viewModelScope
-import com.vnteam.architecturetemplates.domain.usecase.DetailsUseCase
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
+import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(
-    private val detailsUseCase: DetailsUseCase,
+    private val getDemoObjectUseCase: GetDemoObjectUseCase,
     private val demoObjectUIMapper: DemoObjectUIMapper
 ) : BaseViewModel() {
 
@@ -30,7 +30,7 @@ class DetailsViewModel(
             _state.value = _state.value.copy(demoObjectUI = null)
         }
         viewModelScope.launch(exceptionHandler) {
-            detailsUseCase.getDemoObjectById(demoObjectId.orEmpty()).collect { demoObject ->
+            getDemoObjectUseCase.execute(demoObjectId.orEmpty()).collect { demoObject ->
                 showProgress(false)
                 _state.value = _state.value.copy(demoObjectUI = demoObject?.let { demoObjectUIMapper.mapToImplModel(it) })
             }
