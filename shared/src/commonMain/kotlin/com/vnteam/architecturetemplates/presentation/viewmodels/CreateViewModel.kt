@@ -43,18 +43,22 @@ class CreateViewModel(
     }
 
     private fun createDemoObject(demoObject: DemoObjectUI?) {
+        println("testTAG createDemoObject demoObject $demoObject")
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
             createDemoObjectUseCase.execute(demoObject?.let { demoObjectUIMapper.mapFromImplModel(it) } ?: DemoObject()).collect {
+                println("testTAG createDemoObject createDemoObjectUseCase.execute demoObject $demoObject")
                 insertDemoObjectToDB(demoObject)
             }
         }
     }
 
     private fun insertDemoObjectToDB(demoObject: DemoObjectUI?) {
+        println("testTAG createDemoObject insertDemoObjectToDB demoObject $demoObject")
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
             insertDemoObjectsUseCase.execute(listOf( demoObject?.let { demoObjectUIMapper.mapFromImplModel(it) } ?: DemoObject())).collect { _ ->
+                println("testTAG insertDemoObjectToDB insertDemoObjectsUseCase.execute demoObject $demoObject")
                 showProgress(false)
                 showMessage("Successfully created", false)
                 _state.value = state.value.copy(successResult = true)
