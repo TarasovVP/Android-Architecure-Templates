@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.fake.di
+package com.vnteam.architecturetemplates.di
 
 import com.vnteam.architecturetemplates.data.local.Preferences
 import com.vnteam.architecturetemplates.data.repositoryimpl.PreferencesRepositoryImpl
@@ -14,6 +14,7 @@ import com.vnteam.architecturetemplates.presentation.usecaseimpl.IsDarkThemeUseC
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.LanguageUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
+import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -34,4 +35,6 @@ val testModule = module(true) {
     viewModel { AppViewModel(get(), get()) }
 
     viewModel { CreateViewModel(get(), get(), get(), get()) }
+
+    viewModel { DetailsViewModel(get(), get()) }
 }

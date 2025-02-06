@@ -1,10 +1,11 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
 import com.vnteam.architecturetemplates.domain.models.DemoObject
+import com.vnteam.architecturetemplates.domain.models.Owner
 import com.vnteam.architecturetemplates.domain.usecase.CreateDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
-import com.vnteam.architecturetemplates.fake.di.testModule
+import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeCreateDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeGetDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeInsertDemoObjectsUseCase
@@ -26,10 +27,9 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
-import kotlin.test.DefaultAsserter.assertEquals
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -66,23 +66,23 @@ class CreateViewModelTest : KoinTest {
         val currentState = createViewModel.state.first()
         val uiObject = currentState.demoObject.value
         val expectedDemoObject = DemoObjectUI(demoObject.demoObjectId, demoObject.name, OwnerUI())
-        assertNotNull(uiObject)
-        assertEquals("", expectedDemoObject, uiObject)
-        assertFalse(currentState.successResult, "successResult пока не должно быть true")
+        assertEquals(expectedDemoObject, uiObject)
+        assertFalse(currentState.successResult)
     }
 
     @Test
     fun testCreateDemoObject() = runTest {
-        val demoObjectUI = DemoObjectUI("123", "ObjectName")
+        val demoObjectUI = DemoObjectUI("123", "ObjectName", OwnerUI())
 
         createViewModel.processIntent(CreateIntent.CreateDemoObject(demoObjectUI))
         runCurrent()
-        val expectedDemoObject = DemoObject(demoObjectUI.demoObjectId, demoObjectUI.name)
-        assertEquals("", (fakeCreateDemoObjectUseCase as? FakeCreateDemoObjectUseCase)?.demoObject, expectedDemoObject)
-        assertEquals("", (fakeInsertDemoObjectsUseCase as? FakeInsertDemoObjectsUseCase)?.demoObjects, listOf(expectedDemoObject))
+
+        val expectedDemoObject = DemoObject(demoObjectUI.demoObjectId, demoObjectUI.name, Owner())
+        assertEquals((fakeCreateDemoObjectUseCase as? FakeCreateDemoObjectUseCase)?.demoObject, expectedDemoObject)
+        assertEquals((fakeInsertDemoObjectsUseCase as? FakeInsertDemoObjectsUseCase)?.demoObjects, listOf(expectedDemoObject))
 
         val currentState = createViewModel.state.first()
-        assertTrue(currentState.successResult, "Ожидаем, что объект успешно создан")
+        assertTrue(currentState.successResult)
     }
 
     @AfterTest

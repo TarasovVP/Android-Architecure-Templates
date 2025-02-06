@@ -3,7 +3,7 @@ package com.vnteam.architecturetemplates.domain
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
 import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
 import com.vnteam.architecturetemplates.fake.data.repositoryimpl.FakePreferencesRepository
-import com.vnteam.architecturetemplates.fake.di.testModule
+import com.vnteam.architecturetemplates.di.testModule
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin

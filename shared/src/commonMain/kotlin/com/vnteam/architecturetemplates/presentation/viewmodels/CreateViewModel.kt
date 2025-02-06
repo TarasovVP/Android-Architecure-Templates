@@ -28,7 +28,7 @@ class CreateViewModel(
     fun processIntent(intent: CreateIntent) {
         when (intent) {
             is CreateIntent.LoadDemoObject -> getDemoObjectById(intent.demoObjectId)
-            is CreateIntent.CreateDemoObject -> createDemoObject(state.value.demoObject.value)
+            is CreateIntent.CreateDemoObject -> createDemoObject(intent.demoObjectUI)
         }
     }
 

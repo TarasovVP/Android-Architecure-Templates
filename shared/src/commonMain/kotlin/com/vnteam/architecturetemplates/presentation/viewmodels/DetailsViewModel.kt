@@ -1,12 +1,11 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
 import androidx.lifecycle.viewModelScope
-import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
+import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -16,11 +15,14 @@ class DetailsViewModel(
 ) : BaseViewModel() {
 
     private val _state = MutableStateFlow(DetailsViewState())
-    val state: StateFlow<DetailsViewState> = _state.asStateFlow()
+    val state = _state.asStateFlow()
 
     fun processIntent(intent: DetailsIntent) {
         when (intent) {
-            is DetailsIntent.LoadDemoObject -> getDemoObjectById(intent.demoObjectId, intent.isUpdated)
+            is DetailsIntent.LoadDemoObject -> getDemoObjectById(
+                intent.demoObjectId,
+                intent.isUpdated
+            )
         }
     }
 
@@ -32,7 +34,9 @@ class DetailsViewModel(
         viewModelScope.launch(exceptionHandler) {
             getDemoObjectUseCase.execute(demoObjectId.orEmpty()).collect { demoObject ->
                 showProgress(false)
-                _state.value = _state.value.copy(demoObjectUI = demoObject?.let { demoObjectUIMapper.mapToImplModel(it) })
+                _state.value = _state.value.copy(demoObjectUI = demoObject?.let {
+                    demoObjectUIMapper.mapToImplModel(it)
+                })
             }
         }
     }

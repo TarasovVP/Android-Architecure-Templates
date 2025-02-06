@@ -4,7 +4,7 @@ import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
 import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
 import com.vnteam.architecturetemplates.domain.usecase.LanguageUseCase
-import com.vnteam.architecturetemplates.fake.di.testModule
+import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeIsDarkThemeUseCase
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeLanguageUseCase
 import kotlinx.coroutines.Dispatchers

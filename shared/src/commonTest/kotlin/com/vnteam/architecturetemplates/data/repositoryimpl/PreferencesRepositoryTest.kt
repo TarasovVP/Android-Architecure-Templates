@@ -5,7 +5,7 @@ import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
 import com.vnteam.architecturetemplates.data.IS_DARK_THEME
 import com.vnteam.architecturetemplates.data.local.Preferences
-import com.vnteam.architecturetemplates.fake.di.testModule
+import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
