@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.flowOf
 
 class FakeGetDemoObjectsFromDBUseCase : GetDemoObjectsFromDBUseCase {
 
+    var demoObjects: List<DemoObject>? = null
+
     override suspend fun execute(params: Nothing?) =
-        flowOf(listOf(DemoObject("1", "Fake Demo Object 1")))
+        flowOf(demoObjects)
 }

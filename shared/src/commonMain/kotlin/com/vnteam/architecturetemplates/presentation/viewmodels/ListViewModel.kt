@@ -39,7 +39,7 @@ class ListViewModel(
     private fun clearDemoObjects() {
         viewModelScope.launch(exceptionHandler) {
             clearDemoObjectUseCase.execute()
-            getDemoObjectsFromApi(true)
+            _state.value = state.value.copy(clearSuccessResult = true)
         }
     }
 

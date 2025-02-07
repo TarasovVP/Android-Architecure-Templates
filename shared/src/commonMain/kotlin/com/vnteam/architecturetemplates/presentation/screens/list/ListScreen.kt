@@ -31,6 +31,12 @@ fun ListScreen(screenState: MutableState<ScreenState>,
         }
     }
 
+    LaunchedEffect(viewState.value.clearSuccessResult) {
+        if (viewState.value.clearSuccessResult){
+            viewModel.processIntent(ListIntent.LoadDemoObjects(true))
+        }
+    }
+
     LaunchedEffect(screenState.value.isScreenUpdatingNeeded) {
         if (screenState.value.isScreenUpdatingNeeded && viewState.value.demoObjectUIs != null) {
             viewModel.processIntent(ListIntent.LoadDemoObjects(true))

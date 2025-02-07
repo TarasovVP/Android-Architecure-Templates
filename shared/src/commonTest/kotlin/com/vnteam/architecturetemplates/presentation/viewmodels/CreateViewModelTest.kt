@@ -1,31 +1,25 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
+import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 import com.vnteam.architecturetemplates.domain.usecase.CreateDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
-import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeCreateDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeGetDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeInsertDemoObjectsUseCase
+import com.vnteam.architecturetemplates.injectAs
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
 import org.koin.dsl.module
-import org.koin.test.KoinTest
 import org.koin.test.inject
-import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -33,16 +27,17 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class CreateViewModelTest : KoinTest {
+class CreateViewModelTest : BaseViewModelTest() {
 
     private val createViewModel by inject<CreateViewModel>()
 
-    private val fakeGetDemoObjectUseCase by inject<GetDemoObjectUseCase>()
-    private val fakeInsertDemoObjectsUseCase by inject<InsertDemoObjectsUseCase>()
-    private val fakeCreateDemoObjectUseCase by inject<CreateDemoObjectUseCase>()
+    private val fakeGetDemoObjectUseCase by injectAs<GetDemoObjectUseCase, FakeGetDemoObjectUseCase>()
+    private val fakeInsertDemoObjectsUseCase by injectAs<InsertDemoObjectsUseCase, FakeInsertDemoObjectsUseCase>()
+    private val fakeCreateDemoObjectUseCase by injectAs<CreateDemoObjectUseCase, FakeCreateDemoObjectUseCase>()
 
     @BeforeTest
-    fun setup() {
+    override fun setup() {
+        super.setup()
         startKoin {
             modules(
                 testModule + module {
@@ -52,13 +47,12 @@ class CreateViewModelTest : KoinTest {
                 }
             )
         }
-        Dispatchers.setMain(StandardTestDispatcher())
     }
 
     @Test
     fun testLoadDemoObject() = runTest {
         val demoObject = DemoObject("123", "ObjectName")
-        (fakeGetDemoObjectUseCase as? FakeGetDemoObjectUseCase)?.demoObject = demoObject
+        fakeGetDemoObjectUseCase.demoObject = demoObject
 
         createViewModel.processIntent(CreateIntent.LoadDemoObject(demoObject.demoObjectId.orEmpty()))
         runCurrent()
@@ -78,16 +72,16 @@ class CreateViewModelTest : KoinTest {
         runCurrent()
 
         val expectedDemoObject = DemoObject(demoObjectUI.demoObjectId, demoObjectUI.name, Owner())
-        assertEquals((fakeCreateDemoObjectUseCase as? FakeCreateDemoObjectUseCase)?.demoObject, expectedDemoObject)
-        assertEquals((fakeInsertDemoObjectsUseCase as? FakeInsertDemoObjectsUseCase)?.demoObjects, listOf(expectedDemoObject))
+        assertEquals(
+            fakeCreateDemoObjectUseCase.demoObject,
+            expectedDemoObject
+        )
+        assertEquals(
+            fakeInsertDemoObjectsUseCase.demoObjects,
+            listOf(expectedDemoObject)
+        )
 
         val currentState = createViewModel.state.first()
         assertTrue(currentState.successResult)
-    }
-
-    @AfterTest
-    fun tearDown() {
-        stopKoin()
-        Dispatchers.resetMain()
     }
 }

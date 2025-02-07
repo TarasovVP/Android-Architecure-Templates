@@ -15,6 +15,7 @@ import com.vnteam.architecturetemplates.presentation.usecaseimpl.LanguageUseCase
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import com.vnteam.architecturetemplates.presentation.viewmodels.DetailsViewModel
+import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -33,6 +34,8 @@ val testModule = module(true) {
     single<LanguageUseCase> { LanguageUseCaseImpl(get()) }
 
     viewModel { AppViewModel(get(), get()) }
+
+    viewModel { ListViewModel(get(), get(), get(), get(), get(), get()) }
 
     viewModel { CreateViewModel(get(), get(), get(), get()) }
 

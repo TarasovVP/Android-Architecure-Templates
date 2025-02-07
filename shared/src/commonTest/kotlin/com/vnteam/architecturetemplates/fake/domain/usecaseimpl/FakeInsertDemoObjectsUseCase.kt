@@ -11,7 +11,6 @@ class FakeInsertDemoObjectsUseCase : InsertDemoObjectsUseCase {
 
     override suspend fun execute(params: List<DemoObject>): Flow<Unit> {
         demoObjects = params
-        println("testTAG FakeInsertDemoObjectsUseCase execute demoObjects $demoObjects")
         return flowOf(Unit)
     }
 }
