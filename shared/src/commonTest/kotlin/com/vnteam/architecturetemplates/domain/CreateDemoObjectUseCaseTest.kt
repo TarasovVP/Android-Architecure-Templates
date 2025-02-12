@@ -2,12 +2,10 @@ package com.vnteam.architecturetemplates.domain
 
 import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
-import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseCase
-import com.vnteam.architecturetemplates.domain.usecase.execute
+import com.vnteam.architecturetemplates.domain.usecase.CreateDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.data.repositoryimpl.FakeApiRepository
-import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjects
+import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObject
 import com.vnteam.architecturetemplates.injectAs
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -15,11 +13,11 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
-class GetDemoObjectsFromApiUseCaseTest : KoinTest {
+class CreateDemoObjectUseCaseTest : KoinTest {
 
-    private val getDemoObjectsUseCase by inject<GetDemoObjectsFromApiUseCase>()
+    private val createDemoObjectUseCase by inject<CreateDemoObjectUseCase>()
     private val repository by injectAs<ApiRepository, FakeApiRepository>()
 
     @BeforeTest
@@ -34,9 +32,8 @@ class GetDemoObjectsFromApiUseCaseTest : KoinTest {
     }
 
     @Test
-    fun testGetDemoObjectsFromApi() = runTest {
-        repository.demoObjects = fakeDemoObjects
-        val result = getDemoObjectsUseCase.execute().firstOrNull()
-        assertEquals(fakeDemoObjects, result)
+    fun testCreateDemoObject() = runTest {
+        createDemoObjectUseCase.execute(fakeDemoObject)
+        assertTrue(repository.isInsertDemoObjectsToApiCalled)
     }
 }

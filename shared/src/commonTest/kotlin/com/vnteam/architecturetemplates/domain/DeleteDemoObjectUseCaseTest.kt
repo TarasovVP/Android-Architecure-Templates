@@ -2,12 +2,10 @@ package com.vnteam.architecturetemplates.domain
 
 import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
-import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCase
-import com.vnteam.architecturetemplates.domain.usecase.execute
+import com.vnteam.architecturetemplates.domain.usecase.DeleteDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.data.repositoryimpl.FakeDBRepository
-import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjects
+import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObject
 import com.vnteam.architecturetemplates.injectAs
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -15,11 +13,11 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
-class GetDemoObjectsFromDBUseCaseTest : KoinTest {
+class DeleteDemoObjectUseCaseTest : KoinTest {
 
-    private val getDemoObjectsUseCase by inject<GetDemoObjectsFromDBUseCase>()
+    private val deleteDemoObjectUseCase by inject<DeleteDemoObjectUseCase>()
     private val repository by injectAs<DBRepository, FakeDBRepository>()
 
     @BeforeTest
@@ -34,9 +32,8 @@ class GetDemoObjectsFromDBUseCaseTest : KoinTest {
     }
 
     @Test
-    fun testGetDemoObjectsFromDB() = runTest {
-        repository.demoObjects = fakeDemoObjects
-        val result = getDemoObjectsUseCase.execute().firstOrNull()
-        assertEquals(fakeDemoObjects, result)
+    fun testDeleteDemoObject() = runTest {
+        deleteDemoObjectUseCase.execute(fakeDemoObject.demoObjectId.orEmpty())
+        assertTrue(repository.isDeleteDemoObjectByIdCalled)
     }
 }

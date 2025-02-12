@@ -68,3 +68,5 @@ val fakeDemoObjectUI2 = DemoObjectUI(
 )
 
 val fakeDemoObjectsUI = listOf(fakeDemoObjectUI, fakeDemoObjectUI2)
+
+val fakeException = Exception("Error")
