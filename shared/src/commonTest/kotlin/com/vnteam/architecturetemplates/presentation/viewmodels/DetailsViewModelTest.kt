@@ -1,14 +1,12 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
 import com.vnteam.architecturetemplates.di.testModule
-import com.vnteam.architecturetemplates.domain.models.DemoObject
-import com.vnteam.architecturetemplates.domain.models.Owner
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
+import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObject
+import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjectUI
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeGetDemoObjectUseCase
 import com.vnteam.architecturetemplates.injectAs
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
-import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
-import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runCurrent
@@ -29,8 +27,6 @@ class DetailsViewModelTest : BaseViewModelTest() {
 
     private val fakeGetDemoObjectUseCase by injectAs<GetDemoObjectUseCase, FakeGetDemoObjectUseCase>()
 
-    private val demoObject = DemoObject("123", "ObjectName", Owner())
-
     @BeforeTest
     override fun setup() {
         super.setup()
@@ -41,29 +37,28 @@ class DetailsViewModelTest : BaseViewModelTest() {
                 }
             )
         }
-        fakeGetDemoObjectUseCase.demoObject = demoObject
+        fakeGetDemoObjectUseCase.demoObject = fakeDemoObject
     }
 
     @Test
     fun testLoadDemoObject() = runTest {
         detailsViewModel.processIntent(
             DetailsIntent.LoadDemoObject(
-                demoObject.demoObjectId.orEmpty(),
+                fakeDemoObject.demoObjectId.orEmpty(),
                 isUpdated = false
             )
         )
         runCurrent()
 
         val currentState = detailsViewModel.state.first()
-        val expectedUI = DemoObjectUI(demoObject.demoObjectId, demoObject.name, OwnerUI())
-        assertEquals(expectedUI, currentState.demoObjectUI)
+        assertEquals(fakeDemoObjectUI, currentState.demoObjectUI)
     }
 
     @Test
     fun testLoadDemoObjectIsUpdatedClearsState() = runTest {
         detailsViewModel.processIntent(
             DetailsIntent.LoadDemoObject(
-                demoObject.demoObjectId.orEmpty(),
+                fakeDemoObject.demoObjectId.orEmpty(),
                 isUpdated = false
             )
         )
@@ -72,7 +67,7 @@ class DetailsViewModelTest : BaseViewModelTest() {
 
         detailsViewModel.processIntent(
             DetailsIntent.LoadDemoObject(
-                demoObject.demoObjectId.orEmpty(),
+                fakeDemoObject.demoObjectId.orEmpty(),
                 isUpdated = true
             )
         )

@@ -1,12 +1,11 @@
 package com.vnteam.architecturetemplates.domain
 
 import com.vnteam.architecturetemplates.di.testModule
-import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseCase
-import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCase
 import com.vnteam.architecturetemplates.domain.usecase.execute
 import com.vnteam.architecturetemplates.fake.data.repositoryimpl.FakeDBRepository
+import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjects
 import com.vnteam.architecturetemplates.injectAs
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
@@ -36,9 +35,8 @@ class GetDemoObjectsFromApiUseCaseTest : KoinTest {
 
     @Test
     fun testInsertDemoObjectsToDB() = runTest {
-        val demoObjects = listOf(DemoObject("123", "ObjectName", null))
-        repository.demoObjects = demoObjects
+        repository.demoObjects = fakeDemoObjects
         val result = getDemoObjectsUseCase.execute().firstOrNull()
-        assertEquals(demoObjects, result)
+        assertEquals(fakeDemoObjects, result)
     }
 }

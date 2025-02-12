@@ -4,6 +4,7 @@ import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
 import com.vnteam.architecturetemplates.fake.data.repositoryimpl.FakeDBRepository
+import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjects
 import com.vnteam.architecturetemplates.injectAs
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
@@ -32,7 +33,7 @@ class InsertDemoObjectsUseCaseTest : KoinTest {
 
     @Test
     fun testInsertDemoObjectsToDB() = runTest {
-        insertDemoObjects.execute(listOf())
+        insertDemoObjects.execute(fakeDemoObjects)
         assertTrue(repository.isInsertDemoObjectsToDBCalled)
     }
 }

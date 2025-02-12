@@ -14,6 +14,8 @@ import com.vnteam.architecturetemplates.data.repositoryimpl.ApiRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.DBRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.PreferencesRepositoryImpl
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectDBMapper
+import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
+import com.vnteam.architecturetemplates.domain.mappers.OwnerUIMapper
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
@@ -27,6 +29,8 @@ import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
 import com.vnteam.architecturetemplates.domain.usecase.LanguageUseCase
 import com.vnteam.architecturetemplates.fake.data.local.FakePreferencesFactory
+import com.vnteam.architecturetemplates.presentation.mapperimpls.DemoObjectUIMapperImpl
+import com.vnteam.architecturetemplates.presentation.mapperimpls.OwnerUIMapperImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.ClearDemoObjectsUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.CreateDemoObjectUseCaseImpl
 import com.vnteam.architecturetemplates.presentation.usecaseimpl.DeleteDemoObjectUseCaseImpl
@@ -87,6 +91,10 @@ val testModule = module(true) {
     single<DemoObjectResponseMapper> { DemoObjectResponseMapperImpl(get()) }
 
     single<DemoObjectDBMapper> { DemoObjectDBMapperImpl() }
+
+    single<OwnerUIMapper> { OwnerUIMapperImpl() }
+
+    single<DemoObjectUIMapper> { DemoObjectUIMapperImpl(get()) }
 
     // Repositories
     single<ApiRepository> { ApiRepositoryImpl(get(), get()) }

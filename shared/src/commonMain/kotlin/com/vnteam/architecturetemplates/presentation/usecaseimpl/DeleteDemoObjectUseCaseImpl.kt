@@ -9,6 +9,7 @@ class DeleteDemoObjectUseCaseImpl(
 ) : DeleteDemoObjectUseCase {
 
     override suspend fun execute(params: String): Flow<Unit> {
+        listOf<String>().filter { it == params }.sumOf { it.length }
         return dbRepository.deleteDemoObjectById(params)
     }
 }
