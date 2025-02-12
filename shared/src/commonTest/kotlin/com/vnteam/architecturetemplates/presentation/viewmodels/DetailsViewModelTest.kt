@@ -1,6 +1,5 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
-import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObject
 import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjectUI
@@ -11,7 +10,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
-import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import org.koin.test.inject
 import kotlin.test.BeforeTest
@@ -23,6 +22,11 @@ import kotlin.test.assertNull
 @OptIn(ExperimentalCoroutinesApi::class)
 class DetailsViewModelTest : BaseViewModelTest() {
 
+    override val overrideModule: Module
+        get() = module {
+            single<GetDemoObjectUseCase> { FakeGetDemoObjectUseCase() }
+        }
+
     private val detailsViewModel by inject<DetailsViewModel>()
 
     private val fakeGetDemoObjectUseCase by injectAs<GetDemoObjectUseCase, FakeGetDemoObjectUseCase>()
@@ -30,13 +34,6 @@ class DetailsViewModelTest : BaseViewModelTest() {
     @BeforeTest
     override fun setup() {
         super.setup()
-        startKoin {
-            modules(
-                testModule + module {
-                    single<GetDemoObjectUseCase> { FakeGetDemoObjectUseCase() }
-                }
-            )
-        }
         fakeGetDemoObjectUseCase.demoObject = fakeDemoObject
     }
 

@@ -1,6 +1,5 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
-import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.usecase.ClearDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.DeleteDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseCase
@@ -20,16 +19,24 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
-import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import org.koin.test.inject
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ListViewModelTest : BaseViewModelTest() {
+
+    override val overrideModule: Module
+        get() = module {
+            single<ClearDemoObjectUseCase> { FakeClearDemoObjectsUseCase() }
+            single<GetDemoObjectsFromDBUseCase> { FakeGetDemoObjectsFromDBUseCase() }
+            single<GetDemoObjectsFromApiUseCase> { FakeGetDemoObjectsFromApiUseCase() }
+            single<InsertDemoObjectsUseCase> { FakeInsertDemoObjectsUseCase() }
+            single<DeleteDemoObjectUseCase> { FakeDeleteDemoObjectUseCase() }
+        }
 
     private val listViewModel by inject<ListViewModel>()
 
@@ -38,22 +45,6 @@ class ListViewModelTest : BaseViewModelTest() {
     private val fakeGetApiUseCase by injectAs<GetDemoObjectsFromApiUseCase, FakeGetDemoObjectsFromApiUseCase>()
     private val fakeInsertUseCase by injectAs<InsertDemoObjectsUseCase, FakeInsertDemoObjectsUseCase>()
     private val fakeDeleteUseCase by injectAs<DeleteDemoObjectUseCase, FakeDeleteDemoObjectUseCase>()
-
-    @BeforeTest
-    override fun setup() {
-        super.setup()
-        startKoin {
-            modules(
-                testModule + module {
-                    single<ClearDemoObjectUseCase> { FakeClearDemoObjectsUseCase() }
-                    single<GetDemoObjectsFromDBUseCase> { FakeGetDemoObjectsFromDBUseCase() }
-                    single<GetDemoObjectsFromApiUseCase> { FakeGetDemoObjectsFromApiUseCase() }
-                    single<InsertDemoObjectsUseCase> { FakeInsertDemoObjectsUseCase() }
-                    single<DeleteDemoObjectUseCase> { FakeDeleteDemoObjectUseCase() }
-                }
-            )
-        }
-    }
 
     @Test
     fun testClearDemoObjects() = runTest {

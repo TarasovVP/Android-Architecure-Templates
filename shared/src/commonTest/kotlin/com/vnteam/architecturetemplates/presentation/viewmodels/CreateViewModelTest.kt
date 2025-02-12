@@ -1,6 +1,5 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
-import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.usecase.CreateDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
@@ -15,10 +14,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
-import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import org.koin.test.inject
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -27,25 +25,18 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalCoroutinesApi::class)
 class CreateViewModelTest : BaseViewModelTest() {
 
+    override val overrideModule: Module
+        get() = module {
+            single<GetDemoObjectUseCase> { FakeGetDemoObjectUseCase() }
+            single<InsertDemoObjectsUseCase> { FakeInsertDemoObjectsUseCase() }
+            single<CreateDemoObjectUseCase> { FakeCreateDemoObjectUseCase() }
+        }
+
     private val createViewModel by inject<CreateViewModel>()
 
     private val fakeGetDemoObjectUseCase by injectAs<GetDemoObjectUseCase, FakeGetDemoObjectUseCase>()
     private val fakeInsertDemoObjectsUseCase by injectAs<InsertDemoObjectsUseCase, FakeInsertDemoObjectsUseCase>()
     private val fakeCreateDemoObjectUseCase by injectAs<CreateDemoObjectUseCase, FakeCreateDemoObjectUseCase>()
-
-    @BeforeTest
-    override fun setup() {
-        super.setup()
-        startKoin {
-            modules(
-                testModule + module {
-                    single<GetDemoObjectUseCase> { FakeGetDemoObjectUseCase() }
-                    single<InsertDemoObjectsUseCase> { FakeInsertDemoObjectsUseCase() }
-                    single<CreateDemoObjectUseCase> { FakeCreateDemoObjectUseCase() }
-                }
-            )
-        }
-    }
 
     @Test
     fun testLoadDemoObject() = runTest {
