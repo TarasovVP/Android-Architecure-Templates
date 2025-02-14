@@ -23,6 +23,4 @@ class PreferencesRepositoryImpl(private val preferencesFactory: Preferences) :
     override fun getLanguage(): Flow<String?> {
         return preferencesFactory.getString(APP_LANGUAGE)
     }
-
-
 }

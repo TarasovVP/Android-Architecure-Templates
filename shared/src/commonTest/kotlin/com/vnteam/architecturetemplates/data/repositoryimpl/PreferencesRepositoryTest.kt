@@ -1,5 +1,6 @@
 package com.vnteam.architecturetemplates.data.repositoryimpl
 
+import com.vnteam.architecturetemplates.BaseKoinTest
 import com.vnteam.architecturetemplates.data.APP_LANGUAGE
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
@@ -9,28 +10,20 @@ import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
-import org.koin.test.KoinTest
+import org.koin.core.module.Module
 import org.koin.test.inject
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class PreferencesRepositoryTest : KoinTest {
+class PreferencesRepositoryTest : BaseKoinTest() {
+
+    override val overrideModule: Module
+        get() = testModule
 
     private val repository by inject<PreferencesRepository>()
     private val preferencesFactory by inject<Preferences>()
-
-    @BeforeTest
-    fun setup() {
-        startKoin {
-            modules(testModule)
-        }
-    }
 
     @Test
     fun testIsDarkThemeTrue() = runTest {
@@ -86,10 +79,5 @@ class PreferencesRepositoryTest : KoinTest {
         preferencesFactory.putString(APP_LANGUAGE, APP_LANG_UK)
         val actual = repository.getLanguage().first()
         assertEquals(APP_LANG_UK, actual)
-    }
-
-    @AfterTest
-    fun tearDown() {
-        stopKoin()
     }
 }

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 class FakeDemoObjectDao : DemoObjectDao {
-    private val demoObjects = mutableListOf<DemoObjectWithOwner>()
+    val demoObjects = mutableListOf<DemoObjectWithOwner>()
 
     override suspend fun clearDemoObjects() {
         demoObjects.clear()

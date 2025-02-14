@@ -1,5 +1,6 @@
 package com.vnteam.architecturetemplates.fake.domain.models
 
+import com.vnteam.architecturetemplates.DemoObjectWithOwner
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
@@ -68,5 +69,31 @@ val fakeDemoObjectUI2 = DemoObjectUI(
 )
 
 val fakeDemoObjectsUI = listOf(fakeDemoObjectUI, fakeDemoObjectUI2)
+
+val fakeDemoObjectWithOwner = DemoObjectWithOwner(
+    id = 1,
+    demoObjectId = fakeDemoObject.demoObjectId.orEmpty(),
+    name = fakeDemoObject.name,
+    description = fakeDemoObject.description,
+    htmlUrl = fakeDemoObject.htmlUrl,
+    login = fakeOwner.login,
+    ownerId = fakeOwner.ownerId,
+    avatarUrl = fakeOwner.avatarUrl,
+    url = fakeOwner.url.orEmpty()
+)
+
+val fakeDemoObjectWithOwner2 = DemoObjectWithOwner(
+    id = 1,
+    demoObjectId = fakeDemoObject2.demoObjectId.orEmpty(),
+    name = fakeDemoObject2.name,
+    description = fakeDemoObject2.description,
+    htmlUrl = fakeDemoObject2.htmlUrl,
+    login = fakeOwner2.login,
+    ownerId = fakeOwner2.ownerId,
+    avatarUrl = fakeOwner2.avatarUrl,
+    url = fakeOwner2.url.orEmpty()
+)
+
+val fakeDemoObjectsWithOwner = listOf(fakeDemoObjectWithOwner, fakeDemoObjectWithOwner2)
 
 val fakeException = Exception("Error")
