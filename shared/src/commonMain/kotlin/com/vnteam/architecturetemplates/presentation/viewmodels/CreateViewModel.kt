@@ -35,28 +35,26 @@ class CreateViewModel(
     private fun getDemoObjectById(demoObjectId: String?) {
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            getDemoObjectUseCase.execute(demoObjectId.orEmpty()).collect { demoObject ->
-                showProgress(false)
-                _state.value = _state.value.copy(demoObject = mutableStateOf(demoObject?.let {
+            val demoObject = getDemoObjectUseCase.execute(demoObjectId.orEmpty())
+            showProgress(false)
+            _state.value = _state.value.copy(
+                demoObject = mutableStateOf(demoObject?.let {
                     demoObjectUIMapper.mapToImplModel(it)
-                }))
-            }
+                })
+            )
         }
     }
 
     private fun createDemoObject(demoObject: DemoObjectUI?) {
-        println("testTAG createDemoObject demoObject $demoObject")
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
             createDemoObjectUseCase.execute(demoObject?.let { demoObjectUIMapper.mapFromImplModel(it) }
                 ?: DemoObject())
-            println("testTAG createDemoObject createDemoObjectUseCase.execute demoObject $demoObject")
             insertDemoObjectToDB(demoObject)
         }
     }
 
     private fun insertDemoObjectToDB(demoObject: DemoObjectUI?) {
-        println("testTAG createDemoObject insertDemoObjectToDB demoObject $demoObject")
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
             insertDemoObjectsUseCase.execute(listOf(demoObject?.let {
@@ -64,7 +62,6 @@ class CreateViewModel(
                     it
                 )
             } ?: DemoObject()))
-            println("testTAG insertDemoObjectToDB insertDemoObjectsUseCase.execute demoObject $demoObject")
             showProgress(false)
             showMessage("Successfully created", false)
             _state.value = state.value.copy(successResult = true)

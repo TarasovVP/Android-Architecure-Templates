@@ -9,7 +9,6 @@ import com.vnteam.architecturetemplates.fake.data.repositoryimpl.FakeDBRepositor
 import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObject
 import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObject2
 import com.vnteam.architecturetemplates.injectAs
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -33,7 +32,7 @@ class GetDemoObjectUseCaseTest : BaseKoinTest() {
     fun testGetDemoObject() = runTest {
         dbRepository.demoObject = fakeDemoObject
         val result =
-            getDemoObjectUseCase.execute("1").firstOrNull()
+            getDemoObjectUseCase.execute("1")
         assertEquals(fakeDemoObject, result)
     }
 
@@ -42,7 +41,7 @@ class GetDemoObjectUseCaseTest : BaseKoinTest() {
         dbRepository.demoObject = null
         apiRepository.demoObject = fakeDemoObject2
         val result =
-            getDemoObjectUseCase.execute("2").firstOrNull()
+            getDemoObjectUseCase.execute("2")
         assertEquals(fakeDemoObject2, result)
     }
 }

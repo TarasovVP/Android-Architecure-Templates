@@ -10,6 +10,7 @@ import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.architecturetemplates.data.mappers.DemoObjectResponseMapper
 import com.vnteam.architecturetemplates.data.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.data.network.ApiService
+import com.vnteam.architecturetemplates.data.network.ApiServiceImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.ApiRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.DBRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.PreferencesRepositoryImpl
@@ -64,7 +65,7 @@ val testModule = module(true) {
     // Api
     single { baseUrl() }
 
-    single { ApiService(get<String>(), get()) }
+    single<ApiService> { ApiServiceImpl(get<String>(), get()) }
 
     single {
         Json {

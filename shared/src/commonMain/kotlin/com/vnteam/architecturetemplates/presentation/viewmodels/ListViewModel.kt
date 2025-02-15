@@ -9,6 +9,7 @@ import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseC
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCase
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.execute
+
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,9 +47,8 @@ class ListViewModel(
     private fun getDemoObjectsFromApi(isInit: Boolean) {
         if (isInit) showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            getDemoObjectsFromApiUseCase.execute().collect { demoObjects ->
-                insertDemoObjectsToDB(demoObjects)
-            }
+            val demoObjects = getDemoObjectsFromApiUseCase.execute()
+            insertDemoObjectsToDB(demoObjects)
         }
     }
 

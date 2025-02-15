@@ -23,7 +23,6 @@ class DBRepositoryTest : BaseKoinTest() {
     override val overrideModule: Module
         get() = module {
             single<DemoObjectDao> { FakeDemoObjectDao() }
-            single<DBRepository> { DBRepositoryImpl(get(), get()) }
         }
 
     private val repository by inject<DBRepository>()

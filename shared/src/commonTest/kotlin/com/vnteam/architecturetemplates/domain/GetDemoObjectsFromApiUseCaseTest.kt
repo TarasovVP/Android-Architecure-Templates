@@ -7,7 +7,6 @@ import com.vnteam.architecturetemplates.domain.usecase.execute
 import com.vnteam.architecturetemplates.fake.data.repositoryimpl.FakeApiRepository
 import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjects
 import com.vnteam.architecturetemplates.injectAs
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -28,7 +27,7 @@ class GetDemoObjectsFromApiUseCaseTest : BaseKoinTest() {
     @Test
     fun testGetDemoObjectsFromApi() = runTest {
         repository.demoObjects = fakeDemoObjects
-        val result = getDemoObjectsUseCase.execute().firstOrNull()
+        val result = getDemoObjectsUseCase.execute()
         assertEquals(fakeDemoObjects, result)
     }
 }

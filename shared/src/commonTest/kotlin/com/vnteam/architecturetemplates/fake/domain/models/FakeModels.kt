@@ -1,11 +1,13 @@
 package com.vnteam.architecturetemplates.fake.domain.models
 
 import com.vnteam.architecturetemplates.DemoObjectWithOwner
+import com.vnteam.architecturetemplates.data.network.responses.DemoObjectResponse
+import com.vnteam.architecturetemplates.data.network.responses.OwnerResponse
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
-import kotlin.random.Random
+import com.vnteam.architecturetemplates.randomUuidLikeString
 
 val fakeOwner = Owner(
     ownerId = randomUuidLikeString(),
@@ -97,12 +99,51 @@ val fakeDemoObjectWithOwner2 = DemoObjectWithOwner(
 
 val fakeDemoObjectsWithOwner = listOf(fakeDemoObjectWithOwner, fakeDemoObjectWithOwner2)
 
-val fakeException = Exception("Error")
+val fakeOwnerResponse = OwnerResponse(
+    ownerId = fakeOwner.ownerId,
+    login = fakeOwner.login,
+    avatarUrl = fakeOwner.avatarUrl,
+    url = fakeOwner.url
+)
 
-fun randomUuidLikeString(): String {
-    val bytes = ByteArray(16)
-    Random.nextBytes(bytes)
-    return bytes.joinToString("") {
-        it.toString(16).padStart(2, '0')
-    }
-}
+val fakeOwnerResponse2 = OwnerResponse(
+    ownerId = fakeOwner2.ownerId,
+    login = fakeOwner2.login,
+    avatarUrl = fakeOwner2.avatarUrl,
+    url = fakeOwner2.url
+)
+
+val fakeDemoObjectResponse = DemoObjectResponse(
+    demoObjectId = fakeDemoObject.demoObjectId,
+    name = fakeDemoObject.name,
+    description = fakeDemoObject.description,
+    owner = fakeOwnerResponse,
+    htmlUrl = fakeDemoObject.htmlUrl
+)
+
+val fakeDemoObjectResponse2 = DemoObjectResponse(
+    demoObjectId = fakeDemoObject2.demoObjectId,
+    name = fakeDemoObject2.name,
+    description = fakeDemoObject2.description,
+    owner = fakeOwnerResponse2,
+    htmlUrl = fakeDemoObject2.htmlUrl
+)
+
+val fakeDemoObjectsResponse = listOf(fakeDemoObjectResponse, fakeDemoObjectResponse2)
+
+fun DemoObject.toDemoObjectResponse() = DemoObjectResponse(
+    demoObjectId = demoObjectId,
+    name = name,
+    description = description,
+    owner = owner?.toOwnerResponse(),
+    htmlUrl = htmlUrl
+)
+
+fun Owner.toOwnerResponse() = OwnerResponse(
+    ownerId = ownerId,
+    login = login,
+    avatarUrl = avatarUrl,
+    url = url
+)
+
+val fakeException = Exception("Fake exception message")
