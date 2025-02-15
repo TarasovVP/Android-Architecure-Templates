@@ -9,9 +9,9 @@ interface DemoObjectDao {
 
     suspend fun insertDemoObjectWithOwners(demoObjects: List<DemoObjectWithOwner>)
 
-    suspend fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>>
+    fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>>
 
-    suspend fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?>
+    fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?>
 
     suspend fun deleteDemoObjectById(id: String)
 }

@@ -23,6 +23,7 @@ class DBRepositoryTest : BaseKoinTest() {
     override val overrideModule: Module
         get() = module {
             single<DemoObjectDao> { FakeDemoObjectDao() }
+            single<DBRepository> { DBRepositoryImpl(get(), get()) }
         }
 
     private val repository by inject<DBRepository>()
@@ -38,6 +39,7 @@ class DBRepositoryTest : BaseKoinTest() {
 
     @Test
     fun testInsertDemoObjectsToDB() = runTest {
+        val fakeDemoObjects = fakeDemoObjects
         repository.insertDemoObjectsToDB(fakeDemoObjects)
         assertEquals(fakeDemoObjectsWithOwner, demoObjectDao.demoObjects)
     }
@@ -52,7 +54,8 @@ class DBRepositoryTest : BaseKoinTest() {
     @Test
     fun testGetDemoObjectById() = runTest {
         repository.insertDemoObjectsToDB(fakeDemoObjects)
-        val result = repository.getDemoObjectById(fakeDemoObject.demoObjectId.orEmpty()).firstOrNull()
+        val result =
+            repository.getDemoObjectById(fakeDemoObject.demoObjectId.orEmpty()).firstOrNull()
         assertEquals(fakeDemoObject, result)
     }
 

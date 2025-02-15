@@ -2,7 +2,6 @@ package com.vnteam.architecturetemplates.fake.data.repositoryimpl
 
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.repositories.DBRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class FakeDBRepository : DBRepository {
@@ -17,18 +16,16 @@ class FakeDBRepository : DBRepository {
         isClearDemoObjectsCalled = true
     }
 
-    override suspend fun insertDemoObjectsToDB(demoObjects: List<DemoObject>) : Flow<Unit>  {
+    override suspend fun insertDemoObjectsToDB(demoObjects: List<DemoObject>) {
         isInsertDemoObjectsToDBCalled = true
-        return flowOf(Unit)
     }
 
-    override suspend fun getDemoObjectsFromDB() = flowOf(demoObjects.orEmpty())
+    override fun getDemoObjectsFromDB() = flowOf(demoObjects.orEmpty())
 
 
-    override suspend fun getDemoObjectById(demoObjectId: String) = flowOf(demoObject)
+    override fun getDemoObjectById(demoObjectId: String) = flowOf(demoObject)
 
-    override suspend fun deleteDemoObjectById(demoObjectId: String): Flow<Unit> {
+    override suspend fun deleteDemoObjectById(demoObjectId: String) {
         isDeleteDemoObjectByIdCalled = true
-        return flowOf(Unit)
     }
 }

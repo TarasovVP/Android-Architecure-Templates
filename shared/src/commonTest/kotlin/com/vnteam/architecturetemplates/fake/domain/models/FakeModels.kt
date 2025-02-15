@@ -5,23 +5,24 @@ import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
+import kotlin.random.Random
 
 val fakeOwner = Owner(
-    ownerId = "1",
+    ownerId = randomUuidLikeString(),
     login = "Owner",
     avatarUrl = "https://example.com",
     url = "https://example.com"
 )
 
 val fakeOwner2 = Owner(
-    ownerId = "2",
+    ownerId = randomUuidLikeString(),
     login = "Owner2",
     avatarUrl = "https://example.com",
     url = "https://example.com"
 )
 
 val fakeDemoObject = DemoObject(
-    demoObjectId = "1",
+    demoObjectId = randomUuidLikeString(),
     name = "DemoObject",
     description = "DemoObject Description",
     owner = fakeOwner,
@@ -29,7 +30,7 @@ val fakeDemoObject = DemoObject(
 )
 
 val fakeDemoObject2 = DemoObject(
-    demoObjectId = "2",
+    demoObjectId = randomUuidLikeString(),
     name = "DemoObject2",
     description = "DemoObject Description 2",
     owner = fakeOwner2,
@@ -71,7 +72,7 @@ val fakeDemoObjectUI2 = DemoObjectUI(
 val fakeDemoObjectsUI = listOf(fakeDemoObjectUI, fakeDemoObjectUI2)
 
 val fakeDemoObjectWithOwner = DemoObjectWithOwner(
-    id = 1,
+    id = 0,
     demoObjectId = fakeDemoObject.demoObjectId.orEmpty(),
     name = fakeDemoObject.name,
     description = fakeDemoObject.description,
@@ -83,7 +84,7 @@ val fakeDemoObjectWithOwner = DemoObjectWithOwner(
 )
 
 val fakeDemoObjectWithOwner2 = DemoObjectWithOwner(
-    id = 1,
+    id = 0,
     demoObjectId = fakeDemoObject2.demoObjectId.orEmpty(),
     name = fakeDemoObject2.name,
     description = fakeDemoObject2.description,
@@ -97,3 +98,11 @@ val fakeDemoObjectWithOwner2 = DemoObjectWithOwner(
 val fakeDemoObjectsWithOwner = listOf(fakeDemoObjectWithOwner, fakeDemoObjectWithOwner2)
 
 val fakeException = Exception("Error")
+
+fun randomUuidLikeString(): String {
+    val bytes = ByteArray(16)
+    Random.nextBytes(bytes)
+    return bytes.joinToString("") {
+        it.toString(16).padStart(2, '0')
+    }
+}

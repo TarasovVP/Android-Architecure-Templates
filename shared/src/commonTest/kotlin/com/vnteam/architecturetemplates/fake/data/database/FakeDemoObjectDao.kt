@@ -17,12 +17,12 @@ class FakeDemoObjectDao : DemoObjectDao {
         this.demoObjects.addAll(demoObjects)
     }
 
-    override suspend fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>> = callbackFlow {
+    override fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>> = callbackFlow {
         trySend(demoObjects).isSuccess
         awaitClose { }
     }
 
-    override suspend fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?> = callbackFlow {
+    override fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?> = callbackFlow {
         trySend(demoObjects.find { it.demoObjectId == id }).isSuccess
         awaitClose { }
     }
