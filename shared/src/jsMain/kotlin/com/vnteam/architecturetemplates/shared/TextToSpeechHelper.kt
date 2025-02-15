@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.presentation
+package com.vnteam.architecturetemplates.shared
 
 import org.w3c.dom.speech.SpeechSynthesisUtterance
 import org.w3c.dom.speech.speechSynthesis

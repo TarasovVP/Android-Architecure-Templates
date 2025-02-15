@@ -1,9 +1,9 @@
-package com.vnteam.architecturetemplates.di_android
+package com.vnteam.architecturetemplates.di
 
 import com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory
 import com.vnteam.architecturetemplates.data.local.Preferences
 import com.vnteam.architecturetemplates.data.local.PreferencesFactory
-import com.vnteam.architecturetemplates.presentation.TextToSpeechHelper
+import com.vnteam.architecturetemplates.shared.TextToSpeechHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

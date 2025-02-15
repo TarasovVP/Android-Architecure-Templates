@@ -19,8 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.vnteam.architecturetemplates.presentation.NavigationScreens
-import com.vnteam.architecturetemplates.presentation.TextToSpeechHelper
+import com.vnteam.architecturetemplates.shared.NavigationScreens
+import com.vnteam.architecturetemplates.shared.TextToSpeechHelper
 import com.vnteam.architecturetemplates.presentation.components.AvatarImage
 import com.vnteam.architecturetemplates.presentation.components.HeaderText
 import com.vnteam.architecturetemplates.presentation.components.PrimaryText
@@ -38,7 +38,7 @@ import kotlinx.browser.window
 import navigateTo
 import org.koin.compose.koinInject
 import com.vnteam.architecturetemplates.presentation.shareLink
-import com.vnteam.architecturetemplates.presentation.textWithNoDataHandling
+import com.vnteam.architecturetemplates.shared.textWithNoDataHandling
 
 @Composable
 fun DetailsContent(viewState: DetailsViewState, screenState: MutableState<ScreenState>) {

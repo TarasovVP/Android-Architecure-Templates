@@ -1,7 +1,7 @@
 package com.vnteam.architecturetemplates
 
 import android.app.Application
-import com.vnteam.architecturetemplates.di_android.doInitKoin
+import com.vnteam.architecturetemplates.di.doInitKoin
 
 class AppApplication : Application() {
 

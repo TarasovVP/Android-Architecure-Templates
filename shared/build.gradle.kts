@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.kotlinKover)
 }
 
 kotlin {
@@ -118,7 +119,7 @@ android {
 sqldelight {
     databases {
         create("AppDatabase") {
-            packageName.set("com.vnteam.architecturetemplates")
+            packageName.set("com.vnteam.architecturetemplates.appdatabase")
             generateAsync.set(true)
             version = 2
         }
@@ -127,7 +128,26 @@ sqldelight {
 
 compose.resources {
     publicResClass = true
-    packageOfResClass = "com.vnteam.architecturetemplates"
+    packageOfResClass = "com.vnteam.architecturetemplates.resources"
     generateResClass = always
+}
+
+kover {
+    reports {
+        filters {
+            excludes {
+                annotatedBy("androidx.compose.runtime.Composable")
+                classes("com.vnteam.architecturetemplates.DemoObjectWithOwner",
+                         "com.vnteam.architecturetemplates.AppDatabaseQueries*")
+                packages("com.vnteam.architecturetemplates.di",
+                         "com.vnteam.architecturetemplates.presentation.resources",
+                         "com.vnteam.architecturetemplates.presentation.components",
+                         "com.vnteam.architecturetemplates.presentation.theme",
+                         "com.vnteam.architecturetemplates.appdatabase",
+                         "com.vnteam.architecturetemplates.resources",
+                         "com.vnteam.architecturetemplates.shared")
+            }
+        }
+    }
 }
 

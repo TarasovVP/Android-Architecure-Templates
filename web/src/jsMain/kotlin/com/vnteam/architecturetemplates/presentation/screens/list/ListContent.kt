@@ -18,7 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.vnteam.architecturetemplates.presentation.NavigationScreens
+import com.vnteam.architecturetemplates.shared.NavigationScreens
 import com.vnteam.architecturetemplates.presentation.components.AvatarImage
 import com.vnteam.architecturetemplates.presentation.components.ConfirmationDialog
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding

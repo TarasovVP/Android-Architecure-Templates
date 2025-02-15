@@ -3,6 +3,7 @@ package com.vnteam.architecturetemplates.presentation.viewmodels
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObject
 import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjectUI
+import com.vnteam.architecturetemplates.fake.domain.models.fakeException
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeGetDemoObjectUseCase
 import com.vnteam.architecturetemplates.injectAs
 import com.vnteam.architecturetemplates.presentation.intents.DetailsIntent
@@ -69,5 +70,22 @@ class DetailsViewModelTest : BaseViewModelTest() {
             )
         )
         assertNull(detailsViewModel.state.first().demoObjectUI)
+    }
+
+    @Test
+    fun testLoadDemoObjectException() = runTest {
+        fakeGetDemoObjectUseCase.isSuccessful = false
+
+        detailsViewModel.processIntent(
+            DetailsIntent.LoadDemoObject(
+                fakeDemoObject.demoObjectId.orEmpty(),
+                isUpdated = false
+            )
+        )
+        runCurrent()
+        assertEquals(
+            fakeException.message,
+            detailsViewModel.screenState.value.appMessageState.messageText
+        )
     }
 }

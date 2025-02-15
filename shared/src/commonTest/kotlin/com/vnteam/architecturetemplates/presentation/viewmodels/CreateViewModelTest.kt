@@ -5,6 +5,7 @@ import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
 import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObject
 import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjectUI
+import com.vnteam.architecturetemplates.fake.domain.models.fakeException
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeCreateDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeGetDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeInsertDemoObjectsUseCase
@@ -52,6 +53,18 @@ class CreateViewModelTest : BaseViewModelTest() {
     }
 
     @Test
+    fun testLoadDemoObjectException() = runTest {
+        fakeGetDemoObjectUseCase.isSuccessful = false
+
+        createViewModel.processIntent(CreateIntent.LoadDemoObject(fakeDemoObject.demoObjectId.orEmpty()))
+        runCurrent()
+        assertEquals(
+            fakeException.message,
+            createViewModel.screenState.value.appMessageState.messageText
+        )
+    }
+
+    @Test
     fun testCreateDemoObject() = runTest {
         createViewModel.processIntent(CreateIntent.CreateDemoObject(fakeDemoObjectUI))
         runCurrent()
@@ -67,5 +80,17 @@ class CreateViewModelTest : BaseViewModelTest() {
 
         val currentState = createViewModel.state.first()
         assertTrue(currentState.successResult)
+    }
+
+    @Test
+    fun testCreateDemoObjectException() = runTest {
+        fakeCreateDemoObjectUseCase.isSuccessful = false
+
+        createViewModel.processIntent(CreateIntent.CreateDemoObject(fakeDemoObjectUI))
+        runCurrent()
+        assertEquals(
+            fakeException.message,
+            createViewModel.screenState.value.appMessageState.messageText
+        )
     }
 }

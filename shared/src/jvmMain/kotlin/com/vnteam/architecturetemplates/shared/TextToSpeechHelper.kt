@@ -1,5 +1,4 @@
-package com.vnteam.architecturetemplates.presentation
-
+package com.vnteam.architecturetemplates.shared
 
 import com.sun.speech.freetts.Voice
 import com.sun.speech.freetts.VoiceManager

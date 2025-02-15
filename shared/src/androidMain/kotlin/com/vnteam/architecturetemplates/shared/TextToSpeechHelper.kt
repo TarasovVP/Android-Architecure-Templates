@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.presentation
+package com.vnteam.architecturetemplates.shared
 
 import android.content.Context
 import android.speech.tts.TextToSpeech

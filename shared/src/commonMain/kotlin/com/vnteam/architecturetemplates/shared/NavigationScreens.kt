@@ -1,9 +1,9 @@
-package com.vnteam.architecturetemplates.presentation
+package com.vnteam.architecturetemplates.shared
 
-import com.vnteam.architecturetemplates.presentation.Constants.CREATE_SCREEN
-import com.vnteam.architecturetemplates.presentation.Constants.DETAILS_SCREEN
-import com.vnteam.architecturetemplates.presentation.Constants.EDIT_SCREEN
-import com.vnteam.architecturetemplates.presentation.Constants.MAIN_SCREEN
+import com.vnteam.architecturetemplates.shared.Constants.CREATE_SCREEN
+import com.vnteam.architecturetemplates.shared.Constants.DETAILS_SCREEN
+import com.vnteam.architecturetemplates.shared.Constants.EDIT_SCREEN
+import com.vnteam.architecturetemplates.shared.Constants.MAIN_SCREEN
 import kotlinx.serialization.Serializable
 
 @Serializable

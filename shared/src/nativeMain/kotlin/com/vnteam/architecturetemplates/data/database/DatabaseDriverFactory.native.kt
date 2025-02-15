@@ -3,7 +3,7 @@ package com.vnteam.architecturetemplates.data.database
 import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
-import com.vnteam.architecturetemplates.AppDatabase
+import com.vnteam.architecturetemplates.appdatabase.AppDatabase
 import com.vnteam.architecturetemplates.data.DEMO_OBJECTS_DB
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
