@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import com.vnteam.architecturetemplates.Res
-import com.vnteam.architecturetemplates.ic_page_not_found
+import com.vnteam.architecturetemplates.resources.Res
+import com.vnteam.architecturetemplates.resources.ic_page_not_found
 import com.vnteam.architecturetemplates.presentation.components.HeaderText
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
