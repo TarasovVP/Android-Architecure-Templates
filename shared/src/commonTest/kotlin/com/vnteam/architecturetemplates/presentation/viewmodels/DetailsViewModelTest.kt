@@ -42,8 +42,7 @@ class DetailsViewModelTest : BaseViewModelTest() {
     fun testLoadDemoObject() = runTest {
         detailsViewModel.processIntent(
             DetailsIntent.LoadDemoObject(
-                fakeDemoObject.demoObjectId.orEmpty(),
-                isUpdated = false
+                fakeDemoObject.demoObjectId.orEmpty()
             )
         )
         runCurrent()

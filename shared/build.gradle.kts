@@ -138,7 +138,9 @@ kover {
             excludes {
                 annotatedBy("androidx.compose.runtime.Composable")
                 classes("com.vnteam.architecturetemplates.DemoObjectWithOwner",
-                         "com.vnteam.architecturetemplates.AppDatabaseQueries*")
+                         "com.vnteam.architecturetemplates.AppDatabaseQueries*",
+                         "com.vnteam.architecturetemplates.data.local.PreferencesFactory",
+                         "com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory")
                 packages("com.vnteam.architecturetemplates.di",
                          "com.vnteam.architecturetemplates.presentation.resources",
                          "com.vnteam.architecturetemplates.presentation.components",
