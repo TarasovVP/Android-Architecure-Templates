@@ -32,12 +32,11 @@ class DetailsViewModel(
             _state.value = _state.value.copy(demoObjectUI = null)
         }
         viewModelScope.launch(exceptionHandler) {
-            getDemoObjectUseCase.execute(demoObjectId.orEmpty()).collect { demoObject ->
-                showProgress(false)
-                _state.value = _state.value.copy(demoObjectUI = demoObject?.let {
-                    demoObjectUIMapper.mapToImplModel(it)
-                })
-            }
+            val demoObject = getDemoObjectUseCase.execute(demoObjectId.orEmpty())
+            showProgress(false)
+            _state.value = _state.value.copy(demoObjectUI = demoObject?.let {
+                demoObjectUIMapper.mapToImplModel(it)
+            })
         }
     }
 }

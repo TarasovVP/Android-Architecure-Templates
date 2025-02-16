@@ -8,19 +8,6 @@ import platform.AVFAudio.AVSpeechUtterance
 import platform.NaturalLanguage.NLLanguageRecognizer
 import platform.darwin.NSObject
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class TextToSpeechHelper {
-    private var textToSpeechInstance = TextToSpeechInstance()
-
-    actual fun speak(text: String) {
-        textToSpeechInstance.speak(text)
-    }
-
-    actual fun stop() {
-        textToSpeechInstance.stop()
-    }
-}
-
 class TextToSpeechInstance : NSObject(), AVSpeechSynthesizerDelegateProtocol {
     private var synthesizer: AVSpeechSynthesizer = AVSpeechSynthesizer()
     private var isSpeaking = false

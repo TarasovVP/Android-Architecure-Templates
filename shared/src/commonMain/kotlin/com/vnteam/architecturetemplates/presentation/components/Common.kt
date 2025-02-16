@@ -62,9 +62,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.vnteam.architecturetemplates.Res
-import com.vnteam.architecturetemplates.android_architecture_template
-import com.vnteam.architecturetemplates.presentation.drawableRes
+import com.vnteam.architecturetemplates.resources.Res
+import com.vnteam.architecturetemplates.resources.android_architecture_template
+import com.vnteam.architecturetemplates.shared.drawableRes
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding

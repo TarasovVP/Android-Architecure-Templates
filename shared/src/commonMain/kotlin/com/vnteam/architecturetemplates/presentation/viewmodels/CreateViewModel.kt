@@ -2,12 +2,12 @@ package com.vnteam.architecturetemplates.presentation.viewmodels
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.vnteam.architecturetemplates.domain.models.DemoObject
-import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.usecase.CreateDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
+import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,34 +35,36 @@ class CreateViewModel(
     private fun getDemoObjectById(demoObjectId: String?) {
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            getDemoObjectUseCase.execute(demoObjectId.orEmpty()).collect { demoObject ->
-                showProgress(false)
-                _state.value = _state.value.copy(demoObject = mutableStateOf( demoObject?.let { demoObjectUIMapper.mapToImplModel(it) }))
-            }
+            val demoObject = getDemoObjectUseCase.execute(demoObjectId.orEmpty())
+            showProgress(false)
+            _state.value = _state.value.copy(
+                demoObject = mutableStateOf(demoObject?.let {
+                    demoObjectUIMapper.mapToImplModel(it)
+                })
+            )
         }
     }
 
     private fun createDemoObject(demoObject: DemoObjectUI?) {
-        println("testTAG createDemoObject demoObject $demoObject")
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            createDemoObjectUseCase.execute(demoObject?.let { demoObjectUIMapper.mapFromImplModel(it) } ?: DemoObject()).collect {
-                println("testTAG createDemoObject createDemoObjectUseCase.execute demoObject $demoObject")
-                insertDemoObjectToDB(demoObject)
-            }
+            createDemoObjectUseCase.execute(demoObject?.let { demoObjectUIMapper.mapFromImplModel(it) }
+                ?: DemoObject())
+            insertDemoObjectToDB(demoObject)
         }
     }
 
     private fun insertDemoObjectToDB(demoObject: DemoObjectUI?) {
-        println("testTAG createDemoObject insertDemoObjectToDB demoObject $demoObject")
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            insertDemoObjectsUseCase.execute(listOf( demoObject?.let { demoObjectUIMapper.mapFromImplModel(it) } ?: DemoObject())).collect { _ ->
-                println("testTAG insertDemoObjectToDB insertDemoObjectsUseCase.execute demoObject $demoObject")
-                showProgress(false)
-                showMessage("Successfully created", false)
-                _state.value = state.value.copy(successResult = true)
-            }
+            insertDemoObjectsUseCase.execute(listOf(demoObject?.let {
+                demoObjectUIMapper.mapFromImplModel(
+                    it
+                )
+            } ?: DemoObject()))
+            showProgress(false)
+            showMessage("Successfully created", false)
+            _state.value = state.value.copy(successResult = true)
         }
     }
 }

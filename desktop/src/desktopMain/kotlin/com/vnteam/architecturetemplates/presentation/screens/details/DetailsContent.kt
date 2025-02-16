@@ -15,9 +15,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.vnteam.architecturetemplates.Res
-import com.vnteam.architecturetemplates.ic_voice
-import com.vnteam.architecturetemplates.presentation.TextToSpeechHelper
+import com.vnteam.architecturetemplates.shared.TextToSpeechHelper
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
@@ -30,7 +28,9 @@ import com.vnteam.architecturetemplates.presentation.components.AvatarImage
 import com.vnteam.architecturetemplates.presentation.components.HeaderText
 import com.vnteam.architecturetemplates.presentation.components.PrimaryText
 import com.vnteam.architecturetemplates.presentation.components.SecondaryText
-import com.vnteam.architecturetemplates.presentation.textWithNoDataHandling
+import com.vnteam.architecturetemplates.resources.Res
+import com.vnteam.architecturetemplates.resources.ic_voice
+import com.vnteam.architecturetemplates.shared.textWithNoDataHandling
 
 @Composable
 fun DetailsContent(viewState: DetailsViewState) {

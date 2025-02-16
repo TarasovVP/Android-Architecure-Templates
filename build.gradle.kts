@@ -8,4 +8,5 @@ plugins {
     alias(libs.plugins.kotlinSerialization) apply false
     alias(libs.plugins.sqlDelight) apply false
     alias(libs.plugins.kotlinJvm) apply false
+    alias(libs.plugins.kotlinKover) apply false
 }

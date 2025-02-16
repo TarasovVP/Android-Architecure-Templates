@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.presentation
+package com.vnteam.architecturetemplates.shared
 
 object Constants {
     const val APP_NAME = "Architecture Templates"

@@ -1,15 +1,17 @@
 package com.vnteam.architecturetemplates.fake.domain.usecaseimpl
 
 import com.vnteam.architecturetemplates.domain.usecase.ClearDemoObjectUseCase
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import com.vnteam.architecturetemplates.fake.domain.models.fakeException
 
 class FakeClearDemoObjectsUseCase : ClearDemoObjectUseCase {
 
     var isExecuteCalled = false
+    var isSuccessful = true
 
-    override suspend fun execute(params: Nothing?): Flow<Unit> {
+    override suspend fun execute(params: Nothing?) {
         isExecuteCalled = true
-        return flowOf(Unit)
+        if (!isSuccessful) {
+            throw fakeException
+        }
     }
 }

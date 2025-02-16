@@ -1,14 +1,15 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
 import androidx.lifecycle.viewModelScope
-import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectUIMapper
+import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.usecase.ClearDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.DeleteDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCase
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.execute
+
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,18 +47,16 @@ class ListViewModel(
     private fun getDemoObjectsFromApi(isInit: Boolean) {
         if (isInit) showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            getDemoObjectsFromApiUseCase.execute().collect { demoObjects ->
-                insertDemoObjectsToDB(demoObjects)
-            }
+            val demoObjects = getDemoObjectsFromApiUseCase.execute()
+            insertDemoObjectsToDB(demoObjects)
         }
     }
 
     private fun insertDemoObjectsToDB(demoObjects: List<DemoObject>?) {
         viewModelScope.launch(exceptionHandler) {
             demoObjects?.let {
-                insertDemoObjectsUseCase.execute(it).collect {
-                    getDemoObjectsFromDB()
-                }
+                insertDemoObjectsUseCase.execute(it)
+                getDemoObjectsFromDB()
             }
         }
     }
@@ -76,11 +75,10 @@ class ListViewModel(
         showProgress(true)
         _state.value = state.value.copy(successResult = false)
         viewModelScope.launch(exceptionHandler) {
-            deleteDemoObjectUseCase.execute(demoObjectId).collect {
-                _state.value = state.value.copy(successResult = true)
-                showMessage("Successfully deleted", false)
-                showProgress(false)
-            }
+            deleteDemoObjectUseCase.execute(demoObjectId)
+            _state.value = state.value.copy(successResult = true)
+            showMessage("Successfully deleted", false)
+            showProgress(false)
         }
     }
 }

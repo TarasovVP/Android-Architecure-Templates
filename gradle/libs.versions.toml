@@ -13,6 +13,7 @@ coroutines = "1.8.1"
 viewmodelCompose = "2.8.0-rc01"
 ktor = "2.3.12"
 koin = "4.0.0"
+kover = "0.9.1"
 sqldelight = "2.0.2"
 coilCompose = "3.0.0-alpha06"
 navigationCompose = "2.8.0-alpha02"
@@ -99,3 +100,4 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+kotlinKover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }

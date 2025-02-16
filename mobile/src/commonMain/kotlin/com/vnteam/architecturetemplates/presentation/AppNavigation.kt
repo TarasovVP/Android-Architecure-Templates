@@ -15,6 +15,7 @@ import com.vnteam.architecturetemplates.presentation.screens.list.ListScreen
 import com.vnteam.architecturetemplates.presentation.screens.create.CreateContent
 import com.vnteam.architecturetemplates.presentation.screens.details.DetailsContent
 import com.vnteam.architecturetemplates.presentation.screens.list.ListContent
+import com.vnteam.architecturetemplates.shared.NavigationScreens
 
 @Composable
 fun AppNavigation(navController: NavHostController, screenState: MutableState<ScreenState>) {

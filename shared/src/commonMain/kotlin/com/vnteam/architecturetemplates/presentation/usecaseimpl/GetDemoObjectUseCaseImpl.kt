@@ -13,10 +13,10 @@ class GetDemoObjectUseCaseImpl(
     private val dbRepository: DBRepository
 ) : GetDemoObjectUseCase {
 
-    override suspend fun execute(params: String): Flow<DemoObject?> {
+    override suspend fun execute(params: String): DemoObject? {
         val dbDemoObject = dbRepository.getDemoObjectById(params).firstOrNull()
         return if (dbDemoObject != null) {
-            flowOf(dbDemoObject)
+            dbDemoObject
         } else {
             apiRepository.getDemoObjectById(params)
         }

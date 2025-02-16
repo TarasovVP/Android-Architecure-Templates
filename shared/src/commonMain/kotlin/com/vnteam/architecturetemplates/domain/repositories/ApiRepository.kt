@@ -1,15 +1,14 @@
 package com.vnteam.architecturetemplates.domain.repositories
 
 import com.vnteam.architecturetemplates.domain.models.DemoObject
-import kotlinx.coroutines.flow.Flow
 
 interface ApiRepository {
 
-    suspend fun getDemoObjectsFromApi(): Flow<List<DemoObject>?>
+    suspend fun getDemoObjectsFromApi(): List<DemoObject>?
 
-    suspend fun insertDemoObjectsToApi(demoObjects: List<DemoObject>?): Flow<Unit>
+    suspend fun insertDemoObjectsToApi(demoObjects: List<DemoObject>?)
 
-    suspend fun getDemoObjectById(demoObjectId: String?): Flow<DemoObject?>
+    suspend fun getDemoObjectById(demoObjectId: String?): DemoObject?
 
-    suspend fun deleteDemoObjectById(demoObjectId: String): Flow<Unit>
+    suspend fun deleteDemoObjectById(demoObjectId: String)
 }

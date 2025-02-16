@@ -7,11 +7,11 @@ interface DBRepository {
 
     suspend fun clearDemoObjects()
 
-    suspend fun insertDemoObjectsToDB(demoObjects: List<DemoObject>): Flow<Unit>
+    suspend fun insertDemoObjectsToDB(demoObjects: List<DemoObject>)
 
-    suspend fun getDemoObjectsFromDB(): Flow<List<DemoObject>>
+    fun getDemoObjectsFromDB(): Flow<List<DemoObject>>
 
-    suspend fun getDemoObjectById(demoObjectId: String): Flow<DemoObject?>
+    fun getDemoObjectById(demoObjectId: String): Flow<DemoObject?>
 
-    suspend fun deleteDemoObjectById(demoObjectId: String): Flow<Unit>
+    suspend fun deleteDemoObjectById(demoObjectId: String)
 }

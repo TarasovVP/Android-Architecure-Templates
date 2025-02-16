@@ -2,7 +2,6 @@ package com.vnteam.architecturetemplates.presentation.viewmodels
 
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
-import com.vnteam.architecturetemplates.di.testModule
 import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
 import com.vnteam.architecturetemplates.domain.usecase.LanguageUseCase
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeIsDarkThemeUseCase
@@ -11,10 +10,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
-import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import org.koin.test.inject
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -23,23 +21,16 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalCoroutinesApi::class)
 class AppViewModelTest : BaseViewModelTest() {
 
+    override val overrideModule: Module
+        get() = module {
+            single<IsDarkThemeUseCase> { FakeIsDarkThemeUseCase() }
+            single<LanguageUseCase> { FakeLanguageUseCase() }
+        }
+
     private val appViewModel by inject<AppViewModel>()
 
     private val isDarkThemeUseCase by inject<IsDarkThemeUseCase>()
     private val languageUseCase by inject<LanguageUseCase>()
-
-    @BeforeTest
-    override fun setup() {
-        super.setup()
-        startKoin {
-            modules(
-                testModule + module {
-                    single<IsDarkThemeUseCase> { FakeIsDarkThemeUseCase() }
-                    single<LanguageUseCase> { FakeLanguageUseCase() }
-                }
-            )
-        }
-    }
 
     @Test
     fun testSetIsDarkThemeTrue() = runTest {

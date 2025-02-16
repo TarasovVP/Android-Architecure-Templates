@@ -10,6 +10,7 @@ import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.architecturetemplates.data.mappers.DemoObjectResponseMapper
 import com.vnteam.architecturetemplates.data.mappers.OwnerResponseMapper
 import com.vnteam.architecturetemplates.data.network.ApiService
+import com.vnteam.architecturetemplates.data.network.ApiServiceImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.ApiRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.DBRepositoryImpl
 import com.vnteam.architecturetemplates.data.repositoryimpl.PreferencesRepositoryImpl
@@ -57,7 +58,7 @@ import org.koin.dsl.module
 val appModule = module {
 
     single { baseUrl() }
-    single { ApiService(get<String>(), get()) }
+    single<ApiService> { ApiServiceImpl(get<String>(), get()) }
     single {
         Json {
             prettyPrint = true

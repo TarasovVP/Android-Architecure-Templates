@@ -1,12 +1,14 @@
 package com.vnteam.architecturetemplates.presentation.viewmodels
 
-import com.vnteam.architecturetemplates.di.testModule
-import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.usecase.ClearDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.DeleteDemoObjectUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCase
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
+import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObject
+import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjects
+import com.vnteam.architecturetemplates.fake.domain.models.fakeDemoObjectsUI
+import com.vnteam.architecturetemplates.fake.domain.models.fakeException
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeClearDemoObjectsUseCase
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeDeleteDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeGetDemoObjectsFromApiUseCase
@@ -14,22 +16,28 @@ import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeGetDemoObjec
 import com.vnteam.architecturetemplates.fake.domain.usecaseimpl.FakeInsertDemoObjectsUseCase
 import com.vnteam.architecturetemplates.injectAs
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
-import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
-import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
-import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import org.koin.test.inject
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ListViewModelTest : BaseViewModelTest() {
+
+    override val overrideModule: Module
+        get() = module {
+            single<ClearDemoObjectUseCase> { FakeClearDemoObjectsUseCase() }
+            single<GetDemoObjectsFromDBUseCase> { FakeGetDemoObjectsFromDBUseCase() }
+            single<GetDemoObjectsFromApiUseCase> { FakeGetDemoObjectsFromApiUseCase() }
+            single<InsertDemoObjectsUseCase> { FakeInsertDemoObjectsUseCase() }
+            single<DeleteDemoObjectUseCase> { FakeDeleteDemoObjectUseCase() }
+        }
 
     private val listViewModel by inject<ListViewModel>()
 
@@ -38,24 +46,6 @@ class ListViewModelTest : BaseViewModelTest() {
     private val fakeGetApiUseCase by injectAs<GetDemoObjectsFromApiUseCase, FakeGetDemoObjectsFromApiUseCase>()
     private val fakeInsertUseCase by injectAs<InsertDemoObjectsUseCase, FakeInsertDemoObjectsUseCase>()
     private val fakeDeleteUseCase by injectAs<DeleteDemoObjectUseCase, FakeDeleteDemoObjectUseCase>()
-
-    private val demoObject = DemoObject("1", "DemoObj")
-
-    @BeforeTest
-    override fun setup() {
-        super.setup()
-        startKoin {
-            modules(
-                testModule + module {
-                    single<ClearDemoObjectUseCase> { FakeClearDemoObjectsUseCase() }
-                    single<GetDemoObjectsFromDBUseCase> { FakeGetDemoObjectsFromDBUseCase() }
-                    single<GetDemoObjectsFromApiUseCase> { FakeGetDemoObjectsFromApiUseCase() }
-                    single<InsertDemoObjectsUseCase> { FakeInsertDemoObjectsUseCase() }
-                    single<DeleteDemoObjectUseCase> { FakeDeleteDemoObjectUseCase() }
-                }
-            )
-        }
-    }
 
     @Test
     fun testClearDemoObjects() = runTest {
@@ -68,26 +58,59 @@ class ListViewModelTest : BaseViewModelTest() {
     }
 
     @Test
+    fun testClearDemoObjectsExeption() = runTest {
+        fakeClearUseCase.isSuccessful = false
+        listViewModel.processIntent(ListIntent.ClearDemoObjects())
+        runCurrent()
+
+        assertEquals(
+            fakeException.message,
+            listViewModel.screenState.value.appMessageState.messageText
+        )
+    }
+
+    @Test
     fun testLoadDemoObjects() = runTest {
-        fakeGetApiUseCase.demoObjects = listOf(demoObject)
-        fakeGetDBUseCase.demoObjects = listOf(demoObject)
+        fakeGetApiUseCase.demoObjects = fakeDemoObjects
+        fakeGetDBUseCase.demoObjects = fakeDemoObjects
         listViewModel.processIntent(ListIntent.LoadDemoObjects(isInit = true))
         runCurrent()
 
-
-        assertEquals(listOf(demoObject), fakeInsertUseCase.demoObjects)
-        val expectedDemoObject = DemoObjectUI(demoObject.demoObjectId, demoObject.name, OwnerUI())
+        assertEquals(fakeDemoObjects, fakeInsertUseCase.demoObjects)
         val state = listViewModel.state.first()
-        assertEquals(listOf(expectedDemoObject), state.demoObjectUIs)
+        assertEquals(fakeDemoObjectsUI, state.demoObjectUIs)
+    }
+
+    @Test
+    fun testLoadDemoObjectException() = runTest {
+        fakeGetApiUseCase.isSuccessful = false
+
+        listViewModel.processIntent(ListIntent.LoadDemoObjects(isInit = true))
+        runCurrent()
+        assertEquals(
+            fakeException.message,
+            listViewModel.screenState.value.appMessageState.messageText
+        )
     }
 
     @Test
     fun testDeleteDemoObject() = runTest {
-        listViewModel.processIntent(ListIntent.DeleteDemoObject(demoObject.demoObjectId.orEmpty()))
+        listViewModel.processIntent(ListIntent.DeleteDemoObject(fakeDemoObject.demoObjectId.orEmpty()))
         runCurrent()
 
         assertTrue(fakeDeleteUseCase.isExecuteCalled)
         val finalState = listViewModel.state.first()
         assertTrue(finalState.successResult)
+    }
+
+    @Test
+    fun testDeleteDemoObjectException() = runTest {
+        fakeDeleteUseCase.isSuccessful = false
+        listViewModel.processIntent(ListIntent.DeleteDemoObject(fakeDemoObject.demoObjectId.orEmpty()))
+        runCurrent()
+        assertEquals(
+            fakeException.message,
+            listViewModel.screenState.value.appMessageState.messageText
+        )
     }
 }
