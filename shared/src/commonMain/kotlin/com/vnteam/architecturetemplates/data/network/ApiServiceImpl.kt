@@ -1,5 +1,6 @@
 package com.vnteam.architecturetemplates.data.network
 
+import com.vnteam.architecturetemplates.data.DEMO_OBJECTS_API
 import com.vnteam.architecturetemplates.data.network.responses.DemoObjectResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.delete
@@ -16,7 +17,7 @@ class ApiServiceImpl(
 
     override suspend fun insertDemoObjectsToApi(demoObjects: List<DemoObjectResponse>): NetworkResult<Unit> {
         return httpClient.safeRequest<Unit> {
-            httpClient.post("${baseUrl}demoObjects") {
+            httpClient.post("${baseUrl}$DEMO_OBJECTS_API") {
                 contentType(ContentType.Application.Json)
                 setBody(demoObjects)
             }
@@ -25,7 +26,7 @@ class ApiServiceImpl(
 
     override suspend fun getDemoObjectsFromApi(): NetworkResult<List<DemoObjectResponse>> {
         return httpClient.safeRequest<List<DemoObjectResponse>> {
-            get("${baseUrl}demoObjects") {
+            get("${baseUrl}$DEMO_OBJECTS_API") {
                 contentType(ContentType.Application.Json)
             }
         }
@@ -33,7 +34,7 @@ class ApiServiceImpl(
 
     override suspend fun getDemoObjectById(id: String): NetworkResult<DemoObjectResponse> {
         return httpClient.safeRequest<DemoObjectResponse> {
-            httpClient.get("${baseUrl}demoObjects/$id") {
+            httpClient.get("${baseUrl}$DEMO_OBJECTS_API/$id") {
                 contentType(ContentType.Application.Json)
             }
         }
@@ -41,7 +42,7 @@ class ApiServiceImpl(
 
     override suspend fun deleteDemoObjectById(id: String): NetworkResult<Unit> {
         return httpClient.safeRequest<Unit> {
-            httpClient.delete("${baseUrl}demoObjects/$id") {
+            httpClient.delete("${baseUrl}$DEMO_OBJECTS_API/$id") {
                 contentType(ContentType.Application.Json)
             }
         }
