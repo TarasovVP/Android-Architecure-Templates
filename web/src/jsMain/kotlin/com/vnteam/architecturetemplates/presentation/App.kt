@@ -24,12 +24,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.vnteam.architecturetemplates.Res
-import com.vnteam.architecturetemplates.android_architecture_template
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
-import com.vnteam.architecturetemplates.ic_dark_mode
-import com.vnteam.architecturetemplates.ic_light_mode
 import com.vnteam.architecturetemplates.presentation.components.SplashScreen
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
@@ -40,12 +36,12 @@ import com.vnteam.architecturetemplates.presentation.resources.getStringResource
 import com.vnteam.architecturetemplates.presentation.states.screen.AppBarState
 import com.vnteam.architecturetemplates.presentation.theme.AppTheme
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
+import com.vnteam.architecturetemplates.resources.*
 import isMainScreen
 import kotlinx.browser.window
 import kotlinx.coroutines.delay
 import navigateToMain
 import org.jetbrains.compose.resources.painterResource
-import org.koin.compose.koinInject
 
 @Composable
 fun App(appViewModel: AppViewModel) {
