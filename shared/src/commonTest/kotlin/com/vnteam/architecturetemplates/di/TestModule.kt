@@ -1,6 +1,5 @@
 package com.vnteam.architecturetemplates.di
 
-import com.vnteam.architecturetemplates.data.baseUrl
 import com.vnteam.architecturetemplates.data.database.DemoObjectDao
 import com.vnteam.architecturetemplates.fake.data.database.FakeDemoObjectDao
 import com.vnteam.architecturetemplates.data.local.Preferences
@@ -63,9 +62,7 @@ val testModule = module(true) {
     single<DemoObjectDao> { FakeDemoObjectDao() }
 
     // Api
-    single { baseUrl() }
-
-    single<ApiService> { ApiServiceImpl(get<String>(), get()) }
+    single<ApiService> { ApiServiceImpl(get()) }
 
     single {
         Json {

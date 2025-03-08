@@ -1,6 +1,5 @@
 package com.vnteam.architecturetemplates.di
 
-import com.vnteam.architecturetemplates.data.baseUrl
 import com.vnteam.architecturetemplates.data.database.DemoObjectDao
 import com.vnteam.architecturetemplates.data.database.DemoObjectDaoImpl
 import com.vnteam.architecturetemplates.data.database.SharedDatabase
@@ -57,8 +56,7 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    single { baseUrl() }
-    single<ApiService> { ApiServiceImpl(get<String>(), get()) }
+    single<ApiService> { ApiServiceImpl(get()) }
     single {
         Json {
             prettyPrint = true

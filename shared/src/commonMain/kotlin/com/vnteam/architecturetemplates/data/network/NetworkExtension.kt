@@ -1,10 +1,10 @@
 package com.vnteam.architecturetemplates.data.network
 
-import com.vnteam.architecturetemplates.data.baseUrl
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
+import secrets.Properties
 
 const val CONNECTION_EXCEPTION = "Connection Exception. Check if the server is running."
 const val UNKNOWN_ERROR = "Unknown error"
@@ -39,6 +39,6 @@ suspend inline fun <reified T> HttpClient.safeRequest(
         val response = block()
         response.handleResponse<T>()
     } catch (e: Exception) {
-        val errorMessage = if (baseUrl().contains(":8080/")) CONNECTION_EXCEPTION else e.message
+        val errorMessage = if (Properties.CLOUD_URL.contains(":8080/")) CONNECTION_EXCEPTION else e.message
         NetworkResult.Failure(errorMessage)
     }
