@@ -9,15 +9,15 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import secrets.Properties
 
 class ApiServiceImpl(
-    private val baseUrl: String,
     private val httpClient: HttpClient,
 ) : ApiService {
 
     override suspend fun insertDemoObjectsToApi(demoObjects: List<DemoObjectResponse>): NetworkResult<Unit> {
         return httpClient.safeRequest<Unit> {
-            httpClient.post("${baseUrl}$DEMO_OBJECTS_API") {
+            httpClient.post("${Properties.CLOUD_URL}$DEMO_OBJECTS_API") {
                 contentType(ContentType.Application.Json)
                 setBody(demoObjects)
             }
@@ -26,7 +26,7 @@ class ApiServiceImpl(
 
     override suspend fun getDemoObjectsFromApi(): NetworkResult<List<DemoObjectResponse>> {
         return httpClient.safeRequest<List<DemoObjectResponse>> {
-            get("${baseUrl}$DEMO_OBJECTS_API") {
+            get("${Properties.CLOUD_URL}$DEMO_OBJECTS_API") {
                 contentType(ContentType.Application.Json)
             }
         }
@@ -34,7 +34,7 @@ class ApiServiceImpl(
 
     override suspend fun getDemoObjectById(id: String): NetworkResult<DemoObjectResponse> {
         return httpClient.safeRequest<DemoObjectResponse> {
-            httpClient.get("${baseUrl}$DEMO_OBJECTS_API/$id") {
+            httpClient.get("${Properties.CLOUD_URL}$DEMO_OBJECTS_API/$id") {
                 contentType(ContentType.Application.Json)
             }
         }
@@ -42,7 +42,7 @@ class ApiServiceImpl(
 
     override suspend fun deleteDemoObjectById(id: String): NetworkResult<Unit> {
         return httpClient.safeRequest<Unit> {
-            httpClient.delete("${baseUrl}$DEMO_OBJECTS_API/$id") {
+            httpClient.delete("${Properties.CLOUD_URL}$DEMO_OBJECTS_API/$id") {
                 contentType(ContentType.Application.Json)
             }
         }
