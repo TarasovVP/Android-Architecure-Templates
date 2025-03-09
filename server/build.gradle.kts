@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
@@ -55,4 +57,46 @@ tasks {
         from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
         from(sourceSets.main.get().output)
     }
+}
+
+tasks.register("generateSecrets") {
+    val localProperties = file(rootProject.file("local.properties"))
+    val kotlinSrcDir = project.file("${project.projectDir}/src/main/kotlin")
+    val configDir = project.file("$kotlinSrcDir/secrets")
+    val configFile = project.file("$configDir/Secrets.kt")
+    doLast {
+        if (!localProperties.exists()) {
+            throw GradleException("local.properties file not found!")
+        }
+        val properties = Properties().apply {
+            load(localProperties.inputStream())
+        }
+        if (!configDir.exists()) {
+            configDir.mkdirs()
+        }
+        fun isValidKey(key: String): Boolean {
+            return key.matches(Regex("^[a-zA-Z_][a-zA-Z0-9_]*$"))
+        }
+        val packagePath = configDir.relativeTo(project.file("${project.projectDir}/src/main/kotlin"))
+        val packageName = packagePath.toString().replace("/", ".").replace("\\", ".")
+        val configContent = buildString {
+            appendLine("package $packageName")
+            appendLine()
+            appendLine("object Properties {")
+
+            properties.forEach { (keyAny, value) ->
+                val key = keyAny.toString()
+                if (isValidKey(key)) {
+                    appendLine("    val $key = \"$value\"")
+                }
+            }
+
+            appendLine("}")
+        }
+
+        configFile.writeText(configContent)
+    }
+}
+tasks.named("compileJava") {
+    dependsOn("generateSecrets")
 }
