@@ -69,7 +69,7 @@ tasks {
     }
 }
 
-/*// Make sure the "org.jetbrains.kotlin.multiplatform" plugin is already applied above.
+// Make sure the "org.jetbrains.kotlin.multiplatform" plugin is already applied above.
 //
 // plugins {
 //     id("org.jetbrains.kotlin.multiplatform") version "actual version"
@@ -157,4 +157,4 @@ kmpExtension.targets.configureEach {
         // 5) Link it to the compileKotlin task
         compileKotlinTask.dependsOn(generateSecretsTask)
     }
-}*/
+}
