@@ -9,9 +9,9 @@ import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseC
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCase
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.execute
-
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
+import com.vnteam.architecturetemplates.shared.Constants
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -77,7 +77,7 @@ class ListViewModel(
         viewModelScope.launch(exceptionHandler) {
             deleteDemoObjectUseCase.execute(demoObjectId)
             _state.value = state.value.copy(successResult = true)
-            showMessage("Successfully deleted", false)
+            showMessage(Constants.SUCCESSFULLY_DELETED, false)
             showProgress(false)
         }
     }

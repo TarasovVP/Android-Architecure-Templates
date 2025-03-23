@@ -6,4 +6,5 @@ object Constants {
     const val DETAILS_SCREEN = "details"
     const val EDIT_SCREEN = "edit"
     const val CREATE_SCREEN = "create"
+    const val SUCCESSFULLY_DELETED = "Successfully deleted"
 }

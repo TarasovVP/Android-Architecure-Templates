@@ -69,12 +69,6 @@ tasks {
     }
 }
 
-// Make sure the "org.jetbrains.kotlin.multiplatform" plugin is already applied above.
-//
-// plugins {
-//     id("org.jetbrains.kotlin.multiplatform") version "actual version"
-// }
-
 val kmpExtension = extensions.getByType(KotlinMultiplatformExtension::class.java)
 
 // Iterate over all KMP targets (iosArm64, iosSimulatorArm64, jvm, js, etc.)

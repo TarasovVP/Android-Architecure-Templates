@@ -102,4 +102,4 @@ sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 kotlinKover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
-kmpSecrets = { id = "com.vnteam.kmp-secrets", version.ref = "kmpSecrets" }
+kmpSecrets = { id = "io.github.tarasovvp.kmp-secrets-plugin", version.ref = "kmpSecrets" }

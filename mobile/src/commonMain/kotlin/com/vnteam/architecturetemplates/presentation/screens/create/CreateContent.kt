@@ -27,7 +27,6 @@ import com.vnteam.architecturetemplates.presentation.components.CommonTextField
 import com.vnteam.architecturetemplates.presentation.components.HeaderText
 import com.vnteam.architecturetemplates.presentation.components.PrimaryButton
 
-
 @Composable
 fun CreateContent(
     viewState: State<CreateViewState>,
