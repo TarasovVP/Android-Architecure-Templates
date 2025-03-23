@@ -154,9 +154,3 @@ kover {
     }
 }
 
-/*secretsConfig {
-    *//*propertiesFile = rootProject.file("config/secrets.properties").absolutePath*//*
-    //outputDir = "${project.projectDir}/src/commonMain/kotlin/com/vnteam/architecturetemplates/"
-    //triggerTask = "preBuild"
-}*/
-
