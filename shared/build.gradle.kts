@@ -10,7 +10,6 @@ plugins {
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.kotlinKover)
     alias(libs.plugins.kmpSecrets)
-    id("org.jlleitschuh.gradle.ktlint") version "12.2.0"
 }
 
 kotlin {

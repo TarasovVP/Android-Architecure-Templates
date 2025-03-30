@@ -30,11 +30,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.vnteam.architecturetemplates.resources.Res
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
-import com.vnteam.architecturetemplates.resources.ic_dark_mode
-import com.vnteam.architecturetemplates.resources.ic_light_mode
 import com.vnteam.architecturetemplates.presentation.components.SplashScreen
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
@@ -42,11 +39,13 @@ import com.vnteam.architecturetemplates.presentation.resources.getStringResource
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.theme.AppTheme
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
+import com.vnteam.architecturetemplates.resources.Res
+import com.vnteam.architecturetemplates.resources.ic_dark_mode
+import com.vnteam.architecturetemplates.resources.ic_light_mode
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun App(appViewModel: AppViewModel) {
-
     val isDarkTheme = appViewModel.isDarkTheme.collectAsState()
     val language = appViewModel.language.collectAsState()
     val screenState = remember { mutableStateOf(ScreenState()) }
@@ -61,7 +60,10 @@ fun App(appViewModel: AppViewModel) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppViewModel) {
+fun ScaffoldContent(
+    screenState: MutableState<ScreenState>,
+    appViewModel: AppViewModel,
+) {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
     LaunchedEffect(screenState.value.appMessageState.messageVisible) {
@@ -77,17 +79,18 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
         topBar = {
             TopAppBar(
                 title = { Text(screenState.value.appBarState.appBarTitle) },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = Color.White
-                ),
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        titleContentColor = Color.White,
+                    ),
                 navigationIcon = {
                     if (screenState.value.appBarState.topAppBarActionVisible) {
                         IconButton(onClick = screenState.value.appBarState.topAppBarAction) {
                             Icon(
                                 tint = Color.White,
                                 imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                contentDescription = LocalStringResources.current.BACK
+                                contentDescription = LocalStringResources.current.BACK,
                             )
                         }
                     }
@@ -103,20 +106,24 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
                             appViewModel.setIsDarkTheme(appViewModel.isDarkTheme.value != true)
                         }) {
                             Icon(
-                                painter = painterResource(if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode ),
+                                painter =
+                                    painterResource(
+                                        if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode,
+                                    ),
                                 contentDescription = if (appViewModel.isDarkTheme.value == true) "Switch to Light Theme" else "Switch to Dark Theme",
-                                tint = Color.White
+                                tint = Color.White,
                             )
                         }
                     }
-                })
+                },
+            )
         },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState) { data ->
                 Snackbar(
                     snackbarData = data,
                     actionColor = Color.White,
-                    containerColor = if (screenState.value.appMessageState.isMessageError) Color.Red else Color.Green
+                    containerColor = if (screenState.value.appMessageState.isMessageError) Color.Red else Color.Green,
                 )
             }
         },
@@ -127,7 +134,7 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
                     content = { Text(screenState.value.floatingActionState.floatingActionButtonTitle) },
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = Color.White,
-                    modifier = Modifier.padding(horizontal = 48.dp, vertical = LocalSmallPadding.current.size)
+                    modifier = Modifier.padding(horizontal = 48.dp, vertical = LocalSmallPadding.current.size),
                 )
             }
         },
@@ -138,6 +145,6 @@ fun ScaffoldContent(screenState: MutableState<ScreenState>, appViewModel: AppVie
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
             }
-        }
+        },
     )
 }

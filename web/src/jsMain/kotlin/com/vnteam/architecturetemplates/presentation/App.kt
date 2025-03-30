@@ -62,18 +62,20 @@ fun AppContent(appViewModel: AppViewModel) {
     LaunchedEffect(screenState.value.appMessageState.messageVisible) {
         if (screenState.value.appMessageState.messageVisible) {
             delay(2000)
-            screenState.value = screenState.value.copy(
-                appMessageState = screenState.value.appMessageState.copy(
-                    messageVisible = false,
-                    messageText = ""
+            screenState.value =
+                screenState.value.copy(
+                    appMessageState =
+                        screenState.value.appMessageState.copy(
+                            messageVisible = false,
+                            messageText = "",
+                        ),
                 )
-            )
         }
     }
     Surface {
         Box(
             modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
-            contentAlignment = Alignment.BottomEnd
+            contentAlignment = Alignment.BottomEnd,
         ) {
             Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
                 if (screenState.value.appBarState.topAppBarVisible) {
@@ -89,20 +91,22 @@ fun AppContent(appViewModel: AppViewModel) {
                     content = { Text(screenState.value.floatingActionState.floatingActionButtonTitle) },
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = Color.White,
-                    modifier = Modifier
-                        .padding(LocalLargePadding.current.size)
+                    modifier =
+                        Modifier
+                            .padding(LocalLargePadding.current.size),
                 )
             }
             Box(
-                modifier = Modifier.fillMaxWidth().padding(
-                    horizontal = LocalDefaultPadding.current.size,
-                    vertical = LocalLargePadding.current.size
-                ),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier.fillMaxWidth().padding(
+                        horizontal = LocalDefaultPadding.current.size,
+                        vertical = LocalLargePadding.current.size,
+                    ),
+                contentAlignment = Alignment.Center,
             ) {
                 if (screenState.value.appMessageState.messageVisible) {
                     Snackbar(
-                        containerColor = if (screenState.value.appMessageState.isMessageError) Color.Red else Color.Green
+                        containerColor = if (screenState.value.appMessageState.isMessageError) Color.Red else Color.Green,
                     ) {
                         Text(text = screenState.value.appMessageState.messageText)
                     }
@@ -116,28 +120,35 @@ fun AppContent(appViewModel: AppViewModel) {
 }
 
 @Composable
-fun AppBar(appViewModel: AppViewModel, appBarState: AppBarState) {
+fun AppBar(
+    appViewModel: AppViewModel,
+    appBarState: AppBarState,
+) {
     Row(
-        modifier = Modifier.fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primaryContainer),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier.fillMaxWidth()
+                .background(MaterialTheme.colorScheme.primaryContainer),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        IconButton(modifier = Modifier
-            .padding(horizontal = LocalDefaultPadding.current.size)
-            .size(LocalLargeAvatarSize.current.size),
+        IconButton(
+            modifier =
+                Modifier
+                    .padding(horizontal = LocalDefaultPadding.current.size)
+                    .size(LocalLargeAvatarSize.current.size),
             onClick = {
                 if (!window.isMainScreen()) window.navigateToMain()
-            }) {
+            },
+        ) {
             Image(
                 painter = painterResource(Res.drawable.android_architecture_template),
-                contentDescription = "Home"
+                contentDescription = "Home",
             )
         }
         Text(
             text = appBarState.appBarTitle,
             fontSize = LocalMediumTextSize.current.textSize,
             color = Color.White,
-            modifier = Modifier.padding(LocalLargePadding.current.size).weight(1f)
+            modifier = Modifier.padding(LocalLargePadding.current.size).weight(1f),
         )
         Row(modifier = Modifier.padding(horizontal = LocalLargePadding.current.size)) {
             IconButton(onClick = {
@@ -145,16 +156,19 @@ fun AppBar(appViewModel: AppViewModel, appBarState: AppBarState) {
             }) {
                 Text(
                     if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN,
-                    color = Color.White
+                    color = Color.White,
                 )
             }
             IconButton(onClick = {
                 appViewModel.setIsDarkTheme(appViewModel.isDarkTheme.value != true)
             }) {
                 Icon(
-                    painter = painterResource(if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode),
+                    painter =
+                        painterResource(
+                            if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode,
+                        ),
                     contentDescription = if (appViewModel.isDarkTheme.value == true) "Switch to Light Theme" else "Switch to Dark Theme",
-                    tint = Color.White
+                    tint = Color.White,
                 )
             }
         }

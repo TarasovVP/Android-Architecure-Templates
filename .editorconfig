@@ -1,0 +1,13 @@
+root = true
+
+[*.{kt,kts}]
+ktlint_function_naming_ignore_when_annotated_with = Composable
+
+[**/build/generated/**/*]
+ktlint = disabled
+
+[**/secrets/**/*]
+ktlint = disabled
+
+[**/mobile/src/iosMain/**/*.kt]
+ktlint = disabled

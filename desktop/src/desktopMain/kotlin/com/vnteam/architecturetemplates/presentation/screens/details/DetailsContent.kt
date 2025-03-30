@@ -15,32 +15,33 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.vnteam.architecturetemplates.shared.TextToSpeechHelper
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
-import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
-import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
-import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
-import org.jetbrains.compose.resources.painterResource
-import org.koin.compose.koinInject
 import com.vnteam.architecturetemplates.presentation.components.AvatarImage
 import com.vnteam.architecturetemplates.presentation.components.HeaderText
 import com.vnteam.architecturetemplates.presentation.components.PrimaryText
 import com.vnteam.architecturetemplates.presentation.components.SecondaryText
+import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
+import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.resources.Res
 import com.vnteam.architecturetemplates.resources.ic_voice
+import com.vnteam.architecturetemplates.shared.TextToSpeechHelper
 import com.vnteam.architecturetemplates.shared.textWithNoDataHandling
+import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
 
 @Composable
 fun DetailsContent(viewState: DetailsViewState) {
     Box {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(LocalDefaultPadding.current.size),
-            verticalArrangement = Arrangement.Top
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(LocalDefaultPadding.current.size),
+            verticalArrangement = Arrangement.Top,
         ) {
             HeaderText(LocalStringResources.current.DEMO_OBJECT)
             Row {
@@ -51,9 +52,12 @@ fun DetailsContent(viewState: DetailsViewState) {
                 SecondaryText(LocalStringResources.current.DESCRIPTION)
                 PrimaryText(viewState.demoObjectUI?.description.textWithNoDataHandling())
             }
-            Row(modifier = Modifier.padding(top = LocalMediumPadding.current.size).clickable {
-                //shareLink(viewState.demoObject?.htmlUrl.orEmpty())
-            }) {
+            Row(
+                modifier =
+                    Modifier.padding(top = LocalMediumPadding.current.size).clickable {
+                        // shareLink(viewState.demoObject?.htmlUrl.orEmpty())
+                    },
+            ) {
                 SecondaryText(LocalStringResources.current.URL)
                 PrimaryText(viewState.demoObjectUI?.htmlUrl.textWithNoDataHandling())
             }
@@ -65,15 +69,15 @@ fun DetailsContent(viewState: DetailsViewState) {
 
 @Composable
 fun OwnerCard(ownerUI: OwnerUI?) {
-    //TODO improve text to speech
+    // TODO improve text to speech
     val textToSpeechHelper = koinInject<TextToSpeechHelper>()
     Card(modifier = Modifier.padding(top = LocalMediumPadding.current.size).fillMaxSize()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(LocalMediumPadding.current.size)
+            modifier = Modifier.padding(LocalMediumPadding.current.size),
         ) {
             AvatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
-            Column(modifier = Modifier.padding(start = LocalDefaultPadding.current.size, bottom = LocalMediumPadding.current.size))  {
+            Column(modifier = Modifier.padding(start = LocalDefaultPadding.current.size, bottom = LocalMediumPadding.current.size)) {
                 PrimaryText(ownerUI?.login.textWithNoDataHandling())
                 SecondaryText(ownerUI?.url.textWithNoDataHandling())
             }

@@ -1,7 +1,6 @@
 package com.vnteam.architecturetemplates.domain.mappers
 
 interface BaseMapper<From, To> {
-
     fun mapToImplModel(from: From): To
 
     fun mapFromImplModel(to: To): From

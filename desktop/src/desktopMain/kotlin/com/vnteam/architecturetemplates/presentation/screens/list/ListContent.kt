@@ -16,19 +16,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.vnteam.architecturetemplates.presentation.states.ListViewState
-import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.presentation.components.AvatarImage
+import com.vnteam.architecturetemplates.presentation.components.ConfirmationDialog
+import com.vnteam.architecturetemplates.presentation.components.RefreshableLazyList
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
-import com.vnteam.architecturetemplates.presentation.components.AvatarImage
-import com.vnteam.architecturetemplates.presentation.components.ConfirmationDialog
-import com.vnteam.architecturetemplates.presentation.components.RefreshableLazyList
+import com.vnteam.architecturetemplates.presentation.states.ListViewState
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 
 @Composable
-fun ListContent(viewState: ListViewState, onItemClick: (DemoObjectUI, String) -> Unit) {
+fun ListContent(
+    viewState: ListViewState,
+    onItemClick: (DemoObjectUI, String) -> Unit,
+) {
     Box {
         RefreshableLazyList(viewState.demoObjectUIs.isNullOrEmpty(), content = {
             items(viewState.demoObjectUIs.orEmpty()) { item ->
@@ -41,21 +44,33 @@ fun ListContent(viewState: ListViewState, onItemClick: (DemoObjectUI, String) ->
             showDialog = viewState.isConfirmationDialogVisible,
             title = LocalStringResources.current.DELETE,
             onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), "delete") },
-            onDismiss = { viewState.isConfirmationDialogVisible.value = false })
+            onDismiss = { viewState.isConfirmationDialogVisible.value = false },
+        )
     }
 }
 
 @Composable
-fun DemoObjectItem(item: DemoObjectUI, onItemClick: (DemoObjectUI, String) -> Unit) {
+fun DemoObjectItem(
+    item: DemoObjectUI,
+    onItemClick: (DemoObjectUI, String) -> Unit,
+) {
     Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, "details") }) {
-        Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(LocalSmallPadding.current.size)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(LocalSmallPadding.current.size),
+        ) {
             AvatarImage(resId = item.owner?.avatarUrl.orEmpty(), avatarSize = LocalMediumAvatarSize.current.size)
-            Text(text = item.name.orEmpty(), modifier = Modifier
-                .padding(LocalMediumPadding.current.size).weight(1f))
+            Text(
+                text = item.name.orEmpty(),
+                modifier =
+                    Modifier
+                        .padding(LocalMediumPadding.current.size).weight(1f),
+            )
             IconButton(onClick = { onItemClick(item, "confirm_delete") }) {
-                Icon( modifier = Modifier
-                    .size(LocalSmallAvatarSize.current.size),
+                Icon(
+                    modifier =
+                        Modifier
+                            .size(LocalSmallAvatarSize.current.size),
                     imageVector = Icons.Filled.Delete,
                     contentDescription = LocalStringResources.current.DELETE,
                 )

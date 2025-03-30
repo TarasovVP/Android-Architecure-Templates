@@ -2,18 +2,24 @@ package com.vnteam.architecturetemplates.presentation
 
 import kotlinx.browser.document
 import kotlinx.browser.window
-import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLButtonElement
+import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLParagraphElement
 import org.w3c.dom.HTMLTextAreaElement
 
 fun shareLink(url: String) {
-    showShareDialog(url,
+    showShareDialog(
+        url,
         onOpen = { openUrl(url) },
-        onCopy = { copyToClipboard(url) })
+        onCopy = { copyToClipboard(url) },
+    )
 }
 
-private fun showShareDialog(url: String, onOpen: () -> Unit = {}, onCopy: () -> Unit = {}) {
+private fun showShareDialog(
+    url: String,
+    onOpen: () -> Unit = {},
+    onCopy: () -> Unit = {},
+) {
     val modalDiv = document.createElement("div") as HTMLDivElement
     modalDiv.style.position = "fixed"
     modalDiv.style.left = "50%"
