@@ -25,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UnexpectedActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
     </application>
 
 </manifest>

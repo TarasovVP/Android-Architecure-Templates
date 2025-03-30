@@ -11,12 +11,15 @@ import okio.Path.Companion.toPath
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class PreferencesFactory : Preferences {
+    private val dataStore =
+        PreferenceDataStoreFactory.createWithPath(
+            produceFile = { PREFERENCES_PB.toPath() },
+        )
 
-    private val dataStore = PreferenceDataStoreFactory.createWithPath(
-        produceFile = { PREFERENCES_PB.toPath() }
-    )
-
-    actual override suspend fun putString(key: String, value: String) {
+    actual override suspend fun putString(
+        key: String,
+        value: String,
+    ) {
         val preferencesKey = stringPreferencesKey(key)
         dataStore.edit { preferences ->
             preferences[preferencesKey] = value
@@ -30,7 +33,10 @@ actual class PreferencesFactory : Preferences {
         }
     }
 
-    actual override suspend fun putBoolean(key: String, value: Boolean) {
+    actual override suspend fun putBoolean(
+        key: String,
+        value: Boolean,
+    ) {
         val preferencesKey = booleanPreferencesKey(key)
         dataStore.edit { preferences ->
             preferences[preferencesKey] = value

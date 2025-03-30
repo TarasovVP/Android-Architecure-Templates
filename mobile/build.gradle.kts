@@ -54,7 +54,6 @@ kotlin {
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-
             //Compose
             implementation(compose.material3)
             implementation(libs.androidx.activity.compose)

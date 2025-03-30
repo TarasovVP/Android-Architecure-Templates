@@ -14,17 +14,18 @@ object DrawableResources {
     const val IC_AVATAR_9 = "ic_avatar_9"
     const val IC_AVATAR_10 = "ic_avatar_10"
 
-    val avatarList = listOf(
-        IC_AVATAR_DEFAULT,
-        IC_AVATAR_1,
-        IC_AVATAR_2,
-        IC_AVATAR_3,
-        IC_AVATAR_4,
-        IC_AVATAR_5,
-        IC_AVATAR_6,
-        IC_AVATAR_7,
-        IC_AVATAR_8,
-        IC_AVATAR_9,
-        IC_AVATAR_10
-    )
+    val avatarList =
+        listOf(
+            IC_AVATAR_DEFAULT,
+            IC_AVATAR_1,
+            IC_AVATAR_2,
+            IC_AVATAR_3,
+            IC_AVATAR_4,
+            IC_AVATAR_5,
+            IC_AVATAR_6,
+            IC_AVATAR_7,
+            IC_AVATAR_8,
+            IC_AVATAR_9,
+            IC_AVATAR_10,
+        )
 }

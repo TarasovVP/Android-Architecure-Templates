@@ -10,9 +10,8 @@ import kotlinx.coroutines.launch
 
 class AppViewModel(
     private val isDarkThemeUseCaseImpl: IsDarkThemeUseCase,
-    private val languageUseCaseImpl: LanguageUseCase
+    private val languageUseCaseImpl: LanguageUseCase,
 ) : BaseViewModel() {
-
     private val _isDarkTheme = MutableStateFlow<Boolean?>(null)
     val isDarkTheme: StateFlow<Boolean?> = _isDarkTheme.asStateFlow()
 

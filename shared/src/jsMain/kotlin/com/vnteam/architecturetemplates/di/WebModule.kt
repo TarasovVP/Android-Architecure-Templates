@@ -6,14 +6,15 @@ import com.vnteam.architecturetemplates.data.local.PreferencesFactory
 import com.vnteam.architecturetemplates.shared.TextToSpeechHelper
 import org.koin.dsl.module
 
-val webModule = module {
-    single {
-        DatabaseDriverFactory()
+val webModule =
+    module {
+        single {
+            DatabaseDriverFactory()
+        }
+        single<Preferences> {
+            PreferencesFactory()
+        }
+        single {
+            TextToSpeechHelper()
+        }
     }
-    single<Preferences> {
-        PreferencesFactory()
-    }
-    single {
-        TextToSpeechHelper()
-    }
-}

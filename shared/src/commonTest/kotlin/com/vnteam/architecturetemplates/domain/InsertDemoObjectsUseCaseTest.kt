@@ -14,18 +14,19 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class InsertDemoObjectsUseCaseTest : BaseKoinTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<DBRepository> { FakeDBRepository() }
-        }
+        get() =
+            module {
+                single<DBRepository> { FakeDBRepository() }
+            }
 
     private val insertDemoObjects by inject<InsertDemoObjectsUseCase>()
     private val repository by injectAs<DBRepository, FakeDBRepository>()
 
     @Test
-    fun testInsertDemoObjectsToDB() = runTest {
-        insertDemoObjects.execute(fakeDemoObjects)
-        assertTrue(repository.isInsertDemoObjectsToDBCalled)
-    }
+    fun testInsertDemoObjectsToDB() =
+        runTest {
+            insertDemoObjects.execute(fakeDemoObjects)
+            assertTrue(repository.isInsertDemoObjectsToDBCalled)
+        }
 }

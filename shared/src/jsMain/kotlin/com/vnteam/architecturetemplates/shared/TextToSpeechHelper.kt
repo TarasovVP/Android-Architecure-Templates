@@ -8,9 +8,10 @@ actual class TextToSpeechHelper {
     private var utterance: SpeechSynthesisUtterance? = null
 
     actual fun speak(text: String) {
-        utterance = SpeechSynthesisUtterance(text).also {
-            speechSynthesis.speak(it)
-        }
+        utterance =
+            SpeechSynthesisUtterance(text).also {
+                speechSynthesis.speak(it)
+            }
     }
 
     actual fun stop() {

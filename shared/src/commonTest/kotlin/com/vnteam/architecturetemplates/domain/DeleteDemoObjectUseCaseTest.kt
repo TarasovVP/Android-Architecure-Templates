@@ -14,18 +14,19 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class DeleteDemoObjectUseCaseTest : BaseKoinTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<DBRepository> { FakeDBRepository() }
-        }
+        get() =
+            module {
+                single<DBRepository> { FakeDBRepository() }
+            }
 
     private val deleteDemoObjectUseCase by inject<DeleteDemoObjectUseCase>()
     private val repository by injectAs<DBRepository, FakeDBRepository>()
 
     @Test
-    fun testDeleteDemoObject() = runTest {
-        deleteDemoObjectUseCase.execute(fakeDemoObject.demoObjectId.orEmpty())
-        assertTrue(repository.isDeleteDemoObjectByIdCalled)
-    }
+    fun testDeleteDemoObject() =
+        runTest {
+            deleteDemoObjectUseCase.execute(fakeDemoObject.demoObjectId.orEmpty())
+            assertTrue(repository.isDeleteDemoObjectByIdCalled)
+        }
 }

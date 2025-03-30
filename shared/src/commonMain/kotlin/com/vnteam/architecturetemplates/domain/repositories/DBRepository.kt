@@ -4,7 +4,6 @@ import com.vnteam.architecturetemplates.domain.models.DemoObject
 import kotlinx.coroutines.flow.Flow
 
 interface DBRepository {
-
     suspend fun clearDemoObjects()
 
     suspend fun insertDemoObjectsToDB(demoObjects: List<DemoObject>)

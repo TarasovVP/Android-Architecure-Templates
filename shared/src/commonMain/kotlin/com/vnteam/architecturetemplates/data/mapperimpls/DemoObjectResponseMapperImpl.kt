@@ -9,14 +9,13 @@ import com.vnteam.architecturetemplates.domain.models.Owner
 
 class DemoObjectResponseMapperImpl(private val ownerResponseMapper: OwnerResponseMapper) :
     DemoObjectResponseMapper {
-
     override fun mapToImplModel(from: DemoObject): DemoObjectResponse {
         return DemoObjectResponse(
             demoObjectId = from.demoObjectId,
             name = from.name,
             owner = ownerResponseMapper.mapToImplModel(from.owner ?: Owner()),
             htmlUrl = from.htmlUrl,
-            description = from.description
+            description = from.description,
         )
     }
 
@@ -26,7 +25,7 @@ class DemoObjectResponseMapperImpl(private val ownerResponseMapper: OwnerRespons
             name = to.name,
             owner = ownerResponseMapper.mapFromImplModel(to.owner ?: OwnerResponse()),
             htmlUrl = to.htmlUrl,
-            description = to.description
+            description = to.description,
         )
     }
 

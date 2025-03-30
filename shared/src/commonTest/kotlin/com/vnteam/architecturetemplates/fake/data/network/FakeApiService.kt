@@ -6,7 +6,6 @@ import com.vnteam.architecturetemplates.data.network.responses.DemoObjectRespons
 import com.vnteam.architecturetemplates.fake.domain.models.fakeException
 
 class FakeApiService : ApiService {
-
     var demoObjectsResponse: List<DemoObjectResponse>? = null
     var isSuccessful = true
 
@@ -37,9 +36,10 @@ class FakeApiService : ApiService {
 
     override suspend fun deleteDemoObjectById(id: String): NetworkResult<Unit> {
         return if (isSuccessful) {
-            demoObjectsResponse = demoObjectsResponse?.toMutableList()?.apply {
-                removeAll { it.demoObjectId == id }
-            }
+            demoObjectsResponse =
+                demoObjectsResponse?.toMutableList()?.apply {
+                    removeAll { it.demoObjectId == id }
+                }
             NetworkResult.Success(Unit)
         } else {
             NetworkResult.Failure(fakeException.message)

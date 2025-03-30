@@ -14,7 +14,6 @@ import secrets.Properties
 class ApiServiceImpl(
     private val httpClient: HttpClient,
 ) : ApiService {
-
     override suspend fun insertDemoObjectsToApi(demoObjects: List<DemoObjectResponse>): NetworkResult<Unit> {
         return httpClient.safeRequest<Unit> {
             httpClient.post("${Properties.CLOUD_URL}$DEMO_OBJECTS_API") {

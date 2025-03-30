@@ -6,9 +6,9 @@ import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 
 class DemoObjectDBMapperImpl : DemoObjectDBMapper {
-
     override fun mapToImplModel(from: DemoObject): DemoObjectWithOwner {
-        return DemoObjectWithOwner(id = 0,
+        return DemoObjectWithOwner(
+            id = 0,
             demoObjectId = from.demoObjectId.orEmpty(),
             name = from.name,
             ownerId = from.owner?.ownerId,
@@ -16,18 +16,24 @@ class DemoObjectDBMapperImpl : DemoObjectDBMapper {
             avatarUrl = from.owner?.avatarUrl,
             htmlUrl = from.htmlUrl,
             description = from.description,
-            url = from.owner?.url)
+            url = from.owner?.url,
+        )
     }
 
     override fun mapFromImplModel(to: DemoObjectWithOwner): DemoObject {
-        return DemoObject(demoObjectId = to.demoObjectId,
-        name = to.name,
-        owner = Owner(ownerId = to.ownerId,
-            login = to.login,
-            avatarUrl = to.avatarUrl,
-            url = to.url),
-        htmlUrl = to.htmlUrl,
-        description = to.description)
+        return DemoObject(
+            demoObjectId = to.demoObjectId,
+            name = to.name,
+            owner =
+                Owner(
+                    ownerId = to.ownerId,
+                    login = to.login,
+                    avatarUrl = to.avatarUrl,
+                    url = to.url,
+                ),
+            htmlUrl = to.htmlUrl,
+            description = to.description,
+        )
     }
 
     override fun mapToImplModelList(fromList: List<DemoObject>): List<DemoObjectWithOwner> {

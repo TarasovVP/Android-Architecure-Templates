@@ -8,7 +8,6 @@ import org.w3c.dom.StorageEvent
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class PreferencesFactory : Preferences {
-
     private val localStorage: Storage = window.localStorage
 
     private val stringFlows = mutableMapOf<String, MutableStateFlow<String?>>()
@@ -26,7 +25,10 @@ actual class PreferencesFactory : Preferences {
         })
     }
 
-    actual override suspend fun putString(key: String, value: String) {
+    actual override suspend fun putString(
+        key: String,
+        value: String,
+    ) {
         localStorage.setItem(key, value)
         stringFlows[key]?.value = value
     }
@@ -36,7 +38,10 @@ actual class PreferencesFactory : Preferences {
         return flow
     }
 
-    actual override suspend fun putBoolean(key: String, value: Boolean) {
+    actual override suspend fun putBoolean(
+        key: String,
+        value: Boolean,
+    ) {
         localStorage.setItem(key, value.toString())
         booleanFlows[key]?.value = value
     }

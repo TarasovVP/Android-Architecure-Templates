@@ -5,7 +5,6 @@ import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.fake.domain.models.fakeException
 
 class FakeApiRepository : ApiRepository {
-
     var isSuccessResult = true
     var isInsertDemoObjectsToApiCalled = false
     var isDeleteDemoObjectByIdCalled = false

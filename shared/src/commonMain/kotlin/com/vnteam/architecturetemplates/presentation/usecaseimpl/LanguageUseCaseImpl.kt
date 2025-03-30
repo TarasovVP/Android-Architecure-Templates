@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 class LanguageUseCaseImpl(private val preferencesRepository: PreferencesRepository) :
     LanguageUseCase {
-
     override fun get(): Flow<String?> {
         return preferencesRepository.getLanguage()
     }

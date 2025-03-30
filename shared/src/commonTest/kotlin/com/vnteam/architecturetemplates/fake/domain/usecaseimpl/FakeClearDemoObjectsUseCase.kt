@@ -4,7 +4,6 @@ import com.vnteam.architecturetemplates.domain.usecase.ClearDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.models.fakeException
 
 class FakeClearDemoObjectsUseCase : ClearDemoObjectUseCase {
-
     var isExecuteCalled = false
     var isSuccessful = true
 

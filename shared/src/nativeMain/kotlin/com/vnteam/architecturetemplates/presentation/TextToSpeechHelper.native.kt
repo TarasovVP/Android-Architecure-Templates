@@ -8,7 +8,7 @@ import platform.AVFAudio.AVSpeechUtterance
 import platform.NaturalLanguage.NLLanguageRecognizer
 import platform.darwin.NSObject
 
-class TextToSpeechInstance : NSObject(), AVSpeechSynthesizerDelegateProtocol {
+class TextToSpeechHelper : NSObject(), AVSpeechSynthesizerDelegateProtocol {
     private var synthesizer: AVSpeechSynthesizer = AVSpeechSynthesizer()
     private var isSpeaking = false
     private var isPaused = false
@@ -20,13 +20,13 @@ class TextToSpeechInstance : NSObject(), AVSpeechSynthesizerDelegateProtocol {
     override fun speechSynthesizer(
         synthesizer: AVSpeechSynthesizer,
         @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-        didFinishSpeechUtterance: AVSpeechUtterance
+        didFinishSpeechUtterance: AVSpeechUtterance,
     ) {
         isSpeaking = false
     }
 
     fun speak(text: String) {
-        if(!isSpeaking && isPaused) {
+        if (!isSpeaking && isPaused) {
             continueSpeaking()
         }
 

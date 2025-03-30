@@ -5,9 +5,8 @@ import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseCase
 
 class GetDemoObjectsFromApiUseCaseImpl(
-    private val apiRepository: ApiRepository
+    private val apiRepository: ApiRepository,
 ) : GetDemoObjectsFromApiUseCase {
-
     override suspend fun execute(params: Nothing?): List<DemoObject> {
         return apiRepository.getDemoObjectsFromApi().orEmpty()
     }

@@ -9,12 +9,10 @@ import kotlinx.coroutines.flow.map
 
 class DBRepositoryImpl(
     private val demoObjectDao: DemoObjectDao,
-    private val demoObjectDBMapper: DemoObjectDBMapper
+    private val demoObjectDBMapper: DemoObjectDBMapper,
 ) : DBRepository {
-
     override suspend fun clearDemoObjects() {
         demoObjectDao.clearDemoObjects()
-
     }
 
     override suspend fun insertDemoObjectsToDB(demoObjects: List<DemoObject>) {
@@ -26,7 +24,6 @@ class DBRepositoryImpl(
         demoObjectDao.getDemoObjectWithOwners().map { demoObjectWithOwners ->
             demoObjectDBMapper.mapFromImplModelList(demoObjectWithOwners)
         }
-
 
     override fun getDemoObjectById(demoObjectId: String): Flow<DemoObject?> =
         demoObjectDao.getDemoObjectById(demoObjectId).map { demoObjectWithOwner ->

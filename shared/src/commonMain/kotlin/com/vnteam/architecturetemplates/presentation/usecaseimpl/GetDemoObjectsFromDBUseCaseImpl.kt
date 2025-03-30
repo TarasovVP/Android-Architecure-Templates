@@ -6,9 +6,8 @@ import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCa
 import kotlinx.coroutines.flow.Flow
 
 class GetDemoObjectsFromDBUseCaseImpl(
-    private val dbRepository: DBRepository
+    private val dbRepository: DBRepository,
 ) : GetDemoObjectsFromDBUseCase {
-
     override suspend fun execute(params: Nothing?): Flow<List<DemoObject>?> {
         return dbRepository.getDemoObjectsFromDB()
     }

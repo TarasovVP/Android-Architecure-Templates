@@ -25,7 +25,7 @@ sealed class StringResources(
     val NO_DATA: String,
     val CHANGE_AVATAR: String,
     val SPEAK: String,
-    val PAGE_NOT_FOUND: String
+    val PAGE_NOT_FOUND: String,
 )
 
 class StringResourcesEN : StringResources(
@@ -49,7 +49,7 @@ class StringResourcesEN : StringResources(
     NO_DATA = "N/A",
     CHANGE_AVATAR = "Change avatar",
     SPEAK = "Speak",
-    PAGE_NOT_FOUND = "Page not found"
+    PAGE_NOT_FOUND = "Page not found",
 )
 
 class StringResourcesUK : StringResources(
@@ -73,12 +73,13 @@ class StringResourcesUK : StringResources(
     NO_DATA = "Немає даних",
     CHANGE_AVATAR = "Змінити аватар",
     SPEAK = "Проговорити",
-    PAGE_NOT_FOUND = "Сторінку не знайдено"
+    PAGE_NOT_FOUND = "Сторінку не знайдено",
 )
 
-val LocalStringResources: ProvidableCompositionLocal<StringResources> = staticCompositionLocalOf {
-    error("No StringResources provided")
-}
+val LocalStringResources: ProvidableCompositionLocal<StringResources> =
+    staticCompositionLocalOf {
+        error("No StringResources provided")
+    }
 
 fun getStringResourcesByLocale(locale: String): StringResources {
     return when (locale) {

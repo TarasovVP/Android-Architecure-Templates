@@ -17,31 +17,33 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class GetDemoObjectUseCaseTest : BaseKoinTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<ApiRepository> { FakeApiRepository() }
-            single<DBRepository> { FakeDBRepository() }
-        }
+        get() =
+            module {
+                single<ApiRepository> { FakeApiRepository() }
+                single<DBRepository> { FakeDBRepository() }
+            }
 
     private val getDemoObjectUseCase by inject<GetDemoObjectUseCase>()
     private val apiRepository by injectAs<ApiRepository, FakeApiRepository>()
     private val dbRepository by injectAs<DBRepository, FakeDBRepository>()
 
     @Test
-    fun testGetDemoObject() = runTest {
-        dbRepository.demoObject = fakeDemoObject
-        val result =
-            getDemoObjectUseCase.execute("1")
-        assertEquals(fakeDemoObject, result)
-    }
+    fun testGetDemoObject() =
+        runTest {
+            dbRepository.demoObject = fakeDemoObject
+            val result =
+                getDemoObjectUseCase.execute("1")
+            assertEquals(fakeDemoObject, result)
+        }
 
     @Test
-    fun testGetDemoObjectIfDBNull() = runTest {
-        dbRepository.demoObject = null
-        apiRepository.demoObject = fakeDemoObject2
-        val result =
-            getDemoObjectUseCase.execute("2")
-        assertEquals(fakeDemoObject2, result)
-    }
+    fun testGetDemoObjectIfDBNull() =
+        runTest {
+            dbRepository.demoObject = null
+            apiRepository.demoObject = fakeDemoObject2
+            val result =
+                getDemoObjectUseCase.execute("2")
+            assertEquals(fakeDemoObject2, result)
+        }
 }

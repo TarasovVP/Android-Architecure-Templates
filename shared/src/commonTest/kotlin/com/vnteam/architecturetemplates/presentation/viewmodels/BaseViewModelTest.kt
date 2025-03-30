@@ -13,7 +13,6 @@ import kotlin.test.BeforeTest
 
 @OptIn(ExperimentalCoroutinesApi::class)
 open class BaseViewModelTest : BaseKoinTest() {
-
     override val overrideModule: Module = module { }
 
     @BeforeTest
