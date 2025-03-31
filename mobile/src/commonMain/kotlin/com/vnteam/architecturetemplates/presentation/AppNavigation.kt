@@ -96,12 +96,19 @@ fun AppNavigation(
                     },
                 ),
         ) { backStackEntry ->
-            val demoObjectId = backStackEntry.arguments?.getString("demoObjectId").takeIf { it?.isNotEmpty() == true && it != "-1" } ?: ""
+            val demoObjectId =
+                backStackEntry.arguments?.getString("demoObjectId")
+                    .takeIf { it?.isNotEmpty() == true && it != "-1" } ?: ""
             screenState.value =
                 screenState.value.copy(
                     appBarState =
                         screenState.value.appBarState.copy(
-                            appBarTitle = if (demoObjectId.isNotEmpty()) LocalStringResources.current.EDIT else LocalStringResources.current.CREATE,
+                            appBarTitle =
+                                if (demoObjectId.isNotEmpty()) {
+                                    LocalStringResources.current.EDIT
+                                } else {
+                                    LocalStringResources.current.CREATE
+                                },
                             topAppBarActionVisible = true,
                             topAppBarAction = {
                                 navController.navigateUp()

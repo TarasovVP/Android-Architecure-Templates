@@ -1,4 +1,4 @@
-package com.example.lint
+package com.kmp.ktlint
 
 import com.android.SdkConstants.ANDROID_URI
 import com.android.tools.lint.detector.api.Category

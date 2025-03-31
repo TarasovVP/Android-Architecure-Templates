@@ -1,4 +1,4 @@
-package com.example.lint
+package com.kmp.ktlint
 
 import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.detector.api.Issue

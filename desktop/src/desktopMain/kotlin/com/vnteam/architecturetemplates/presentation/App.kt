@@ -66,7 +66,10 @@ fun ScaffoldContent(appViewModel: AppViewModel) {
                 message = screenState.value.appMessageState.messageText,
                 duration = SnackbarDuration.Short,
             )
-            screenState.value = screenState.value.copy(appMessageState = screenState.value.appMessageState.copy(messageVisible = false))
+            screenState.value =
+                screenState.value.copy(
+                    appMessageState = screenState.value.appMessageState.copy(messageVisible = false),
+                )
         }
     }
     Scaffold(
@@ -94,7 +97,10 @@ fun ScaffoldContent(appViewModel: AppViewModel) {
                         IconButton(onClick = {
                             appViewModel.setLanguage(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN)
                         }) {
-                            Text(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN, color = Color.White)
+                            Text(
+                                if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN,
+                                color = Color.White,
+                            )
                         }
                         IconButton(onClick = {
                             appViewModel.setIsDarkTheme(appViewModel.isDarkTheme.value != true)
@@ -102,7 +108,11 @@ fun ScaffoldContent(appViewModel: AppViewModel) {
                             Icon(
                                 painter =
                                     painterResource(
-                                        if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode,
+                                        if (appViewModel.isDarkTheme.value == true) {
+                                            Res.drawable.ic_light_mode
+                                        } else {
+                                            Res.drawable.ic_dark_mode
+                                        },
                                     ),
                                 contentDescription = if (appViewModel.isDarkTheme.value == true) "Switch to Light Theme" else "Switch to Dark Theme",
                                 tint = Color.White,
@@ -128,7 +138,11 @@ fun ScaffoldContent(appViewModel: AppViewModel) {
                     content = { Text(screenState.value.floatingActionState.floatingActionButtonTitle) },
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = Color.White,
-                    modifier = Modifier.padding(horizontal = 48.dp, vertical = LocalSmallPadding.current.size),
+                    modifier =
+                        Modifier.padding(
+                            horizontal = 48.dp,
+                            vertical = LocalSmallPadding.current.size,
+                        ),
                 )
             }
         },
