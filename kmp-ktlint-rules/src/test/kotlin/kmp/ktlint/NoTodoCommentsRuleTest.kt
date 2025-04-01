@@ -2,7 +2,7 @@ package kmp.ktlint
 
 import com.github.shyiko.ktlint.core.LintError
 import com.github.shyiko.ktlint.test.lint
-import com.kmp.ktlint.NoTodoCommentsRule
+import com.kmp.ktlint.rules.NoTodoCommentsRule
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 
@@ -16,10 +16,11 @@ class NoTodoCommentsRuleTest {
         """.trimIndent()
 
         val expectedErrors = listOf(
-            LintError(26, 1, "no-todo-comments", "TODO comments are not allowed."),
-            LintError(52, 1, "no-todo-comments", "TODO comments are not allowed.")
+            LintError(2, 1, "no-todo-comments", "TODO comments are not allowed."),
+            LintError(3, 1, "no-todo-comments", "TODO comments are not allowed.")
         )
         val actualErrors = NoTodoCommentsRule().lint(code)
+
         assertContentEquals(expectedErrors, actualErrors)
     }
 }
