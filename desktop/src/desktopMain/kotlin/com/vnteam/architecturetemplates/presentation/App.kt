@@ -77,10 +77,10 @@ fun ScaffoldContent(appViewModel: AppViewModel) {
             TopAppBar(
                 title = { Text(screenState.value.appBarState.appBarTitle) },
                 colors =
-                TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = Color.White,
-                ),
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        titleContentColor = Color.White,
+                    ),
                 navigationIcon = {
                     if (screenState.value.appBarState.topAppBarActionVisible) {
                         IconButton(onClick = screenState.value.appBarState.topAppBarAction) {
@@ -107,18 +107,19 @@ fun ScaffoldContent(appViewModel: AppViewModel) {
                         }) {
                             Icon(
                                 painter =
-                                painterResource(
+                                    painterResource(
+                                        if (appViewModel.isDarkTheme.value == true) {
+                                            Res.drawable.ic_light_mode
+                                        } else {
+                                            Res.drawable.ic_dark_mode
+                                        },
+                                    ),
+                                contentDescription =
                                     if (appViewModel.isDarkTheme.value == true) {
-                                        Res.drawable.ic_light_mode
+                                        "Switch to Light Theme"
                                     } else {
-                                        Res.drawable.ic_dark_mode
+                                        "Switch to Dark Theme"
                                     },
-                                ),
-                                contentDescription = if (appViewModel.isDarkTheme.value == true) {
-                                    "Switch to Light Theme"
-                                } else {
-                                    "Switch to Dark Theme"
-                                },
                                 tint = Color.White,
                             )
                         }
@@ -143,10 +144,10 @@ fun ScaffoldContent(appViewModel: AppViewModel) {
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = Color.White,
                     modifier =
-                    Modifier.padding(
-                        horizontal = 48.dp,
-                        vertical = LocalSmallPadding.current.size,
-                    ),
+                        Modifier.padding(
+                            horizontal = 48.dp,
+                            vertical = LocalSmallPadding.current.size,
+                        ),
                 )
             }
         },
