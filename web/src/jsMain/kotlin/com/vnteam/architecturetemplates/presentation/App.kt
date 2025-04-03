@@ -36,7 +36,10 @@ import com.vnteam.architecturetemplates.presentation.resources.getStringResource
 import com.vnteam.architecturetemplates.presentation.states.screen.AppBarState
 import com.vnteam.architecturetemplates.presentation.theme.AppTheme
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
-import com.vnteam.architecturetemplates.resources.*
+import com.vnteam.architecturetemplates.resources.Res
+import com.vnteam.architecturetemplates.resources.android_architecture_template
+import com.vnteam.architecturetemplates.resources.ic_dark_mode
+import com.vnteam.architecturetemplates.resources.ic_light_mode
 import isMainScreen
 import kotlinx.browser.window
 import kotlinx.coroutines.delay

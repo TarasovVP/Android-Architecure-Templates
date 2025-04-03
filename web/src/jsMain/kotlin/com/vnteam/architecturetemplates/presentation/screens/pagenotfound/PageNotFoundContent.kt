@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.presentation.screens.page_not_found
+package com.vnteam.architecturetemplates.presentation.screens.pagenotfound
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

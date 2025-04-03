@@ -1,6 +1,6 @@
 package com.vnteam.architecturetemplates.http
 
-import com.vnteam.architecturetemplates.demo_object_service.DemoObjectService
+import com.vnteam.architecturetemplates.demoobjectservice.DemoObjectService
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
 import com.vnteam.architecturetemplates.domain.responses.DemoObjectResponse
 import io.ktor.http.HttpStatusCode

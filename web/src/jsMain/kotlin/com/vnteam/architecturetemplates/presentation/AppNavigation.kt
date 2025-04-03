@@ -13,7 +13,7 @@ import com.vnteam.architecturetemplates.presentation.screens.details.DetailsCont
 import com.vnteam.architecturetemplates.presentation.screens.details.DetailsScreen
 import com.vnteam.architecturetemplates.presentation.screens.list.ListContent
 import com.vnteam.architecturetemplates.presentation.screens.list.ListScreen
-import com.vnteam.architecturetemplates.presentation.screens.page_not_found.PageNotFound
+import com.vnteam.architecturetemplates.presentation.screens.pagenotfound.PageNotFound
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.shared.NavigationScreens
 import kotlinx.browser.window

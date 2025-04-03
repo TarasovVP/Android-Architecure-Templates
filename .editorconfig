@@ -9,5 +9,8 @@ ktlint = disabled
 [**/secrets/**/*]
 ktlint = disabled
 
-[**/mobile/src/iosMain/**/*.kt]
+[**/com/kmp/ktlint/rules/**/*.kt]
+ktlint = disabled
+
+[**/src/iosMain/**/MainViewController.kt]
 ktlint = disabled

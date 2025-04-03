@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.demo_object_service
+package com.vnteam.architecturetemplates.demoobjectservice
 
 import com.vnteam.architecturetemplates.ServerDatabaseQueries
 import com.vnteam.architecturetemplates.domain.models.DemoObject
