@@ -7,6 +7,7 @@ import com.vnteam.architecturetemplates.presentation.App
 import com.vnteam.architecturetemplates.shared.Constants.APP_NAME
 import org.koin.compose.koinInject
 import secrets.Properties.CLOUD_URL
+// TODO check ktlint ruleset
 
 fun main() {
     doInitKoin()
