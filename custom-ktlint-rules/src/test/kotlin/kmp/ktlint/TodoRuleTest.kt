@@ -1,9 +1,8 @@
 package kmp.ktlint
 
-import com.kmp.ktlint.rules.TodoRule
-import com.pinterest.ktlint.core.LintError
+import com.pinterest.ktlint.rule.engine.api.LintError
+import com.pinterest.ktlint.rule.engine.core.api.RuleId
 import kotlin.test.Test
-import kotlin.test.assertContentEquals
 
 class TodoRuleTest {
     @Test
@@ -16,8 +15,8 @@ class TodoRuleTest {
             """.trimIndent()
         val expectedErrors =
             listOf(
-                LintError(2, 1, "no-todo-comments", "TODO comments are not allowed."),
-                LintError(3, 1, "no-todo-comments", "TODO comments are not allowed."),
+                LintError(2, 1, RuleId("no-todo-comments"), "TODO comments are not allowed.", true),
+                LintError(3, 1, RuleId("no-todo-comments"), "TODO comments are not allowed.", true),
             )
         /*val actualErrors = TodoRule()
             .lint(code)
