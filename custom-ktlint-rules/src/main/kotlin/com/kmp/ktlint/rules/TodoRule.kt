@@ -5,7 +5,7 @@ import com.pinterest.ktlint.rule.engine.core.api.Rule
 import com.pinterest.ktlint.rule.engine.core.api.RuleId
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
-class TodoRule : Rule(RuleId("custom:todo-rule"), About()) {
+class TodoRule : Rule(RuleId(Constants.TODO_RULE_ID), About()) {
     override fun beforeVisitChildNodes(
         node: ASTNode,
         autoCorrect: Boolean,
@@ -13,10 +13,10 @@ class TodoRule : Rule(RuleId("custom:todo-rule"), About()) {
     ) {
         if (node.elementType == ElementType.EOL_COMMENT) {
             val text = node.text
-            if (text.contains("TODO")) {
+            if (text.contains(Constants.TODO, ignoreCase = true)) {
                 emit(
                     node.startOffset,
-                    "Found a TODO comment. Please remove or fix it.",
+                    Constants.TODO_RULE_DESCRIPTION,
                     false
                 )
             }

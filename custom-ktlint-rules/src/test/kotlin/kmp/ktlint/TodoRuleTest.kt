@@ -1,27 +1,22 @@
 package kmp.ktlint
 
-import com.pinterest.ktlint.rule.engine.api.LintError
-import com.pinterest.ktlint.rule.engine.core.api.RuleId
+import com.kmp.ktlint.rules.Constants
+import com.kmp.ktlint.rules.TodoRule
+import com.pinterest.ktlint.test.KtLintAssertThat.Companion.assertThatRule
 import kotlin.test.Test
 
 class TodoRuleTest {
-    @Test
-    fun shouldReportErrorForTodoComments() {
-        val code =
-            """
-            // This is a regular comment
-            // TODO: fix the error
-            /* TODO: remove unused code */
-            """.trimIndent()
-        val expectedErrors =
-            listOf(
-                LintError(2, 1, RuleId("no-todo-comments"), "TODO comments are not allowed.", true),
-                LintError(3, 1, RuleId("no-todo-comments"), "TODO comments are not allowed.", true),
-            )
-        /*val actualErrors = TodoRule()
-            .lint(code)
-            .map { LintError(it.line, it.col, it.ruleId, it.detail) }
 
-        assertContentEquals(expectedErrors, actualErrors)*/
+    private val wrappingRuleAssertThat = assertThatRule { TodoRule() }
+
+    @Test
+    fun `should report error when TODO is present in an end-of-line comment`() {
+        val code = """
+            // This is a regular comment
+            // TODO: fix the issue
+            val x = 42
+        """.trimIndent()
+        wrappingRuleAssertThat(code)
+            .hasLintViolationWithoutAutoCorrect(2, 1, Constants.TODO_RULE_DESCRIPTION)
     }
 }

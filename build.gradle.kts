@@ -18,6 +18,5 @@ subprojects {
     }
     dependencies {
         add("ktlint", project(":custom-ktlint-rules"))
-        //ktlint(projects.customKtlintRules)
     }
 }
