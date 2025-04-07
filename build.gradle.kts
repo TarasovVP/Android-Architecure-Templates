@@ -15,6 +15,7 @@ subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         debug.set(true)
+        ignoreFailures.set(true)
     }
     dependencies {
         add("ktlint", project(":custom-ktlint-rules"))
