@@ -11,22 +11,25 @@ import kotlinx.coroutines.launch
 
 class DetailsViewModel(
     private val getDemoObjectUseCase: GetDemoObjectUseCase,
-    private val demoObjectUIMapper: DemoObjectUIMapper
+    private val demoObjectUIMapper: DemoObjectUIMapper,
 ) : BaseViewModel() {
-
     private val _state = MutableStateFlow(DetailsViewState())
     val state = _state.asStateFlow()
 
     fun processIntent(intent: DetailsIntent) {
         when (intent) {
-            is DetailsIntent.LoadDemoObject -> getDemoObjectById(
-                intent.demoObjectId,
-                intent.isUpdated
-            )
+            is DetailsIntent.LoadDemoObject ->
+                getDemoObjectById(
+                    intent.demoObjectId,
+                    intent.isUpdated,
+                )
         }
     }
 
-    private fun getDemoObjectById(demoObjectId: String?, isUpdated: Boolean) {
+    private fun getDemoObjectById(
+        demoObjectId: String?,
+        isUpdated: Boolean,
+    ) {
         showProgress(true)
         if (isUpdated) {
             _state.value = _state.value.copy(demoObjectUI = null)
@@ -34,9 +37,13 @@ class DetailsViewModel(
         viewModelScope.launch(exceptionHandler) {
             val demoObject = getDemoObjectUseCase.execute(demoObjectId.orEmpty())
             showProgress(false)
-            _state.value = _state.value.copy(demoObjectUI = demoObject?.let {
-                demoObjectUIMapper.mapToImplModel(it)
-            })
+            _state.value =
+                _state.value.copy(
+                    demoObjectUI =
+                        demoObject?.let {
+                            demoObjectUIMapper.mapToImplModel(it)
+                        },
+                )
         }
     }
 }

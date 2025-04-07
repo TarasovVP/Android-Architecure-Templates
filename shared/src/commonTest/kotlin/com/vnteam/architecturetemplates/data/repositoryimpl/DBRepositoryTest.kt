@@ -19,51 +19,56 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class DBRepositoryTest : BaseKoinTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<DemoObjectDao> { FakeDemoObjectDao() }
-        }
+        get() =
+            module {
+                single<DemoObjectDao> { FakeDemoObjectDao() }
+            }
 
     private val repository by inject<DBRepository>()
     private val demoObjectDao by injectAs<DemoObjectDao, FakeDemoObjectDao>()
 
     @Test
-    fun clearDemoObjects() = runTest {
-        repository.insertDemoObjectsToDB(fakeDemoObjects)
-        assertFalse(demoObjectDao.demoObjects.isEmpty())
-        repository.clearDemoObjects()
-        assertTrue(demoObjectDao.demoObjects.isEmpty())
-    }
+    fun clearDemoObjects() =
+        runTest {
+            repository.insertDemoObjectsToDB(fakeDemoObjects)
+            assertFalse(demoObjectDao.demoObjects.isEmpty())
+            repository.clearDemoObjects()
+            assertTrue(demoObjectDao.demoObjects.isEmpty())
+        }
 
     @Test
-    fun testInsertDemoObjectsToDB() = runTest {
-        val fakeDemoObjects = fakeDemoObjects
-        repository.insertDemoObjectsToDB(fakeDemoObjects)
-        assertEquals(fakeDemoObjectsWithOwner, demoObjectDao.demoObjects)
-    }
+    fun testInsertDemoObjectsToDB() =
+        runTest {
+            val fakeDemoObjects = fakeDemoObjects
+            repository.insertDemoObjectsToDB(fakeDemoObjects)
+            assertEquals(fakeDemoObjectsWithOwner, demoObjectDao.demoObjects)
+        }
 
     @Test
-    fun testGetDemoObjectsFromDB() = runTest {
-        repository.insertDemoObjectsToDB(fakeDemoObjects)
-        val result = repository.getDemoObjectsFromDB().firstOrNull()
-        assertEquals(fakeDemoObjects, result)
-    }
+    fun testGetDemoObjectsFromDB() =
+        runTest {
+            repository.insertDemoObjectsToDB(fakeDemoObjects)
+            val result = repository.getDemoObjectsFromDB().firstOrNull()
+            assertEquals(fakeDemoObjects, result)
+        }
 
     @Test
-    fun testGetDemoObjectById() = runTest {
-        repository.insertDemoObjectsToDB(fakeDemoObjects)
-        val result =
-            repository.getDemoObjectById(fakeDemoObject.demoObjectId.orEmpty()).firstOrNull()
-        assertEquals(fakeDemoObject, result)
-    }
+    fun testGetDemoObjectById() =
+        runTest {
+            repository.insertDemoObjectsToDB(fakeDemoObjects)
+            val result =
+                repository.getDemoObjectById(fakeDemoObject.demoObjectId.orEmpty()).firstOrNull()
+            assertEquals(fakeDemoObject, result)
+        }
 
     @Test
-    fun testDeleteDemoObjectById() = runTest {
-        repository.insertDemoObjectsToDB(fakeDemoObjects)
-        assertFalse(demoObjectDao.demoObjects.isEmpty())
-        val demoObjectToDelete = fakeDemoObjects.first()
-        repository.deleteDemoObjectById(demoObjectToDelete.demoObjectId.orEmpty())
-        assertTrue(demoObjectDao.demoObjects.none { it.demoObjectId == demoObjectToDelete.demoObjectId })
-    }
+    fun testDeleteDemoObjectById() =
+        runTest {
+            repository.insertDemoObjectsToDB(fakeDemoObjects)
+            assertFalse(demoObjectDao.demoObjects.isEmpty())
+            val demoObjectToDelete = fakeDemoObjects.first()
+            repository.deleteDemoObjectById(demoObjectToDelete.demoObjectId.orEmpty())
+            assertTrue(demoObjectDao.demoObjects.none { it.demoObjectId == demoObjectToDelete.demoObjectId })
+        }
 }

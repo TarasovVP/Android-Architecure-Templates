@@ -1,7 +1,7 @@
 import androidx.compose.ui.window.ComposeUIViewController
+import com.vnteam.architecturetemplates.presentation.App
 import org.koin.compose.koinInject
 import platform.UIKit.UIViewController
-import com.vnteam.architecturetemplates.presentation.App
 
 fun MainViewController(): UIViewController {
     return ComposeUIViewController {

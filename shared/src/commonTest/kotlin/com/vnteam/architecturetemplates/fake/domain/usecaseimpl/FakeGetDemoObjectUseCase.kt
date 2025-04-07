@@ -5,7 +5,6 @@ import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectUseCase
 import com.vnteam.architecturetemplates.fake.domain.models.fakeException
 
 class FakeGetDemoObjectUseCase : GetDemoObjectUseCase {
-
     var demoObject: DemoObject? = null
     var isSuccessful = true
 

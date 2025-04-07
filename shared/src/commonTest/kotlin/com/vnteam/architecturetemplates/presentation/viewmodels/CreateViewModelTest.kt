@@ -25,13 +25,13 @@ import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CreateViewModelTest : BaseViewModelTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<GetDemoObjectUseCase> { FakeGetDemoObjectUseCase() }
-            single<InsertDemoObjectsUseCase> { FakeInsertDemoObjectsUseCase() }
-            single<CreateDemoObjectUseCase> { FakeCreateDemoObjectUseCase() }
-        }
+        get() =
+            module {
+                single<GetDemoObjectUseCase> { FakeGetDemoObjectUseCase() }
+                single<InsertDemoObjectsUseCase> { FakeInsertDemoObjectsUseCase() }
+                single<CreateDemoObjectUseCase> { FakeCreateDemoObjectUseCase() }
+            }
 
     private val createViewModel by inject<CreateViewModel>()
 
@@ -40,57 +40,61 @@ class CreateViewModelTest : BaseViewModelTest() {
     private val fakeCreateDemoObjectUseCase by injectAs<CreateDemoObjectUseCase, FakeCreateDemoObjectUseCase>()
 
     @Test
-    fun testLoadDemoObject() = runTest {
-        fakeGetDemoObjectUseCase.demoObject = fakeDemoObject
+    fun testLoadDemoObject() =
+        runTest {
+            fakeGetDemoObjectUseCase.demoObject = fakeDemoObject
 
-        createViewModel.processIntent(CreateIntent.LoadDemoObject(fakeDemoObject.demoObjectId.orEmpty()))
-        runCurrent()
+            createViewModel.processIntent(CreateIntent.LoadDemoObject(fakeDemoObject.demoObjectId.orEmpty()))
+            runCurrent()
 
-        val currentState = createViewModel.state.first()
-        val uiObject = currentState.demoObject.value
-        assertEquals(fakeDemoObjectUI, uiObject)
-        assertFalse(currentState.successResult)
-    }
-
-    @Test
-    fun testLoadDemoObjectException() = runTest {
-        fakeGetDemoObjectUseCase.isSuccessful = false
-
-        createViewModel.processIntent(CreateIntent.LoadDemoObject(fakeDemoObject.demoObjectId.orEmpty()))
-        runCurrent()
-        assertEquals(
-            fakeException.message,
-            createViewModel.screenState.value.appMessageState.messageText
-        )
-    }
+            val currentState = createViewModel.state.first()
+            val uiObject = currentState.demoObject.value
+            assertEquals(fakeDemoObjectUI, uiObject)
+            assertFalse(currentState.successResult)
+        }
 
     @Test
-    fun testCreateDemoObject() = runTest {
-        createViewModel.processIntent(CreateIntent.CreateDemoObject(fakeDemoObjectUI))
-        runCurrent()
+    fun testLoadDemoObjectException() =
+        runTest {
+            fakeGetDemoObjectUseCase.isSuccessful = false
 
-        assertEquals(
-            fakeCreateDemoObjectUseCase.demoObject,
-            fakeDemoObject
-        )
-        assertEquals(
-            fakeInsertDemoObjectsUseCase.demoObjects,
-            listOf(fakeDemoObject)
-        )
-
-        val currentState = createViewModel.state.first()
-        assertTrue(currentState.successResult)
-    }
+            createViewModel.processIntent(CreateIntent.LoadDemoObject(fakeDemoObject.demoObjectId.orEmpty()))
+            runCurrent()
+            assertEquals(
+                fakeException.message,
+                createViewModel.screenState.value.appMessageState.messageText,
+            )
+        }
 
     @Test
-    fun testCreateDemoObjectException() = runTest {
-        fakeCreateDemoObjectUseCase.isSuccessful = false
+    fun testCreateDemoObject() =
+        runTest {
+            createViewModel.processIntent(CreateIntent.CreateDemoObject(fakeDemoObjectUI))
+            runCurrent()
 
-        createViewModel.processIntent(CreateIntent.CreateDemoObject(fakeDemoObjectUI))
-        runCurrent()
-        assertEquals(
-            fakeException.message,
-            createViewModel.screenState.value.appMessageState.messageText
-        )
-    }
+            assertEquals(
+                fakeCreateDemoObjectUseCase.demoObject,
+                fakeDemoObject,
+            )
+            assertEquals(
+                fakeInsertDemoObjectsUseCase.demoObjects,
+                listOf(fakeDemoObject),
+            )
+
+            val currentState = createViewModel.state.first()
+            assertTrue(currentState.successResult)
+        }
+
+    @Test
+    fun testCreateDemoObjectException() =
+        runTest {
+            fakeCreateDemoObjectUseCase.isSuccessful = false
+
+            createViewModel.processIntent(CreateIntent.CreateDemoObject(fakeDemoObjectUI))
+            runCurrent()
+            assertEquals(
+                fakeException.message,
+                createViewModel.screenState.value.appMessageState.messageText,
+            )
+        }
 }

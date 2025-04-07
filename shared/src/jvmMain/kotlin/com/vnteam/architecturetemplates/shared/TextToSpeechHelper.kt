@@ -13,13 +13,14 @@ actual class TextToSpeechHelper {
         voiceManager.voices.forEach {
             println(it.name)
         }
-        voice = voiceManager.getVoice("kevin16").apply {
-            if (this != null) {
-                allocate()
-            } else {
-                println("Voice not found")
+        voice =
+            voiceManager.getVoice("kevin16").apply {
+                if (this != null) {
+                    allocate()
+                } else {
+                    println("Voice not found")
+                }
             }
-        }
     }
 
     actual fun speak(text: String) {

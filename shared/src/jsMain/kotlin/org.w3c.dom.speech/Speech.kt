@@ -12,7 +12,9 @@ external class SpeechSynthesisUtterance(text: String) : EventTarget {
 
 external class SpeechSynthesis : EventTarget {
     fun speak(utterance: SpeechSynthesisUtterance)
+
     fun cancel()
+
     val pending: Boolean
     val speaking: Boolean
     val paused: Boolean

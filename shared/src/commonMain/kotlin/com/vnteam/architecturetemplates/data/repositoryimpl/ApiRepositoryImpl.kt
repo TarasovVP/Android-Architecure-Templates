@@ -8,15 +8,14 @@ import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 
 class ApiRepositoryImpl(
     private val apiService: ApiService,
-    private val demoObjectResponseMapper: DemoObjectResponseMapper
+    private val demoObjectResponseMapper: DemoObjectResponseMapper,
 ) : ApiRepository {
-
     override suspend fun getDemoObjectsFromApi(): List<DemoObject> {
         when (val response = apiService.getDemoObjectsFromApi()) {
             is NetworkResult.Success -> {
                 return response.data?.map {
                     demoObjectResponseMapper.mapFromImplModel(
-                        it
+                        it,
                     )
                 }.orEmpty()
             }
@@ -29,9 +28,10 @@ class ApiRepositoryImpl(
     }
 
     override suspend fun insertDemoObjectsToApi(demoObjects: List<DemoObject>?) {
-        val result = apiService.insertDemoObjectsToApi(
-            demoObjectResponseMapper.mapToImplModelList(demoObjects.orEmpty())
-        )
+        val result =
+            apiService.insertDemoObjectsToApi(
+                demoObjectResponseMapper.mapToImplModelList(demoObjects.orEmpty()),
+            )
         if (result is NetworkResult.Failure) {
             println(result.errorMessage)
             throw Exception(result.errorMessage)

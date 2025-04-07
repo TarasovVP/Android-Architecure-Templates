@@ -5,7 +5,6 @@ import java.io.File
 import java.util.Properties
 
 class SecretsGenerator(private val project: Project, private val extension: SecretsPluginExtension) {
-
     fun generateSecrets(): File {
         val propertiesFile = findPropertiesFile()
         val properties = loadProperties(propertiesFile)
@@ -44,7 +43,10 @@ class SecretsGenerator(private val project: Project, private val extension: Secr
         }
     }
 
-    private fun generateSecretsContent(configDir: File, properties: Properties): String {
+    private fun generateSecretsContent(
+        configDir: File,
+        properties: Properties,
+    ): String {
         val packagePath = configDir.relativeTo(File(extension.outputDir))
         val packageName = packagePath.toString().replace("/", ".").replace("\\", ".")
 

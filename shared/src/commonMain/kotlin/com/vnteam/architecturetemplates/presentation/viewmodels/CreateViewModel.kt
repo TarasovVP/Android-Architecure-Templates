@@ -19,9 +19,8 @@ class CreateViewModel(
     private val getDemoObjectUseCase: GetDemoObjectUseCase,
     private val insertDemoObjectsUseCase: InsertDemoObjectsUseCase,
     private val createDemoObjectUseCase: CreateDemoObjectUseCase,
-    private val demoObjectUIMapper: DemoObjectUIMapper
+    private val demoObjectUIMapper: DemoObjectUIMapper,
 ) : BaseViewModel() {
-
     private val _state = MutableStateFlow(CreateViewState())
     val state: StateFlow<CreateViewState> = _state.asStateFlow()
 
@@ -37,19 +36,25 @@ class CreateViewModel(
         viewModelScope.launch(exceptionHandler) {
             val demoObject = getDemoObjectUseCase.execute(demoObjectId.orEmpty())
             showProgress(false)
-            _state.value = _state.value.copy(
-                demoObject = mutableStateOf(demoObject?.let {
-                    demoObjectUIMapper.mapToImplModel(it)
-                })
-            )
+            _state.value =
+                _state.value.copy(
+                    demoObject =
+                        mutableStateOf(
+                            demoObject?.let {
+                                demoObjectUIMapper.mapToImplModel(it)
+                            },
+                        ),
+                )
         }
     }
 
     private fun createDemoObject(demoObject: DemoObjectUI?) {
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            createDemoObjectUseCase.execute(demoObject?.let { demoObjectUIMapper.mapFromImplModel(it) }
-                ?: DemoObject())
+            createDemoObjectUseCase.execute(
+                demoObject?.let { demoObjectUIMapper.mapFromImplModel(it) }
+                    ?: DemoObject(),
+            )
             insertDemoObjectToDB(demoObject)
         }
     }
@@ -57,11 +62,15 @@ class CreateViewModel(
     private fun insertDemoObjectToDB(demoObject: DemoObjectUI?) {
         showProgress(true)
         viewModelScope.launch(exceptionHandler) {
-            insertDemoObjectsUseCase.execute(listOf(demoObject?.let {
-                demoObjectUIMapper.mapFromImplModel(
-                    it
-                )
-            } ?: DemoObject()))
+            insertDemoObjectsUseCase.execute(
+                listOf(
+                    demoObject?.let {
+                        demoObjectUIMapper.mapFromImplModel(
+                            it,
+                        )
+                    } ?: DemoObject(),
+                ),
+            )
             showProgress(false)
             showMessage("Successfully created", false)
             _state.value = state.value.copy(successResult = true)

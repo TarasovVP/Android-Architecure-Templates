@@ -19,37 +19,41 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.vnteam.architecturetemplates.shared.NavigationScreens
-import com.vnteam.architecturetemplates.shared.TextToSpeechHelper
 import com.vnteam.architecturetemplates.presentation.components.AvatarImage
 import com.vnteam.architecturetemplates.presentation.components.HeaderText
 import com.vnteam.architecturetemplates.presentation.components.PrimaryText
 import com.vnteam.architecturetemplates.presentation.components.SecondaryText
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.presentation.shareLink
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
+import com.vnteam.architecturetemplates.shared.NavigationScreens
+import com.vnteam.architecturetemplates.shared.TextToSpeechHelper
+import com.vnteam.architecturetemplates.shared.textWithNoDataHandling
 import kotlinx.browser.window
 import navigateTo
 import org.koin.compose.koinInject
-import com.vnteam.architecturetemplates.presentation.shareLink
-import com.vnteam.architecturetemplates.shared.textWithNoDataHandling
 
 @Composable
-fun DetailsContent(viewState: DetailsViewState, screenState: MutableState<ScreenState>) {
+fun DetailsContent(
+    viewState: DetailsViewState,
+    screenState: MutableState<ScreenState>,
+) {
     DetailsScreenStateContent(screenState, viewState.demoObjectUI)
     Box {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(LocalDefaultPadding.current.size),
-            verticalArrangement = Arrangement.Top
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(LocalDefaultPadding.current.size),
+            verticalArrangement = Arrangement.Top,
         ) {
             HeaderText(LocalStringResources.current.DEMO_OBJECT)
             Row {
@@ -60,9 +64,12 @@ fun DetailsContent(viewState: DetailsViewState, screenState: MutableState<Screen
                 SecondaryText(LocalStringResources.current.DESCRIPTION)
                 PrimaryText(viewState.demoObjectUI?.description.textWithNoDataHandling())
             }
-            Row(modifier = Modifier.padding(top = LocalMediumPadding.current.size).clickable {
-                shareLink(viewState.demoObjectUI?.htmlUrl.orEmpty())
-            }) {
+            Row(
+                modifier =
+                    Modifier.padding(top = LocalMediumPadding.current.size).clickable {
+                        shareLink(viewState.demoObjectUI?.htmlUrl.orEmpty())
+                    },
+            ) {
                 SecondaryText(LocalStringResources.current.URL)
                 PrimaryText(viewState.demoObjectUI?.htmlUrl.textWithNoDataHandling())
             }
@@ -73,38 +80,48 @@ fun DetailsContent(viewState: DetailsViewState, screenState: MutableState<Screen
 }
 
 @Composable
-fun DetailsScreenStateContent(screenState: MutableState<ScreenState>, demoObject: DemoObjectUI?) {
-    screenState.value = screenState.value.copy(
-        appBarState = screenState.value.appBarState.copy(
-            appBarTitle = demoObject?.name.orEmpty()
-        ),
-        floatingActionState = screenState.value.floatingActionState.copy(
-            floatingActionButtonVisible = true,
-            floatingActionButtonTitle = LocalStringResources.current.EDIT,
-            floatingActionButtonAction = {
-                window.navigateTo("${NavigationScreens.EditScreen.route}${demoObject?.demoObjectId}")
-            }
+fun DetailsScreenStateContent(
+    screenState: MutableState<ScreenState>,
+    demoObject: DemoObjectUI?,
+) {
+    screenState.value =
+        screenState.value.copy(
+            appBarState =
+                screenState.value.appBarState.copy(
+                    appBarTitle = demoObject?.name.orEmpty(),
+                ),
+            floatingActionState =
+                screenState.value.floatingActionState.copy(
+                    floatingActionButtonVisible = true,
+                    floatingActionButtonTitle = LocalStringResources.current.EDIT,
+                    floatingActionButtonAction = {
+                        window.navigateTo("${NavigationScreens.EditScreen.route}${demoObject?.demoObjectId}")
+                    },
+                ),
         )
-    )
 }
 
 @Composable
 fun OwnerCard(ownerUI: OwnerUI?) {
-    //TODO improve text to speech
+    // TODO improve text to speech
     val textToSpeechHelper = koinInject<TextToSpeechHelper>()
     Card(modifier = Modifier.padding(top = LocalMediumPadding.current.size).fillMaxSize()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(LocalMediumPadding.current.size)
+            modifier = Modifier.padding(LocalMediumPadding.current.size),
         ) {
             AvatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
-            Column(modifier = Modifier.padding(start = LocalDefaultPadding.current.size, bottom = LocalMediumPadding.current.size))  {
+            Column(modifier = Modifier.padding(start = LocalDefaultPadding.current.size, bottom = LocalMediumPadding.current.size)) {
                 PrimaryText(ownerUI?.login.textWithNoDataHandling())
                 SecondaryText(ownerUI?.url.textWithNoDataHandling())
             }
-            IconButton(onClick = { textToSpeechHelper.speak("Owner name: ${ownerUI?.login.orEmpty()} Owner url: ${ownerUI?.url.orEmpty()}") }) {
-                Icon( modifier = Modifier
-                    .size(LocalMediumAvatarSize.current.size),
+            IconButton(
+                onClick = { textToSpeechHelper.speak("Owner name: ${ownerUI?.login.orEmpty()} Owner url: ${ownerUI?.url.orEmpty()}") },
+            ) {
+                Icon(
+                    modifier =
+                        Modifier
+                            .size(LocalMediumAvatarSize.current.size),
                     imageVector = Icons.Filled.Info,
                     contentDescription = LocalStringResources.current.SPEAK,
                 )

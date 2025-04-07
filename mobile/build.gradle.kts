@@ -23,7 +23,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
             freeCompilerArgs += "-Xbinary=bundleId=com.vnteam.architecturetemplates.mobile"
@@ -39,23 +39,21 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.components.resources)
             implementation(libs.androidx.viewmodel.compose)
-            //Koin
+            // Koin
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
-            //Coil
+            // Coil
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
-            //Navigation
+            // Navigation
             implementation(libs.navigation.compose)
-
         }
         androidMain.dependencies {
             implementation(libs.androidx.multidex)
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-
-            //Compose
+            // Compose
             implementation(compose.material3)
             implementation(libs.androidx.activity.compose)
             implementation(libs.material.ripple)
@@ -90,7 +88,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }

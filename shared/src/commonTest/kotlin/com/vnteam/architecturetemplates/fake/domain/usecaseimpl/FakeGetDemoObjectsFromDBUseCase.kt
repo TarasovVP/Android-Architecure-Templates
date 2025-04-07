@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class FakeGetDemoObjectsFromDBUseCase : GetDemoObjectsFromDBUseCase {
-
     var demoObjects: List<DemoObject>? = null
     var isSuccessful = true
 

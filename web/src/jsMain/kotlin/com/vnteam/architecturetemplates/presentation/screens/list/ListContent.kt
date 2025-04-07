@@ -18,18 +18,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.vnteam.architecturetemplates.shared.NavigationScreens
 import com.vnteam.architecturetemplates.presentation.components.AvatarImage
 import com.vnteam.architecturetemplates.presentation.components.ConfirmationDialog
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
-import com.vnteam.architecturetemplates.presentation.states.ListViewState
-import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.shared.NavigationScreens
 import kotlinx.browser.window
 import navigateTo
 
@@ -37,7 +37,7 @@ import navigateTo
 fun ListContent(
     viewState: ListViewState,
     screenState: MutableState<ScreenState>,
-    onItemClick: (DemoObjectUI, String) -> Unit
+    onItemClick: (DemoObjectUI, String) -> Unit,
 ) {
     ListScreenStateContent(screenState)
     Box {
@@ -50,37 +50,52 @@ fun ListContent(
             showDialog = viewState.isConfirmationDialogVisible,
             title = LocalStringResources.current.DELETE,
             onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), "delete") },
-            onDismiss = { viewState.isConfirmationDialogVisible.value = false })
+            onDismiss = { viewState.isConfirmationDialogVisible.value = false },
+        )
     }
 }
 
 @Composable
 fun ListScreenStateContent(screenState: MutableState<ScreenState>) {
-    screenState.value = screenState.value.copy(
-        appBarState = screenState.value.appBarState.copy(
-            appBarTitle = LocalStringResources.current.APP_NAME
-        ),
-        floatingActionState = screenState.value.floatingActionState.copy(
-            floatingActionButtonVisible = true,
-            floatingActionButtonTitle = LocalStringResources.current.ADD,
-            floatingActionButtonAction = {
-                window.navigateTo(NavigationScreens.CreateScreen.route)
-            }
+    screenState.value =
+        screenState.value.copy(
+            appBarState =
+                screenState.value.appBarState.copy(
+                    appBarTitle = LocalStringResources.current.APP_NAME,
+                ),
+            floatingActionState =
+                screenState.value.floatingActionState.copy(
+                    floatingActionButtonVisible = true,
+                    floatingActionButtonTitle = LocalStringResources.current.ADD,
+                    floatingActionButtonAction = {
+                        window.navigateTo(NavigationScreens.CreateScreen.route)
+                    },
+                ),
         )
-    )
 }
 
 @Composable
-fun DemoObjectItem(item: DemoObjectUI, onItemClick: (DemoObjectUI, String) -> Unit) {
+fun DemoObjectItem(
+    item: DemoObjectUI,
+    onItemClick: (DemoObjectUI, String) -> Unit,
+) {
     Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, "details") }) {
-        Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(LocalSmallPadding.current.size)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(LocalSmallPadding.current.size),
+        ) {
             AvatarImage(resId = item.owner?.avatarUrl.orEmpty(), avatarSize = LocalMediumAvatarSize.current.size)
-            Text(text = item.name.orEmpty(), modifier = Modifier
-                .padding(LocalMediumPadding.current.size).weight(1f))
+            Text(
+                text = item.name.orEmpty(),
+                modifier =
+                    Modifier
+                        .padding(LocalMediumPadding.current.size).weight(1f),
+            )
             IconButton(onClick = { onItemClick(item, "confirm_delete") }) {
-                Icon( modifier = Modifier
-                    .size(LocalSmallAvatarSize.current.size),
+                Icon(
+                    modifier =
+                        Modifier
+                            .size(LocalSmallAvatarSize.current.size),
                     imageVector = Icons.Filled.Delete,
                     contentDescription = LocalStringResources.current.DELETE,
                 )

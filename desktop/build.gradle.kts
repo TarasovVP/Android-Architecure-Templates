@@ -27,13 +27,13 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.androidx.viewmodel.compose)
             implementation(libs.kotlinx.serialization)
-            //Koin
+            // Koin
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
-            //Coil
+            // Coil
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
-            //Navigation
+            // Navigation
             implementation(libs.navigation.compose)
             implementation(libs.koin.core)
             implementation(compose.desktop.currentOs)
@@ -52,4 +52,3 @@ compose.desktop {
         }
     }
 }
-

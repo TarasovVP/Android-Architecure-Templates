@@ -1,7 +1,6 @@
 package com.vnteam.architecturetemplates.di
 
 import com.vnteam.architecturetemplates.data.database.DemoObjectDao
-import com.vnteam.architecturetemplates.fake.data.database.FakeDemoObjectDao
 import com.vnteam.architecturetemplates.data.local.Preferences
 import com.vnteam.architecturetemplates.data.mapperimpls.DemoObjectDBMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.DemoObjectResponseMapperImpl
@@ -28,6 +27,7 @@ import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCa
 import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
 import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
 import com.vnteam.architecturetemplates.domain.usecase.LanguageUseCase
+import com.vnteam.architecturetemplates.fake.data.database.FakeDemoObjectDao
 import com.vnteam.architecturetemplates.fake.data.local.FakePreferencesFactory
 import com.vnteam.architecturetemplates.presentation.mapperimpls.DemoObjectUIMapperImpl
 import com.vnteam.architecturetemplates.presentation.mapperimpls.OwnerUIMapperImpl
@@ -55,77 +55,78 @@ import kotlinx.serialization.json.Json
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-val testModule = module(true) {
-    // Fakes
-    single<Preferences> { FakePreferencesFactory() }
+val testModule =
+    module(true) {
+        // Fakes
+        single<Preferences> { FakePreferencesFactory() }
 
-    single<DemoObjectDao> { FakeDemoObjectDao() }
+        single<DemoObjectDao> { FakeDemoObjectDao() }
 
-    // Api
-    single<ApiService> { ApiServiceImpl(get()) }
+        // Api
+        single<ApiService> { ApiServiceImpl(get()) }
 
-    single {
-        Json {
-            prettyPrint = true
-            isLenient = true
-            ignoreUnknownKeys = true
-        }
-    }
-    single {
-        HttpClient {
-            install(Logging) {
-                level = LogLevel.ALL
-                logger = Logger.DEFAULT
-            }
-            install(ContentNegotiation) {
-                json(get())
+        single {
+            Json {
+                prettyPrint = true
+                isLenient = true
+                ignoreUnknownKeys = true
             }
         }
+        single {
+            HttpClient {
+                install(Logging) {
+                    level = LogLevel.ALL
+                    logger = Logger.DEFAULT
+                }
+                install(ContentNegotiation) {
+                    json(get())
+                }
+            }
+        }
+
+        // Mappers
+        single<OwnerResponseMapper> { OwnerResponseMapperImpl() }
+
+        single<DemoObjectResponseMapper> { DemoObjectResponseMapperImpl(get()) }
+
+        single<DemoObjectDBMapper> { DemoObjectDBMapperImpl() }
+
+        single<OwnerUIMapper> { OwnerUIMapperImpl() }
+
+        single<DemoObjectUIMapper> { DemoObjectUIMapperImpl(get()) }
+
+        // Repositories
+        single<ApiRepository> { ApiRepositoryImpl(get(), get()) }
+
+        single<DBRepository> { DBRepositoryImpl(get(), get()) }
+
+        single<PreferencesRepository> { PreferencesRepositoryImpl(get()) }
+
+        // UseCases
+        single<ClearDemoObjectUseCase> { ClearDemoObjectsUseCaseImpl(get()) }
+
+        single<CreateDemoObjectUseCase> { CreateDemoObjectUseCaseImpl(get()) }
+
+        single<DeleteDemoObjectUseCase> { DeleteDemoObjectUseCaseImpl(get()) }
+
+        single<GetDemoObjectsFromApiUseCase> { GetDemoObjectsFromApiUseCaseImpl(get()) }
+
+        single<GetDemoObjectsFromDBUseCase> { GetDemoObjectsFromDBUseCaseImpl(get()) }
+
+        single<GetDemoObjectUseCase> { GetDemoObjectUseCaseImpl(get(), get()) }
+
+        single<InsertDemoObjectsUseCase> { InsertDemoObjectsUseCaseImpl(get()) }
+
+        single<IsDarkThemeUseCase> { IsDarkThemeUseCaseImpl(get()) }
+
+        single<LanguageUseCase> { LanguageUseCaseImpl(get()) }
+
+        // ViewModels
+        viewModel { AppViewModel(get(), get()) }
+
+        viewModel { ListViewModel(get(), get(), get(), get(), get(), get()) }
+
+        viewModel { CreateViewModel(get(), get(), get(), get()) }
+
+        viewModel { DetailsViewModel(get(), get()) }
     }
-
-    // Mappers
-    single<OwnerResponseMapper> { OwnerResponseMapperImpl() }
-
-    single<DemoObjectResponseMapper> { DemoObjectResponseMapperImpl(get()) }
-
-    single<DemoObjectDBMapper> { DemoObjectDBMapperImpl() }
-
-    single<OwnerUIMapper> { OwnerUIMapperImpl() }
-
-    single<DemoObjectUIMapper> { DemoObjectUIMapperImpl(get()) }
-
-    // Repositories
-    single<ApiRepository> { ApiRepositoryImpl(get(), get()) }
-
-    single<DBRepository> { DBRepositoryImpl(get(), get()) }
-
-    single<PreferencesRepository> { PreferencesRepositoryImpl(get()) }
-
-    // UseCases
-    single<ClearDemoObjectUseCase> { ClearDemoObjectsUseCaseImpl(get()) }
-
-    single<CreateDemoObjectUseCase> { CreateDemoObjectUseCaseImpl(get()) }
-
-    single<DeleteDemoObjectUseCase> { DeleteDemoObjectUseCaseImpl(get()) }
-
-    single<GetDemoObjectsFromApiUseCase> { GetDemoObjectsFromApiUseCaseImpl(get()) }
-
-    single<GetDemoObjectsFromDBUseCase> { GetDemoObjectsFromDBUseCaseImpl(get()) }
-
-    single<GetDemoObjectUseCase> { GetDemoObjectUseCaseImpl(get(), get()) }
-
-    single<InsertDemoObjectsUseCase> { InsertDemoObjectsUseCaseImpl(get()) }
-
-    single<IsDarkThemeUseCase> { IsDarkThemeUseCaseImpl(get()) }
-
-    single<LanguageUseCase> { LanguageUseCaseImpl(get()) }
-
-    // ViewModels
-    viewModel { AppViewModel(get(), get()) }
-
-    viewModel { ListViewModel(get(), get(), get(), get(), get(), get()) }
-
-    viewModel { CreateViewModel(get(), get(), get(), get()) }
-
-    viewModel { DetailsViewModel(get(), get()) }
-}

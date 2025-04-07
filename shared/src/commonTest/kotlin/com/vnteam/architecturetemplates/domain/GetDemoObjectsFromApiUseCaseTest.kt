@@ -15,19 +15,20 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class GetDemoObjectsFromApiUseCaseTest : BaseKoinTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<ApiRepository> { FakeApiRepository() }
-        }
+        get() =
+            module {
+                single<ApiRepository> { FakeApiRepository() }
+            }
 
     private val getDemoObjectsUseCase by inject<GetDemoObjectsFromApiUseCase>()
     private val repository by injectAs<ApiRepository, FakeApiRepository>()
 
     @Test
-    fun testGetDemoObjectsFromApi() = runTest {
-        repository.demoObjects = fakeDemoObjects
-        val result = getDemoObjectsUseCase.execute()
-        assertEquals(fakeDemoObjects, result)
-    }
+    fun testGetDemoObjectsFromApi() =
+        runTest {
+            repository.demoObjects = fakeDemoObjects
+            val result = getDemoObjectsUseCase.execute()
+            assertEquals(fakeDemoObjects, result)
+        }
 }

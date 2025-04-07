@@ -14,18 +14,19 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class CreateDemoObjectUseCaseTest : BaseKoinTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<ApiRepository> { FakeApiRepository() }
-        }
+        get() =
+            module {
+                single<ApiRepository> { FakeApiRepository() }
+            }
 
     private val createDemoObjectUseCase by inject<CreateDemoObjectUseCase>()
     private val repository by injectAs<ApiRepository, FakeApiRepository>()
 
     @Test
-    fun testCreateDemoObject() = runTest {
-        createDemoObjectUseCase.execute(fakeDemoObject)
-        assertTrue(repository.isInsertDemoObjectsToApiCalled)
-    }
+    fun testCreateDemoObject() =
+        runTest {
+            createDemoObjectUseCase.execute(fakeDemoObject)
+            assertTrue(repository.isInsertDemoObjectsToApiCalled)
+        }
 }

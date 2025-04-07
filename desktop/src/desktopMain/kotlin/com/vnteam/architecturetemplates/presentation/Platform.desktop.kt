@@ -1,24 +1,25 @@
 package com.vnteam.architecturetemplates.presentation
 
+import java.awt.Desktop
 import java.awt.Toolkit
 import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.StringSelection
 import java.net.URI
 import javax.swing.JOptionPane
-import java.awt.Desktop
 
 fun shareLink(url: String) {
     val options = arrayOf("Open in Browser", "Copy to Clipboard", "Cancel")
-    val choice = JOptionPane.showOptionDialog(
-        null,
-        "Choose an action for the text:",
-        "Share Text",
-        JOptionPane.DEFAULT_OPTION,
-        JOptionPane.INFORMATION_MESSAGE,
-        null,
-        options,
-        options[0]
-    )
+    val choice =
+        JOptionPane.showOptionDialog(
+            null,
+            "Choose an action for the text:",
+            "Share Text",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.INFORMATION_MESSAGE,
+            null,
+            options,
+            options[0],
+        )
 
     when (choice) {
         0 -> openInBrowser(url)

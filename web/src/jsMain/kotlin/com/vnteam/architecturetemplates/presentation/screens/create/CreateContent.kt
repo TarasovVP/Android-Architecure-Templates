@@ -25,15 +25,14 @@ import com.vnteam.architecturetemplates.presentation.components.CommonTextField
 import com.vnteam.architecturetemplates.presentation.components.HeaderText
 import com.vnteam.architecturetemplates.presentation.components.PrimaryButton
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import kotlinx.browser.window
 import navigateUp
-
 
 @Composable
 fun CreateContent(
@@ -62,19 +61,19 @@ fun CreateContent(
         ownerUrlState.value = TextFieldValue(viewState.value.demoObject.value?.owner?.url.orEmpty())
     }
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(LocalDefaultPadding.current.size),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(LocalDefaultPadding.current.size),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         HeaderText(LocalStringResources.current.DEMO_OBJECT)
         CommonTextField(
             nameState,
             "${LocalStringResources.current.NAME}*",
-
-            ) { text ->
+        ) { text ->
             viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(name = text)
         }
         CommonTextField(
@@ -93,52 +92,63 @@ fun CreateContent(
         HeaderText(LocalStringResources.current.OWNER)
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.wrapContentSize().padding(20.dp).clickable {
-                viewState.value.isChangeAvatarDialogVisible.value = true
-            }) {
+            modifier =
+                Modifier.wrapContentSize().padding(20.dp).clickable {
+                    viewState.value.isChangeAvatarDialogVisible.value = true
+                },
+        ) {
             AvatarImage(
                 resId = viewState.value.demoObject.value?.owner?.avatarUrl.orEmpty(),
-                avatarSize = LocalLargeAvatarSize.current.size
+                avatarSize = LocalLargeAvatarSize.current.size,
             )
         }
         CommonTextField(
             ownerNameState,
             "${LocalStringResources.current.NAME}*",
         ) { text ->
-            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(
-                owner = viewState.value.demoObject.value?.owner?.copy(login = text)
-            )
+            viewState.value.demoObject.value =
+                viewState.value.demoObject.value?.copy(
+                    owner = viewState.value.demoObject.value?.owner?.copy(login = text),
+                )
         }
         CommonTextField(
             ownerUrlState,
             LocalStringResources.current.URL,
         ) { text ->
-            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(
-                owner = viewState.value.demoObject.value?.owner?.copy(url = text)
-            )
+            viewState.value.demoObject.value =
+                viewState.value.demoObject.value?.copy(
+                    owner = viewState.value.demoObject.value?.owner?.copy(url = text),
+                )
         }
         PrimaryButton(
             LocalStringResources.current.SUBMIT,
             originDemoObject.value != viewState.value.demoObject.value && viewState.value.demoObject.value?.isDemoObjectValid() == true,
             Modifier,
-            onClick = onClick
+            onClick = onClick,
         )
     }
     ChangeAvatarDialog(viewState)
 }
 
 @Composable
-fun CreateScreenStateContent(screenState: MutableState<ScreenState>, isCreate: Boolean) {
-    screenState.value = screenState.value.copy(
-        appBarState = screenState.value.appBarState.copy(
-            appBarTitle = if (isCreate) LocalStringResources.current.CREATE else LocalStringResources.current.EDIT,
-            topAppBarAction = {
-                window.navigateUp()
-            }
-        ),
-        floatingActionState = screenState.value.floatingActionState.copy(
-            floatingActionButtonVisible = false
-        ))
+fun CreateScreenStateContent(
+    screenState: MutableState<ScreenState>,
+    isCreate: Boolean,
+) {
+    screenState.value =
+        screenState.value.copy(
+            appBarState =
+                screenState.value.appBarState.copy(
+                    appBarTitle = if (isCreate) LocalStringResources.current.CREATE else LocalStringResources.current.EDIT,
+                    topAppBarAction = {
+                        window.navigateUp()
+                    },
+                ),
+            floatingActionState =
+                screenState.value.floatingActionState.copy(
+                    floatingActionButtonVisible = false,
+                ),
+        )
 }
 
 @Composable
@@ -152,9 +162,10 @@ fun ChangeAvatarDialog(viewState: State<CreateViewState>) {
         ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
             viewState.value.isChangeAvatarDialogVisible.value = false
         }, onClick = { avatar ->
-            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(
-                owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar)
-            )
+            viewState.value.demoObject.value =
+                viewState.value.demoObject.value?.copy(
+                    owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
+                )
             viewState.value.isChangeAvatarDialogVisible.value = false
         })
     }

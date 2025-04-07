@@ -62,18 +62,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.vnteam.architecturetemplates.resources.Res
-import com.vnteam.architecturetemplates.resources.android_architecture_template
-import com.vnteam.architecturetemplates.shared.drawableRes
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.theme.Neutral700
 import com.vnteam.architecturetemplates.presentation.theme.Primary400
 import com.vnteam.architecturetemplates.presentation.theme.Primary500
+import com.vnteam.architecturetemplates.resources.Res
+import com.vnteam.architecturetemplates.resources.android_architecture_template
+import com.vnteam.architecturetemplates.shared.drawableRes
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 
@@ -84,102 +84,105 @@ fun SplashScreen() {
     val maxSize = screenWidth.value * 0.7f
 
     val infiniteTransition = rememberInfiniteTransition()
-    val size = infiniteTransition.animateFloat(
-        initialValue = minSize.value,
-        targetValue = maxSize.value,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 700, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
+    val size =
+        infiniteTransition.animateFloat(
+            initialValue = minSize.value,
+            targetValue = maxSize.value,
+            animationSpec =
+                infiniteRepeatable(
+                    animation = tween(durationMillis = 700, easing = LinearEasing),
+                    repeatMode = RepeatMode.Reverse,
+                ),
         )
-    )
 
     val localDensity = LocalDensity.current
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .onSizeChanged { size ->
-                with(localDensity) {
-                    screenWidth.value = size.width.toDp()
-                }
-            },
-        contentAlignment = Alignment.Center
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .onSizeChanged { size ->
+                    with(localDensity) {
+                        screenWidth.value = size.width.toDp()
+                    }
+                },
+        contentAlignment = Alignment.Center,
     ) {
         Image(
             painter = painterResource(Res.drawable.android_architecture_template),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.size(size.value.dp).clip(RoundedCornerShape(16.dp))
+            modifier = Modifier.size(size.value.dp).clip(RoundedCornerShape(16.dp)),
         )
     }
 }
 
-
 @Composable
-fun HeaderText(
-    text: String,
-) {
+fun HeaderText(text: String) {
     Text(
         text = text,
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.headlineMedium,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                start = LocalSmallPadding.current.size,
-                end = LocalSmallPadding.current.size,
-                top = LocalMediumPadding.current.size
-            ),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(
+                    start = LocalSmallPadding.current.size,
+                    end = LocalSmallPadding.current.size,
+                    top = LocalMediumPadding.current.size,
+                ),
     )
 }
 
 @Composable
-fun PrimaryText(
-    text: String,
-) {
+fun PrimaryText(text: String) {
     Text(
         text = text,
         textAlign = TextAlign.Start,
         style = MaterialTheme.typography.bodyLarge,
-        modifier = Modifier
-            .wrapContentSize()
-            .padding(
-                start = LocalSmallPadding.current.size,
-                end = LocalSmallPadding.current.size,
-                top = LocalDefaultPadding.current.size
-            ),
+        modifier =
+            Modifier
+                .wrapContentSize()
+                .padding(
+                    start = LocalSmallPadding.current.size,
+                    end = LocalSmallPadding.current.size,
+                    top = LocalDefaultPadding.current.size,
+                ),
     )
 }
 
 @Composable
-fun SecondaryText(
-    text: String,
-) {
+fun SecondaryText(text: String) {
     Text(
         text = text,
         textAlign = TextAlign.Start,
         style = MaterialTheme.typography.bodyMedium,
-        modifier = Modifier
-            .wrapContentSize()
-            .padding(
-                start = LocalSmallPadding.current.size,
-                end = LocalSmallPadding.current.size,
-                top = LocalDefaultPadding.current.size
-            ),
+        modifier =
+            Modifier
+                .wrapContentSize()
+                .padding(
+                    start = LocalSmallPadding.current.size,
+                    end = LocalSmallPadding.current.size,
+                    top = LocalDefaultPadding.current.size,
+                ),
     )
 }
 
 @Composable
-fun AvatarImage(resId: String, avatarSize: Dp) {
+fun AvatarImage(
+    resId: String,
+    avatarSize: Dp,
+) {
     Image(
         painter = painterResource(DrawableResources.drawableRes(resId)),
         contentDescription = LocalStringResources.current.OWNER_AVATAR,
-        modifier = Modifier
-            .wrapContentSize()
-            .padding(LocalMediumPadding.current.size)
-            .size(avatarSize)
-            .clip(CircleShape)
-            .border(1.dp, Color.Gray, CircleShape),
-        contentScale = ContentScale.Crop
+        modifier =
+            Modifier
+                .wrapContentSize()
+                .padding(LocalMediumPadding.current.size)
+                .size(avatarSize)
+                .clip(CircleShape)
+                .border(1.dp, Color.Gray, CircleShape),
+        contentScale = ContentScale.Crop,
     )
 }
 
@@ -187,7 +190,7 @@ fun AvatarImage(resId: String, avatarSize: Dp) {
 fun CommonTextField(
     inputValue: MutableState<TextFieldValue>,
     placeHolder: String,
-    onValueChanged: (String) -> Unit = {}
+    onValueChanged: (String) -> Unit = {},
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
@@ -199,23 +202,31 @@ fun CommonTextField(
         label = { Text(text = placeHolder, color = MaterialTheme.colorScheme.onBackground) },
         shape = RoundedCornerShape(8.dp),
         textStyle = TextStyle(color = MaterialTheme.colorScheme.onBackground),
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = MaterialTheme.colorScheme.primary,
-            unfocusedBorderColor = Color.Gray,
-            focusedLabelColor = MaterialTheme.colorScheme.primary,
-            unfocusedLabelColor = Color.Gray
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = LocalDefaultPadding.current.size, top = LocalMediumPadding.current.size, end = LocalDefaultPadding.current.size),
-        keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Next
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = {
-                keyboardController?.hide()
-            }
-        )
+        colors =
+            OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = Color.Gray,
+                focusedLabelColor = MaterialTheme.colorScheme.primary,
+                unfocusedLabelColor = Color.Gray,
+            ),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = LocalDefaultPadding.current.size,
+                    top = LocalMediumPadding.current.size,
+                    end = LocalDefaultPadding.current.size,
+                ),
+        keyboardOptions =
+            KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Next,
+            ),
+        keyboardActions =
+            KeyboardActions(
+                onNext = {
+                    keyboardController?.hide()
+                },
+            ),
     )
 }
 
@@ -232,23 +243,25 @@ fun ConfirmationDialog(
                 onDismissRequest = onDismiss,
                 content = {
                     Column(
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .border(1.dp, Primary500, shape = RoundedCornerShape(16.dp))
-                            .background(color = MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(16.dp)),
-                        verticalArrangement = Arrangement.Center
+                        modifier =
+                            Modifier
+                                .wrapContentSize()
+                                .border(1.dp, Primary500, shape = RoundedCornerShape(16.dp))
+                                .background(color = MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(16.dp)),
+                        verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
                             text = title,
                             color = Color.White,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
                             textAlign = TextAlign.Center,
                         )
                         SubmitButtons(true, onDismiss, onConfirmationClick)
                     }
-                }
+                },
             )
         }
     }
@@ -261,37 +274,46 @@ fun PrimaryButton(
     modifier: Modifier,
     onClick: () -> Unit,
 ) {
-    TextButton(enabled = isEnabled,
-        modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .fillMaxWidth()
-            .background(
-                color = if (isEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondary,
-                shape = RoundedCornerShape(LocalDefaultPadding.current.size)
-            )
-            .testTag("sign_up_button"),
+    TextButton(
+        enabled = isEnabled,
+        modifier =
+            modifier
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .fillMaxWidth()
+                .background(
+                    color = if (isEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondary,
+                    shape = RoundedCornerShape(LocalDefaultPadding.current.size),
+                )
+                .testTag("sign_up_button"),
         onClick = {
             onClick.invoke()
-        }
+        },
     ) {
         Text(text = text, color = Color.White)
     }
 }
 
 @Composable
-fun SecondaryButton(text: String, isDestructive: Boolean, modifier: Modifier, onClick: () -> Unit) {
-    TextButton(modifier = modifier
-        .padding(horizontal = LocalDefaultPadding.current.size, vertical = 8.dp)
-        .fillMaxWidth()
-        .border(
-            1.dp,
-            if (isDestructive) Color.Red else Primary400,
-            shape = RoundedCornerShape(16.dp)
-        )
-        .background(color = Color.White, shape = RoundedCornerShape(16.dp)),
+fun SecondaryButton(
+    text: String,
+    isDestructive: Boolean,
+    modifier: Modifier,
+    onClick: () -> Unit,
+) {
+    TextButton(
+        modifier =
+            modifier
+                .padding(horizontal = LocalDefaultPadding.current.size, vertical = 8.dp)
+                .fillMaxWidth()
+                .border(
+                    1.dp,
+                    if (isDestructive) Color.Red else Primary400,
+                    shape = RoundedCornerShape(16.dp),
+                )
+                .background(color = Color.White, shape = RoundedCornerShape(16.dp)),
         onClick = {
             onClick.invoke()
-        }
+        },
     ) {
         Text(text = text, color = if (isDestructive) Color.Red else Neutral700)
     }
@@ -304,10 +326,11 @@ fun SubmitButtons(
     onConfirmationClick: () -> Unit,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.Center
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+        horizontalArrangement = Arrangement.Center,
     ) {
         SecondaryButton(text = LocalStringResources.current.BUTTON_CANCEL, false, Modifier.weight(1f), onClick = onDismiss)
         PrimaryButton(text = LocalStringResources.current.BUTTON_OK, isEnabled, Modifier.weight(1f)) {
@@ -348,20 +371,22 @@ fun RefreshableLazyList(
 @Composable
 fun EmptyState() {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(LocalMediumPadding.current.size),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(LocalMediumPadding.current.size),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Image(
             painter = painterResource(DrawableResources.drawableRes(DrawableResources.EMPTY_STATE)),
             contentDescription = null,
-            modifier = Modifier
-                .fillMaxSize(0.3f)
-                .padding(LocalMediumPadding.current.size),
+            modifier =
+                Modifier
+                    .fillMaxSize(0.3f)
+                    .padding(LocalMediumPadding.current.size),
             contentScale = ContentScale.Fit,
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
         )
         Text(
             text = LocalStringResources.current.EMPTY_STATE,
@@ -373,40 +398,47 @@ fun EmptyState() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChangeAvatarDialog(avatarList: List<String>, onDismiss: () -> Unit, onClick: (String) -> Unit) {
+fun ChangeAvatarDialog(
+    avatarList: List<String>,
+    onDismiss: () -> Unit,
+    onClick: (String) -> Unit,
+) {
     val modalBottomSheetState = rememberModalBottomSheetState()
 
     ModalBottomSheet(
         sheetState = modalBottomSheetState,
         onDismissRequest = { onDismiss() },
-        dragHandle = { BottomSheetDefaults.DragHandle() }
+        dragHandle = { BottomSheetDefaults.DragHandle() },
     ) {
         Text(
             text = LocalStringResources.current.CHANGE_AVATAR,
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(LocalMediumPadding.current.size),
-            textAlign = TextAlign.Center
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(LocalMediumPadding.current.size),
+            textAlign = TextAlign.Center,
         )
         LazyVerticalGrid(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    start = LocalMediumPadding.current.size,
-                    end = LocalMediumPadding.current.size,
-                    bottom = LocalDefaultPadding.current.size * 3
-                ),
-            columns = GridCells.Adaptive(minSize = LocalLargeAvatarSize.current.size + LocalDefaultPadding.current.size * 2)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = LocalMediumPadding.current.size,
+                        end = LocalMediumPadding.current.size,
+                        bottom = LocalDefaultPadding.current.size * 3,
+                    ),
+            columns = GridCells.Adaptive(minSize = LocalLargeAvatarSize.current.size + LocalDefaultPadding.current.size * 2),
         ) {
             items(avatarList) { avatar ->
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            onClick(avatar)
-                        },
-                    contentAlignment = Alignment.Center
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                onClick(avatar)
+                            },
+                    contentAlignment = Alignment.Center,
                 ) {
                     AvatarImage(avatar, LocalLargeAvatarSize.current.size)
                 }
@@ -414,4 +446,3 @@ fun ChangeAvatarDialog(avatarList: List<String>, onDismiss: () -> Unit, onClick:
         }
     }
 }
-

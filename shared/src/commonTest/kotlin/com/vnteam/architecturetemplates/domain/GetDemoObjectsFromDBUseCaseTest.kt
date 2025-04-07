@@ -16,19 +16,20 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class GetDemoObjectsFromDBUseCaseTest : BaseKoinTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<DBRepository> { FakeDBRepository() }
-        }
+        get() =
+            module {
+                single<DBRepository> { FakeDBRepository() }
+            }
 
     private val getDemoObjectsUseCase by inject<GetDemoObjectsFromDBUseCase>()
     private val repository by injectAs<DBRepository, FakeDBRepository>()
 
     @Test
-    fun testGetDemoObjectsFromDB() = runTest {
-        repository.demoObjects = fakeDemoObjects
-        val result = getDemoObjectsUseCase.execute().firstOrNull()
-        assertEquals(fakeDemoObjects, result)
-    }
+    fun testGetDemoObjectsFromDB() =
+        runTest {
+            repository.demoObjects = fakeDemoObjects
+            val result = getDemoObjectsUseCase.execute().firstOrNull()
+            assertEquals(fakeDemoObjects, result)
+        }
 }

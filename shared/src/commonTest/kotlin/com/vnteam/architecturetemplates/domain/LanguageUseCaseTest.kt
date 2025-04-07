@@ -16,40 +16,44 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class LanguageUseCaseTest : BaseKoinTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<PreferencesRepository> { FakePreferencesRepository() }
-        }
+        get() =
+            module {
+                single<PreferencesRepository> { FakePreferencesRepository() }
+            }
 
     private val languageUseCase by inject<LanguageUseCase>()
     private val repository by injectAs<PreferencesRepository, FakePreferencesRepository>()
 
     @Test
-    fun testSetLanguageEn() = runTest {
-        languageUseCase.set(APP_LANG_EN)
-        val actual = repository.getLanguage().first()
-        assertEquals(APP_LANG_EN, actual)
-    }
+    fun testSetLanguageEn() =
+        runTest {
+            languageUseCase.set(APP_LANG_EN)
+            val actual = repository.getLanguage().first()
+            assertEquals(APP_LANG_EN, actual)
+        }
 
     @Test
-    fun testSetLanguageUk() = runTest {
-        languageUseCase.set(APP_LANG_UK)
-        val actual = repository.getLanguage().first()
-        assertEquals(APP_LANG_UK, actual)
-    }
+    fun testSetLanguageUk() =
+        runTest {
+            languageUseCase.set(APP_LANG_UK)
+            val actual = repository.getLanguage().first()
+            assertEquals(APP_LANG_UK, actual)
+        }
 
     @Test
-    fun testGetLanguageEn() = runTest {
-        repository.setLanguage(APP_LANG_EN)
-        val actual = languageUseCase.get().first()
-        assertEquals(APP_LANG_EN, actual)
-    }
+    fun testGetLanguageEn() =
+        runTest {
+            repository.setLanguage(APP_LANG_EN)
+            val actual = languageUseCase.get().first()
+            assertEquals(APP_LANG_EN, actual)
+        }
 
     @Test
-    fun testGetLanguageUk() = runTest {
-        repository.setLanguage(APP_LANG_UK)
-        val actual = languageUseCase.get().first()
-        assertEquals(APP_LANG_UK, actual)
-    }
+    fun testGetLanguageUk() =
+        runTest {
+            repository.setLanguage(APP_LANG_UK)
+            val actual = languageUseCase.get().first()
+            assertEquals(APP_LANG_UK, actual)
+        }
 }

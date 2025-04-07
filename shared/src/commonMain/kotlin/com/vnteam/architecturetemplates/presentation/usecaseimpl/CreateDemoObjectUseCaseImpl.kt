@@ -5,9 +5,8 @@ import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 import com.vnteam.architecturetemplates.domain.usecase.CreateDemoObjectUseCase
 
 class CreateDemoObjectUseCaseImpl(
-    private val apiRepository: ApiRepository
+    private val apiRepository: ApiRepository,
 ) : CreateDemoObjectUseCase {
-
     override suspend fun execute(params: DemoObject) {
         apiRepository.insertDemoObjectsToApi(listOf(params))
     }

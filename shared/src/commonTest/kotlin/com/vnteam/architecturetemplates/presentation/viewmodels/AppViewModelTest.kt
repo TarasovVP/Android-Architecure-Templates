@@ -20,12 +20,12 @@ import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AppViewModelTest : BaseViewModelTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<IsDarkThemeUseCase> { FakeIsDarkThemeUseCase() }
-            single<LanguageUseCase> { FakeLanguageUseCase() }
-        }
+        get() =
+            module {
+                single<IsDarkThemeUseCase> { FakeIsDarkThemeUseCase() }
+                single<LanguageUseCase> { FakeLanguageUseCase() }
+            }
 
     private val appViewModel by inject<AppViewModel>()
 
@@ -33,70 +33,78 @@ class AppViewModelTest : BaseViewModelTest() {
     private val languageUseCase by inject<LanguageUseCase>()
 
     @Test
-    fun testSetIsDarkThemeTrue() = runTest {
-        appViewModel.setIsDarkTheme(true)
-        runCurrent()
-        val actual = isDarkThemeUseCase.get().first() == true
-        assertTrue(actual)
-    }
+    fun testSetIsDarkThemeTrue() =
+        runTest {
+            appViewModel.setIsDarkTheme(true)
+            runCurrent()
+            val actual = isDarkThemeUseCase.get().first() == true
+            assertTrue(actual)
+        }
 
     @Test
-    fun testSetIsDarkThemeFalse() = runTest {
-        appViewModel.setIsDarkTheme(false)
-        runCurrent()
-        val actual = isDarkThemeUseCase.get().first() == true
-        assertFalse(actual)
-    }
+    fun testSetIsDarkThemeFalse() =
+        runTest {
+            appViewModel.setIsDarkTheme(false)
+            runCurrent()
+            val actual = isDarkThemeUseCase.get().first() == true
+            assertFalse(actual)
+        }
 
     @Test
-    fun testGetIsDarkThemeTrue() = runTest {
-        isDarkThemeUseCase.set(true)
-        appViewModel.getIsDarkTheme()
-        runCurrent()
-        val actual = appViewModel.isDarkTheme.first() == true
-        assertTrue(actual)
-    }
+    fun testGetIsDarkThemeTrue() =
+        runTest {
+            isDarkThemeUseCase.set(true)
+            appViewModel.getIsDarkTheme()
+            runCurrent()
+            val actual = appViewModel.isDarkTheme.first() == true
+            assertTrue(actual)
+        }
 
     @Test
-    fun testGetIsDarkThemeFalse() = runTest {
-        isDarkThemeUseCase.set(false)
-        appViewModel.getIsDarkTheme()
-        runCurrent()
-        val actual = appViewModel.isDarkTheme.first() == true
-        assertFalse(actual)
-    }
+    fun testGetIsDarkThemeFalse() =
+        runTest {
+            isDarkThemeUseCase.set(false)
+            appViewModel.getIsDarkTheme()
+            runCurrent()
+            val actual = appViewModel.isDarkTheme.first() == true
+            assertFalse(actual)
+        }
 
     @Test
-    fun testSetLanguageEn() = runTest {
-        appViewModel.setLanguage(APP_LANG_EN)
-        runCurrent()
-        val actual = languageUseCase.get().first()
-        assertEquals(APP_LANG_EN, actual)
-    }
+    fun testSetLanguageEn() =
+        runTest {
+            appViewModel.setLanguage(APP_LANG_EN)
+            runCurrent()
+            val actual = languageUseCase.get().first()
+            assertEquals(APP_LANG_EN, actual)
+        }
 
     @Test
-    fun testSetLanguageUk() = runTest {
-        appViewModel.setLanguage(APP_LANG_UK)
-        runCurrent()
-        val actual = languageUseCase.get().first()
-        assertEquals(APP_LANG_UK, actual)
-    }
+    fun testSetLanguageUk() =
+        runTest {
+            appViewModel.setLanguage(APP_LANG_UK)
+            runCurrent()
+            val actual = languageUseCase.get().first()
+            assertEquals(APP_LANG_UK, actual)
+        }
 
     @Test
-    fun testGetLanguageEn() = runTest {
-        languageUseCase.set(APP_LANG_EN)
-        appViewModel.getLanguage()
-        runCurrent()
-        val actual = appViewModel.language.first()
-        assertEquals(APP_LANG_EN, actual)
-    }
+    fun testGetLanguageEn() =
+        runTest {
+            languageUseCase.set(APP_LANG_EN)
+            appViewModel.getLanguage()
+            runCurrent()
+            val actual = appViewModel.language.first()
+            assertEquals(APP_LANG_EN, actual)
+        }
 
     @Test
-    fun testGetLanguageUk() = runTest {
-        languageUseCase.set(APP_LANG_UK)
-        appViewModel.getLanguage()
-        runCurrent()
-        val actual = appViewModel.language.first()
-        assertEquals(APP_LANG_UK, actual)
-    }
+    fun testGetLanguageUk() =
+        runTest {
+            languageUseCase.set(APP_LANG_UK)
+            appViewModel.getLanguage()
+            runCurrent()
+            val actual = appViewModel.language.first()
+            assertEquals(APP_LANG_UK, actual)
+        }
 }

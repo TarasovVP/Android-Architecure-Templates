@@ -23,9 +23,8 @@ class ListViewModel(
     private val getDemoObjectsFromApiUseCase: GetDemoObjectsFromApiUseCase,
     private val insertDemoObjectsUseCase: InsertDemoObjectsUseCase,
     private val deleteDemoObjectUseCase: DeleteDemoObjectUseCase,
-    private val demoObjectUIMapper: DemoObjectUIMapper
+    private val demoObjectUIMapper: DemoObjectUIMapper,
 ) : BaseViewModel() {
-
     private val _state = MutableStateFlow(ListViewState())
     val state: StateFlow<ListViewState> = _state.asStateFlow()
 

@@ -17,15 +17,17 @@ class FakeDemoObjectDao : DemoObjectDao {
         this.demoObjects.addAll(demoObjects)
     }
 
-    override fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>> = callbackFlow {
-        trySend(demoObjects).isSuccess
-        awaitClose { }
-    }
+    override fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>> =
+        callbackFlow {
+            trySend(demoObjects).isSuccess
+            awaitClose { }
+        }
 
-    override fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?> = callbackFlow {
-        trySend(demoObjects.find { it.demoObjectId == id }).isSuccess
-        awaitClose { }
-    }
+    override fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?> =
+        callbackFlow {
+            trySend(demoObjects.find { it.demoObjectId == id }).isSuccess
+            awaitClose { }
+        }
 
     override suspend fun deleteDemoObjectById(id: String) {
         demoObjects.removeAll { it.demoObjectId == id }

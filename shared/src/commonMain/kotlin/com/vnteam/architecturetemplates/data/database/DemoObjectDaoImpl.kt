@@ -7,7 +7,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
-class DemoObjectDaoImpl(private val sharedDatabase: SharedDatabase): DemoObjectDao {
+class DemoObjectDaoImpl(private val sharedDatabase: SharedDatabase) : DemoObjectDao {
     override suspend fun clearDemoObjects() {
         sharedDatabase { database ->
             database.appDatabaseQueries.clearDemoObjects()
@@ -26,26 +26,28 @@ class DemoObjectDaoImpl(private val sharedDatabase: SharedDatabase): DemoObjectD
                         avatarUrl = demoObject.avatarUrl,
                         htmlUrl = demoObject.htmlUrl,
                         description = demoObject.description,
-                        url = demoObject.url
+                        url = demoObject.url,
                     )
                 }
             }
         }
     }
 
-    override fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>> = callbackFlow {
-        sharedDatabase { database ->
-            trySend(database.appDatabaseQueries.getDemoObjectWithOwners().awaitAsList()).isSuccess
+    override fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>> =
+        callbackFlow {
+            sharedDatabase { database ->
+                trySend(database.appDatabaseQueries.getDemoObjectWithOwners().awaitAsList()).isSuccess
+            }
+            awaitClose { }
         }
-        awaitClose { }
-    }
 
-    override fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?> = callbackFlow {
-        sharedDatabase { database ->
-            trySend(database.appDatabaseQueries.getDemoObjectWithOwnerById(id).awaitAsOneOrNull()).isSuccess
+    override fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?> =
+        callbackFlow {
+            sharedDatabase { database ->
+                trySend(database.appDatabaseQueries.getDemoObjectWithOwnerById(id).awaitAsOneOrNull()).isSuccess
+            }
+            awaitClose { }
         }
-        awaitClose { }
-    }
 
     override suspend fun deleteDemoObjectById(id: String) {
         sharedDatabase { database ->

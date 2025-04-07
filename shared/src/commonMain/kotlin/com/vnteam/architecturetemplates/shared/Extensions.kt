@@ -1,6 +1,8 @@
 package com.vnteam.architecturetemplates.shared
 
 import androidx.compose.runtime.Composable
+import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
+import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.resources.Res
 import com.vnteam.architecturetemplates.resources.ic_avatar_1
 import com.vnteam.architecturetemplates.resources.ic_avatar_10
@@ -14,15 +16,13 @@ import com.vnteam.architecturetemplates.resources.ic_avatar_8
 import com.vnteam.architecturetemplates.resources.ic_avatar_9
 import com.vnteam.architecturetemplates.resources.ic_avatar_default
 import com.vnteam.architecturetemplates.resources.ic_empty_state
-import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
 fun String?.textWithNoDataHandling() = this.takeIf { it.orEmpty().isNotEmpty() } ?: LocalStringResources.current.NO_DATA
 
 fun DrawableResources.drawableRes(resId: String): DrawableResource {
-    return when(resId) {
+    return when (resId) {
         EMPTY_STATE -> Res.drawable.ic_empty_state
         IC_AVATAR_1 -> Res.drawable.ic_avatar_1
         IC_AVATAR_2 -> Res.drawable.ic_avatar_2

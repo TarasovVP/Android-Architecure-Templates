@@ -4,7 +4,6 @@ import com.vnteam.architecturetemplates.DemoObjectWithOwner
 import kotlinx.coroutines.flow.Flow
 
 interface DemoObjectDao {
-
     suspend fun clearDemoObjects()
 
     suspend fun insertDemoObjectWithOwners(demoObjects: List<DemoObjectWithOwner>)

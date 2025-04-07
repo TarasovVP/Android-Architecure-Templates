@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import com.vnteam.architecturetemplates.data.generateUUID
+import com.vnteam.architecturetemplates.presentation.components.ChangeAvatarDialog
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
@@ -16,26 +17,28 @@ import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.uimodels.OwnerUI
 import com.vnteam.architecturetemplates.presentation.viewmodels.CreateViewModel
 import org.koin.compose.viewmodel.koinViewModel
-import com.vnteam.architecturetemplates.presentation.components.ChangeAvatarDialog
 
 @Composable
-fun CreateScreen(demoObjectId: String, screenState: MutableState<ScreenState>,
-                 content: @Composable (State<CreateViewState>, originDemoObject: MutableState<DemoObjectUI?>, onClick: () -> Unit) -> Unit) {
-
+fun CreateScreen(
+    demoObjectId: String,
+    screenState: MutableState<ScreenState>,
+    content: @Composable (State<CreateViewState>, originDemoObject: MutableState<DemoObjectUI?>, onClick: () -> Unit) -> Unit,
+) {
     val viewModel = koinViewModel<CreateViewModel>()
     val viewState = viewModel.state.collectAsState()
-    val originDemoObject = remember {  mutableStateOf<DemoObjectUI?>(null) }
+    val originDemoObject = remember { mutableStateOf<DemoObjectUI?>(null) }
 
     LaunchedEffect(Unit) {
         if (demoObjectId.isNotEmpty()) {
             viewModel.processIntent(CreateIntent.LoadDemoObject(demoObjectId))
         } else {
-            viewModel.state.value.demoObject = mutableStateOf(
-                DemoObjectUI(
-                    demoObjectId = generateUUID(),
-                    owner = OwnerUI(ownerId = generateUUID())
+            viewModel.state.value.demoObject =
+                mutableStateOf(
+                    DemoObjectUI(
+                        demoObjectId = generateUUID(),
+                        owner = OwnerUI(ownerId = generateUUID()),
+                    ),
                 )
-            )
         }
     }
     LaunchedEffect(viewState.value) {
@@ -59,9 +62,10 @@ fun CreateScreen(demoObjectId: String, screenState: MutableState<ScreenState>,
         ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
             viewState.value.isChangeAvatarDialogVisible.value = false
         }, onClick = { avatar ->
-            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(
-                owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar)
-            )
+            viewState.value.demoObject.value =
+                viewState.value.demoObject.value?.copy(
+                    owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
+                )
             viewState.value.isChangeAvatarDialogVisible.value = false
         })
     }

@@ -5,7 +5,6 @@ import com.vnteam.architecturetemplates.domain.repositories.DBRepository
 import kotlinx.coroutines.flow.flowOf
 
 class FakeDBRepository : DBRepository {
-
     var isClearDemoObjectsCalled = false
     var isInsertDemoObjectsToDBCalled = false
     var isDeleteDemoObjectByIdCalled = false
@@ -21,7 +20,6 @@ class FakeDBRepository : DBRepository {
     }
 
     override fun getDemoObjectsFromDB() = flowOf(demoObjects.orEmpty())
-
 
     override fun getDemoObjectById(demoObjectId: String) = flowOf(demoObject)
 

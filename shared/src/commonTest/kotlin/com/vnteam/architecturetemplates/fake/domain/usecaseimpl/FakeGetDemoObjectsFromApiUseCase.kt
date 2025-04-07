@@ -5,7 +5,6 @@ import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseC
 import com.vnteam.architecturetemplates.fake.domain.models.fakeException
 
 class FakeGetDemoObjectsFromApiUseCase : GetDemoObjectsFromApiUseCase {
-
     var demoObjects: List<DemoObject>? = null
     var isSuccessful = true
 

@@ -32,9 +32,7 @@ suspend inline fun <reified T> HttpResponse?.handleResponse(): NetworkResult<T> 
     }
 }
 
-suspend inline fun <reified T> HttpClient.safeRequest(
-    block: HttpClient.() -> HttpResponse,
-): NetworkResult<T> =
+suspend inline fun <reified T> HttpClient.safeRequest(block: HttpClient.() -> HttpResponse): NetworkResult<T> =
     try {
         val response = block()
         response.handleResponse<T>()

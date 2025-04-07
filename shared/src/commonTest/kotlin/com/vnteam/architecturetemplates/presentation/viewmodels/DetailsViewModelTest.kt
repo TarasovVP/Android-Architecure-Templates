@@ -22,11 +22,11 @@ import kotlin.test.assertNull
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class DetailsViewModelTest : BaseViewModelTest() {
-
     override val overrideModule: Module
-        get() = module {
-            single<GetDemoObjectUseCase> { FakeGetDemoObjectUseCase() }
-        }
+        get() =
+            module {
+                single<GetDemoObjectUseCase> { FakeGetDemoObjectUseCase() }
+            }
 
     private val detailsViewModel by inject<DetailsViewModel>()
 
@@ -39,52 +39,55 @@ class DetailsViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun testLoadDemoObject() = runTest {
-        detailsViewModel.processIntent(
-            DetailsIntent.LoadDemoObject(
-                fakeDemoObject.demoObjectId.orEmpty()
+    fun testLoadDemoObject() =
+        runTest {
+            detailsViewModel.processIntent(
+                DetailsIntent.LoadDemoObject(
+                    fakeDemoObject.demoObjectId.orEmpty(),
+                ),
             )
-        )
-        runCurrent()
+            runCurrent()
 
-        val currentState = detailsViewModel.state.first()
-        assertEquals(fakeDemoObjectUI, currentState.demoObjectUI)
-    }
+            val currentState = detailsViewModel.state.first()
+            assertEquals(fakeDemoObjectUI, currentState.demoObjectUI)
+        }
 
     @Test
-    fun testLoadDemoObjectIsUpdatedClearsState() = runTest {
-        detailsViewModel.processIntent(
-            DetailsIntent.LoadDemoObject(
-                fakeDemoObject.demoObjectId.orEmpty(),
-                isUpdated = false
+    fun testLoadDemoObjectIsUpdatedClearsState() =
+        runTest {
+            detailsViewModel.processIntent(
+                DetailsIntent.LoadDemoObject(
+                    fakeDemoObject.demoObjectId.orEmpty(),
+                    isUpdated = false,
+                ),
             )
-        )
-        runCurrent()
-        assertNotNull(detailsViewModel.state.first().demoObjectUI)
+            runCurrent()
+            assertNotNull(detailsViewModel.state.first().demoObjectUI)
 
-        detailsViewModel.processIntent(
-            DetailsIntent.LoadDemoObject(
-                fakeDemoObject.demoObjectId.orEmpty(),
-                isUpdated = true
+            detailsViewModel.processIntent(
+                DetailsIntent.LoadDemoObject(
+                    fakeDemoObject.demoObjectId.orEmpty(),
+                    isUpdated = true,
+                ),
             )
-        )
-        assertNull(detailsViewModel.state.first().demoObjectUI)
-    }
+            assertNull(detailsViewModel.state.first().demoObjectUI)
+        }
 
     @Test
-    fun testLoadDemoObjectException() = runTest {
-        fakeGetDemoObjectUseCase.isSuccessful = false
+    fun testLoadDemoObjectException() =
+        runTest {
+            fakeGetDemoObjectUseCase.isSuccessful = false
 
-        detailsViewModel.processIntent(
-            DetailsIntent.LoadDemoObject(
-                fakeDemoObject.demoObjectId.orEmpty(),
-                isUpdated = false
+            detailsViewModel.processIntent(
+                DetailsIntent.LoadDemoObject(
+                    fakeDemoObject.demoObjectId.orEmpty(),
+                    isUpdated = false,
+                ),
             )
-        )
-        runCurrent()
-        assertEquals(
-            fakeException.message,
-            detailsViewModel.screenState.value.appMessageState.messageText
-        )
-    }
+            runCurrent()
+            assertEquals(
+                fakeException.message,
+                detailsViewModel.screenState.value.appMessageState.messageText,
+            )
+        }
 }

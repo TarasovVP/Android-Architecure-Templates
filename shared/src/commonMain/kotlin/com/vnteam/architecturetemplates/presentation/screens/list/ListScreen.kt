@@ -6,16 +6,18 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
-import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
-import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
+import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.presentation.viewmodels.ListViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun ListScreen(screenState: MutableState<ScreenState>,
-               onItemClick: (DemoObjectUI) -> Unit,
-               content: @Composable (State<ListViewState>, onItemClick: (DemoObjectUI, String) -> Unit) -> Unit) {
+fun ListScreen(
+    screenState: MutableState<ScreenState>,
+    onItemClick: (DemoObjectUI) -> Unit,
+    content: @Composable (State<ListViewState>, onItemClick: (DemoObjectUI, String) -> Unit) -> Unit,
+) {
     val viewModel = koinViewModel<ListViewModel>()
     val viewState = viewModel.state.collectAsState()
 
@@ -26,13 +28,13 @@ fun ListScreen(screenState: MutableState<ScreenState>,
     }
 
     LaunchedEffect(viewState.value.successResult) {
-        if (viewState.value.successResult){
+        if (viewState.value.successResult) {
             viewModel.processIntent(ListIntent.ClearDemoObjects())
         }
     }
 
     LaunchedEffect(viewState.value.clearSuccessResult) {
-        if (viewState.value.clearSuccessResult){
+        if (viewState.value.clearSuccessResult) {
             viewModel.processIntent(ListIntent.LoadDemoObjects(true))
         }
     }
@@ -55,7 +57,7 @@ fun ListScreen(screenState: MutableState<ScreenState>,
             "delete" -> {
                 viewState.value.isConfirmationDialogVisible.value = false
                 viewState.value.demoObjectToDelete = ""
-                viewModel.processIntent(ListIntent.DeleteDemoObject( demoObjectUI.demoObjectId.orEmpty() ))
+                viewModel.processIntent(ListIntent.DeleteDemoObject(demoObjectUI.demoObjectId.orEmpty()))
             }
         }
     }

@@ -9,12 +9,14 @@ actual class TextToSpeechHelper(private val context: Context) {
     private var tts: TextToSpeech? = null
 
     init {
-        tts = TextToSpeech(context) { status ->
-            if (status == TextToSpeech.SUCCESS) {
-                tts?.language = Locale.US
+        tts =
+            TextToSpeech(context) { status ->
+                if (status == TextToSpeech.SUCCESS) {
+                    tts?.language = Locale.US
+                }
             }
-        }
     }
+
     actual fun speak(text: String) {
         tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
     }

@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 class IsDarkThemeUseCaseImpl(private val preferencesRepository: PreferencesRepository) :
     IsDarkThemeUseCase {
-
     override fun get(): Flow<Boolean?> {
         return preferencesRepository.getIsDarkTheme()
     }

@@ -9,14 +9,13 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 
 abstract class BaseKoinTest : KoinTest {
-
     abstract val overrideModule: Module
 
     @BeforeTest
     open fun setup() {
         startKoin {
             modules(
-                testModule + overrideModule
+                testModule + overrideModule,
             )
         }
     }

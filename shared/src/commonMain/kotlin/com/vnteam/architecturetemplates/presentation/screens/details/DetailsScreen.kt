@@ -12,8 +12,9 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun DetailsScreen(
-    demoObjectId: String?, screenState: MutableState<ScreenState>,
-    content: @Composable (DetailsViewState) -> Unit
+    demoObjectId: String?,
+    screenState: MutableState<ScreenState>,
+    content: @Composable (DetailsViewState) -> Unit,
 ) {
     val viewModel = koinViewModel<DetailsViewModel>()
     val viewState = viewModel.state.collectAsState()
@@ -22,8 +23,8 @@ fun DetailsScreen(
         viewModel.processIntent(
             DetailsIntent.LoadDemoObject(
                 demoObjectId.orEmpty(),
-                screenState.value.isScreenUpdatingNeeded
-            )
+                screenState.value.isScreenUpdatingNeeded,
+            ),
         )
     }
     content(viewState.value)

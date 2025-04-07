@@ -138,19 +138,22 @@ kover {
         filters {
             excludes {
                 annotatedBy("androidx.compose.runtime.Composable")
-                classes("com.vnteam.architecturetemplates.DemoObjectWithOwner",
-                         "com.vnteam.architecturetemplates.AppDatabaseQueries*",
-                         "com.vnteam.architecturetemplates.data.local.PreferencesFactory",
-                         "com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory")
-                packages("com.vnteam.architecturetemplates.di",
-                         "com.vnteam.architecturetemplates.presentation.resources",
-                         "com.vnteam.architecturetemplates.presentation.components",
-                         "com.vnteam.architecturetemplates.presentation.theme",
-                         "com.vnteam.architecturetemplates.appdatabase",
-                         "com.vnteam.architecturetemplates.resources",
-                         "com.vnteam.architecturetemplates.shared")
+                classes(
+                    "com.vnteam.architecturetemplates.DemoObjectWithOwner",
+                    "com.vnteam.architecturetemplates.AppDatabaseQueries*",
+                    "com.vnteam.architecturetemplates.data.local.PreferencesFactory",
+                    "com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory",
+                )
+                packages(
+                    "com.vnteam.architecturetemplates.di",
+                    "com.vnteam.architecturetemplates.presentation.resources",
+                    "com.vnteam.architecturetemplates.presentation.components",
+                    "com.vnteam.architecturetemplates.presentation.theme",
+                    "com.vnteam.architecturetemplates.appdatabase",
+                    "com.vnteam.architecturetemplates.resources",
+                    "com.vnteam.architecturetemplates.shared",
+                )
             }
         }
     }
 }
-

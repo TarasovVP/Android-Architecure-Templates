@@ -8,4 +8,16 @@ plugins {
     alias(libs.plugins.kotlinSerialization) apply false
     alias(libs.plugins.sqlDelight) apply false
     alias(libs.plugins.kotlinKover) apply false
+    alias(libs.plugins.ktlint) apply false
+}
+
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        debug.set(true)
+        ignoreFailures.set(true)
+    }
+    dependencies {
+        add("ktlint", project(":custom-ktlint-rules"))
+    }
 }
