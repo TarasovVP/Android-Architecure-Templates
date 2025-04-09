@@ -10,8 +10,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/custom-ktlint-rules" />
             <option value="$PROJECT_DIR$/desktop" />
-            <option value="$PROJECT_DIR$/kmp-ktlint-rules" />
             <option value="$PROJECT_DIR$/kmp-secrets-plugin" />
             <option value="$PROJECT_DIR$/lint-checks" />
             <option value="$PROJECT_DIR$/mobile" />

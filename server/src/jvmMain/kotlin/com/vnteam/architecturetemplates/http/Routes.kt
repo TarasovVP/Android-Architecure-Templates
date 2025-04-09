@@ -1,5 +1,8 @@
 package com.vnteam.architecturetemplates.http
 
+import com.vnteam.architecturetemplates.DEMO_OBJECTS_ID
+import com.vnteam.architecturetemplates.DEMO_OBJECTS_ID_ROUTE
+import com.vnteam.architecturetemplates.DEMO_OBJECTS_ROUTE
 import com.vnteam.architecturetemplates.demoobjectservice.DemoObjectService
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
 import com.vnteam.architecturetemplates.domain.responses.DemoObjectResponse
@@ -29,7 +32,7 @@ fun Application.apiRoutes(
 fun Routing.insertDemoObjects(
     demoObjectService: DemoObjectService,
     demoObjectResponseMapper: DemoObjectResponseMapper,
-) = post("/demoObjects") {
+) = post(DEMO_OBJECTS_ROUTE) {
     try {
         val demoObjects = demoObjectResponseMapper.mapFromImplModelList(call.receive<List<DemoObjectResponse>>())
         demoObjectService.insertDemoObjects(demoObjects)
@@ -42,7 +45,7 @@ fun Routing.insertDemoObjects(
 fun Routing.getDemoObjects(
     demoObjectService: DemoObjectService,
     demoObjectResponseMapper: DemoObjectResponseMapper,
-) = get("/demoObjects") {
+) = get(DEMO_OBJECTS_ROUTE) {
     try {
         val demoObjectsList = demoObjectResponseMapper.mapToImplModelList(demoObjectService.getDemoObjects().orEmpty().toList())
         call.respond(demoObjectsList)
@@ -54,9 +57,9 @@ fun Routing.getDemoObjects(
 fun Routing.getDemoObjectById(
     demoObjectService: DemoObjectService,
     demoObjectResponseMapper: DemoObjectResponseMapper,
-) = get("/demoObjects/{id}") {
+) = get(DEMO_OBJECTS_ID_ROUTE) {
     try {
-        val demoObjectId = call.parameters["id"]
+        val demoObjectId = call.parameters[DEMO_OBJECTS_ID]
         if (demoObjectId == null) {
             call.respond(HttpStatusCode.BadRequest)
             return@get
@@ -73,9 +76,9 @@ fun Routing.getDemoObjectById(
 }
 
 fun Routing.deleteDemoObjectById(demoObjectService: DemoObjectService) =
-    delete("/demoObjects/{id}") {
+    delete(DEMO_OBJECTS_ID_ROUTE) {
         try {
-            val demoObjectId = call.parameters["id"]
+            val demoObjectId = call.parameters[DEMO_OBJECTS_ID]
             if (demoObjectId == null) {
                 call.respond(HttpStatusCode.BadRequest)
                 return@delete

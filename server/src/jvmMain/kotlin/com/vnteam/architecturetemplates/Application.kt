@@ -19,7 +19,7 @@ fun main() {
     embeddedServer(
         Netty,
         host = HTTP_HOST,
-        port = System.getenv("PORT")?.toInt() ?: HTTP_PORT,
+        port = System.getenv(PORT)?.toInt() ?: HTTP_PORT,
         module = Application::appModule,
     ).start(wait = true)
 }
