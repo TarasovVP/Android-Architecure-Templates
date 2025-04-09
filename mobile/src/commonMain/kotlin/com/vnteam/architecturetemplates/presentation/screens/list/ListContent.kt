@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.vnteam.architecturetemplates.domain.sealedclasses.ListState
 import com.vnteam.architecturetemplates.presentation.components.AvatarImage
 import com.vnteam.architecturetemplates.presentation.components.ConfirmationDialog
 import com.vnteam.architecturetemplates.presentation.components.RefreshableLazyList
@@ -30,7 +31,7 @@ import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
 @Composable
 fun ListContent(
     viewState: ListViewState,
-    onItemClick: (DemoObjectUI, String) -> Unit,
+    onItemClick: (DemoObjectUI, ListState) -> Unit,
 ) {
     Box {
         RefreshableLazyList(viewState.demoObjectUIs.isNullOrEmpty(), content = {
@@ -38,12 +39,12 @@ fun ListContent(
                 DemoObjectItem(item, onItemClick)
             }
         }, onRefresh = {
-            onItemClick(DemoObjectUI(), "refresh")
+            onItemClick(DemoObjectUI(), ListState.Refresh)
         })
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
             title = LocalStringResources.current.DELETE,
-            onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), "delete") },
+            onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), ListState.Delete) },
             onDismiss = { viewState.isConfirmationDialogVisible.value = false },
         )
     }
@@ -52,9 +53,9 @@ fun ListContent(
 @Composable
 fun DemoObjectItem(
     item: DemoObjectUI,
-    onItemClick: (DemoObjectUI, String) -> Unit,
+    onItemClick: (DemoObjectUI, ListState) -> Unit,
 ) {
-    Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, "details") }) {
+    Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, ListState.Details) }) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalSmallPadding.current.size),
@@ -66,7 +67,7 @@ fun DemoObjectItem(
                     Modifier
                         .padding(LocalMediumPadding.current.size).weight(1f),
             )
-            IconButton(onClick = { onItemClick(item, "confirm_delete") }) {
+            IconButton(onClick = { onItemClick(item, ListState.ConfirmDelete) }) {
                 Icon(
                     modifier =
                         Modifier

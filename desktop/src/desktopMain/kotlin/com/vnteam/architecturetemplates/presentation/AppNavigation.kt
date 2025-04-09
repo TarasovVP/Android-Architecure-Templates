@@ -15,6 +15,8 @@ import com.vnteam.architecturetemplates.presentation.screens.details.DetailsScre
 import com.vnteam.architecturetemplates.presentation.screens.list.ListContent
 import com.vnteam.architecturetemplates.presentation.screens.list.ListScreen
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
+import com.vnteam.architecturetemplates.shared.Constants.DEMO_OBJECT_ID
+import com.vnteam.architecturetemplates.shared.Constants.DEMO_OBJECT_NAME
 import com.vnteam.architecturetemplates.shared.NavigationScreens
 
 @Composable
@@ -47,21 +49,21 @@ fun AppNavigation(
             })
         }
         composable(
-            "${NavigationScreens.DetailsScreen.route}{demoObjectId}/{demoObjectName}",
+            "${NavigationScreens.DetailsScreen.route}{$DEMO_OBJECT_ID}/{$DEMO_OBJECT_NAME}",
             arguments =
                 listOf(
-                    navArgument("demoObjectId") {
+                    navArgument(DEMO_OBJECT_ID) {
                         type = NavType.StringType
                         defaultValue = ""
                     },
-                    navArgument("demoObjectName") {
+                    navArgument(DEMO_OBJECT_NAME) {
                         type = NavType.StringType
                         defaultValue = ""
                     },
                 ),
         ) { backStackEntry ->
-            val demoObjectId = backStackEntry.arguments?.getString("demoObjectId").orEmpty()
-            val demoObjectName = backStackEntry.arguments?.getString("demoObjectName").orEmpty()
+            val demoObjectId = backStackEntry.arguments?.getString(DEMO_OBJECT_ID).orEmpty()
+            val demoObjectName = backStackEntry.arguments?.getString(DEMO_OBJECT_NAME).orEmpty()
             screenState.value =
                 screenState.value.copy(
                     appBarState =
@@ -86,10 +88,10 @@ fun AppNavigation(
             }
         }
         composable(
-            "${NavigationScreens.CreateScreen.route}{demoObjectId}",
+            "${NavigationScreens.CreateScreen.route}{$DEMO_OBJECT_ID}",
             arguments =
                 listOf(
-                    navArgument("demoObjectId") {
+                    navArgument(DEMO_OBJECT_ID) {
                         type = NavType.StringType
                         defaultValue = ""
                         nullable = true
@@ -97,7 +99,7 @@ fun AppNavigation(
                 ),
         ) { backStackEntry ->
             val demoObjectId =
-                backStackEntry.arguments?.getString("demoObjectId")
+                backStackEntry.arguments?.getString(DEMO_OBJECT_ID)
                     .takeIf { it?.isNotEmpty() == true && it != "-1" } ?: ""
             screenState.value =
                 screenState.value.copy(

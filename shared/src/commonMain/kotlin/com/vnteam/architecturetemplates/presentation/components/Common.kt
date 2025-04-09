@@ -54,7 +54,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -290,8 +289,7 @@ fun PrimaryButton(
                 .background(
                     color = if (isEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondary,
                     shape = RoundedCornerShape(LocalDefaultPadding.current.size),
-                )
-                .testTag("sign_up_button"),
+                ),
         onClick = {
             onClick.invoke()
         },

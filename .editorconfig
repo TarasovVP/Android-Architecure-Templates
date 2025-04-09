@@ -18,7 +18,7 @@ ktlint_disabled_rules = custom:magic-numbers-rule
 [*.gradle.kts]
 ktlint_disabled_rules = custom:raw-string-rule
 
-[**/com/vnteam/architecturetemplates/presentation/resources/StringResources.kt]
+[**/resources/StringResources.kt]
 ktlint_disabled_rules = custom:raw-string-rule
 
 [**/com/kmp/ktlint/rules/**/*.kt]

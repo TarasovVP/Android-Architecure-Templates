@@ -172,7 +172,8 @@ fun AppBar(
                         painterResource(
                             if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode,
                         ),
-                    contentDescription = if (appViewModel.isDarkTheme.value == true) "Switch to Light Theme" else "Switch to Dark Theme",
+                    contentDescription = if (appViewModel.isDarkTheme.value == true) LocalStringResources.current.SWITCH_TO_LIGHT_THEME else
+                        LocalStringResources.current.SWITCH_TO_DARK_THEME,
                     tint = Color.White,
                 )
             }

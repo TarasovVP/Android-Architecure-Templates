@@ -12,6 +12,7 @@ const val ERROR_STATUS_400 = 400
 const val ERROR_STATUS_405 = 405
 const val SUCCESS_STATUS_200 = 200
 const val SUCCESS_STATUS_299 = 299
+const val LOCAL_PORT = ":8080/"
 
 suspend inline fun <reified T> HttpResponse?.handleResponse(): NetworkResult<T> {
     return when {
@@ -41,6 +42,6 @@ suspend inline fun <reified T> HttpClient.safeRequest(block: HttpClient.() -> Ht
         val response = block()
         response.handleResponse<T>()
     } catch (e: Exception) {
-        val errorMessage = if (Properties.CLOUD_URL.contains(":8080/")) CONNECTION_EXCEPTION else e.message
+        val errorMessage = if (Properties.CLOUD_URL.contains(LOCAL_PORT)) CONNECTION_EXCEPTION else e.message
         NetworkResult.Failure(errorMessage)
     }

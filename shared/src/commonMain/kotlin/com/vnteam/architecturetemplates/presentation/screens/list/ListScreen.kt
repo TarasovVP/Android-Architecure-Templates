@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import com.vnteam.architecturetemplates.domain.sealedclasses.ListState
 import com.vnteam.architecturetemplates.presentation.intents.ListIntent
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
@@ -16,7 +17,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun ListScreen(
     screenState: MutableState<ScreenState>,
     onItemClick: (DemoObjectUI) -> Unit,
-    content: @Composable (State<ListViewState>, onItemClick: (DemoObjectUI, String) -> Unit) -> Unit,
+    content: @Composable (State<ListViewState>, onItemClick: (DemoObjectUI, ListState) -> Unit) -> Unit,
 ) {
     val viewModel = koinViewModel<ListViewModel>()
     val viewState = viewModel.state.collectAsState()
@@ -48,13 +49,13 @@ fun ListScreen(
 
     content(viewState) { demoObjectUI, action ->
         when (action) {
-            "refresh" -> viewModel.processIntent(ListIntent.LoadDemoObjects(false))
-            "details" -> onItemClick(demoObjectUI)
-            "confirm_delete" -> {
+            ListState.Refresh -> viewModel.processIntent(ListIntent.LoadDemoObjects(false))
+            ListState.Details -> onItemClick(demoObjectUI)
+            ListState.ConfirmDelete -> {
                 viewState.value.isConfirmationDialogVisible.value = true
                 viewState.value.demoObjectToDelete = demoObjectUI.demoObjectId.orEmpty()
             }
-            "delete" -> {
+            ListState.Delete -> {
                 viewState.value.isConfirmationDialogVisible.value = false
                 viewState.value.demoObjectToDelete = ""
                 viewModel.processIntent(ListIntent.DeleteDemoObject(demoObjectUI.demoObjectId.orEmpty()))

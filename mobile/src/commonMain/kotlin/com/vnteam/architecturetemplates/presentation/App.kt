@@ -122,9 +122,9 @@ fun ScaffoldContent(
                                     ),
                                 contentDescription =
                                     if (appViewModel.isDarkTheme.value == true) {
-                                        "Switch to Light Theme"
+                                        LocalStringResources.current.SWITCH_TO_LIGHT_THEME
                                     } else {
-                                        "Switch to Dark Theme"
+                                        LocalStringResources.current.SWITCH_TO_DARK_THEME
                                     },
                                 tint = Color.White,
                             )

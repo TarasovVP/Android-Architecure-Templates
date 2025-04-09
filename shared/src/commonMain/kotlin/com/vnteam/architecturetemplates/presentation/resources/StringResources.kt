@@ -26,6 +26,8 @@ sealed class StringResources(
     val CHANGE_AVATAR: String,
     val SPEAK: String,
     val PAGE_NOT_FOUND: String,
+    val SWITCH_TO_LIGHT_THEME: String,
+    val SWITCH_TO_DARK_THEME: String,
 )
 
 class StringResourcesEN : StringResources(
@@ -50,6 +52,8 @@ class StringResourcesEN : StringResources(
     CHANGE_AVATAR = "Change avatar",
     SPEAK = "Speak",
     PAGE_NOT_FOUND = "Page not found",
+    SWITCH_TO_LIGHT_THEME = "Switch to light theme",
+    SWITCH_TO_DARK_THEME = "Switch to dark theme",
 )
 
 class StringResourcesUK : StringResources(
@@ -74,6 +78,8 @@ class StringResourcesUK : StringResources(
     CHANGE_AVATAR = "Змінити аватар",
     SPEAK = "Проговорити",
     PAGE_NOT_FOUND = "Сторінку не знайдено",
+    SWITCH_TO_LIGHT_THEME = "Переключити на світлу тему",
+    SWITCH_TO_DARK_THEME = "Переключити на темну тему"
 )
 
 val LocalStringResources: ProvidableCompositionLocal<StringResources> =
