@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 
 class MagicNumberRule : Rule(RuleId(Constants.MAGIC_NUMBERS_RULE_ID), About()) {
 
-    private val allowedNumbers = setOf("0", "1", "-1")
+    private val allowedNumbers = setOf("0", "1", "-1", "1f")
 
     override fun beforeVisitChildNodes(
         node: ASTNode,
@@ -20,11 +20,12 @@ class MagicNumberRule : Rule(RuleId(Constants.MAGIC_NUMBERS_RULE_ID), About()) {
     ) {
         if (node.elementType == ElementType.INTEGER_CONSTANT || node.elementType == ElementType.FLOAT_CONSTANT) {
             val text = node.text
+            // Check if the number is a constant in a property declaration
             val property = node.psi.getParentOfType<KtProperty>(false)
             if (property != null && property.hasModifier(KtTokens.CONST_KEYWORD)) {
                 return
             }
-
+            // Check if the number is a color literal in a Color call
             val callExpression = node.psi.getParentOfType<KtCallExpression>(true)
             val isColorCall = callExpression?.calleeExpression?.text == "Color"
 
@@ -33,6 +34,7 @@ class MagicNumberRule : Rule(RuleId(Constants.MAGIC_NUMBERS_RULE_ID), About()) {
             if (isColorCall && isHexColorLiteral) {
                 return
             }
+
             if (text !in allowedNumbers) {
                 emit(
                     node.startOffset,

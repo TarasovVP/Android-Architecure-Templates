@@ -8,15 +8,19 @@ import secrets.Properties
 
 const val CONNECTION_EXCEPTION = "Connection Exception. Check if the server is running."
 const val UNKNOWN_ERROR = "Unknown error"
+const val ERROR_STATUS_400 = 400
+const val ERROR_STATUS_405 = 405
+const val SUCCESS_STATUS_200 = 200
+const val SUCCESS_STATUS_299 = 299
 
 suspend inline fun <reified T> HttpResponse?.handleResponse(): NetworkResult<T> {
     return when {
         this == null -> NetworkResult.Failure(UNKNOWN_ERROR)
-        status.value in 400..405 -> {
+        status.value in ERROR_STATUS_400..ERROR_STATUS_405 -> {
             println("Error ${bodyAsText()}")
             NetworkResult.Failure(CONNECTION_EXCEPTION)
         }
-        status.value !in 200..299 -> {
+        status.value !in SUCCESS_STATUS_200..SUCCESS_STATUS_299 -> {
             val error = bodyAsText()
             NetworkResult.Failure(error)
         }

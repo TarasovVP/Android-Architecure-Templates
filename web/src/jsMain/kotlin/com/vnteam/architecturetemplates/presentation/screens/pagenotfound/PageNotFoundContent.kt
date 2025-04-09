@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
+import com.vnteam.architecturetemplates.presentation.components.FLOAT_3
 import com.vnteam.architecturetemplates.presentation.components.HeaderText
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
@@ -26,7 +27,7 @@ fun PageNotFound() {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(modifier = Modifier.fillMaxHeight(0.3f))
+        Spacer(modifier = Modifier.fillMaxHeight(FLOAT_3))
         Image(
             painter = painterResource(Res.drawable.ic_page_not_found),
             contentDescription = LocalStringResources.current.PAGE_NOT_FOUND,

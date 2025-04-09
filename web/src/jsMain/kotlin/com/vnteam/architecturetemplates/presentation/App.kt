@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
+import com.vnteam.architecturetemplates.presentation.components.FLOAT_8
 import com.vnteam.architecturetemplates.presentation.components.SplashScreen
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
@@ -40,6 +41,7 @@ import com.vnteam.architecturetemplates.resources.Res
 import com.vnteam.architecturetemplates.resources.android_architecture_template
 import com.vnteam.architecturetemplates.resources.ic_dark_mode
 import com.vnteam.architecturetemplates.resources.ic_light_mode
+import com.vnteam.architecturetemplates.shared.Constants.MESSAGE_ANIMATION_DURATION
 import isMainScreen
 import kotlinx.browser.window
 import kotlinx.coroutines.delay
@@ -64,7 +66,7 @@ fun AppContent(appViewModel: AppViewModel) {
     val screenState = appViewModel.screenState
     LaunchedEffect(screenState.value.appMessageState.messageVisible) {
         if (screenState.value.appMessageState.messageVisible) {
-            delay(2000)
+            delay(MESSAGE_ANIMATION_DURATION)
             screenState.value =
                 screenState.value.copy(
                     appMessageState =
@@ -84,7 +86,7 @@ fun AppContent(appViewModel: AppViewModel) {
                 if (screenState.value.appBarState.topAppBarVisible) {
                     AppBar(appViewModel, screenState.value.appBarState)
                 }
-                Box(modifier = Modifier.fillMaxWidth(0.8f)) {
+                Box(modifier = Modifier.fillMaxWidth(FLOAT_8)) {
                     AppNavigation(screenState)
                 }
             }

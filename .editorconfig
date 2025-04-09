@@ -9,6 +9,12 @@ ktlint = disabled
 [**/secrets/**/*]
 ktlint = disabled
 
+[**/test/**/*]
+ktlint = disabled
+
+[*.gradle.kts]
+ktlint_disabled_rules = custom:magic-numbers-rule
+
 [**/com/kmp/ktlint/rules/**/*.kt]
 ktlint = disabled
 

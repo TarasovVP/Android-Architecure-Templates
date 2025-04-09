@@ -65,6 +65,8 @@ import androidx.compose.ui.window.Dialog
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargerPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
@@ -73,6 +75,8 @@ import com.vnteam.architecturetemplates.presentation.theme.Primary400
 import com.vnteam.architecturetemplates.presentation.theme.Primary500
 import com.vnteam.architecturetemplates.resources.Res
 import com.vnteam.architecturetemplates.resources.android_architecture_template
+import com.vnteam.architecturetemplates.shared.Constants.REFRESH_ANIMATION_DURATION
+import com.vnteam.architecturetemplates.shared.Constants.SPLASH_ANIMATION_DURATION
 import com.vnteam.architecturetemplates.shared.drawableRes
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
@@ -80,8 +84,8 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun SplashScreen() {
     val screenWidth = remember { mutableStateOf(0.dp) }
-    val minSize = screenWidth.value * 0.2f
-    val maxSize = screenWidth.value * 0.7f
+    val minSize = screenWidth.value * FLOAT_2
+    val maxSize = screenWidth.value * FLOAT_7
 
     val infiniteTransition = rememberInfiniteTransition()
     val size =
@@ -90,7 +94,7 @@ fun SplashScreen() {
             targetValue = maxSize.value,
             animationSpec =
                 infiniteRepeatable(
-                    animation = tween(durationMillis = 700, easing = LinearEasing),
+                    animation = tween(durationMillis = SPLASH_ANIMATION_DURATION, easing = LinearEasing),
                     repeatMode = RepeatMode.Reverse,
                 ),
         )
@@ -111,7 +115,7 @@ fun SplashScreen() {
             painter = painterResource(Res.drawable.android_architecture_template),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.size(size.value.dp).clip(RoundedCornerShape(16.dp)),
+            modifier = Modifier.size(size.value.dp).clip(RoundedCornerShape(LocalLargeAvatarSize.current.size)),
         )
     }
 }
@@ -200,7 +204,7 @@ fun CommonTextField(
             onValueChanged.invoke(it.text)
         },
         label = { Text(text = placeHolder, color = MaterialTheme.colorScheme.onBackground) },
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(LocalMediumPadding.current.size),
         textStyle = TextStyle(color = MaterialTheme.colorScheme.onBackground),
         colors =
             OutlinedTextFieldDefaults.colors(
@@ -246,8 +250,11 @@ fun ConfirmationDialog(
                         modifier =
                             Modifier
                                 .wrapContentSize()
-                                .border(1.dp, Primary500, shape = RoundedCornerShape(16.dp))
-                                .background(color = MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(16.dp)),
+                                .border(1.dp, Primary500, shape = RoundedCornerShape(LocalLargeAvatarSize.current.size))
+                                .background(
+                                    color = MaterialTheme.colorScheme.primary,
+                                    shape = RoundedCornerShape(LocalLargeAvatarSize.current.size),
+                                ),
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
@@ -256,7 +263,7 @@ fun ConfirmationDialog(
                             modifier =
                                 Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp),
+                                    .padding(LocalLargeAvatarSize.current.size),
                             textAlign = TextAlign.Center,
                         )
                         SubmitButtons(true, onDismiss, onConfirmationClick)
@@ -278,7 +285,7 @@ fun PrimaryButton(
         enabled = isEnabled,
         modifier =
             modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .padding(horizontal = LocalLargeAvatarSize.current.size, vertical = LocalMediumPadding.current.size)
                 .fillMaxWidth()
                 .background(
                     color = if (isEnabled) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondary,
@@ -303,14 +310,14 @@ fun SecondaryButton(
     TextButton(
         modifier =
             modifier
-                .padding(horizontal = LocalDefaultPadding.current.size, vertical = 8.dp)
+                .padding(horizontal = LocalDefaultPadding.current.size, vertical = LocalMediumPadding.current.size)
                 .fillMaxWidth()
                 .border(
                     1.dp,
                     if (isDestructive) Color.Red else Primary400,
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(LocalLargeAvatarSize.current.size),
                 )
-                .background(color = Color.White, shape = RoundedCornerShape(16.dp)),
+                .background(color = Color.White, shape = RoundedCornerShape(LocalLargeAvatarSize.current.size)),
         onClick = {
             onClick.invoke()
         },
@@ -329,7 +336,7 @@ fun SubmitButtons(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(LocalMediumPadding.current.size),
         horizontalArrangement = Arrangement.Center,
     ) {
         SecondaryButton(text = LocalStringResources.current.BUTTON_CANCEL, false, Modifier.weight(1f), onClick = onDismiss)
@@ -350,7 +357,7 @@ fun RefreshableLazyList(
     if (state.isRefreshing) {
         LaunchedEffect(true) {
             onRefresh()
-            delay(1500)
+            delay(REFRESH_ANIMATION_DURATION)
             state.endRefresh()
         }
     }
@@ -383,7 +390,7 @@ fun EmptyState() {
             contentDescription = null,
             modifier =
                 Modifier
-                    .fillMaxSize(0.3f)
+                    .fillMaxSize(FLOAT_3)
                     .padding(LocalMediumPadding.current.size),
             contentScale = ContentScale.Fit,
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
@@ -426,9 +433,9 @@ fun ChangeAvatarDialog(
                     .padding(
                         start = LocalMediumPadding.current.size,
                         end = LocalMediumPadding.current.size,
-                        bottom = LocalDefaultPadding.current.size * 3,
+                        bottom = LocalLargerPadding.current.size,
                     ),
-            columns = GridCells.Adaptive(minSize = LocalLargeAvatarSize.current.size + LocalDefaultPadding.current.size * 2),
+            columns = GridCells.Adaptive(minSize = LocalLargeAvatarSize.current.size + LocalLargePadding.current.size),
         ) {
             items(avatarList) { avatar ->
                 Box(
@@ -446,3 +453,8 @@ fun ChangeAvatarDialog(
         }
     }
 }
+
+const val FLOAT_2 = 0.2f
+const val FLOAT_3 = 0.3f
+const val FLOAT_7 = 0.7f
+const val FLOAT_8 = 0.8f

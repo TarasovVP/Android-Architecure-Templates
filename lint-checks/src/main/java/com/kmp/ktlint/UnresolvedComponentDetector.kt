@@ -42,13 +42,14 @@ class UnresolvedComponentDetector : Detector(), XmlScanner {
     }
 
     companion object {
+        private const val ISSUE_PRIORITY = 6
         val ISSUE =
             Issue.create(
                 id = "UnresolvedManifestClass",
                 briefDescription = "Unexpected class in AndroidManifest.xml",
                 explanation = "The component in the manifest refers to a non-existent class.",
                 category = Category.CORRECTNESS,
-                priority = 6,
+                priority = ISSUE_PRIORITY,
                 severity = Severity.ERROR,
                 implementation =
                     Implementation(

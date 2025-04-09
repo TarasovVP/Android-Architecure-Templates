@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
 import com.vnteam.architecturetemplates.presentation.components.AvatarImage
 import com.vnteam.architecturetemplates.presentation.components.ChangeAvatarDialog
 import com.vnteam.architecturetemplates.presentation.components.CommonTextField
@@ -27,6 +26,7 @@ import com.vnteam.architecturetemplates.presentation.components.PrimaryButton
 import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
+import com.vnteam.architecturetemplates.presentation.resources.LocalMediumLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
@@ -93,7 +93,7 @@ fun CreateContent(
         Box(
             contentAlignment = Alignment.Center,
             modifier =
-                Modifier.wrapContentSize().padding(20.dp).clickable {
+                Modifier.wrapContentSize().padding(LocalMediumLargePadding.current.size).clickable {
                     viewState.value.isChangeAvatarDialogVisible.value = true
                 },
         ) {
