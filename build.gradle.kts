@@ -16,6 +16,15 @@ subprojects {
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         debug.set(true)
         ignoreFailures.set(true)
+        filter {
+
+            exclude("**/build/**")
+            exclude("**/generated/**")
+            exclude("**/test/**")
+            exclude("**/resources/**")
+            exclude("**/secrets/**")
+            exclude("**/com/kmp/ktlint/rules/**")
+        }
     }
     dependencies {
         add("ktlint", project(":custom-ktlint-rules"))

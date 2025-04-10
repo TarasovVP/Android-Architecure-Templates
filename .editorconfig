@@ -2,27 +2,13 @@ root = true
 
 [*.{kt,kts}]
 ktlint_function_naming_ignore_when_annotated_with = Composable
-
-[**/build/generated/**/*]
-ktlint = disabled
-
-[**/secrets/**/*]
-ktlint = disabled
-
-[**/test/**/*]
-ktlint = disabled
-
-[*.gradle.kts]
-ktlint_disabled_rules = custom:magic-numbers-rule
-
-[*.gradle.kts]
-ktlint_disabled_rules = custom:raw-string-rule
-
-[**/resources/StringResources.kt]
-ktlint_disabled_rules = custom:raw-string-rule
-
-[**/com/kmp/ktlint/rules/**/*.kt]
-ktlint = disabled
+ktlint_standard_final-newline = disabled
 
 [**/src/iosMain/**/MainViewController.kt]
-ktlint = disabled
+function-naming = disabled
+
+[**/resources/StringResources.kt]
+raw-string-rule = disabled
+
+[**/resources/StringResources.kt]
+raw-string-rule = disabled

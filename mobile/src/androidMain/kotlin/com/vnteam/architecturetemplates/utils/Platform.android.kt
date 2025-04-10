@@ -4,7 +4,8 @@ import android.app.Activity
 import android.content.Intent
 
 private const val PLAIN_TEXT_TYPE = "text/plain"
-private const val ACTIVITY_PROVIDER_ERROR = "You need to implement the 'activityProvider' to provide the required Activity. " +
+private const val ACTIVITY_PROVIDER_ERROR =
+    "You need to implement the 'activityProvider' to provide the required Activity. " +
         "Just make sure to set a valid activity using " +
         "the 'setActivityProvider()' method."
 

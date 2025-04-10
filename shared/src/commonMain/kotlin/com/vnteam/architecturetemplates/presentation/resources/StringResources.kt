@@ -79,7 +79,7 @@ class StringResourcesUK : StringResources(
     SPEAK = "Проговорити",
     PAGE_NOT_FOUND = "Сторінку не знайдено",
     SWITCH_TO_LIGHT_THEME = "Переключити на світлу тему",
-    SWITCH_TO_DARK_THEME = "Переключити на темну тему"
+    SWITCH_TO_DARK_THEME = "Переключити на темну тему",
 )
 
 val LocalStringResources: ProvidableCompositionLocal<StringResources> =

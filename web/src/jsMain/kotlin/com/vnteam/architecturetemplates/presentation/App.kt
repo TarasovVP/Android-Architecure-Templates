@@ -82,7 +82,10 @@ fun AppContent(appViewModel: AppViewModel) {
             modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.BottomEnd,
         ) {
-            Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
                 if (screenState.value.appBarState.topAppBarVisible) {
                     AppBar(appViewModel, screenState.value.appBarState)
                 }
@@ -170,10 +173,18 @@ fun AppBar(
                 Icon(
                     painter =
                         painterResource(
-                            if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode,
+                            if (appViewModel.isDarkTheme.value == true) {
+                                Res.drawable.ic_light_mode
+                            } else {
+                                Res.drawable.ic_dark_mode
+                            },
                         ),
-                    contentDescription = if (appViewModel.isDarkTheme.value == true) LocalStringResources.current.SWITCH_TO_LIGHT_THEME else
-                        LocalStringResources.current.SWITCH_TO_DARK_THEME,
+                    contentDescription =
+                        if (appViewModel.isDarkTheme.value == true) {
+                            LocalStringResources.current.SWITCH_TO_LIGHT_THEME
+                        } else {
+                            LocalStringResources.current.SWITCH_TO_DARK_THEME
+                        },
                     tint = Color.White,
                 )
             }
