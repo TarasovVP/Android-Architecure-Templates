@@ -15,6 +15,7 @@ import com.vnteam.architecturetemplates.presentation.screens.details.DetailsScre
 import com.vnteam.architecturetemplates.presentation.screens.list.ListContent
 import com.vnteam.architecturetemplates.presentation.screens.list.ListScreen
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
+import com.vnteam.architecturetemplates.shared.Constants.DEFAULT_OBJECT_ID
 import com.vnteam.architecturetemplates.shared.Constants.DEMO_OBJECT_ID
 import com.vnteam.architecturetemplates.shared.Constants.DEMO_OBJECT_NAME
 import com.vnteam.architecturetemplates.shared.NavigationScreens
@@ -100,7 +101,7 @@ fun AppNavigation(
         ) { backStackEntry ->
             val demoObjectId =
                 backStackEntry.arguments?.getString(DEMO_OBJECT_ID)
-                    .takeIf { it?.isNotEmpty() == true && it != "-1" } ?: ""
+                    .takeIf { it?.isNotEmpty() == true && it != DEFAULT_OBJECT_ID } ?: ""
             screenState.value =
                 screenState.value.copy(
                     appBarState =

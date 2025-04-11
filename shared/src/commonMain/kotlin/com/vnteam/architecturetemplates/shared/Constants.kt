@@ -11,6 +11,7 @@ object Constants {
     const val REFRESH_ANIMATION_DURATION = 1500L
     const val MESSAGE_ANIMATION_DURATION = 2000L
     const val SUCCESSFULLY_CREATED = "Successfully created"
+    const val DEFAULT_OBJECT_ID = "demoObjectId"
     const val DEMO_OBJECT_ID = "demoObjectId"
     const val DEMO_OBJECT_NAME = "demoObjectName"
 }

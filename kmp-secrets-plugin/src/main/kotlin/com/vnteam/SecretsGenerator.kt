@@ -1,5 +1,10 @@
 package com.vnteam
 
+import com.vnteam.Constants.BACKSLASH
+import com.vnteam.Constants.CURLY_BRACE_CLOSE
+import com.vnteam.Constants.DOT
+import com.vnteam.Constants.FORWARD_SLASH
+import com.vnteam.Constants.VALID_KEY_PATTERN
 import org.gradle.api.Project
 import java.io.File
 import java.util.Properties
@@ -48,7 +53,7 @@ class SecretsGenerator(private val project: Project, private val extension: Secr
         properties: Properties,
     ): String {
         val packagePath = configDir.relativeTo(File(extension.outputDir))
-        val packageName = packagePath.toString().replace("/", ".").replace("\\", ".")
+        val packageName = packagePath.toString().replace(FORWARD_SLASH, DOT).replace(BACKSLASH, DOT)
 
         return buildString {
             appendLine("${Constants.SECRETS_PACKAGE} $packageName")
@@ -62,11 +67,11 @@ class SecretsGenerator(private val project: Project, private val extension: Secr
                 }
             }
 
-            appendLine("}")
+            appendLine(CURLY_BRACE_CLOSE)
         }
     }
 
     private fun isValidKey(key: String): Boolean {
-        return key.matches(Regex("^[a-zA-Z_][a-zA-Z0-9_]*$"))
+        return key.matches(Regex(VALID_KEY_PATTERN))
     }
 }

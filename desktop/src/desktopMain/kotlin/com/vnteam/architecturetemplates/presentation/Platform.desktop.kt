@@ -7,13 +7,20 @@ import java.awt.datatransfer.StringSelection
 import java.net.URI
 import javax.swing.JOptionPane
 
+private const val OPTION_OPEN_IN_BROWSER = "Open in Browser"
+private const val OPTION_COPY_TO_CLIPBOARD = "Copy to Clipboard"
+private const val OPTION_CANCEL = "Cancel"
+private const val DIALOG_MESSAGE = "Choose an action for the text:"
+private const val DIALOG_TITLE = "Share Text"
+
 fun shareLink(url: String) {
-    val options = arrayOf("Open in Browser", "Copy to Clipboard", "Cancel")
+    val options = arrayOf(OPTION_OPEN_IN_BROWSER, OPTION_COPY_TO_CLIPBOARD, OPTION_CANCEL)
+
     val choice =
         JOptionPane.showOptionDialog(
             null,
-            "Choose an action for the text:",
-            "Share Text",
+            DIALOG_MESSAGE,
+            DIALOG_TITLE,
             JOptionPane.DEFAULT_OPTION,
             JOptionPane.INFORMATION_MESSAGE,
             null,

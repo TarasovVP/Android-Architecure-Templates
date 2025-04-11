@@ -149,7 +149,7 @@ fun AppBar(
         ) {
             Image(
                 painter = painterResource(Res.drawable.android_architecture_template),
-                contentDescription = "Home",
+                contentDescription = LocalStringResources.current.HOME,
             )
         }
         Text(

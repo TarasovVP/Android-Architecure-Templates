@@ -20,4 +20,10 @@ object Constants {
     // .gitignore
     const val GITIGNORE_FILE = ".gitignore"
     const val GITIGNORE_AUTO_GENERATED = "# Auto-generated .gitignore"
+
+    const val FORWARD_SLASH = "/"
+    const val BACKSLASH = "\\"
+    const val DOT = "."
+    const val CURLY_BRACE_CLOSE = "}"
+    const val VALID_KEY_PATTERN = "^[a-zA-Z_][a-zA-Z0-9_]*$"
 }

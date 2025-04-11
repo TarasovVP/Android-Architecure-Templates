@@ -28,6 +28,7 @@ sealed class StringResources(
     val PAGE_NOT_FOUND: String,
     val SWITCH_TO_LIGHT_THEME: String,
     val SWITCH_TO_DARK_THEME: String,
+    val HOME: String
 )
 
 class StringResourcesEN : StringResources(
@@ -54,6 +55,7 @@ class StringResourcesEN : StringResources(
     PAGE_NOT_FOUND = "Page not found",
     SWITCH_TO_LIGHT_THEME = "Switch to light theme",
     SWITCH_TO_DARK_THEME = "Switch to dark theme",
+    HOME = "Home",
 )
 
 class StringResourcesUK : StringResources(
@@ -80,6 +82,7 @@ class StringResourcesUK : StringResources(
     PAGE_NOT_FOUND = "Сторінку не знайдено",
     SWITCH_TO_LIGHT_THEME = "Переключити на світлу тему",
     SWITCH_TO_DARK_THEME = "Переключити на темну тему",
+    HOME = "Головна",
 )
 
 val LocalStringResources: ProvidableCompositionLocal<StringResources> =

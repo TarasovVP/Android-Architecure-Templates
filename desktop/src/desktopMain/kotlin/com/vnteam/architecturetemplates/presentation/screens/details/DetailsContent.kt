@@ -1,6 +1,5 @@
 package com.vnteam.architecturetemplates.presentation.screens.details
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,9 +53,7 @@ fun DetailsContent(viewState: DetailsViewState) {
             }
             Row(
                 modifier =
-                    Modifier.padding(top = LocalMediumPadding.current.size).clickable {
-                        // shareLink(viewState.demoObject?.htmlUrl.orEmpty())
-                    },
+                    Modifier.padding(top = LocalMediumPadding.current.size),
             ) {
                 SecondaryText(LocalStringResources.current.URL)
                 PrimaryText(viewState.demoObjectUI?.htmlUrl.textWithNoDataHandling())

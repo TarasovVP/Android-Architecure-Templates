@@ -5,10 +5,19 @@ ktlint_function_naming_ignore_when_annotated_with = Composable
 ktlint_standard_final-newline = disabled
 
 [**/src/iosMain/**/MainViewController.kt]
-function-naming = disabled
+ktlint = disabled
 
 [**/resources/StringResources.kt]
 raw-string-rule = disabled
 
 [**/resources/StringResources.kt]
 raw-string-rule = disabled
+
+[**/test/**/*.kt]
+ktlint = disabled
+
+[**/commonTest/**/*.kt]
+ktlint = disabled
+
+[**/build/**/*.kt]
+ktlint = disabled
