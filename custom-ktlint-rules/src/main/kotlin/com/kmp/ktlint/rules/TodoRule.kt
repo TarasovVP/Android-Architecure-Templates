@@ -9,7 +9,7 @@ class TodoRule : Rule(RuleId(Constants.TODO_RULE_ID), About()) {
     override fun beforeVisitChildNodes(
         node: ASTNode,
         autoCorrect: Boolean,
-        emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
+        emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit,
     ) {
         if (node.elementType == ElementType.EOL_COMMENT) {
             val text = node.text
@@ -17,7 +17,7 @@ class TodoRule : Rule(RuleId(Constants.TODO_RULE_ID), About()) {
                 emit(
                     node.startOffset,
                     Constants.TODO_RULE_DESCRIPTION,
-                    false
+                    false,
                 )
             }
         }

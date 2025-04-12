@@ -10,26 +10,30 @@ import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 
 class MagicNumberRule : Rule(RuleId(Constants.MAGIC_NUMBERS_RULE_ID), About()) {
-
-    private val allowedNumbers = setOf("0", "1", "-1", "1f")
+    private val allowedNumbers =
+        setOf(
+            Constants.ALLOWED_INT_ZERO,
+            Constants.ALLOWED_INT_ONE,
+            Constants.ALLOWED_INT_MINUS_ONE,
+            Constants.ALLOWED_FLOAT_ONE,
+        )
 
     override fun beforeVisitChildNodes(
         node: ASTNode,
         autoCorrect: Boolean,
-        emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
+        emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit,
     ) {
         if (node.elementType == ElementType.INTEGER_CONSTANT || node.elementType == ElementType.FLOAT_CONSTANT) {
             val text = node.text
-            // Check if the number is a constant in a property declaration
+
             val property = node.psi.getParentOfType<KtProperty>(false)
-            if (property != null && property.hasModifier(KtTokens.CONST_KEYWORD)) {
+            if (property?.hasModifier(KtTokens.CONST_KEYWORD) == true) {
                 return
             }
-            // Check if the number is a color literal in a Color call
-            val callExpression = node.psi.getParentOfType<KtCallExpression>(true)
-            val isColorCall = callExpression?.calleeExpression?.text == "Color"
 
-            val isHexColorLiteral = text.startsWith("0xFF", ignoreCase = true)
+            val callExpression = node.psi.getParentOfType<KtCallExpression>(true)
+            val isColorCall = callExpression?.calleeExpression?.text == Constants.COLOR_CALL_NAME
+            val isHexColorLiteral = text.startsWith(Constants.HEX_COLOR_PREFIX, ignoreCase = true)
 
             if (isColorCall && isHexColorLiteral) {
                 return
@@ -39,7 +43,7 @@ class MagicNumberRule : Rule(RuleId(Constants.MAGIC_NUMBERS_RULE_ID), About()) {
                 emit(
                     node.startOffset,
                     Constants.MAGIC_NUMBERS_RULE_DESCRIPTION,
-                    false
+                    false,
                 )
             }
         }

@@ -11,41 +11,39 @@ import org.jetbrains.kotlin.psi.KtStringTemplateExpression
 import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 
 class StringLiteralRule : Rule(RuleId(Constants.RAW_STRING_RULE_ID), About()) {
-
     override fun beforeVisitChildNodes(
         node: ASTNode,
         autoCorrect: Boolean,
-        emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
+        emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit,
     ) {
-        if (node.elementType == ElementType.STRING_TEMPLATE) {
-            val text = node.text
-            
-            if (text == "\"\"" || text == "\"\"\"\"\"\"") {
-                return
-            }
+        if (node.elementType != ElementType.STRING_TEMPLATE) return
 
-            val property = node.psi.getParentOfType<KtProperty>(false)
-            val isConstProperty = property?.hasModifier(KtTokens.CONST_KEYWORD) == true
+        val text = node.text
 
-            if (isConstProperty) {
-                return
-            }
-
-            val psi = node.psi as? KtStringTemplateExpression ?: return
-            if (psi.entries.any { it.expression != null }) {
-                return
-            }
-
-            val annotationEntry = psi.getParentOfType<KtAnnotationEntry>(true)
-            if (annotationEntry != null) {
-                return
-            }
-
-            emit(
-                node.startOffset,
-                Constants.RAW_STRING_RULE_DESCRIPTION,
-                false
-            )
+        if (text == Constants.EMPTY_DOUBLE_QUOTE || text == Constants.EMPTY_TRIPLE_QUOTE) {
+            return
         }
+
+        val property = node.psi.getParentOfType<KtProperty>(false)
+        val isConstProperty = property?.hasModifier(KtTokens.CONST_KEYWORD) == true
+        if (isConstProperty) {
+            return
+        }
+
+        val psi = node.psi as? KtStringTemplateExpression ?: return
+        if (psi.entries.any { it.expression != null }) {
+            return
+        }
+
+        val annotationEntry = psi.getParentOfType<KtAnnotationEntry>(true)
+        if (annotationEntry != null) {
+            return
+        }
+
+        emit(
+            node.startOffset,
+            Constants.RAW_STRING_RULE_DESCRIPTION,
+            false,
+        )
     }
 }

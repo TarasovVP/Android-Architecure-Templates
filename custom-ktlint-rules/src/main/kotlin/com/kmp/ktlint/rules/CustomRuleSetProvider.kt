@@ -10,7 +10,7 @@ class CustomRuleSetProvider :
         return setOf(
             // RuleProvider { TodoRule() },
             RuleProvider { MagicNumberRule() },
-            RuleProvider { StringLiteralRule() }
+            RuleProvider { StringLiteralRule() },
         )
     }
 }
