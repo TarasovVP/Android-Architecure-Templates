@@ -49,6 +49,7 @@ fun App(appViewModel: AppViewModel) {
     val isDarkTheme = appViewModel.isDarkTheme.collectAsState()
     val language = appViewModel.language.collectAsState()
     val screenState = remember { mutableStateOf(ScreenState()) }
+    "sdsd"
     CompositionLocalProvider(LocalStringResources provides getStringResourcesByLocale(language.value.orEmpty())) {
         isDarkTheme.value?.let {
             AppTheme(it) {
