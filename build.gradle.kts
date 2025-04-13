@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 plugins {
     alias(libs.plugins.androidApplication) apply false
@@ -19,5 +20,21 @@ subprojects {
     }
     dependencies {
         add("ktlint", project(":custom-ktlint-rules"))
+    }
+}
+
+val installGitHook = tasks.register("installGitHook", Copy::class) {
+    from("$rootDir/pre-commit")
+    into("$rootDir/.git/hooks")
+    fileMode = "755".toInt(8)
+}
+
+project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
+    val kmpExtension = project.extensions.getByType<KotlinMultiplatformExtension>()
+    kmpExtension.targets.all { target ->
+        target.compilations.all { compilation ->
+            compilation.compileKotlinTask.dependsOn(installGitHook)
+            true
+        }
     }
 }

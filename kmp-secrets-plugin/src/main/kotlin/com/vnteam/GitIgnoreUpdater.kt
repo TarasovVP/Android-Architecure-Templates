@@ -8,6 +8,7 @@ import java.io.File
 class GitIgnoreUpdater(private val project: Project) {
     fun addToGitIgnore(configFile: File) {
         val gitIgnoreFile = project.file(Constants.GITIGNORE_FILE)
+        "sdsd"
         val relativePath = configFile.relativeTo(project.projectDir).path.replace(BACKSLASH, FORWARD_SLASH)
         if (!gitIgnoreFile.exists()) {
             gitIgnoreFile.writeText("${Constants.GITIGNORE_AUTO_GENERATED}\n$relativePath\n")
