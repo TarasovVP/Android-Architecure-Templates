@@ -20,7 +20,3 @@ ktlint = disabled
 
 [**/presentation/resources/**]
 ktlint = disabled
-
-[**/src/iosMain/**/MainViewController.kt]
-ktlint = disabled
-
