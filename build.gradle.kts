@@ -26,7 +26,7 @@ subprojects {
 val installGitHook = tasks.register("installGitHook", Copy::class) {
     from("$rootDir/pre-commit")
     into("$rootDir/.git/hooks")
-    fileMode = 0b111101101
+    fileMode = "755".toInt(8)
 }
 
 project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
