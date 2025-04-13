@@ -31,10 +31,9 @@ val installGitHook = tasks.register("installGitHook", Copy::class) {
 
 project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
     val kmpExtension = project.extensions.getByType<KotlinMultiplatformExtension>()
-    kmpExtension.targets.all { target ->
-        target.compilations.all { compilation ->
-            compilation.compileKotlinTask.dependsOn(installGitHook)
-            true
+    kmpExtension.targets.configureEach {
+        compilations.configureEach {
+            compileKotlinTask.dependsOn(installGitHook)
         }
     }
 }
