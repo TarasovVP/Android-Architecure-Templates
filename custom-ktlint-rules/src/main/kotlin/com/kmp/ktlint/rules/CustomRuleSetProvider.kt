@@ -8,7 +8,6 @@ class CustomRuleSetProvider :
     RuleSetProviderV3(RuleSetId(Constants.CUSTOM_RULES_GROUP)) {
     override fun getRuleProviders(): Set<RuleProvider> {
         return setOf(
-            // RuleProvider { TodoRule() },
             RuleProvider { MagicNumberRule() },
             RuleProvider { StringLiteralRule() },
         )
