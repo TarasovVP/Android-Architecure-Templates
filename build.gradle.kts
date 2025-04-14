@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.sqlDelight) apply false
     alias(libs.plugins.kotlinKover) apply false
     alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.detekt) apply false
 }
 
 subprojects {
@@ -21,6 +22,8 @@ subprojects {
     dependencies {
         add("ktlint", project(":custom-ktlint-rules"))
     }
+
+    apply(plugin = "io.gitlab.arturbosch.detekt")
 }
 
 val installGitHook = tasks.register("installGitHook", Copy::class) {
