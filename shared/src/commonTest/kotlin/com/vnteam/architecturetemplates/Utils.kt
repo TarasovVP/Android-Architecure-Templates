@@ -9,10 +9,14 @@ inline fun <reified T : Any, reified R : T> KoinTest.injectAs(): Lazy<R> =
         obj as R
     }
 
+private const val BYTE_ARRAY_SIZE = 16
+private const val RADIX = 16
+private const val PAD_START_LENGTH = 2
+
 fun randomUuidLikeString(): String {
-    val bytes = ByteArray(16)
+    val bytes = ByteArray(BYTE_ARRAY_SIZE)
     Random.nextBytes(bytes)
     return bytes.joinToString("") {
-        it.toString(16).padStart(2, '0')
+        it.toString(RADIX).padStart(PAD_START_LENGTH, '0')
     }
 }

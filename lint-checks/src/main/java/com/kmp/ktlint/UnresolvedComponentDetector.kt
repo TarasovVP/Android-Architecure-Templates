@@ -14,13 +14,13 @@ import com.intellij.psi.PsiClass
 import org.w3c.dom.Element
 
 class UnresolvedComponentDetector : Detector(), XmlScanner {
-    override fun getApplicableElements(): Collection<String> = listOf("activity", "service", "receiver", "provider")
+    override fun getApplicableElements(): Collection<String> = listOf(ACTIVITY, SERVICE, RECEIVER, PROVIDER)
 
     override fun visitElement(
         context: XmlContext,
         element: Element,
     ) {
-        val className = element.getAttributeNS(ANDROID_URI, "name") ?: return
+        val className = element.getAttributeNS(ANDROID_URI, NAME) ?: return
         if (className.isBlank()) return
 
         val fqcn = resolveManifestName(element, context.project)
@@ -42,13 +42,23 @@ class UnresolvedComponentDetector : Detector(), XmlScanner {
     }
 
     companion object {
+        private const val ISSUE_PRIORITY = 6
+        private const val ACTIVITY = "activity"
+        private const val SERVICE = "service"
+        private const val RECEIVER = "receiver"
+        private const val PROVIDER = "provider"
+        private const val NAME = "name"
+        private const val ISSUE_ID = "UnresolvedManifestClass"
+        private const val ISSUE_BRIEF_DESCRIPTION = "UnresolvedManifestClass"
+        private const val ISSUE_EXPLANATION = "UnresolvedManifestClass"
+
         val ISSUE =
             Issue.create(
-                id = "UnresolvedManifestClass",
-                briefDescription = "Unexpected class in AndroidManifest.xml",
-                explanation = "The component in the manifest refers to a non-existent class.",
+                id = ISSUE_ID,
+                briefDescription = ISSUE_BRIEF_DESCRIPTION,
+                explanation = ISSUE_EXPLANATION,
                 category = Category.CORRECTNESS,
-                priority = 6,
+                priority = ISSUE_PRIORITY,
                 severity = Severity.ERROR,
                 implementation =
                     Implementation(

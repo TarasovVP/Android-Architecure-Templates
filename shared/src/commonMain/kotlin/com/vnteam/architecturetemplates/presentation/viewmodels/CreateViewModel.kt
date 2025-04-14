@@ -10,6 +10,7 @@ import com.vnteam.architecturetemplates.domain.usecase.InsertDemoObjectsUseCase
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.shared.Constants.SUCCESSFULLY_CREATED
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -72,7 +73,7 @@ class CreateViewModel(
                 ),
             )
             showProgress(false)
-            showMessage("Successfully created", false)
+            showMessage(SUCCESSFULLY_CREATED, false)
             _state.value = state.value.copy(successResult = true)
         }
     }

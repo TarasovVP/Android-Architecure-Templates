@@ -28,11 +28,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
 import com.vnteam.architecturetemplates.presentation.components.SplashScreen
+import com.vnteam.architecturetemplates.presentation.resources.LocalLargerPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
@@ -122,9 +122,9 @@ fun ScaffoldContent(
                                     ),
                                 contentDescription =
                                     if (appViewModel.isDarkTheme.value == true) {
-                                        "Switch to Light Theme"
+                                        LocalStringResources.current.SWITCH_TO_LIGHT_THEME
                                     } else {
-                                        "Switch to Dark Theme"
+                                        LocalStringResources.current.SWITCH_TO_DARK_THEME
                                     },
                                 tint = Color.White,
                             )
@@ -151,7 +151,7 @@ fun ScaffoldContent(
                     contentColor = Color.White,
                     modifier =
                         Modifier.padding(
-                            horizontal = 48.dp,
+                            horizontal = LocalLargerPadding.current.size,
                             vertical = LocalSmallPadding.current.size,
                         ),
                 )

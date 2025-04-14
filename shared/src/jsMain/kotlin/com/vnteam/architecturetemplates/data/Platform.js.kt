@@ -1,3 +1,5 @@
 package com.vnteam.architecturetemplates.data
 
-actual fun generateUUID(): String = js("crypto.randomUUID().toString()").unsafeCast<String>()
+import com.vnteam.architecturetemplates.Constants
+
+actual fun generateUUID(): String = js(Constants.RANDOM_UIID).unsafeCast<String>()

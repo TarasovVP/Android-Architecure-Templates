@@ -3,14 +3,20 @@ root = true
 [*.{kt,kts}]
 ktlint_function_naming_ignore_when_annotated_with = Composable
 
-[**/build/generated/**/*]
+[**/build/**/*.kt]
 ktlint = disabled
 
-[**/secrets/**/*]
+[**/*.gradle.kts]
 ktlint = disabled
 
-[**/com/kmp/ktlint/rules/**/*.kt]
+[**/src/commonTest/kotlin/**/*.kt]
 ktlint = disabled
 
-[**/src/iosMain/**/MainViewController.kt]
+[**/src/test/kotlin/**/*.kt]
+ktlint = disabled
+
+[**/secrets/**/*.kt]
+ktlint = disabled
+
+[**/presentation/resources/**]
 ktlint = disabled

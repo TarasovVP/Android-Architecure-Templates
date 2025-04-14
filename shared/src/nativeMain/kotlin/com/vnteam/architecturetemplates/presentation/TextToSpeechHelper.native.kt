@@ -8,6 +8,8 @@ import platform.AVFAudio.AVSpeechUtterance
 import platform.NaturalLanguage.NLLanguageRecognizer
 import platform.darwin.NSObject
 
+private const val DEFAULT_LANGUAGE = "en-US"
+
 class TextToSpeechHelper : NSObject(), AVSpeechSynthesizerDelegateProtocol {
     private var synthesizer: AVSpeechSynthesizer = AVSpeechSynthesizer()
     private var isSpeaking = false
@@ -31,7 +33,7 @@ class TextToSpeechHelper : NSObject(), AVSpeechSynthesizerDelegateProtocol {
         }
 
         val utterance = AVSpeechUtterance.speechUtteranceWithString(text)
-        utterance.voice = AVSpeechSynthesisVoice.voiceWithLanguage("en-US") // default to english
+        utterance.voice = AVSpeechSynthesisVoice.voiceWithLanguage(DEFAULT_LANGUAGE)
         if (utterance.voice == null) {
             return
         }

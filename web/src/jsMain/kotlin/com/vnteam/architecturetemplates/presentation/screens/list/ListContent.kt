@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.vnteam.architecturetemplates.domain.sealedclasses.ListState
 import com.vnteam.architecturetemplates.presentation.components.AvatarImage
 import com.vnteam.architecturetemplates.presentation.components.ConfirmationDialog
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
@@ -37,7 +38,7 @@ import navigateTo
 fun ListContent(
     viewState: ListViewState,
     screenState: MutableState<ScreenState>,
-    onItemClick: (DemoObjectUI, String) -> Unit,
+    onItemClick: (DemoObjectUI, ListState) -> Unit,
 ) {
     ListScreenStateContent(screenState)
     Box {
@@ -49,7 +50,7 @@ fun ListContent(
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
             title = LocalStringResources.current.DELETE,
-            onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), "delete") },
+            onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), ListState.Delete) },
             onDismiss = { viewState.isConfirmationDialogVisible.value = false },
         )
     }
@@ -77,9 +78,9 @@ fun ListScreenStateContent(screenState: MutableState<ScreenState>) {
 @Composable
 fun DemoObjectItem(
     item: DemoObjectUI,
-    onItemClick: (DemoObjectUI, String) -> Unit,
+    onItemClick: (DemoObjectUI, ListState) -> Unit,
 ) {
-    Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, "details") }) {
+    Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, ListState.Details) }) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalSmallPadding.current.size),
@@ -91,7 +92,7 @@ fun DemoObjectItem(
                     Modifier
                         .padding(LocalMediumPadding.current.size).weight(1f),
             )
-            IconButton(onClick = { onItemClick(item, "confirm_delete") }) {
+            IconButton(onClick = { onItemClick(item, ListState.ConfirmDelete) }) {
                 Icon(
                     modifier =
                         Modifier

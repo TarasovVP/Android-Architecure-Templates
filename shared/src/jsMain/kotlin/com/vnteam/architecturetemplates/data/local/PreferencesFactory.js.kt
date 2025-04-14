@@ -1,5 +1,6 @@
 package com.vnteam.architecturetemplates.data.local
 
+import com.vnteam.architecturetemplates.Constants
 import kotlinx.browser.window
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,7 @@ actual class PreferencesFactory : Preferences {
     private val booleanFlows = mutableMapOf<String, MutableStateFlow<Boolean>>()
 
     init {
-        window.addEventListener("storage", { event ->
+        window.addEventListener(Constants.STORAGE_TYPE, { event ->
             event as StorageEvent
             event.key?.let { key ->
                 event.newValue?.let { newValue ->

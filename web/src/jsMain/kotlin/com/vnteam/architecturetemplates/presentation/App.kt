@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
+import com.vnteam.architecturetemplates.presentation.components.FLOAT_8
 import com.vnteam.architecturetemplates.presentation.components.SplashScreen
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
@@ -40,6 +41,7 @@ import com.vnteam.architecturetemplates.resources.Res
 import com.vnteam.architecturetemplates.resources.android_architecture_template
 import com.vnteam.architecturetemplates.resources.ic_dark_mode
 import com.vnteam.architecturetemplates.resources.ic_light_mode
+import com.vnteam.architecturetemplates.shared.Constants.MESSAGE_ANIMATION_DURATION
 import isMainScreen
 import kotlinx.browser.window
 import kotlinx.coroutines.delay
@@ -64,7 +66,7 @@ fun AppContent(appViewModel: AppViewModel) {
     val screenState = appViewModel.screenState
     LaunchedEffect(screenState.value.appMessageState.messageVisible) {
         if (screenState.value.appMessageState.messageVisible) {
-            delay(2000)
+            delay(MESSAGE_ANIMATION_DURATION)
             screenState.value =
                 screenState.value.copy(
                     appMessageState =
@@ -80,11 +82,14 @@ fun AppContent(appViewModel: AppViewModel) {
             modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.BottomEnd,
         ) {
-            Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
                 if (screenState.value.appBarState.topAppBarVisible) {
                     AppBar(appViewModel, screenState.value.appBarState)
                 }
-                Box(modifier = Modifier.fillMaxWidth(0.8f)) {
+                Box(modifier = Modifier.fillMaxWidth(FLOAT_8)) {
                     AppNavigation(screenState)
                 }
             }
@@ -144,7 +149,7 @@ fun AppBar(
         ) {
             Image(
                 painter = painterResource(Res.drawable.android_architecture_template),
-                contentDescription = "Home",
+                contentDescription = LocalStringResources.current.HOME,
             )
         }
         Text(
@@ -168,9 +173,18 @@ fun AppBar(
                 Icon(
                     painter =
                         painterResource(
-                            if (appViewModel.isDarkTheme.value == true) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode,
+                            if (appViewModel.isDarkTheme.value == true) {
+                                Res.drawable.ic_light_mode
+                            } else {
+                                Res.drawable.ic_dark_mode
+                            },
                         ),
-                    contentDescription = if (appViewModel.isDarkTheme.value == true) "Switch to Light Theme" else "Switch to Dark Theme",
+                    contentDescription =
+                        if (appViewModel.isDarkTheme.value == true) {
+                            LocalStringResources.current.SWITCH_TO_LIGHT_THEME
+                        } else {
+                            LocalStringResources.current.SWITCH_TO_DARK_THEME
+                        },
                     tint = Color.White,
                 )
             }
