@@ -24,6 +24,17 @@ subprojects {
     }
 
     apply(plugin = "io.gitlab.arturbosch.detekt")
+    plugins.withId("io.gitlab.arturbosch.detekt") {
+        configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
+            source = files(
+                "src/commonMain/kotlin",
+                "src/jvmMain/kotlin",
+                "src/androidMain/kotlin",
+                "src/iosMain/kotlin",
+                "src/nativeMain/kotlin"
+            )
+        }
+    }
 }
 
 val installGitHook = tasks.register("installGitHook", Copy::class) {
@@ -40,3 +51,5 @@ project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
         }
     }
 }
+
+
