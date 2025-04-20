@@ -37,6 +37,7 @@ subprojects {
                 "src/js/kotlin",
             )
             config.setFrom(rootProject.file("detekt.yml"))
+            buildUponDefaultConfig = true
         }
     }
 }

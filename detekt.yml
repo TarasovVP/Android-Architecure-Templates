@@ -3,3 +3,7 @@ complexity:
     active: true
     threshold: 60
     ignoreAnnotated: ['Composable']
+naming:
+  FunctionNaming:
+    active: true
+    ignoreAnnotated: ['Composable']
