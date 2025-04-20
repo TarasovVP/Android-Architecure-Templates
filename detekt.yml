@@ -1,0 +1,5 @@
+complexity:
+  LongMethod:
+    active: true
+    threshold: 60
+    ignoreAnnotated: ['Composable']

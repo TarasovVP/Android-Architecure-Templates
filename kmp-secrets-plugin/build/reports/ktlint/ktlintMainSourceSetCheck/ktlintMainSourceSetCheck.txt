@@ -1,8 +1,0 @@
-[90m/Users/volodymyrtarasov/AndroidStudioProjects/Android-Architecure-Templates/kmp-secrets-plugin/src/main/kotlin/com/vnteam/[0mKMPSecretsPlugin.kt[90m:[0m46[90m:51:[0m Missing { ... } [90m(standard:multiline-if-else)[0m
-[90m/Users/volodymyrtarasov/AndroidStudioProjects/Android-Architecure-Templates/kmp-secrets-plugin/src/main/kotlin/com/vnteam/[0mKMPSecretsPlugin.kt[90m:[0m46[90m:51:[0m Expected a newline [90m(standard:if-else-wrapping)[0m
-[90m/Users/volodymyrtarasov/AndroidStudioProjects/Android-Architecure-Templates/kmp-secrets-plugin/src/main/kotlin/com/vnteam/[0mKMPSecretsPlugin.kt[90m:[0m47[90m:34:[0m Missing { ... } [90m(standard:multiline-if-else)[0m
-[90m/Users/volodymyrtarasov/AndroidStudioProjects/Android-Architecure-Templates/kmp-secrets-plugin/src/main/kotlin/com/vnteam/[0mKMPSecretsPlugin.kt[90m:[0m47[90m:34:[0m Expected a newline [90m(standard:if-else-wrapping)[0m
-
-Summary error count (descending) by rule:
-  standard:if-else-wrapping: 2
-  standard:multiline-if-else: 2

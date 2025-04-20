@@ -27,12 +27,16 @@ subprojects {
     plugins.withId("io.gitlab.arturbosch.detekt") {
         configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
             source = files(
+                "src/main/kotlin",
                 "src/commonMain/kotlin",
                 "src/jvmMain/kotlin",
                 "src/androidMain/kotlin",
                 "src/iosMain/kotlin",
-                "src/nativeMain/kotlin"
+                "src/nativeMain/kotlin",
+                "src/desktop/kotlin",
+                "src/js/kotlin",
             )
+            config.setFrom(rootProject.file("detekt.yml"))
         }
     }
 }
