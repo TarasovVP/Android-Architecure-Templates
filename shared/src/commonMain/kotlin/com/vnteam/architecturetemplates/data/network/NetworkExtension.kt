@@ -4,7 +4,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
-import secrets.Properties
+import secrets.Secrets
 
 const val CONNECTION_EXCEPTION = "Connection Exception. Check if the server is running."
 const val UNKNOWN_ERROR = "Unknown error"
@@ -42,6 +42,6 @@ suspend inline fun <reified T> HttpClient.safeRequest(block: HttpClient.() -> Ht
         val response = block()
         response.handleResponse<T>()
     } catch (e: Exception) {
-        val errorMessage = if (Properties.CLOUD_URL.contains(LOCAL_PORT)) CONNECTION_EXCEPTION else e.message
+        val errorMessage = if (Secrets.CLOUD_URL.contains(LOCAL_PORT)) CONNECTION_EXCEPTION else e.message
         NetworkResult.Failure(errorMessage)
     }

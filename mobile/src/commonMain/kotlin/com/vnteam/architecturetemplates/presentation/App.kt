@@ -101,7 +101,13 @@ fun ScaffoldContent(
                 actions = {
                     if (!screenState.value.appBarState.topAppBarActionVisible) {
                         IconButton(onClick = {
-                            appViewModel.setLanguage(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN)
+                            appViewModel.setLanguage(
+                                if (appViewModel.language.value == APP_LANG_EN) {
+                                    APP_LANG_UK
+                                } else {
+                                    APP_LANG_EN
+                                },
+                            )
                         }) {
                             Text(
                                 if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN,

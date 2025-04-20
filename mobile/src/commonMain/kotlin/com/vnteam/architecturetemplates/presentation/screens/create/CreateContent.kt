@@ -39,10 +39,10 @@ fun CreateContent(
     Box {
         Column(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(LocalDefaultPadding.current.size),
+                Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(LocalDefaultPadding.current.size),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -72,9 +72,9 @@ fun CreateContent(
             Box(
                 contentAlignment = Alignment.Center,
                 modifier =
-                Modifier.wrapContentSize().clickable {
-                    viewState.value.isChangeAvatarDialogVisible.value = true
-                },
+                    Modifier.wrapContentSize().clickable {
+                        viewState.value.isChangeAvatarDialogVisible.value = true
+                    },
             ) {
                 AvatarImage(
                     resId = viewState.value.demoObject.value?.owner?.avatarUrl.orEmpty(),
@@ -102,8 +102,8 @@ fun CreateContent(
             PrimaryButton(
                 LocalStringResources.current.SUBMIT,
                 originDemoObject.value !=
-                        viewState.value.demoObject.value &&
-                        viewState.value.demoObject.value?.isDemoObjectValid() == true,
+                    viewState.value.demoObject.value &&
+                    viewState.value.demoObject.value?.isDemoObjectValid() == true,
                 Modifier,
                 onClick = onClick,
             )

@@ -60,10 +60,10 @@ class SecretsGenerator(private val project: Project, private val extension: Secr
             appendLine()
             appendLine("${Constants.SECRETS_OBJECT} ${Constants.SECRETS_OBJECT_NAME} {")
 
-            properties.forEach { (keyAny, value) ->
+            Secrets.forEach { (keyAny, value) ->
                 val key = keyAny.toString()
                 if (isValidKey(key)) {
-                    appendLine("    val $key = \"$value\"")
+                    appendLine("    const val $key = \"$value\"")
                 }
             }
 

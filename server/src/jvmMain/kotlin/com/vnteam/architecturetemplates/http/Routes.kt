@@ -38,6 +38,7 @@ fun Routing.insertDemoObjects(
         demoObjectService.insertDemoObjects(demoObjects)
         call.respond(HttpStatusCode.Created)
     } catch (e: Exception) {
+        e.printStackTrace()
         call.respond(HttpStatusCode.BadRequest)
     }
 }
@@ -50,6 +51,7 @@ fun Routing.getDemoObjects(
         val demoObjectsList = demoObjectResponseMapper.mapToImplModelList(demoObjectService.getDemoObjects().orEmpty().toList())
         call.respond(demoObjectsList)
     } catch (e: Exception) {
+        e.printStackTrace()
         call.respond(HttpStatusCode.BadRequest)
     }
 }
@@ -71,6 +73,7 @@ fun Routing.getDemoObjectById(
             call.respond(HttpStatusCode.NotFound)
         }
     } catch (e: Exception) {
+        e.printStackTrace()
         call.respond(HttpStatusCode.BadRequest)
     }
 }
@@ -87,9 +90,11 @@ fun Routing.deleteDemoObjectById(demoObjectService: DemoObjectService) =
                 demoObjectService.deleteDemoObjectById(demoObjectId)
                 call.respond(HttpStatusCode.OK)
             } catch (e: Exception) {
+                e.printStackTrace()
                 call.respond(HttpStatusCode.InternalServerError)
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             call.respond(HttpStatusCode.BadRequest)
         }
     }
