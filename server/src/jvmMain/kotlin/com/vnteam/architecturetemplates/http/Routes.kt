@@ -48,7 +48,9 @@ fun Routing.getDemoObjects(
     demoObjectResponseMapper: DemoObjectResponseMapper,
 ) = get(DEMO_OBJECTS_ROUTE) {
     try {
-        val demoObjectsList = demoObjectResponseMapper.mapToImplModelList(demoObjectService.getDemoObjects().orEmpty().toList())
+        val demoObjectsList =
+            demoObjectResponseMapper
+                .mapToImplModelList(demoObjectService.getDemoObjects().orEmpty().toList())
         call.respond(demoObjectsList)
     } catch (e: Exception) {
         e.printStackTrace()
@@ -66,7 +68,9 @@ fun Routing.getDemoObjectById(
             call.respond(HttpStatusCode.BadRequest)
             return@get
         }
-        val demoObject = demoObjectService.getDemoObjectById(demoObjectId)?.let { it1 -> demoObjectResponseMapper.mapToImplModel(it1) }
+        val demoObject =
+            demoObjectService
+                .getDemoObjectById(demoObjectId)?.let { it1 -> demoObjectResponseMapper.mapToImplModel(it1) }
         if (demoObject != null) {
             call.respond(demoObject)
         } else {
