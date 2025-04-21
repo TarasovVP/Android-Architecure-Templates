@@ -38,6 +38,7 @@ subprojects {
             )
             config.setFrom(rootProject.file("detekt.yml"))
             buildUponDefaultConfig = true
+            ignoreFailures = false
         }
     }
 }
