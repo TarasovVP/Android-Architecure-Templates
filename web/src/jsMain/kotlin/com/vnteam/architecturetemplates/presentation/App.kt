@@ -24,8 +24,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.vnteam.architecturetemplates.data.APP_LANG_EN
-import com.vnteam.architecturetemplates.data.APP_LANG_UK
 import com.vnteam.architecturetemplates.presentation.components.FLOAT_8
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
@@ -36,6 +34,7 @@ import com.vnteam.architecturetemplates.presentation.resources.getStringResource
 import com.vnteam.architecturetemplates.presentation.resources.getThemeSwitchDescription
 import com.vnteam.architecturetemplates.presentation.screens.splash.SplashScreen
 import com.vnteam.architecturetemplates.presentation.states.screen.AppBarState
+import com.vnteam.architecturetemplates.presentation.states.screen.AppMessageState
 import com.vnteam.architecturetemplates.presentation.theme.AppTheme
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import com.vnteam.architecturetemplates.resources.Res
@@ -87,9 +86,7 @@ fun AppContent(appViewModel: AppViewModel) {
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if (screenState.value.appBarState.topAppBarVisible) {
-                    AppBar(appViewModel, screenState.value.appBarState)
-                }
+                AppBar(screenState.value.appBarState.topAppBarVisible, appViewModel, screenState.value.appBarState)
                 Box(modifier = Modifier.fillMaxWidth(FLOAT_8)) {
                     AppNavigation(screenState)
                 }
@@ -113,13 +110,7 @@ fun AppContent(appViewModel: AppViewModel) {
                     ),
                 contentAlignment = Alignment.Center,
             ) {
-                if (screenState.value.appMessageState.messageVisible) {
-                    Snackbar(
-                        containerColor = if (screenState.value.appMessageState.isMessageError) Color.Red else Color.Green,
-                    ) {
-                        Text(text = screenState.value.appMessageState.messageText)
-                    }
-                }
+                AppSnackBar(screenState.value.appMessageState)
             }
             if (screenState.value.isProgressVisible) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
@@ -129,10 +120,23 @@ fun AppContent(appViewModel: AppViewModel) {
 }
 
 @Composable
+fun AppSnackBar(appMessageState: AppMessageState) {
+    if (appMessageState.messageVisible) {
+        Snackbar(
+            containerColor = if (appMessageState.isMessageError) Color.Red else Color.Green,
+        ) {
+            Text(text = appMessageState.messageText)
+        }
+    }
+}
+
+@Composable
 fun AppBar(
+    isAppBarVisible: Boolean,
     appViewModel: AppViewModel,
     appBarState: AppBarState,
 ) {
+    if (!isAppBarVisible) return
     Row(
         modifier =
             Modifier.fillMaxWidth()
@@ -161,10 +165,10 @@ fun AppBar(
         )
         Row(modifier = Modifier.padding(horizontal = LocalLargePadding.current.size)) {
             IconButton(onClick = {
-                appViewModel.setLanguage(if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN)
+                appViewModel.setLanguage(appViewModel.getNewLanguage())
             }) {
                 Text(
-                    if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN,
+                    appViewModel.getNewLanguage(),
                     color = Color.White,
                 )
             }
