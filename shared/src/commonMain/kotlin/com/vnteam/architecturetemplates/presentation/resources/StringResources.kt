@@ -1,5 +1,6 @@
 package com.vnteam.architecturetemplates.presentation.resources
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
@@ -94,5 +95,14 @@ fun getStringResourcesByLocale(locale: String): StringResources {
     return when (locale) {
         APP_LANG_UK -> StringResourcesUK()
         else -> StringResourcesEN()
+    }
+}
+
+@Composable
+fun getThemeSwitchDescription(isDarkTheme: Boolean): String {
+    return if (isDarkTheme) {
+        LocalStringResources.current.switchToLightTheme
+    } else {
+        LocalStringResources.current.switchToDarkTheme
     }
 }

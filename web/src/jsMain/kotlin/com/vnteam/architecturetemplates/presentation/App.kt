@@ -27,13 +27,13 @@ import androidx.compose.ui.graphics.Color
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
 import com.vnteam.architecturetemplates.presentation.components.FLOAT_8
-import com.vnteam.architecturetemplates.presentation.components.SplashScreen
 import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumTextSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
+import com.vnteam.architecturetemplates.presentation.resources.getThemeSwitchDescription
 import com.vnteam.architecturetemplates.presentation.screens.splash.SplashScreen
 import com.vnteam.architecturetemplates.presentation.states.screen.AppBarState
 import com.vnteam.architecturetemplates.presentation.theme.AppTheme
@@ -181,11 +181,7 @@ fun AppBar(
                             },
                         ),
                     contentDescription =
-                        if (appViewModel.isDarkTheme.value == true) {
-                            LocalStringResources.current.switchToLightTheme
-                        } else {
-                            LocalStringResources.current.switchToDarkTheme
-                        },
+                        getThemeSwitchDescription(appViewModel.isDarkTheme.value == true),
                     tint = Color.White,
                 )
             }

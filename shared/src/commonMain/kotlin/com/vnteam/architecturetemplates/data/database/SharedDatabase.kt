@@ -16,6 +16,6 @@ class SharedDatabase(private val databaseDriverFactory: DatabaseDriverFactory) {
         initDatabase()
         return database.takeIf { it != null }?.let {
             block(it)
-        } ?: throw IllegalStateException(DATABASE_NOT_INITIALIZED)
+        } ?: error(DATABASE_NOT_INITIALIZED)
     }
 }

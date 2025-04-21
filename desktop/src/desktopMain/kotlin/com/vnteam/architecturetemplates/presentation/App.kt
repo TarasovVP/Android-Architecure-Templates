@@ -27,12 +27,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
-import com.vnteam.architecturetemplates.data.APP_LANG_EN
-import com.vnteam.architecturetemplates.data.APP_LANG_UK
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargerPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
+import com.vnteam.architecturetemplates.presentation.resources.getThemeSwitchDescription
 import com.vnteam.architecturetemplates.presentation.screens.splash.SplashScreen
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.theme.AppTheme
@@ -129,20 +128,10 @@ fun AppTopBar(
         actions = {
             if (!screenState.appBarState.topAppBarActionVisible) {
                 IconButton(onClick = {
-                    appViewModel.setLanguage(
-                        if (appViewModel.language.value == APP_LANG_EN) {
-                            APP_LANG_UK
-                        } else {
-                            APP_LANG_EN
-                        },
-                    )
+                    appViewModel.setLanguage(appViewModel.getNewLanguage())
                 }) {
                     Text(
-                        if (appViewModel.language.value == APP_LANG_EN) {
-                            APP_LANG_UK
-                        } else {
-                            APP_LANG_EN
-                        },
+                        appViewModel.getNewLanguage(),
                         color = Color.White,
                     )
                 }
@@ -159,11 +148,7 @@ fun AppTopBar(
                                 },
                             ),
                         contentDescription =
-                            if (appViewModel.isDarkTheme.value == true) {
-                                LocalStringResources.current.switchToLightTheme
-                            } else {
-                                LocalStringResources.current.switchToDarkTheme
-                            },
+                            getThemeSwitchDescription(appViewModel.isDarkTheme.value == true),
                         tint = Color.White,
                     )
                 }
