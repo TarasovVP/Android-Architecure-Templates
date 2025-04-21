@@ -1,7 +1,6 @@
 #!/bin/sh
 
-CHANGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep '\.kts\?$')
-KOTLIN_FILES=$(echo "$CHANGED_FILES" | grep '\.kt$')
+CHANGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.kt$|\.kts$')
 
 if [ -n "$CHANGED_FILES" ]; then
   echo "🔍 Found changed Kotlin files:"
@@ -21,13 +20,11 @@ if [ -n "$CHANGED_FILES" ]; then
   fi
 
   echo "🔎 Running detekt..."
-    ./gradlew detekt
-    DETEKT_EXIT_CODE=$?
-    if [ $DETEKT_EXIT_CODE -ne 0 ]; then
-      echo "❌ Detekt check failed! Please fix the issues and try again."
-      exit 1
-    fi
-
+  ./gradlew detekt
+  if [ $? -ne 0 ]; then
+    echo "❌ Detekt check failed! Please fix the issues and try again."
+    exit 1
+  fi
 else
   echo "ℹ️ No changed Kotlin files to check."
 fi
