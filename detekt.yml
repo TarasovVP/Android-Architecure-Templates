@@ -3,6 +3,9 @@ complexity:
     active: true
     threshold: 60
     ignoreAnnotated: ['Composable']
+  LongParameterList:
+    active: true
+    excludes: ['**/presentation/resources/**']
 naming:
   FunctionNaming:
     active: true
@@ -10,11 +13,10 @@ naming:
   ConstructorParameterNaming:
     active: true
     excludes: ['**/presentation/resources/**']
-exceptions:
-  TooGenericExceptionCaught:
-    active: true
-    exceptionNames: ['ArrayIndexOutOfBoundsException', 'Error', 'IllegalMonitorStateException', 'IndexOutOfBoundsException', 'NullPointerException', 'RuntimeException', 'Throwable']
 style:
   MagicNumber:
     active: true
     excludes: ['**/presentation/theme/**']
+  MaxLineLength:
+    active: true
+    excludes: [ '**/kotlin/secrets/**' ]

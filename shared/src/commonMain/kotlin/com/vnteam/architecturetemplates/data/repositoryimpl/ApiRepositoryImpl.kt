@@ -3,6 +3,7 @@ package com.vnteam.architecturetemplates.data.repositoryimpl
 import com.vnteam.architecturetemplates.data.mappers.DemoObjectResponseMapper
 import com.vnteam.architecturetemplates.data.network.ApiService
 import com.vnteam.architecturetemplates.data.network.NetworkResult
+import com.vnteam.architecturetemplates.domain.models.BaseException
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.repositories.ApiRepository
 
@@ -22,7 +23,7 @@ class ApiRepositoryImpl(
 
             is NetworkResult.Failure -> {
                 println(response.errorMessage)
-                throw Exception(response.errorMessage)
+                throw BaseException(response.errorMessage.orEmpty())
             }
         }
     }
@@ -34,7 +35,7 @@ class ApiRepositoryImpl(
             )
         if (result is NetworkResult.Failure) {
             println(result.errorMessage)
-            throw Exception(result.errorMessage)
+            throw BaseException(result.errorMessage.orEmpty())
         }
     }
 
@@ -48,7 +49,7 @@ class ApiRepositoryImpl(
 
             is NetworkResult.Failure -> {
                 println(response.errorMessage)
-                throw Exception(response.errorMessage)
+                throw BaseException(response.errorMessage.orEmpty())
             }
         }
     }
@@ -57,7 +58,7 @@ class ApiRepositoryImpl(
         val result = apiService.deleteDemoObjectById(demoObjectId)
         if (result is NetworkResult.Failure) {
             println(result.errorMessage)
-            throw Exception(result.errorMessage)
+            throw BaseException(result.errorMessage.orEmpty())
         }
     }
 }

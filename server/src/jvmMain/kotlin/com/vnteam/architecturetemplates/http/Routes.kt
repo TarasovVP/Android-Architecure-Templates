@@ -5,6 +5,7 @@ import com.vnteam.architecturetemplates.DEMO_OBJECTS_ID_ROUTE
 import com.vnteam.architecturetemplates.DEMO_OBJECTS_ROUTE
 import com.vnteam.architecturetemplates.demoobjectservice.DemoObjectService
 import com.vnteam.architecturetemplates.domain.mappers.DemoObjectResponseMapper
+import com.vnteam.architecturetemplates.domain.models.BaseException
 import com.vnteam.architecturetemplates.domain.responses.DemoObjectResponse
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
@@ -37,7 +38,7 @@ fun Routing.insertDemoObjects(
         val demoObjects = demoObjectResponseMapper.mapFromImplModelList(call.receive<List<DemoObjectResponse>>())
         demoObjectService.insertDemoObjects(demoObjects)
         call.respond(HttpStatusCode.Created)
-    } catch (e: Exception) {
+    } catch (e: BaseException) {
         e.printStackTrace()
         call.respond(HttpStatusCode.BadRequest)
     }
@@ -52,7 +53,7 @@ fun Routing.getDemoObjects(
             demoObjectResponseMapper
                 .mapToImplModelList(demoObjectService.getDemoObjects().orEmpty().toList())
         call.respond(demoObjectsList)
-    } catch (e: Exception) {
+    } catch (e: BaseException) {
         e.printStackTrace()
         call.respond(HttpStatusCode.BadRequest)
     }
@@ -76,7 +77,7 @@ fun Routing.getDemoObjectById(
         } else {
             call.respond(HttpStatusCode.NotFound)
         }
-    } catch (e: Exception) {
+    } catch (e: BaseException) {
         e.printStackTrace()
         call.respond(HttpStatusCode.BadRequest)
     }
@@ -93,11 +94,11 @@ fun Routing.deleteDemoObjectById(demoObjectService: DemoObjectService) =
             try {
                 demoObjectService.deleteDemoObjectById(demoObjectId)
                 call.respond(HttpStatusCode.OK)
-            } catch (e: Exception) {
+            } catch (e: BaseException) {
                 e.printStackTrace()
                 call.respond(HttpStatusCode.InternalServerError)
             }
-        } catch (e: Exception) {
+        } catch (e: BaseException) {
             e.printStackTrace()
             call.respond(HttpStatusCode.BadRequest)
         }
