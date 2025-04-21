@@ -21,11 +21,10 @@ if [ -n "$CHANGED_FILES" ]; then
   fi
 
   echo "🔎 Running detekt..."
-  ./gradlew detekt
-  if [ $? -ne 0 ]; then
+  ./gradlew detekt || {
     echo "❌ Detekt check failed! Please fix the issues and try again."
     exit 1
-  fi
+  }
 else
   echo "ℹ️ No changed Kotlin files to check."
 fi
