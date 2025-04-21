@@ -31,11 +31,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import com.vnteam.architecturetemplates.data.APP_LANG_EN
 import com.vnteam.architecturetemplates.data.APP_LANG_UK
-import com.vnteam.architecturetemplates.presentation.components.SplashScreen
 import com.vnteam.architecturetemplates.presentation.resources.LocalLargerPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
+import com.vnteam.architecturetemplates.presentation.screens.splash.SplashScreen
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.theme.AppTheme
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
@@ -58,7 +58,6 @@ fun App(appViewModel: AppViewModel) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScaffoldContent(
     screenState: MutableState<ScreenState>,
@@ -66,6 +65,7 @@ fun ScaffoldContent(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
+
     LaunchedEffect(screenState.value.appMessageState.messageVisible) {
         if (screenState.value.appMessageState.messageVisible) {
             snackbarHostState.showSnackbar(
@@ -78,90 +78,17 @@ fun ScaffoldContent(
                 )
         }
     }
+
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(screenState.value.appBarState.appBarTitle) },
-                colors =
-                    TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        titleContentColor = Color.White,
-                    ),
-                navigationIcon = {
-                    if (screenState.value.appBarState.topAppBarActionVisible) {
-                        IconButton(onClick = screenState.value.appBarState.topAppBarAction) {
-                            Icon(
-                                tint = Color.White,
-                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                contentDescription = LocalStringResources.current.BACK,
-                            )
-                        }
-                    }
-                },
-                actions = {
-                    if (!screenState.value.appBarState.topAppBarActionVisible) {
-                        IconButton(onClick = {
-                            appViewModel.setLanguage(
-                                if (appViewModel.language.value == APP_LANG_EN) {
-                                    APP_LANG_UK
-                                } else {
-                                    APP_LANG_EN
-                                },
-                            )
-                        }) {
-                            Text(
-                                if (appViewModel.language.value == APP_LANG_EN) APP_LANG_UK else APP_LANG_EN,
-                                color = Color.White,
-                            )
-                        }
-                        IconButton(onClick = {
-                            appViewModel.setIsDarkTheme(appViewModel.isDarkTheme.value != true)
-                        }) {
-                            Icon(
-                                painter =
-                                    painterResource(
-                                        if (appViewModel.isDarkTheme.value == true) {
-                                            Res.drawable.ic_light_mode
-                                        } else {
-                                            Res.drawable.ic_dark_mode
-                                        },
-                                    ),
-                                contentDescription =
-                                    if (appViewModel.isDarkTheme.value == true) {
-                                        LocalStringResources.current.SWITCH_TO_LIGHT_THEME
-                                    } else {
-                                        LocalStringResources.current.SWITCH_TO_DARK_THEME
-                                    },
-                                tint = Color.White,
-                            )
-                        }
-                    }
-                },
+        topBar = { AppTopBar(screenState.value, appViewModel) },
+        snackbarHost = {
+            AppSnackbarHost(
+                snackbarHostState,
+                screenState.value.appMessageState.isMessageError,
             )
         },
-        snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState) { data ->
-                Snackbar(
-                    snackbarData = data,
-                    actionColor = Color.White,
-                    containerColor = if (screenState.value.appMessageState.isMessageError) Color.Red else Color.Green,
-                )
-            }
-        },
         floatingActionButton = {
-            if (screenState.value.floatingActionState.floatingActionButtonVisible) {
-                ExtendedFloatingActionButton(
-                    onClick = { screenState.value.floatingActionState.floatingActionButtonAction() },
-                    content = { Text(screenState.value.floatingActionState.floatingActionButtonTitle) },
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = Color.White,
-                    modifier =
-                        Modifier.padding(
-                            horizontal = LocalLargerPadding.current.size,
-                            vertical = LocalSmallPadding.current.size,
-                        ),
-                )
-            }
+            AppFAB(screenState.value)
         },
         content = { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
@@ -172,4 +99,105 @@ fun ScaffoldContent(
             }
         },
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AppTopBar(
+    screenState: ScreenState,
+    appViewModel: AppViewModel,
+) {
+    TopAppBar(
+        title = { Text(screenState.appBarState.appBarTitle) },
+        colors =
+            TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = Color.White,
+            ),
+        navigationIcon = {
+            if (screenState.appBarState.topAppBarActionVisible) {
+                IconButton(onClick = screenState.appBarState.topAppBarAction) {
+                    Icon(
+                        tint = Color.White,
+                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                        contentDescription = LocalStringResources.current.back,
+                    )
+                }
+            }
+        },
+        actions = {
+            if (!screenState.appBarState.topAppBarActionVisible) {
+                IconButton(onClick = {
+                    appViewModel.setLanguage(
+                        if (appViewModel.language.value == APP_LANG_EN) {
+                            APP_LANG_UK
+                        } else {
+                            APP_LANG_EN
+                        },
+                    )
+                }) {
+                    Text(
+                        if (appViewModel.language.value == APP_LANG_EN) {
+                            APP_LANG_UK
+                        } else {
+                            APP_LANG_EN
+                        },
+                        color = Color.White,
+                    )
+                }
+                IconButton(onClick = {
+                    appViewModel.setIsDarkTheme(appViewModel.isDarkTheme.value != true)
+                }) {
+                    Icon(
+                        painter =
+                            painterResource(
+                                if (appViewModel.isDarkTheme.value == true) {
+                                    Res.drawable.ic_light_mode
+                                } else {
+                                    Res.drawable.ic_dark_mode
+                                },
+                            ),
+                        contentDescription =
+                            if (appViewModel.isDarkTheme.value == true) {
+                                LocalStringResources.current.switchToLightTheme
+                            } else {
+                                LocalStringResources.current.switchToDarkTheme
+                            },
+                        tint = Color.White,
+                    )
+                }
+            }
+        },
+    )
+}
+
+@Composable
+fun AppFAB(screenState: ScreenState) {
+    if (screenState.floatingActionState.floatingActionButtonVisible) {
+        ExtendedFloatingActionButton(
+            onClick = { screenState.floatingActionState.floatingActionButtonAction() },
+            content = { Text(screenState.floatingActionState.floatingActionButtonTitle) },
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = Color.White,
+            modifier =
+                Modifier.padding(
+                    horizontal = LocalLargerPadding.current.size,
+                    vertical = LocalSmallPadding.current.size,
+                ),
+        )
+    }
+}
+
+@Composable
+fun AppSnackbarHost(
+    snackbarHostState: SnackbarHostState,
+    isError: Boolean,
+) {
+    SnackbarHost(hostState = snackbarHostState) { data ->
+        Snackbar(
+            snackbarData = data,
+            actionColor = Color.White,
+            containerColor = if (isError) Color.Red else Color.Green,
+        )
+    }
 }

@@ -49,7 +49,7 @@ fun ListContent(
         }
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
-            title = LocalStringResources.current.DELETE,
+            title = LocalStringResources.current.delete,
             onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), ListState.Delete) },
             onDismiss = { viewState.isConfirmationDialogVisible.value = false },
         )
@@ -62,12 +62,12 @@ fun ListScreenStateContent(screenState: MutableState<ScreenState>) {
         screenState.value.copy(
             appBarState =
                 screenState.value.appBarState.copy(
-                    appBarTitle = LocalStringResources.current.APP_NAME,
+                    appBarTitle = LocalStringResources.current.appName,
                 ),
             floatingActionState =
                 screenState.value.floatingActionState.copy(
                     floatingActionButtonVisible = true,
-                    floatingActionButtonTitle = LocalStringResources.current.ADD,
+                    floatingActionButtonTitle = LocalStringResources.current.add,
                     floatingActionButtonAction = {
                         window.navigateTo(NavigationScreens.CreateScreen.route)
                     },
@@ -98,7 +98,7 @@ fun DemoObjectItem(
                         Modifier
                             .size(LocalSmallAvatarSize.current.size),
                     imageVector = Icons.Filled.Delete,
-                    contentDescription = LocalStringResources.current.DELETE,
+                    contentDescription = LocalStringResources.current.delete,
                 )
             }
         }

@@ -69,27 +69,27 @@ fun CreateContent(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        HeaderText(LocalStringResources.current.DEMO_OBJECT)
+        HeaderText(LocalStringResources.current.demoObject)
         CommonTextField(
             nameState,
-            "${LocalStringResources.current.NAME}*",
+            "${LocalStringResources.current.name}*",
         ) { text ->
             viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(name = text)
         }
         CommonTextField(
             descriptionState,
-            LocalStringResources.current.DESCRIPTION,
+            LocalStringResources.current.description,
         ) { text ->
             viewState.value.demoObject.value =
                 viewState.value.demoObject.value?.copy(description = text)
         }
         CommonTextField(
             urlState,
-            LocalStringResources.current.URL,
+            LocalStringResources.current.url,
         ) { text ->
             viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(htmlUrl = text)
         }
-        HeaderText(LocalStringResources.current.OWNER)
+        HeaderText(LocalStringResources.current.owner)
         Box(
             contentAlignment = Alignment.Center,
             modifier =
@@ -104,7 +104,7 @@ fun CreateContent(
         }
         CommonTextField(
             ownerNameState,
-            "${LocalStringResources.current.NAME}*",
+            "${LocalStringResources.current.name}*",
         ) { text ->
             viewState.value.demoObject.value =
                 viewState.value.demoObject.value?.copy(
@@ -113,7 +113,7 @@ fun CreateContent(
         }
         CommonTextField(
             ownerUrlState,
-            LocalStringResources.current.URL,
+            LocalStringResources.current.url,
         ) { text ->
             viewState.value.demoObject.value =
                 viewState.value.demoObject.value?.copy(
@@ -121,7 +121,7 @@ fun CreateContent(
                 )
         }
         PrimaryButton(
-            LocalStringResources.current.SUBMIT,
+            LocalStringResources.current.submit,
             originDemoObject.value != viewState.value.demoObject.value && viewState.value.demoObject.value?.isDemoObjectValid() == true,
             Modifier,
             onClick = onClick,
@@ -139,7 +139,7 @@ fun CreateScreenStateContent(
         screenState.value.copy(
             appBarState =
                 screenState.value.appBarState.copy(
-                    appBarTitle = if (isCreate) LocalStringResources.current.CREATE else LocalStringResources.current.EDIT,
+                    appBarTitle = if (isCreate) LocalStringResources.current.create else LocalStringResources.current.edit,
                     topAppBarAction = {
                         window.navigateUp()
                     },

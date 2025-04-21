@@ -55,13 +55,13 @@ fun DetailsContent(
                     .padding(LocalDefaultPadding.current.size),
             verticalArrangement = Arrangement.Top,
         ) {
-            HeaderText(LocalStringResources.current.DEMO_OBJECT)
+            HeaderText(LocalStringResources.current.demoObject)
             Row {
-                SecondaryText(LocalStringResources.current.NAME)
+                SecondaryText(LocalStringResources.current.name)
                 PrimaryText(viewState.demoObjectUI?.name.textWithNoDataHandling())
             }
             Row {
-                SecondaryText(LocalStringResources.current.DESCRIPTION)
+                SecondaryText(LocalStringResources.current.description)
                 PrimaryText(viewState.demoObjectUI?.description.textWithNoDataHandling())
             }
             Row(
@@ -70,10 +70,10 @@ fun DetailsContent(
                         shareLink(viewState.demoObjectUI?.htmlUrl.orEmpty())
                     },
             ) {
-                SecondaryText(LocalStringResources.current.URL)
+                SecondaryText(LocalStringResources.current.url)
                 PrimaryText(viewState.demoObjectUI?.htmlUrl.textWithNoDataHandling())
             }
-            HeaderText(LocalStringResources.current.OWNER)
+            HeaderText(LocalStringResources.current.owner)
             OwnerCard(viewState.demoObjectUI?.owner)
         }
     }
@@ -93,7 +93,7 @@ fun DetailsScreenStateContent(
             floatingActionState =
                 screenState.value.floatingActionState.copy(
                     floatingActionButtonVisible = true,
-                    floatingActionButtonTitle = LocalStringResources.current.EDIT,
+                    floatingActionButtonTitle = LocalStringResources.current.edit,
                     floatingActionButtonAction = {
                         window.navigateTo("${NavigationScreens.EditScreen.route}${demoObject?.demoObjectId}")
                     },
@@ -103,7 +103,6 @@ fun DetailsScreenStateContent(
 
 @Composable
 fun OwnerCard(ownerUI: OwnerUI?) {
-    // TODO improve text to speech
     val textToSpeechHelper = koinInject<TextToSpeechHelper>()
     Card(modifier = Modifier.padding(top = LocalMediumPadding.current.size).fillMaxSize()) {
         Row(
@@ -123,7 +122,7 @@ fun OwnerCard(ownerUI: OwnerUI?) {
                         Modifier
                             .size(LocalMediumAvatarSize.current.size),
                     imageVector = Icons.Filled.Info,
-                    contentDescription = LocalStringResources.current.SPEAK,
+                    contentDescription = LocalStringResources.current.speak,
                 )
             }
         }

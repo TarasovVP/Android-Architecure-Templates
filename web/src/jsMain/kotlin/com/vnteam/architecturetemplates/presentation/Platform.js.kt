@@ -31,14 +31,12 @@ private const val TEXT_COPY = "copy"
 
 fun shareLink(url: String) {
     showShareDialog(
-        url,
         onOpen = { openUrl(url) },
         onCopy = { copyToClipboard(url) },
     )
 }
 
 private fun showShareDialog(
-    url: String,
     onOpen: () -> Unit = {},
     onCopy: () -> Unit = {},
 ) {

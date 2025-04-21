@@ -42,23 +42,23 @@ fun DetailsContent(viewState: DetailsViewState) {
                     .padding(LocalDefaultPadding.current.size),
             verticalArrangement = Arrangement.Top,
         ) {
-            HeaderText(LocalStringResources.current.DEMO_OBJECT)
+            HeaderText(LocalStringResources.current.demoObject)
             Row {
-                SecondaryText(LocalStringResources.current.NAME)
+                SecondaryText(LocalStringResources.current.name)
                 PrimaryText(viewState.demoObjectUI?.name.textWithNoDataHandling())
             }
             Row {
-                SecondaryText(LocalStringResources.current.DESCRIPTION)
+                SecondaryText(LocalStringResources.current.description)
                 PrimaryText(viewState.demoObjectUI?.description.textWithNoDataHandling())
             }
             Row(
                 modifier =
                     Modifier.padding(top = LocalMediumPadding.current.size),
             ) {
-                SecondaryText(LocalStringResources.current.URL)
+                SecondaryText(LocalStringResources.current.url)
                 PrimaryText(viewState.demoObjectUI?.htmlUrl.textWithNoDataHandling())
             }
-            HeaderText(LocalStringResources.current.OWNER)
+            HeaderText(LocalStringResources.current.owner)
             OwnerCard(viewState.demoObjectUI?.owner)
         }
     }
@@ -66,7 +66,6 @@ fun DetailsContent(viewState: DetailsViewState) {
 
 @Composable
 fun OwnerCard(ownerUI: OwnerUI?) {
-    // TODO improve text to speech
     val textToSpeechHelper = koinInject<TextToSpeechHelper>()
     Card(modifier = Modifier.padding(top = LocalMediumPadding.current.size).fillMaxSize()) {
         Row(

@@ -43,7 +43,7 @@ fun ListContent(
         })
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
-            title = LocalStringResources.current.DELETE,
+            title = LocalStringResources.current.delete,
             onConfirmationClick = {
                 onItemClick(
                     DemoObjectUI(demoObjectId = viewState.demoObjectToDelete),
@@ -86,7 +86,7 @@ fun DemoObjectItem(
                         Modifier
                             .size(LocalSmallAvatarSize.current.size),
                     imageVector = Icons.Filled.Delete,
-                    contentDescription = LocalStringResources.current.DELETE,
+                    contentDescription = LocalStringResources.current.delete,
                 )
             }
         }

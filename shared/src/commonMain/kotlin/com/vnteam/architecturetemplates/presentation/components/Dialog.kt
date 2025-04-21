@@ -89,7 +89,7 @@ fun ChangeAvatarDialog(
         dragHandle = { BottomSheetDefaults.DragHandle() },
     ) {
         Text(
-            text = LocalStringResources.current.CHANGE_AVATAR,
+            text = LocalStringResources.current.changeAvatar,
             style = MaterialTheme.typography.bodyLarge,
             modifier =
                 Modifier

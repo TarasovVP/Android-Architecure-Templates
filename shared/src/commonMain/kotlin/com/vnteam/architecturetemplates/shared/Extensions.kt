@@ -19,7 +19,7 @@ import com.vnteam.architecturetemplates.resources.ic_empty_state
 import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
-fun String?.textWithNoDataHandling() = this.takeIf { it.orEmpty().isNotEmpty() } ?: LocalStringResources.current.NO_DATA
+fun String?.textWithNoDataHandling() = this.takeIf { it.orEmpty().isNotEmpty() } ?: LocalStringResources.current.noData
 
 fun DrawableResources.drawableRes(resId: String): DrawableResource {
     return when (resId) {

@@ -34,6 +34,7 @@ import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.presentation.resources.LocalMediumTextSize
 import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
+import com.vnteam.architecturetemplates.presentation.screens.splash.SplashScreen
 import com.vnteam.architecturetemplates.presentation.states.screen.AppBarState
 import com.vnteam.architecturetemplates.presentation.theme.AppTheme
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
@@ -149,7 +150,7 @@ fun AppBar(
         ) {
             Image(
                 painter = painterResource(Res.drawable.android_architecture_template),
-                contentDescription = LocalStringResources.current.HOME,
+                contentDescription = LocalStringResources.current.home,
             )
         }
         Text(
@@ -181,9 +182,9 @@ fun AppBar(
                         ),
                     contentDescription =
                         if (appViewModel.isDarkTheme.value == true) {
-                            LocalStringResources.current.SWITCH_TO_LIGHT_THEME
+                            LocalStringResources.current.switchToLightTheme
                         } else {
-                            LocalStringResources.current.SWITCH_TO_DARK_THEME
+                            LocalStringResources.current.switchToDarkTheme
                         },
                     tint = Color.White,
                 )

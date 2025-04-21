@@ -31,13 +31,13 @@ fun AppNavigation(
                 screenState.value.copy(
                     appBarState =
                         screenState.value.appBarState.copy(
-                            appBarTitle = LocalStringResources.current.APP_NAME,
+                            appBarTitle = LocalStringResources.current.appName,
                             topAppBarActionVisible = false,
                         ),
                     floatingActionState =
                         screenState.value.floatingActionState.copy(
                             floatingActionButtonVisible = true,
-                            floatingActionButtonTitle = LocalStringResources.current.ADD,
+                            floatingActionButtonTitle = LocalStringResources.current.add,
                             floatingActionButtonAction = {
                                 navController.navigate("${NavigationScreens.CreateScreen.route}-1")
                             },
@@ -78,7 +78,7 @@ fun AppNavigation(
                     floatingActionState =
                         screenState.value.floatingActionState.copy(
                             floatingActionButtonVisible = true,
-                            floatingActionButtonTitle = LocalStringResources.current.EDIT,
+                            floatingActionButtonTitle = LocalStringResources.current.edit,
                             floatingActionButtonAction = {
                                 navController.navigate("${NavigationScreens.CreateScreen.route}$demoObjectId")
                             },
@@ -108,9 +108,9 @@ fun AppNavigation(
                         screenState.value.appBarState.copy(
                             appBarTitle =
                                 if (demoObjectId.isNotEmpty()) {
-                                    LocalStringResources.current.EDIT
+                                    LocalStringResources.current.edit
                                 } else {
-                                    LocalStringResources.current.CREATE
+                                    LocalStringResources.current.create
                                 },
                             topAppBarActionVisible = true,
                             topAppBarAction = {

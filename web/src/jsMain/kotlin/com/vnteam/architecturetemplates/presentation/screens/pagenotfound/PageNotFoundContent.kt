@@ -30,10 +30,10 @@ fun PageNotFound() {
         Spacer(modifier = Modifier.fillMaxHeight(FLOAT_3))
         Image(
             painter = painterResource(Res.drawable.ic_page_not_found),
-            contentDescription = LocalStringResources.current.PAGE_NOT_FOUND,
+            contentDescription = LocalStringResources.current.pageNotFound,
             modifier = Modifier.padding(bottom = LocalLargePadding.current.size),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
         )
-        HeaderText(LocalStringResources.current.PAGE_NOT_FOUND)
+        HeaderText(LocalStringResources.current.pageNotFound)
     }
 }

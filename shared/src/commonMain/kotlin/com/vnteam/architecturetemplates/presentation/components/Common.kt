@@ -114,7 +114,7 @@ fun AvatarImage(
 ) {
     Image(
         painter = painterResource(DrawableResources.drawableRes(resId)),
-        contentDescription = LocalStringResources.current.OWNER_AVATAR,
+        contentDescription = LocalStringResources.current.ownerAvatar,
         modifier =
             Modifier
                 .wrapContentSize()
@@ -253,13 +253,13 @@ fun SubmitButtons(
         horizontalArrangement = Arrangement.Center,
     ) {
         SecondaryButton(
-            text = LocalStringResources.current.BUTTON_CANCEL,
+            text = LocalStringResources.current.buttonCancel,
             false,
             Modifier.weight(1f),
             onClick = onDismiss,
         )
         PrimaryButton(
-            text = LocalStringResources.current.BUTTON_OK,
+            text = LocalStringResources.current.buttonOk,
             isEnabled,
             Modifier.weight(1f),
         ) {
@@ -318,7 +318,7 @@ fun EmptyState() {
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
         )
         Text(
-            text = LocalStringResources.current.EMPTY_STATE,
+            text = LocalStringResources.current.emptyState,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
         )
