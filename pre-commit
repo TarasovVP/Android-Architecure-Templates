@@ -27,6 +27,7 @@ if [ -n "$CHANGED_FILES" ]; then
       echo "❌ Detekt check failed! Please fix the issues and try again."
       exit 1
     fi
+
 else
   echo "ℹ️ No changed Kotlin files to check."
 fi
