@@ -6,7 +6,7 @@ import com.vnteam.architecturetemplates.di.doInitKoin
 import com.vnteam.architecturetemplates.presentation.App
 import com.vnteam.architecturetemplates.shared.Constants.APP_NAME
 import org.koin.compose.koinInject
-import secrets.Properties.CLOUD_URL
+import secrets.Secrets.CLOUD_URL
 
 fun main() {
     doInitKoin()

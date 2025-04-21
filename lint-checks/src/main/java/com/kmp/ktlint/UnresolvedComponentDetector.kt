@@ -20,8 +20,8 @@ class UnresolvedComponentDetector : Detector(), XmlScanner {
         context: XmlContext,
         element: Element,
     ) {
-        val className = element.getAttributeNS(ANDROID_URI, NAME) ?: return
-        if (className.isBlank()) return
+        val className = element.getAttributeNS(ANDROID_URI, NAME)
+        if (className.isNullOrBlank()) return
 
         val fqcn = resolveManifestName(element, context.project)
 

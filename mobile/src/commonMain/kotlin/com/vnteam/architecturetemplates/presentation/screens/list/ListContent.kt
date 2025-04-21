@@ -44,7 +44,12 @@ fun ListContent(
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
             title = LocalStringResources.current.DELETE,
-            onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), ListState.Delete) },
+            onConfirmationClick = {
+                onItemClick(
+                    DemoObjectUI(demoObjectId = viewState.demoObjectToDelete),
+                    ListState.Delete,
+                )
+            },
             onDismiss = { viewState.isConfirmationDialogVisible.value = false },
         )
     }
@@ -55,7 +60,15 @@ fun DemoObjectItem(
     item: DemoObjectUI,
     onItemClick: (DemoObjectUI, ListState) -> Unit,
 ) {
-    Card(modifier = Modifier.padding(LocalMediumPadding.current.size).fillMaxSize().clickable { onItemClick(item, ListState.Details) }) {
+    Card(
+        modifier =
+            Modifier
+                .padding(LocalMediumPadding.current.size)
+                .fillMaxSize()
+                .clickable {
+                    onItemClick(item, ListState.Details)
+                },
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalSmallPadding.current.size),

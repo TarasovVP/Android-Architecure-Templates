@@ -1,10 +1,11 @@
 package com.vnteam.architecturetemplates.data.network
 
+import com.vnteam.architecturetemplates.domain.models.BaseException
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
-import secrets.Properties
+import secrets.Secrets
 
 const val CONNECTION_EXCEPTION = "Connection Exception. Check if the server is running."
 const val UNKNOWN_ERROR = "Unknown error"
@@ -30,7 +31,7 @@ suspend inline fun <reified T> HttpResponse?.handleResponse(): NetworkResult<T> 
             try {
                 val result = body<T>()
                 NetworkResult.Success(result)
-            } catch (e: Exception) {
+            } catch (e: BaseException) {
                 NetworkResult.Failure(e.message ?: UNKNOWN_ERROR)
             }
         }
@@ -41,7 +42,7 @@ suspend inline fun <reified T> HttpClient.safeRequest(block: HttpClient.() -> Ht
     try {
         val response = block()
         response.handleResponse<T>()
-    } catch (e: Exception) {
-        val errorMessage = if (Properties.CLOUD_URL.contains(LOCAL_PORT)) CONNECTION_EXCEPTION else e.message
+    } catch (e: BaseException) {
+        val errorMessage = if (Secrets.CLOUD_URL.contains(LOCAL_PORT)) CONNECTION_EXCEPTION else e.message
         NetworkResult.Failure(errorMessage)
     }

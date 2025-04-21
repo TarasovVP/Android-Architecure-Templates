@@ -34,13 +34,13 @@ class SecretsGenerator(private val project: Project, private val extension: Secr
         return when {
             modulePropertiesFile.exists() -> modulePropertiesFile
             globalPropertiesFile.exists() -> globalPropertiesFile
-            else -> throw RuntimeException(Constants.ERROR_NO_PROPERTIES_FOUND + project.name)
+            else -> throw IllegalStateException(Constants.ERROR_NO_PROPERTIES_FOUND + project.name)
         }
     }
 
     private fun loadProperties(propertiesFile: File): Properties {
         if (!propertiesFile.exists()) {
-            throw RuntimeException(Constants.ERROR_LOCAL_PROPERTIES_NOT_FOUND + propertiesFile.absolutePath)
+            throw IllegalStateException(Constants.ERROR_LOCAL_PROPERTIES_NOT_FOUND + propertiesFile.absolutePath)
         }
 
         return Properties().apply {
@@ -63,7 +63,7 @@ class SecretsGenerator(private val project: Project, private val extension: Secr
             properties.forEach { (keyAny, value) ->
                 val key = keyAny.toString()
                 if (isValidKey(key)) {
-                    appendLine("    val $key = \"$value\"")
+                    appendLine("    const val $key = \"$value\"")
                 }
             }
 

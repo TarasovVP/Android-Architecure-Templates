@@ -8,7 +8,7 @@ object Constants {
     const val SECRETS_PACKAGE = "package"
     const val SECRETS_OBJECT = "object"
     const val SECRETS_PACKAGE_NAME = "secrets"
-    const val SECRETS_OBJECT_NAME = "Properties"
+    const val SECRETS_OBJECT_NAME = "Secrets"
     const val SECRETS_FILE_NAME = "Secrets.kt"
     const val LOCAL_PROPERTIES_FILE = "local.properties"
     const val DEFAULT_OUTPUT_DIR = "src/commonMain/kotlin"

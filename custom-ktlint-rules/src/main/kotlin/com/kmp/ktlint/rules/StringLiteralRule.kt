@@ -16,34 +16,29 @@ class StringLiteralRule : Rule(RuleId(Constants.RAW_STRING_RULE_ID), About()) {
         autoCorrect: Boolean,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit,
     ) {
-        if (node.elementType != ElementType.STRING_TEMPLATE) return
-
         val text = node.text
+        val shouldEmit =
+            when {
+                node.elementType != ElementType.STRING_TEMPLATE -> false
+                text == Constants.EMPTY_DOUBLE_QUOTE || text == Constants.EMPTY_TRIPLE_QUOTE -> false
+                node.psi.getParentOfType<KtProperty>(false)
+                    ?.hasModifier(KtTokens.CONST_KEYWORD) == true -> false
 
-        if (text == Constants.EMPTY_DOUBLE_QUOTE || text == Constants.EMPTY_TRIPLE_QUOTE) {
-            return
+                (node.psi as? KtStringTemplateExpression)?.let { psi ->
+                    psi.entries.any { it.expression != null } || psi.getParentOfType<KtAnnotationEntry>(
+                        true,
+                    ) != null
+                } ?: true -> false
+
+                else -> true
+            }
+
+        if (shouldEmit) {
+            emit(
+                node.startOffset,
+                Constants.RAW_STRING_RULE_DESCRIPTION,
+                false,
+            )
         }
-
-        val property = node.psi.getParentOfType<KtProperty>(false)
-        val isConstProperty = property?.hasModifier(KtTokens.CONST_KEYWORD) == true
-        if (isConstProperty) {
-            return
-        }
-
-        val psi = node.psi as? KtStringTemplateExpression ?: return
-        if (psi.entries.any { it.expression != null }) {
-            return
-        }
-
-        val annotationEntry = psi.getParentOfType<KtAnnotationEntry>(true)
-        if (annotationEntry != null) {
-            return
-        }
-
-        emit(
-            node.startOffset,
-            Constants.RAW_STRING_RULE_DESCRIPTION,
-            false,
-        )
     }
 }

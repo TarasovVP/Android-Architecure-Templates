@@ -51,19 +51,22 @@ fun CreateContent(
                 remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.name.orEmpty())) },
                 "${LocalStringResources.current.NAME}*",
             ) { text ->
-                viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(name = text)
+                viewState.value.demoObject.value =
+                    viewState.value.demoObject.value?.copy(name = text)
             }
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.description.orEmpty())) },
                 LocalStringResources.current.DESCRIPTION,
             ) { text ->
-                viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(description = text)
+                viewState.value.demoObject.value =
+                    viewState.value.demoObject.value?.copy(description = text)
             }
             CommonTextField(
                 remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.htmlUrl.orEmpty())) },
                 LocalStringResources.current.URL,
             ) { text ->
-                viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(htmlUrl = text)
+                viewState.value.demoObject.value =
+                    viewState.value.demoObject.value?.copy(htmlUrl = text)
             }
             HeaderText(LocalStringResources.current.OWNER)
             Box(
@@ -98,7 +101,9 @@ fun CreateContent(
             }
             PrimaryButton(
                 LocalStringResources.current.SUBMIT,
-                originDemoObject.value != viewState.value.demoObject.value && viewState.value.demoObject.value?.isDemoObjectValid() == true,
+                originDemoObject.value !=
+                    viewState.value.demoObject.value &&
+                    viewState.value.demoObject.value?.isDemoObjectValid() == true,
                 Modifier,
                 onClick = onClick,
             )

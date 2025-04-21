@@ -41,7 +41,15 @@ class KMPSecretsPlugin : Plugin<Project> {
                                 it.toString()
                             }
                         }
-                    }${name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }}"
+                    }${
+                        name.replaceFirstChar {
+                            if (it.isLowerCase()) {
+                                it.titlecase(Locale.getDefault())
+                            } else {
+                                it.toString()
+                            }
+                        }
+                    }"
                 val generateSecretsTask =
                     project.tasks.register(generateSecretsTaskName) {
                         doFirst {

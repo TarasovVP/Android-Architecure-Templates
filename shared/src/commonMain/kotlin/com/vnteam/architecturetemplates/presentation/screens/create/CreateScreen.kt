@@ -22,7 +22,11 @@ import org.koin.compose.viewmodel.koinViewModel
 fun CreateScreen(
     demoObjectId: String,
     screenState: MutableState<ScreenState>,
-    content: @Composable (State<CreateViewState>, originDemoObject: MutableState<DemoObjectUI?>, onClick: () -> Unit) -> Unit,
+    content: @Composable (
+        State<CreateViewState>,
+        originDemoObject: MutableState<DemoObjectUI?>,
+        onClick: () -> Unit,
+    ) -> Unit,
 ) {
     val viewModel = koinViewModel<CreateViewModel>()
     val viewState = viewModel.state.collectAsState()

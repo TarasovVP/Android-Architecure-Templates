@@ -44,7 +44,9 @@ fun AppNavigation(
                         ),
                 )
             ListScreen(screenState, { demoObjectUI ->
-                navController.navigate("${NavigationScreens.DetailsScreen.route}${demoObjectUI.demoObjectId}/${demoObjectUI.name}")
+                navController.navigate(
+                    "${NavigationScreens.DetailsScreen.route}${demoObjectUI.demoObjectId}/${demoObjectUI.name}",
+                )
             }, { viewState, onItemClick ->
                 ListContent(viewState.value, onItemClick)
             })
