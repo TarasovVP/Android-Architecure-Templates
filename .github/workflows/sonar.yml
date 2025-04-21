@@ -46,5 +46,5 @@ jobs:
             -Dsonar.organization=${{ secrets.SONAR_ORG }} \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             --info \
-            build sonar \
-            -x validateSigningDebug
+            sonar \
+            -x assembleDebug -x packageDebug -x validateSigningDebug
