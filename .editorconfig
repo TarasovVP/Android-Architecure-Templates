@@ -18,5 +18,5 @@ ktlint = disabled
 [**/secrets/**/*.kt]
 ktlint = disabled
 
-[**/presentation/resources/**]
+[**/resources/**]
 ktlint = disabled

@@ -29,18 +29,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargerPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
-import com.vnteam.architecturetemplates.presentation.resources.getStringResourcesByLocale
-import com.vnteam.architecturetemplates.presentation.resources.getThemeSwitchDescription
-import com.vnteam.architecturetemplates.presentation.screens.splash.SplashScreen
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
-import com.vnteam.architecturetemplates.presentation.theme.AppTheme
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
+import com.vnteam.architecturetemplates.resources.LocalLargerPadding
+import com.vnteam.architecturetemplates.resources.LocalSmallPadding
+import com.vnteam.architecturetemplates.resources.LocalStringResources
 import com.vnteam.architecturetemplates.resources.Res
+import com.vnteam.architecturetemplates.resources.getStringResourcesByLocale
+import com.vnteam.architecturetemplates.resources.getThemeSwitchDescription
 import com.vnteam.architecturetemplates.resources.ic_dark_mode
 import com.vnteam.architecturetemplates.resources.ic_light_mode
+import com.vnteam.architecturetemplates.splash.SplashScreen
+import com.vnteam.architecturetemplates.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 
 @Composable

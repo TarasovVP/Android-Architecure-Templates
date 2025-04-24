@@ -7,7 +7,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.screens.create.CreateContent
 import com.vnteam.architecturetemplates.presentation.screens.create.CreateScreen
 import com.vnteam.architecturetemplates.presentation.screens.details.DetailsContent
@@ -15,6 +14,7 @@ import com.vnteam.architecturetemplates.presentation.screens.details.DetailsScre
 import com.vnteam.architecturetemplates.presentation.screens.list.ListContent
 import com.vnteam.architecturetemplates.presentation.screens.list.ListScreen
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
+import com.vnteam.architecturetemplates.resources.LocalStringResources
 import com.vnteam.architecturetemplates.shared.Constants.DEFAULT_OBJECT_ID
 import com.vnteam.architecturetemplates.shared.Constants.DEMO_OBJECT_ID
 import com.vnteam.architecturetemplates.shared.Constants.DEMO_OBJECT_NAME

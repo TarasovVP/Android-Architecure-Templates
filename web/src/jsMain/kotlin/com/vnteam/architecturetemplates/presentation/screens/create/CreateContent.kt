@@ -18,19 +18,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import com.vnteam.architecturetemplates.presentation.components.AvatarImage
-import com.vnteam.architecturetemplates.presentation.components.ChangeAvatarDialog
-import com.vnteam.architecturetemplates.presentation.components.CommonTextField
-import com.vnteam.architecturetemplates.presentation.components.HeaderText
-import com.vnteam.architecturetemplates.presentation.components.PrimaryButton
-import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
-import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumLargePadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.components.AvatarImage
+import com.vnteam.architecturetemplates.components.CommonTextField
+import com.vnteam.architecturetemplates.components.HeaderText
+import com.vnteam.architecturetemplates.components.PrimaryButton
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.resources.DrawableResources
+import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
+import com.vnteam.architecturetemplates.resources.LocalLargeAvatarSize
+import com.vnteam.architecturetemplates.resources.LocalMediumLargePadding
+import com.vnteam.architecturetemplates.resources.LocalStringResources
 import kotlinx.browser.window
 import navigateUp
 
@@ -159,7 +158,7 @@ fun ChangeAvatarDialog(viewState: State<CreateViewState>) {
         isChangeAvatarDialogVisible.value = viewState.value.isChangeAvatarDialogVisible.value
     }
     if (isChangeAvatarDialogVisible.value) {
-        ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
+        com.vnteam.architecturetemplates.components.ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
             viewState.value.isChangeAvatarDialogVisible.value = false
         }, onClick = { avatar ->
             viewState.value.demoObject.value =

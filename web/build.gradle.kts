@@ -16,6 +16,8 @@ kotlin {
     sourceSets {
         jsMain.dependencies {
             implementation(projects.shared)
+            implementation(projects.composeUI)
+
             implementation(libs.androidx.viewmodel.compose)
             // Compose
             implementation(compose.html.core)

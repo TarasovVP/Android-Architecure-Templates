@@ -16,17 +16,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.vnteam.architecturetemplates.components.AvatarImage
+import com.vnteam.architecturetemplates.components.ConfirmationDialog
+import com.vnteam.architecturetemplates.components.RefreshableLazyList
 import com.vnteam.architecturetemplates.domain.sealedclasses.ListState
-import com.vnteam.architecturetemplates.presentation.components.AvatarImage
-import com.vnteam.architecturetemplates.presentation.components.ConfirmationDialog
-import com.vnteam.architecturetemplates.presentation.components.RefreshableLazyList
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
-import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.resources.LocalMediumAvatarSize
+import com.vnteam.architecturetemplates.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.resources.LocalSmallAvatarSize
+import com.vnteam.architecturetemplates.resources.LocalSmallPadding
+import com.vnteam.architecturetemplates.resources.LocalStringResources
 
 @Composable
 fun ListContent(

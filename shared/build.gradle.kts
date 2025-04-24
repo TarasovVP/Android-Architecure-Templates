@@ -127,12 +127,6 @@ sqldelight {
     }
 }
 
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "com.vnteam.architecturetemplates.resources"
-    generateResClass = always
-}
-
 kover {
     reports {
         filters {

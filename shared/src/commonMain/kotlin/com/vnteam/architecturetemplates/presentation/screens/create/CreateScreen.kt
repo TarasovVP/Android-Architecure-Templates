@@ -8,9 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import com.vnteam.architecturetemplates.data.generateUUID
-import com.vnteam.architecturetemplates.presentation.components.ChangeAvatarDialog
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
-import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
@@ -62,15 +60,4 @@ fun CreateScreen(
         }
     }
     screenState.value = screenState.value.copy()
-    if (viewState.value.isChangeAvatarDialogVisible.value) {
-        ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
-            viewState.value.isChangeAvatarDialogVisible.value = false
-        }, onClick = { avatar ->
-            viewState.value.demoObject.value =
-                viewState.value.demoObject.value?.copy(
-                    owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
-                )
-            viewState.value.isChangeAvatarDialogVisible.value = false
-        })
-    }
 }

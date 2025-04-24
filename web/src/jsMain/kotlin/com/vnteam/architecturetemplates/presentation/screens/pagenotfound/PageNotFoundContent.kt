@@ -12,10 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import com.vnteam.architecturetemplates.presentation.components.FLOAT_3
-import com.vnteam.architecturetemplates.presentation.components.HeaderText
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargePadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.components.FLOAT_3
+import com.vnteam.architecturetemplates.components.HeaderText
+import com.vnteam.architecturetemplates.resources.LocalLargePadding
+import com.vnteam.architecturetemplates.resources.LocalStringResources
 import com.vnteam.architecturetemplates.resources.Res
 import com.vnteam.architecturetemplates.resources.ic_page_not_found
 import org.jetbrains.compose.resources.painterResource

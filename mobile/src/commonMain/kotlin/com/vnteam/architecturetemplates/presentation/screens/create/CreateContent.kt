@@ -17,15 +17,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import com.vnteam.architecturetemplates.presentation.components.AvatarImage
-import com.vnteam.architecturetemplates.presentation.components.CommonTextField
-import com.vnteam.architecturetemplates.presentation.components.HeaderText
-import com.vnteam.architecturetemplates.presentation.components.PrimaryButton
-import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.components.AvatarImage
+import com.vnteam.architecturetemplates.components.CommonTextField
+import com.vnteam.architecturetemplates.components.HeaderText
+import com.vnteam.architecturetemplates.components.PrimaryButton
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
+import com.vnteam.architecturetemplates.resources.LocalLargeAvatarSize
+import com.vnteam.architecturetemplates.resources.LocalStringResources
 
 @Composable
 fun CreateContent(
