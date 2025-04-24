@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
+import com.vnteam.architecturetemplates.navigation.AppNavigation
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import com.vnteam.architecturetemplates.resources.LocalLargerPadding

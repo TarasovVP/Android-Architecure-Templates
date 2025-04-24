@@ -24,6 +24,7 @@ kotlin {
     jvm()
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.shared)
             // Compose
             implementation(compose.runtime)
             implementation(compose.ui)
@@ -31,6 +32,12 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.material3)
             implementation(compose.components.resources)
+            // Koin
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            // Navigation
+            implementation(libs.navigation.compose)
         }
     }
 }

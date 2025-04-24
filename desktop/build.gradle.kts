@@ -37,7 +37,6 @@ kotlin {
             implementation(libs.coil.network.ktor)
             // Navigation
             implementation(libs.navigation.compose)
-            implementation(libs.koin.core)
             implementation(compose.desktop.currentOs)
         }
     }

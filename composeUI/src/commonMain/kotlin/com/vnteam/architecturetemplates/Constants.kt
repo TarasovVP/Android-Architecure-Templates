@@ -15,5 +15,5 @@ object Constants {
     const val DEMO_OBJECT_ID = "demoObjectId"
     const val DEMO_OBJECT_NAME = "demoObjectName"
 
-    const val APP_LANG_UK = "uk"
+    const val LANG_UK = "uk"
 }

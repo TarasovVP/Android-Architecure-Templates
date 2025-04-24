@@ -93,7 +93,7 @@ val LocalStringResources: ProvidableCompositionLocal<StringResources> =
 
 fun getStringResourcesByLocale(locale: String): StringResources {
     return when (locale) {
-        Constants.APP_LANG_UK -> StringResourcesUK()
+        Constants.LANG_UK -> StringResourcesUK()
         else -> StringResourcesEN()
     }
 }
