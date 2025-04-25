@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
@@ -25,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.vnteam.architecturetemplates.components.FLOAT_8
+import com.vnteam.architecturetemplates.components.LanguageSwitcherButton
+import com.vnteam.architecturetemplates.components.ThemeToggleButton
 import com.vnteam.architecturetemplates.presentation.states.screen.AppBarState
 import com.vnteam.architecturetemplates.presentation.states.screen.AppMessageState
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
@@ -36,9 +37,6 @@ import com.vnteam.architecturetemplates.resources.LocalStringResources
 import com.vnteam.architecturetemplates.resources.Res
 import com.vnteam.architecturetemplates.resources.android_architecture_template
 import com.vnteam.architecturetemplates.resources.getStringResourcesByLocale
-import com.vnteam.architecturetemplates.resources.getThemeSwitchDescription
-import com.vnteam.architecturetemplates.resources.ic_dark_mode
-import com.vnteam.architecturetemplates.resources.ic_light_mode
 import com.vnteam.architecturetemplates.shared.Constants.MESSAGE_ANIMATION_DURATION
 import com.vnteam.architecturetemplates.splash.SplashScreen
 import com.vnteam.architecturetemplates.theme.AppTheme
@@ -164,31 +162,8 @@ fun AppBar(
             modifier = Modifier.padding(LocalLargePadding.current.size).weight(1f),
         )
         Row(modifier = Modifier.padding(horizontal = LocalLargePadding.current.size)) {
-            IconButton(onClick = {
-                appViewModel.setLanguage(appViewModel.getNewLanguage())
-            }) {
-                Text(
-                    appViewModel.getNewLanguage(),
-                    color = Color.White,
-                )
-            }
-            IconButton(onClick = {
-                appViewModel.setIsDarkTheme(appViewModel.isDarkTheme.value != true)
-            }) {
-                Icon(
-                    painter =
-                        painterResource(
-                            if (appViewModel.isDarkTheme.value == true) {
-                                Res.drawable.ic_light_mode
-                            } else {
-                                Res.drawable.ic_dark_mode
-                            },
-                        ),
-                    contentDescription =
-                        getThemeSwitchDescription(appViewModel.isDarkTheme.value == true),
-                    tint = Color.White,
-                )
-            }
+            LanguageSwitcherButton(appViewModel)
+            ThemeToggleButton(appViewModel)
         }
     }
 }

@@ -32,11 +32,6 @@ import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import com.vnteam.architecturetemplates.resources.LocalLargerPadding
 import com.vnteam.architecturetemplates.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.resources.LocalStringResources
-import com.vnteam.architecturetemplates.resources.Res
-import com.vnteam.architecturetemplates.resources.getThemeSwitchDescription
-import com.vnteam.architecturetemplates.resources.ic_dark_mode
-import com.vnteam.architecturetemplates.resources.ic_light_mode
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun ScaffoldContent(appViewModel: AppViewModel) {
@@ -105,31 +100,8 @@ fun AppTopBar(
         },
         actions = {
             if (!screenState.appBarState.topAppBarActionVisible) {
-                IconButton(onClick = {
-                    appViewModel.setLanguage(appViewModel.getNewLanguage())
-                }) {
-                    Text(
-                        appViewModel.getNewLanguage(),
-                        color = Color.White,
-                    )
-                }
-                IconButton(onClick = {
-                    appViewModel.setIsDarkTheme(appViewModel.isDarkTheme.value != true)
-                }) {
-                    Icon(
-                        painter =
-                            painterResource(
-                                if (appViewModel.isDarkTheme.value == true) {
-                                    Res.drawable.ic_light_mode
-                                } else {
-                                    Res.drawable.ic_dark_mode
-                                },
-                            ),
-                        contentDescription =
-                            getThemeSwitchDescription(appViewModel.isDarkTheme.value == true),
-                        tint = Color.White,
-                    )
-                }
+                LanguageSwitcherButton(appViewModel)
+                ThemeToggleButton(appViewModel)
             }
         },
     )

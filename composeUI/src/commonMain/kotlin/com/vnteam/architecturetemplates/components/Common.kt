@@ -19,6 +19,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -45,12 +47,17 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.vnteam.architecturetemplates.Constants.REFRESH_ANIMATION_DURATION
 import com.vnteam.architecturetemplates.drawableRes
+import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
 import com.vnteam.architecturetemplates.resources.DrawableResources
 import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.resources.LocalStringResources
+import com.vnteam.architecturetemplates.resources.Res
+import com.vnteam.architecturetemplates.resources.getThemeSwitchDescription
+import com.vnteam.architecturetemplates.resources.ic_dark_mode
+import com.vnteam.architecturetemplates.resources.ic_light_mode
 import com.vnteam.architecturetemplates.theme.Neutral700
 import com.vnteam.architecturetemplates.theme.Primary400
 import kotlinx.coroutines.delay
@@ -321,6 +328,31 @@ fun EmptyState() {
             text = LocalStringResources.current.emptyState,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
+        )
+    }
+}
+
+@Composable
+fun LanguageSwitcherButton(appVm: AppViewModel) {
+    IconButton(onClick = { appVm.setLanguage(appVm.getNewLanguage()) }) {
+        Text(appVm.getNewLanguage(), color = Color.White)
+    }
+}
+
+@Composable
+fun ThemeToggleButton(appVm: AppViewModel) {
+    IconButton(onClick = { appVm.setIsDarkTheme(appVm.isDarkTheme.value != true) }) {
+        Icon(
+            painter =
+                painterResource(
+                    if (appVm.isDarkTheme.value == true) {
+                        Res.drawable.ic_light_mode
+                    } else {
+                        Res.drawable.ic_dark_mode
+                    },
+                ),
+            contentDescription = getThemeSwitchDescription(appVm.isDarkTheme.value == true),
+            tint = Color.White,
         )
     }
 }
