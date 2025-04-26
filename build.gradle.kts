@@ -15,6 +15,7 @@ plugins {
 }
 
 subprojects {
+    apply(plugin = "org.jetbrains.kotlinx.kover")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         debug.set(true)

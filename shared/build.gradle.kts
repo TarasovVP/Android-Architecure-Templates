@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.sqlDelight)
-    alias(libs.plugins.kotlinKover)
     alias(libs.plugins.kmpSecrets)
 }
 
