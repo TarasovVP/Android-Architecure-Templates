@@ -44,6 +44,22 @@ subprojects {
     }
 }
 
+sonarqube {
+    properties {
+        property("sonar.kotlin.coveragePlugin", "kover")
+        property(
+            "sonar.coverage.jacoco.xmlReportPaths",
+            "**/build/reports/kover/xml/report.xml"
+        )
+    }
+}
+
+tasks.named("sonar") {
+    dependsOn(provider {
+        subprojects.map { it.tasks.named("koverXmlReport") }
+    })
+}
+
 val installGitHook = tasks.register("installGitHook", Copy::class) {
     group = "git hooks"
     description = "Installs the pre-commit Git hook script"
