@@ -50,9 +50,7 @@ sonarqube {
         property(
             "sonar.coverage.jacoco.xmlReportPaths",
             listOf(
-                "$rootDir/shared/build/reports/kover/xml/report.xml",
-                "$rootDir/mobile/build/reports/kover/xml/report.xml",
-                "$rootDir/server/build/reports/kover/xml/report.xml"
+                "$rootDir/shared/build/reports/kover/xml/report.xml"
             ).joinToString(",")
         )
     }
