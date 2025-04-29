@@ -10,5 +10,7 @@ class LanguageUseCaseImpl(private val preferencesRepository: PreferencesReposito
         return preferencesRepository.getLanguage()
     }
 
-    override suspend fun set(params: String) = preferencesRepository.setLanguage(params)
+    override suspend fun set(params: String) {
+        preferencesRepository.setLanguage(params)
+    }
 }
