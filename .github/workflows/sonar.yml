@@ -41,10 +41,13 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./gradlew \
+          ./gradlew koverXmlReport
+          ls -la build/reports/kover/xml/
+          ./gradlew sonar \
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
             -Dsonar.organization=${{ secrets.SONAR_ORG }} \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.kotlin.coverage.reportPaths=build/reports/kover/xml/report.xml \
+            -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/kover/xml/report.xml \
             --info \
-            clean test koverXmlReport sonar \
             -x assembleDebug -x packageDebug -x validateSigningDebug
