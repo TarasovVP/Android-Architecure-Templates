@@ -48,10 +48,7 @@ sonarqube {
     properties {
         property("sonar.kotlin.coveragePlugin", "kover")
         property(
-            "sonar.coverage.jacoco.xmlReportPaths",
-            listOf(
-                "$rootDir/shared/build/reports/kover/xml/report.xml"
-            ).joinToString(",")
+            "sonar.coverage.jacoco.xmlReportPaths", "$rootDir/shared/build/reports/kover/xml/report.xml"
         )
     }
 }
