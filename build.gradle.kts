@@ -46,10 +46,17 @@ subprojects {
 
 sonarqube {
     properties {
-        property("sonar.kotlin.coveragePlugin", "kover")
-        property(
-            "sonar.coverage.jacoco.xmlReportPaths", "$rootDir/shared/build/reports/kover/xml/report.xml"
-        )
+        val koverReport = fileTree("$rootDir") {
+            include("**/build/reports/kover/**/report.xml")
+        }.files.firstOrNull()
+
+        if (koverReport != null) {
+            property("sonar.kotlin.coverage.reportPaths", koverReport.absolutePath)
+            property("sonar.coverage.jacoco.xmlReportPaths", koverReport.absolutePath)
+            println("Kover report found at: ${koverReport.absolutePath}")
+        } else {
+            println("Warning: Kover report not found!")
+        }
     }
 }
 
