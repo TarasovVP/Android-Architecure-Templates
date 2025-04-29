@@ -42,10 +42,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ./gradlew \
-            clean test koverXmlReport
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
             -Dsonar.organization=${{ secrets.SONAR_ORG }} \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             --info \
-            sonar \
+            clean test koverXmlReport sonar \
             -x assembleDebug -x packageDebug -x validateSigningDebug
