@@ -47,6 +47,7 @@ subprojects {
 sonarqube {
     properties {
         property("sonar.kotlin.coveragePlugin", "kover")
+        property("sonar.sourceEncoding", "UTF-8")
         property(
             "sonar.kotlin.coverage.reportPaths", "$rootDir/shared/build/reports/kover/xml/report.xml"
         )
