@@ -50,5 +50,6 @@ jobs:
             -Dsonar.sourceEncoding=UTF-8 \
             -Dsonar.sources=src/commonMain \
             -Dsonar.test.sources=src/commonTest \
+            -Dsonar.analysis.mode=full \
             --info \
             -x assembleDebug -x packageDebug -x validateSigningDebug
