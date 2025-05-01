@@ -48,8 +48,8 @@ jobs:
             -Dsonar.organization=${{ secrets.SONAR_ORG }} \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             -Dsonar.sourceEncoding=UTF-8 \
-            -Dsonar.sources=src/commonMain \
-            -Dsonar.test.sources=src/commonTest \
+            -Dsonar.sources=src/main \
+            -Dsonar.test.sources=src/test \
             -Dsonar.qualitygate.wait=true \
             -Dsonar.coverage.minimumForNewCode=1 \
             --info \
