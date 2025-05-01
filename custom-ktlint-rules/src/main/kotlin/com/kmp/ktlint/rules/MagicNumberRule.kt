@@ -25,7 +25,6 @@ class MagicNumberRule : Rule(RuleId(Constants.MAGIC_NUMBERS_RULE_ID), About()) {
     ) {
         if (node.elementType == ElementType.INTEGER_CONSTANT || node.elementType == ElementType.FLOAT_CONSTANT) {
             val text = node.text
-
             val property = node.psi.getParentOfType<KtProperty>(false)
             if (property?.hasModifier(KtTokens.CONST_KEYWORD) == true) {
                 return

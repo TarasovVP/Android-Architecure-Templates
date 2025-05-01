@@ -11,13 +11,14 @@ plugins {
     alias(libs.plugins.kotlinKover) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.detekt) apply false
+    id("org.sonarqube") version "6.1.0.5360"
 }
 
 subprojects {
+    apply(plugin = "org.jetbrains.kotlinx.kover")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         debug.set(true)
-        //ignoreFailures.set(true)
     }
     dependencies {
         add("ktlint", project(":custom-ktlint-rules"))
@@ -43,7 +44,28 @@ subprojects {
     }
 }
 
+sonarqube {
+    properties {
+        //property("sonar.kotlin.coveragePlugin", "kover")
+        property("sonar.sourceEncoding", "UTF-8")
+        /*property(
+            "sonar.kotlin.coverage.reportPaths", "$rootDir/custom-ktlint-rules/build/reports/kover/xml/report.xml"
+        )*/
+        property(
+            "sonar.coverage.jacoco.xmlReportPaths", "$rootDir/custom-ktlint-rules/build/reports/kover/xml/report.xml"
+        )
+    }
+}
+
+tasks.named("sonar") {
+    dependsOn(provider {
+        subprojects.map { it.tasks.named("koverXmlReport") }
+    })
+}
+
 val installGitHook = tasks.register("installGitHook", Copy::class) {
+    group = "git hooks"
+    description = "Installs the pre-commit Git hook script"
     from("$rootDir/pre-commit")
     into("$rootDir/.git/hooks")
     fileMode = "755".toInt(8)

@@ -18,19 +18,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import com.vnteam.architecturetemplates.presentation.components.AvatarImage
-import com.vnteam.architecturetemplates.presentation.components.ChangeAvatarDialog
-import com.vnteam.architecturetemplates.presentation.components.CommonTextField
-import com.vnteam.architecturetemplates.presentation.components.HeaderText
-import com.vnteam.architecturetemplates.presentation.components.PrimaryButton
-import com.vnteam.architecturetemplates.presentation.resources.DrawableResources
-import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalLargeAvatarSize
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumLargePadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
+import com.vnteam.architecturetemplates.components.AvatarImage
+import com.vnteam.architecturetemplates.components.CommonTextField
+import com.vnteam.architecturetemplates.components.HeaderText
+import com.vnteam.architecturetemplates.components.PrimaryButton
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.resources.DrawableResources
+import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
+import com.vnteam.architecturetemplates.resources.LocalLargeAvatarSize
+import com.vnteam.architecturetemplates.resources.LocalMediumLargePadding
+import com.vnteam.architecturetemplates.resources.LocalStringResources
 import kotlinx.browser.window
 import navigateUp
 
@@ -69,27 +68,27 @@ fun CreateContent(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        HeaderText(LocalStringResources.current.DEMO_OBJECT)
+        HeaderText(LocalStringResources.current.demoObject)
         CommonTextField(
             nameState,
-            "${LocalStringResources.current.NAME}*",
+            "${LocalStringResources.current.name}*",
         ) { text ->
             viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(name = text)
         }
         CommonTextField(
             descriptionState,
-            LocalStringResources.current.DESCRIPTION,
+            LocalStringResources.current.description,
         ) { text ->
             viewState.value.demoObject.value =
                 viewState.value.demoObject.value?.copy(description = text)
         }
         CommonTextField(
             urlState,
-            LocalStringResources.current.URL,
+            LocalStringResources.current.url,
         ) { text ->
             viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(htmlUrl = text)
         }
-        HeaderText(LocalStringResources.current.OWNER)
+        HeaderText(LocalStringResources.current.owner)
         Box(
             contentAlignment = Alignment.Center,
             modifier =
@@ -104,7 +103,7 @@ fun CreateContent(
         }
         CommonTextField(
             ownerNameState,
-            "${LocalStringResources.current.NAME}*",
+            "${LocalStringResources.current.name}*",
         ) { text ->
             viewState.value.demoObject.value =
                 viewState.value.demoObject.value?.copy(
@@ -113,7 +112,7 @@ fun CreateContent(
         }
         CommonTextField(
             ownerUrlState,
-            LocalStringResources.current.URL,
+            LocalStringResources.current.url,
         ) { text ->
             viewState.value.demoObject.value =
                 viewState.value.demoObject.value?.copy(
@@ -121,7 +120,7 @@ fun CreateContent(
                 )
         }
         PrimaryButton(
-            LocalStringResources.current.SUBMIT,
+            LocalStringResources.current.submit,
             originDemoObject.value != viewState.value.demoObject.value && viewState.value.demoObject.value?.isDemoObjectValid() == true,
             Modifier,
             onClick = onClick,
@@ -139,7 +138,7 @@ fun CreateScreenStateContent(
         screenState.value.copy(
             appBarState =
                 screenState.value.appBarState.copy(
-                    appBarTitle = if (isCreate) LocalStringResources.current.CREATE else LocalStringResources.current.EDIT,
+                    appBarTitle = if (isCreate) LocalStringResources.current.create else LocalStringResources.current.edit,
                     topAppBarAction = {
                         window.navigateUp()
                     },
@@ -159,7 +158,7 @@ fun ChangeAvatarDialog(viewState: State<CreateViewState>) {
         isChangeAvatarDialogVisible.value = viewState.value.isChangeAvatarDialogVisible.value
     }
     if (isChangeAvatarDialogVisible.value) {
-        ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
+        com.vnteam.architecturetemplates.components.ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
             viewState.value.isChangeAvatarDialogVisible.value = false
         }, onClick = { avatar ->
             viewState.value.demoObject.value =

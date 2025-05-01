@@ -1,20 +1,20 @@
 package com.vnteam.architecturetemplates.presentation
 
-import Constants.PATH_START
-import Constants.POP_STATE
+import WebConstants.PATH_START
+import WebConstants.POP_STATE
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import com.vnteam.architecturetemplates.presentation.screens.create.CreateContent
-import com.vnteam.architecturetemplates.presentation.screens.create.CreateScreen
 import com.vnteam.architecturetemplates.presentation.screens.details.DetailsContent
-import com.vnteam.architecturetemplates.presentation.screens.details.DetailsScreen
 import com.vnteam.architecturetemplates.presentation.screens.list.ListContent
-import com.vnteam.architecturetemplates.presentation.screens.list.ListScreen
 import com.vnteam.architecturetemplates.presentation.screens.pagenotfound.PageNotFound
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
+import com.vnteam.architecturetemplates.screens.create.CreateScreen
+import com.vnteam.architecturetemplates.screens.details.DetailsScreen
+import com.vnteam.architecturetemplates.screens.list.ListScreen
 import com.vnteam.architecturetemplates.shared.NavigationScreens
 import kotlinx.browser.window
 import navigateTo
@@ -41,11 +41,16 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                 ListContent(viewState.value, screenState, onItemClick)
             })
         }
+
         currentPath.value.startsWith("$PATH_START${NavigationScreens.DetailsScreen.route}") -> {
-            DetailsScreen(currentPath.value.removePrefix("$PATH_START${NavigationScreens.DetailsScreen.route}"), screenState) { viewState ->
+            DetailsScreen(
+                currentPath.value.removePrefix("$PATH_START${NavigationScreens.DetailsScreen.route}"),
+                screenState,
+            ) { viewState ->
                 DetailsContent(viewState, screenState)
             }
         }
+
         currentPath.value.startsWith("$PATH_START${NavigationScreens.EditScreen.route}") -> {
             CreateScreen(
                 currentPath.value.removePrefix("$PATH_START${NavigationScreens.EditScreen.route}"),
@@ -54,11 +59,13 @@ fun AppNavigation(screenState: MutableState<ScreenState>) {
                 CreateContent(viewState, screenState, originDemoObject, onClick)
             }
         }
+
         currentPath.value.startsWith("$PATH_START${NavigationScreens.CreateScreen.route}") -> {
             CreateScreen("", screenState) { viewState, originDemoObject, onClick ->
                 CreateContent(viewState, screenState, originDemoObject, onClick)
             }
         }
+
         else -> {
             PageNotFound()
         }

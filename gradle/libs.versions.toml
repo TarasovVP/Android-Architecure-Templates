@@ -2,6 +2,8 @@
 compileSdk = "34"
 datastorePreferences = "1.1.1"
 freetts = "1.2.2"
+ktlintRuleEngine = "1.0.0"
+lintApi = "31.9.1"
 minSdk = "24"
 targetSdk = "34"
 
@@ -33,6 +35,7 @@ hikaricp = "5.0.1"
 kmpSecrets = "1.1.0"
 ktlint = "12.2.0"
 detekt = "1.23.8"
+sonarqube = "6.1.0.5360"
 
 [libraries]
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
@@ -48,6 +51,9 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "coroutines" }
 
+ktlint-rule-engine = { module = "com.pinterest.ktlint:ktlint-rule-engine", version.ref = "ktlintRuleEngine" }
+ktlint-ruleset-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlintRuleEngine" }
+ktlint-test = { module = "com.pinterest.ktlint:ktlint-test", version.ref = "ktlintRuleEngine" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
@@ -65,6 +71,8 @@ koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", ver
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
+lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "lintApi" }
+lint-checks = { module = "com.android.tools.lint:lint-checks", version.ref = "lintApi" }
 postgres-socket-factory = { module = "com.google.cloud.sql:postgres-socket-factory", version.ref = "postgresSocketFactory" }
 sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
@@ -107,3 +115,4 @@ kotlinKover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 kmpSecrets = { id = "io.github.tarasovvp.kmp-secrets-plugin", version.ref = "kmpSecrets" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+sonarqube = { id = "org.sonarqube.scanner.gradle", version.ref = "sonarqube" }

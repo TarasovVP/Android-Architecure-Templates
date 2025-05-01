@@ -18,18 +18,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.vnteam.architecturetemplates.components.AvatarImage
+import com.vnteam.architecturetemplates.components.ConfirmationDialog
 import com.vnteam.architecturetemplates.domain.sealedclasses.ListState
-import com.vnteam.architecturetemplates.presentation.components.AvatarImage
-import com.vnteam.architecturetemplates.presentation.components.ConfirmationDialog
-import com.vnteam.architecturetemplates.presentation.resources.LocalDefaultPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumAvatarSize
-import com.vnteam.architecturetemplates.presentation.resources.LocalMediumPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalSmallAvatarSize
-import com.vnteam.architecturetemplates.presentation.resources.LocalSmallPadding
-import com.vnteam.architecturetemplates.presentation.resources.LocalStringResources
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
+import com.vnteam.architecturetemplates.resources.LocalMediumAvatarSize
+import com.vnteam.architecturetemplates.resources.LocalMediumPadding
+import com.vnteam.architecturetemplates.resources.LocalSmallAvatarSize
+import com.vnteam.architecturetemplates.resources.LocalSmallPadding
+import com.vnteam.architecturetemplates.resources.LocalStringResources
 import com.vnteam.architecturetemplates.shared.NavigationScreens
 import kotlinx.browser.window
 import navigateTo
@@ -49,7 +49,7 @@ fun ListContent(
         }
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
-            title = LocalStringResources.current.DELETE,
+            title = LocalStringResources.current.delete,
             onConfirmationClick = { onItemClick(DemoObjectUI(demoObjectId = viewState.demoObjectToDelete), ListState.Delete) },
             onDismiss = { viewState.isConfirmationDialogVisible.value = false },
         )
@@ -62,12 +62,12 @@ fun ListScreenStateContent(screenState: MutableState<ScreenState>) {
         screenState.value.copy(
             appBarState =
                 screenState.value.appBarState.copy(
-                    appBarTitle = LocalStringResources.current.APP_NAME,
+                    appBarTitle = LocalStringResources.current.appName,
                 ),
             floatingActionState =
                 screenState.value.floatingActionState.copy(
                     floatingActionButtonVisible = true,
-                    floatingActionButtonTitle = LocalStringResources.current.ADD,
+                    floatingActionButtonTitle = LocalStringResources.current.add,
                     floatingActionButtonAction = {
                         window.navigateTo(NavigationScreens.CreateScreen.route)
                     },
@@ -98,7 +98,7 @@ fun DemoObjectItem(
                         Modifier
                             .size(LocalSmallAvatarSize.current.size),
                     imageVector = Icons.Filled.Delete,
-                    contentDescription = LocalStringResources.current.DELETE,
+                    contentDescription = LocalStringResources.current.delete,
                 )
             }
         }

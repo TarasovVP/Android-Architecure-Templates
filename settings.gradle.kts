@@ -20,6 +20,7 @@ dependencyResolutionManagement {
 
 include(":core")
 include(":shared")
+include(":composeUI")
 include(":mobile")
 include(":desktop")
 include(":web")

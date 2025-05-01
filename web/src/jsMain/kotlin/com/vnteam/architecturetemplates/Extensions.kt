@@ -1,5 +1,5 @@
-import Constants.PATH_START
-import Constants.POP_STATE
+import WebConstants.PATH_START
+import WebConstants.POP_STATE
 import org.w3c.dom.Window
 import org.w3c.dom.events.Event
 

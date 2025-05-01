@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.sqlDelight)
-    alias(libs.plugins.kotlinKover)
     alias(libs.plugins.kmpSecrets)
 }
 
@@ -125,12 +124,6 @@ sqldelight {
             version = 2
         }
     }
-}
-
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "com.vnteam.architecturetemplates.resources"
-    generateResClass = always
 }
 
 kover {

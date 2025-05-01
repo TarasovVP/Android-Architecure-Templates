@@ -11,11 +11,7 @@ class GetDemoObjectUseCaseImpl(
     private val dbRepository: DBRepository,
 ) : GetDemoObjectUseCase {
     override suspend fun execute(params: String): DemoObject? {
-        val dbDemoObject = dbRepository.getDemoObjectById(params).firstOrNull()
-        return if (dbDemoObject != null) {
-            dbDemoObject
-        } else {
-            apiRepository.getDemoObjectById(params)
-        }
+        return dbRepository.getDemoObjectById(params).firstOrNull()
+            ?: apiRepository.getDemoObjectById(params)
     }
 }
