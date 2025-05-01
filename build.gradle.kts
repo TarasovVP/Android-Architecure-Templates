@@ -46,11 +46,11 @@ subprojects {
 
 sonarqube {
     properties {
-        property("sonar.kotlin.coveragePlugin", "kover")
+        //property("sonar.kotlin.coveragePlugin", "kover")
         property("sonar.sourceEncoding", "UTF-8")
-        property(
+        /*property(
             "sonar.kotlin.coverage.reportPaths", "$rootDir/custom-ktlint-rules/build/reports/kover/xml/report.xml"
-        )
+        )*/
         property(
             "sonar.coverage.jacoco.xmlReportPaths", "$rootDir/custom-ktlint-rules/build/reports/kover/xml/report.xml"
         )
