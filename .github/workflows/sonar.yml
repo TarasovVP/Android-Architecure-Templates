@@ -47,5 +47,8 @@ jobs:
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
             -Dsonar.organization=${{ secrets.SONAR_ORG }} \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.sourceEncoding=UTF-8 \
+            -Dsonar.sources=src/commonMain \
+            -Dsonar.test.sources=src/commonTest \
             --info \
             -x assembleDebug -x packageDebug -x validateSigningDebug
