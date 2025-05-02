@@ -25,20 +25,21 @@ class MagicNumberRule : Rule(RuleId(Constants.MAGIC_NUMBERS_RULE_ID), About()) {
     ) {
         if (node.elementType == ElementType.INTEGER_CONSTANT || node.elementType == ElementType.FLOAT_CONSTANT) {
             val text = node.text
+            val property = node.psi.getParentOfType<KtProperty>(false)
+            if (property?.hasModifier(KtTokens.CONST_KEYWORD) == true) {
+                return
+            }
 
             val callExpression = node.psi.getParentOfType<KtCallExpression>(true)
-
             val isColorCall = callExpression?.calleeExpression?.text == Constants.COLOR_CALL_NAME
-
             val isHexColorLiteral = text.startsWith(Constants.HEX_COLOR_PREFIX, ignoreCase = true)
 
             if (isColorCall && isHexColorLiteral) {
                 return
             }
 
-            val property = node.psi.getParentOfType<KtProperty>(false)
-            if (property?.hasModifier(KtTokens.CONST_KEYWORD) == true) {
-                return
+            if (text.startsWith(Constants.HEX_COLOR_PREFIX, ignoreCase = true)) {
+                println("Hex color literal: $text")
             }
 
             if (text !in allowedNumbers) {

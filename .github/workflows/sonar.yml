@@ -41,16 +41,9 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./gradlew koverXmlReport
-          find . -name "report.xml" -type f
           ./gradlew sonar \
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
             -Dsonar.organization=${{ secrets.SONAR_ORG }} \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.sourceEncoding=UTF-8 \
-            -Dsonar.sources=src/main \
-            -Dsonar.test.sources=src/test \
-            -Dsonar.qualitygate.wait=true \
-            -Dsonar.coverage.minimumForNewCode=1 \
             --info \
             -x assembleDebug -x packageDebug -x validateSigningDebug

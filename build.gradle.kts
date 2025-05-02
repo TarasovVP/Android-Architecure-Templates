@@ -48,12 +48,14 @@ sonarqube {
     properties {
         property("sonar.kotlin.coveragePlugin", "kover")
         property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.junit.reportsPath", "$rootDir/custom-ktlint-rules/build/test-results/testSonarDebugUnitTest/")
         property(
             "sonar.kotlin.coverage.reportPaths", "$rootDir/custom-ktlint-rules/build/reports/kover/xml/report.xml"
         )
         property(
             "sonar.coverage.jacoco.xmlReportPaths", "$rootDir/custom-ktlint-rules/build/reports/kover/xml/report.xml"
         )
+        property("sonar.tests", "$rootDir/custom-ktlint-rules/src/test/kotlin")
     }
 }
 
