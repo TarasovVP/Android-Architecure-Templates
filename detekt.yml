@@ -1,5 +1,4 @@
 complexity:
-  active: false
   LongMethod:
     active: true
     threshold: 60
