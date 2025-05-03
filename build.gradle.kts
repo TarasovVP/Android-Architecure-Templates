@@ -11,7 +11,7 @@ plugins {
     alias(libs.plugins.kotlinKover) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.detekt) apply false
-    id("org.sonarqube") version "6.1.0.5360"
+    alias(libs.plugins.sonarqube) apply true
 }
 
 subprojects {
@@ -46,14 +46,12 @@ subprojects {
 
 sonarqube {
     properties {
-        //property("sonar.kotlin.coveragePlugin", "kover")
-        property("sonar.sourceEncoding", "UTF-8")
-        /*property(
-            "sonar.kotlin.coverage.reportPaths", "$rootDir/custom-ktlint-rules/build/reports/kover/xml/report.xml"
-        )*/
-        property(
-            "sonar.coverage.jacoco.xmlReportPaths", "$rootDir/custom-ktlint-rules/build/reports/kover/xml/report.xml"
-        )
+        val koverReport = allprojects.mapNotNull { project ->
+            val reportPath = "${project.projectDir}/build/reports/kover/report.xml"
+            if (File(reportPath).exists()) reportPath else null
+        }
+            .joinToString(",")
+        property("sonar.coverage.jacoco.xmlReportPaths", koverReport)
     }
 }
 
