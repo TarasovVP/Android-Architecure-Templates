@@ -115,4 +115,4 @@ kotlinKover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 kmpSecrets = { id = "io.github.tarasovvp.kmp-secrets-plugin", version.ref = "kmpSecrets" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-sonarqube = { id = "org.sonarqube.scanner.gradle", version.ref = "sonarqube" }
+sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }

@@ -37,6 +37,8 @@ jobs:
           echo "DRIVER_CLASS_NAME=" >> local.properties
           echo "DB_USER_NAME=" >> local.properties
           echo "DB_USER_PASSWORD=" >> local.properties
+      - name: Generate Kover reports
+        run: ./gradlew koverXmlReport
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

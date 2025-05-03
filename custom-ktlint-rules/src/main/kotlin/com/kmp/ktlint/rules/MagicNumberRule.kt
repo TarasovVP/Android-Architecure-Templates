@@ -38,10 +38,6 @@ class MagicNumberRule : Rule(RuleId(Constants.MAGIC_NUMBERS_RULE_ID), About()) {
                 return
             }
 
-            if (text.startsWith(Constants.HEX_COLOR_PREFIX, ignoreCase = true)) {
-                println("Hex color literal: $text")
-            }
-
             if (text !in allowedNumbers) {
                 emit(
                     node.startOffset,
