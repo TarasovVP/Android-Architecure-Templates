@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.sqlDelight) apply false
     alias(libs.plugins.kotlinKover) apply false
     alias(libs.plugins.ktlint) apply false
-    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.detekt) apply true
     alias(libs.plugins.sonarqube) apply true
 }
 
@@ -40,6 +40,12 @@ subprojects {
             config.setFrom(rootProject.file("detekt.yml"))
             buildUponDefaultConfig = true
             ignoreFailures = false
+            reports {
+                xml {
+                    enabled = true
+                    outputLocation.set(file("$buildDir/reports/detekt/detekt.xml"))
+                }
+            }
         }
     }
 }
@@ -52,13 +58,14 @@ sonarqube {
         }
             .joinToString(",")
         property("sonar.coverage.jacoco.xmlReportPaths", koverReport)
+        property("sonar.kotlin.detekt.reportPaths", "$rootDir/build/reports/detekt/detekt.xml")
     }
 }
 
 tasks.named("sonar") {
     dependsOn(provider {
         subprojects.map { it.tasks.named("koverXmlReport") }
-    })
+    }, "detekt")
 }
 
 val installGitHook = tasks.register("installGitHook", Copy::class) {
