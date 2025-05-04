@@ -75,5 +75,6 @@ class DetektViolationDemo {
         println("print ${count++}")
         println("print ${count++}")
         println("print ${count++}")
+        println("print ${count++}")
     }
 }
