@@ -54,9 +54,11 @@ fun CreateContent(
 
     LaunchedEffect(viewState.value.demoObject) {
         nameState.value = TextFieldValue(viewState.value.demoObject.value?.name.orEmpty())
-        descriptionState.value = TextFieldValue(viewState.value.demoObject.value?.description.orEmpty())
+        descriptionState.value =
+            TextFieldValue(viewState.value.demoObject.value?.description.orEmpty())
         urlState.value = TextFieldValue(viewState.value.demoObject.value?.htmlUrl.orEmpty())
-        ownerNameState.value = TextFieldValue(viewState.value.demoObject.value?.owner?.login.orEmpty())
+        ownerNameState.value =
+            TextFieldValue(viewState.value.demoObject.value?.owner?.login.orEmpty())
         ownerUrlState.value = TextFieldValue(viewState.value.demoObject.value?.owner?.url.orEmpty())
     }
     Column(
@@ -86,7 +88,8 @@ fun CreateContent(
             urlState,
             LocalStringResources.current.url,
         ) { text ->
-            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(htmlUrl = text)
+            viewState.value.demoObject.value =
+                viewState.value.demoObject.value?.copy(htmlUrl = text)
         }
         HeaderText(LocalStringResources.current.owner)
         Box(
@@ -121,7 +124,8 @@ fun CreateContent(
         }
         PrimaryButton(
             LocalStringResources.current.submit,
-            originDemoObject.value != viewState.value.demoObject.value && viewState.value.demoObject.value?.isDemoObjectValid() == true,
+            originDemoObject.value != viewState.value.demoObject.value &&
+                viewState.value.demoObject.value?.isDemoObjectValid() == true,
             Modifier,
             onClick = onClick,
         )
@@ -138,7 +142,12 @@ fun CreateScreenStateContent(
         screenState.value.copy(
             appBarState =
                 screenState.value.appBarState.copy(
-                    appBarTitle = if (isCreate) LocalStringResources.current.create else LocalStringResources.current.edit,
+                    appBarTitle =
+                        if (isCreate) {
+                            LocalStringResources.current.create
+                        } else {
+                            LocalStringResources.current.edit
+                        },
                     topAppBarAction = {
                         window.navigateUp()
                     },
@@ -158,14 +167,18 @@ fun ChangeAvatarDialog(viewState: State<CreateViewState>) {
         isChangeAvatarDialogVisible.value = viewState.value.isChangeAvatarDialogVisible.value
     }
     if (isChangeAvatarDialogVisible.value) {
-        com.vnteam.architecturetemplates.components.ChangeAvatarDialog(avatarList = DrawableResources.avatarList, onDismiss = {
-            viewState.value.isChangeAvatarDialogVisible.value = false
-        }, onClick = { avatar ->
-            viewState.value.demoObject.value =
-                viewState.value.demoObject.value?.copy(
-                    owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
-                )
-            viewState.value.isChangeAvatarDialogVisible.value = false
-        })
+        com.vnteam.architecturetemplates.components.ChangeAvatarDialog(
+            avatarList = DrawableResources.avatarList,
+            onDismiss = {
+                viewState.value.isChangeAvatarDialogVisible.value = false
+            },
+            onClick = { avatar ->
+                viewState.value.demoObject.value =
+                    viewState.value.demoObject.value?.copy(
+                        owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
+                    )
+                viewState.value.isChangeAvatarDialogVisible.value = false
+            },
+        )
     }
 }

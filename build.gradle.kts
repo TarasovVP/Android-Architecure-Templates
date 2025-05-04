@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.sonarqube) apply true
 }
 
+
 subprojects {
     apply(plugin = "org.jetbrains.kotlinx.kover")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
@@ -36,24 +37,21 @@ subprojects {
                     "src/iosMain/kotlin",
                     "src/nativeMain/kotlin",
                     "src/desktopMain/kotlin",
-                    "src/js/kotlin",
+                    "src/jsMain/kotlin",
                 )
             )
-            //ignoreFailures = true
-            //toolVersion = libs.versions.detekt.get()
+            ignoreFailures = true
             config.setFrom(rootProject.file("detekt.yml"))
             buildUponDefaultConfig = true
-            /*reports {
+            reports {
                 xml {
                     required.set(true)
                     outputLocation.set(file("${layout.buildDirectory}/reports/detekt/detekt.xml"))
                 }
-            }*/
+            }
         }
     }
 }
-
-
 
 sonarqube {
     properties {

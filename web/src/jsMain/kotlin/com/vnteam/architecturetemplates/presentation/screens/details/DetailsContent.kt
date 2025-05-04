@@ -110,12 +110,22 @@ fun OwnerCard(ownerUI: OwnerUI?) {
             modifier = Modifier.padding(LocalMediumPadding.current.size),
         ) {
             AvatarImage(ownerUI?.avatarUrl.orEmpty(), LocalLargeAvatarSize.current.size)
-            Column(modifier = Modifier.padding(start = LocalDefaultPadding.current.size, bottom = LocalMediumPadding.current.size)) {
+            Column(
+                modifier =
+                    Modifier.padding(
+                        start = LocalDefaultPadding.current.size,
+                        bottom = LocalMediumPadding.current.size,
+                    ),
+            ) {
                 PrimaryText(ownerUI?.login.textWithNoDataHandling())
                 SecondaryText(ownerUI?.url.textWithNoDataHandling())
             }
             IconButton(
-                onClick = { textToSpeechHelper.speak("Owner name: ${ownerUI?.login.orEmpty()} Owner url: ${ownerUI?.url.orEmpty()}") },
+                onClick = {
+                    textToSpeechHelper.speak(
+                        "Owner name: ${ownerUI?.login.orEmpty()} Owner url: ${ownerUI?.url.orEmpty()}",
+                    )
+                },
             ) {
                 Icon(
                     modifier =
