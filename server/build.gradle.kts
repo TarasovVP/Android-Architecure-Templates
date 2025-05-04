@@ -127,11 +127,11 @@ kmpExtension.targets.configureEach {
                         buildString {
                             appendLine("package secrets")
                             appendLine()
-                            appendLine("object Properties {")
+                            appendLine("object Secrets {")
                             properties.forEach { (k, v) ->
                                 val key = k.toString()
                                 if (Regex("^[a-zA-Z_][a-zA-Z0-9_]*$").matches(key)) {
-                                    appendLine("    val $key = \"$v\"")
+                                    appendLine("    const val $key = \"$v\"")
                                 }
                             }
                             appendLine("}")

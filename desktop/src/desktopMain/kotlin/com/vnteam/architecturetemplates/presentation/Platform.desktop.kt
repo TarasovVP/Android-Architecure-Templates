@@ -4,7 +4,9 @@ import java.awt.Desktop
 import java.awt.Toolkit
 import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.StringSelection
+import java.io.IOException
 import java.net.URI
+import java.net.URISyntaxException
 import javax.swing.JOptionPane
 
 private const val OPTION_OPEN_IN_BROWSER = "Open in Browser"
@@ -37,12 +39,17 @@ fun shareLink(url: String) {
     }
 }
 
-private fun openInBrowser(url: String) {
+private fun openInBrowser(
+    url: String,
+    onError: (String) -> Unit = {},
+) {
     if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
         try {
             Desktop.getDesktop().browse(URI(url))
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (e: IOException) {
+            onError.invoke(e.message.orEmpty())
+        } catch (e: URISyntaxException) {
+            onError.invoke(e.message.orEmpty())
         }
     }
 }

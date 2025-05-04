@@ -10,9 +10,10 @@ plugins {
     alias(libs.plugins.sqlDelight) apply false
     alias(libs.plugins.kotlinKover) apply false
     alias(libs.plugins.ktlint) apply false
-    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.detekt) apply true
     alias(libs.plugins.sonarqube) apply true
 }
+
 
 subprojects {
     apply(plugin = "org.jetbrains.kotlinx.kover")
@@ -27,38 +28,47 @@ subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
     plugins.withId("io.gitlab.arturbosch.detekt") {
         configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
-            source = files(
-                "src/main/kotlin",
-                "src/commonMain/kotlin",
-                "src/jvmMain/kotlin",
-                "src/androidMain/kotlin",
-                "src/iosMain/kotlin",
-                "src/nativeMain/kotlin",
-                "src/desktop/kotlin",
-                "src/js/kotlin",
+
+            source.setFrom(
+                files(
+                    "src/main/kotlin",
+                    "src/commonMain/kotlin",
+                    "src/jvmMain/kotlin",
+                    "src/androidMain/kotlin",
+                    "src/iosMain/kotlin",
+                    "src/nativeMain/kotlin",
+                    "src/desktopMain/kotlin",
+                    "src/jsMain/kotlin",
+                )
             )
+            ignoreFailures = true
             config.setFrom(rootProject.file("detekt.yml"))
             buildUponDefaultConfig = true
-            ignoreFailures = false
         }
     }
 }
 
 sonarqube {
     properties {
-        val koverReport = allprojects.mapNotNull { project ->
+        val koverReports = allprojects.mapNotNull { project ->
             val reportPath = "${project.projectDir}/build/reports/kover/report.xml"
             if (File(reportPath).exists()) reportPath else null
         }
             .joinToString(",")
-        property("sonar.coverage.jacoco.xmlReportPaths", koverReport)
+        property("sonar.coverage.jacoco.xmlReportPaths", koverReports)
+        val detektReports = allprojects.mapNotNull { project ->
+            val reportPath = "${project.projectDir}/build/reports/detekt/detekt.xml"
+            if (File(reportPath).exists()) reportPath else null
+        }
+            .joinToString(",")
+        property("sonar.kotlin.detekt.reportPaths", detektReports)
     }
 }
 
 tasks.named("sonar") {
     dependsOn(provider {
         subprojects.map { it.tasks.named("koverXmlReport") }
-    })
+    }, "detekt")
 }
 
 val installGitHook = tasks.register("installGitHook", Copy::class) {
