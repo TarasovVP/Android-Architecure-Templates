@@ -28,6 +28,7 @@ subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
     plugins.withId("io.gitlab.arturbosch.detekt") {
         configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
+
             source.setFrom(
                 files(
                     "src/main/kotlin",
@@ -43,25 +44,24 @@ subprojects {
             ignoreFailures = true
             config.setFrom(rootProject.file("detekt.yml"))
             buildUponDefaultConfig = true
-            reports {
-                xml {
-                    required.set(true)
-                    outputLocation.set(file("${layout.buildDirectory}/reports/detekt/detekt.xml"))
-                }
-            }
         }
     }
 }
 
 sonarqube {
     properties {
-        val koverReport = allprojects.mapNotNull { project ->
+        val koverReports = allprojects.mapNotNull { project ->
             val reportPath = "${project.projectDir}/build/reports/kover/report.xml"
             if (File(reportPath).exists()) reportPath else null
         }
             .joinToString(",")
-        property("sonar.coverage.jacoco.xmlReportPaths", koverReport)
-        property("sonar.kotlin.detekt.reportPaths", "$rootDir/build/reports/detekt/detekt.xml")
+        property("sonar.coverage.jacoco.xmlReportPaths", koverReports)
+        val detektReports = allprojects.mapNotNull { project ->
+            val reportPath = "${project.projectDir}/build/reports/detekt/detekt.xml"
+            if (File(reportPath).exists()) reportPath else null
+        }
+            .joinToString(",")
+        property("sonar.kotlin.detekt.reportPaths", detektReports)
     }
 }
 
