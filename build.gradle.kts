@@ -27,28 +27,33 @@ subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
     plugins.withId("io.gitlab.arturbosch.detekt") {
         configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
-            source = files(
-                "src/main/kotlin",
-                "src/commonMain/kotlin",
-                "src/jvmMain/kotlin",
-                "src/androidMain/kotlin",
-                "src/iosMain/kotlin",
-                "src/nativeMain/kotlin",
-                "src/desktop/kotlin",
-                "src/js/kotlin",
+            source.setFrom(
+                files(
+                    "src/main/kotlin",
+                    "src/commonMain/kotlin",
+                    "src/jvmMain/kotlin",
+                    "src/androidMain/kotlin",
+                    "src/iosMain/kotlin",
+                    "src/nativeMain/kotlin",
+                    "src/desktopMain/kotlin",
+                    "src/js/kotlin",
+                )
             )
+            //ignoreFailures = true
+            //toolVersion = libs.versions.detekt.get()
             config.setFrom(rootProject.file("detekt.yml"))
             buildUponDefaultConfig = true
-            ignoreFailures = false
-            reports {
+            /*reports {
                 xml {
-                    enabled = true
-                    outputLocation.set(file("$buildDir/reports/detekt/detekt.xml"))
+                    required.set(true)
+                    outputLocation.set(file("${layout.buildDirectory}/reports/detekt/detekt.xml"))
                 }
-            }
+            }*/
         }
     }
 }
+
+
 
 sonarqube {
     properties {

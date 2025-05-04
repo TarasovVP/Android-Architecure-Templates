@@ -5,18 +5,18 @@ complexity:
     ignoreAnnotated: ['Composable']
   LongParameterList:
     active: true
-    excludes: ['**/presentation/resources/**']
+    excludes: ['**/resources/**']
 naming:
   FunctionNaming:
     active: true
     ignoreAnnotated: ['Composable']
   ConstructorParameterNaming:
     active: true
-    excludes: ['**/presentation/resources/**']
+    excludes: ['**/resources/**']
 style:
   MagicNumber:
     active: true
-    excludes: ['**/presentation/theme/**']
+    excludes: ['**/theme/**']
   MaxLineLength:
     active: true
-    excludes: [ '**/kotlin/secrets/**' ]
+    excludes: [ '**/secrets/**' ]
