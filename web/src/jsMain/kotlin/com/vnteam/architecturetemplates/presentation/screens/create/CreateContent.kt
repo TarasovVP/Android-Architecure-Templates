@@ -22,6 +22,7 @@ import com.vnteam.architecturetemplates.components.AvatarImage
 import com.vnteam.architecturetemplates.components.CommonTextField
 import com.vnteam.architecturetemplates.components.HeaderText
 import com.vnteam.architecturetemplates.components.PrimaryButton
+import com.vnteam.architecturetemplates.navigateUp
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
@@ -31,7 +32,6 @@ import com.vnteam.architecturetemplates.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.resources.LocalMediumLargePadding
 import com.vnteam.architecturetemplates.resources.LocalStringResources
 import kotlinx.browser.window
-import navigateUp
 
 @Composable
 fun CreateContent(

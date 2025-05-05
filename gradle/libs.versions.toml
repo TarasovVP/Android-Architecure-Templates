@@ -5,6 +5,7 @@ freetts = "1.2.2"
 ktlintRuleEngine = "1.0.0"
 lintApi = "31.9.1"
 minSdk = "24"
+slf4jNop = "1.7.36"
 targetSdk = "34"
 
 kotlinCompilerExtensionVersion = "1.5.11"
@@ -74,6 +75,7 @@ koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "lintApi" }
 lint-checks = { module = "com.android.tools.lint:lint-checks", version.ref = "lintApi" }
 postgres-socket-factory = { module = "com.google.cloud.sql:postgres-socket-factory", version.ref = "postgresSocketFactory" }
+slf4j-nop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4jNop" }
 sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }

@@ -23,6 +23,7 @@ import com.vnteam.architecturetemplates.components.AvatarImage
 import com.vnteam.architecturetemplates.components.HeaderText
 import com.vnteam.architecturetemplates.components.PrimaryText
 import com.vnteam.architecturetemplates.components.SecondaryText
+import com.vnteam.architecturetemplates.navigateTo
 import com.vnteam.architecturetemplates.presentation.shareLink
 import com.vnteam.architecturetemplates.presentation.states.DetailsViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
@@ -37,7 +38,6 @@ import com.vnteam.architecturetemplates.shared.NavigationScreens
 import com.vnteam.architecturetemplates.shared.TextToSpeechHelper
 import com.vnteam.architecturetemplates.textWithNoDataHandling
 import kotlinx.browser.window
-import navigateTo
 import org.koin.compose.koinInject
 
 @Composable

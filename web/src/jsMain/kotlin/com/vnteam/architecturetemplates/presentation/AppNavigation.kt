@@ -1,12 +1,13 @@
 package com.vnteam.architecturetemplates.presentation
 
-import WebConstants.PATH_START
-import WebConstants.POP_STATE
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import com.vnteam.architecturetemplates.WebConstants.PATH_START
+import com.vnteam.architecturetemplates.WebConstants.POP_STATE
+import com.vnteam.architecturetemplates.navigateTo
 import com.vnteam.architecturetemplates.presentation.screens.create.CreateContent
 import com.vnteam.architecturetemplates.presentation.screens.details.DetailsContent
 import com.vnteam.architecturetemplates.presentation.screens.list.ListContent
@@ -17,7 +18,6 @@ import com.vnteam.architecturetemplates.screens.details.DetailsScreen
 import com.vnteam.architecturetemplates.screens.list.ListScreen
 import com.vnteam.architecturetemplates.shared.NavigationScreens
 import kotlinx.browser.window
-import navigateTo
 import org.w3c.dom.events.Event
 
 @Composable

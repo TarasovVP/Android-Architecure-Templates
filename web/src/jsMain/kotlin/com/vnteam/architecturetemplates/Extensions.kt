@@ -1,5 +1,7 @@
-import WebConstants.PATH_START
-import WebConstants.POP_STATE
+package com.vnteam.architecturetemplates
+
+import com.vnteam.architecturetemplates.WebConstants.PATH_START
+import com.vnteam.architecturetemplates.WebConstants.POP_STATE
 import org.w3c.dom.Window
 import org.w3c.dom.events.Event
 
