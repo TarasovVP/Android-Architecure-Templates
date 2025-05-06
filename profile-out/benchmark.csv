@@ -1,0 +1,20 @@
+scenario,clean,incremental
+version,Gradle 8.7,Gradle 8.7
+tasks,clean assembleDebug,assembleDebug
+value,total execution time,total execution time
+warm-up build #1,127198.57,8655.24
+warm-up build #2,10273.26,1284.37
+warm-up build #3,7573.02,1084.80
+warm-up build #4,6414.62,1012.93
+warm-up build #5,6206.78,1140.21
+warm-up build #6,6207.33,862.60
+measured build #1,5571.25,787.87
+measured build #2,6704.75,809.43
+measured build #3,5644.84,747.34
+measured build #4,5203.14,738.75
+measured build #5,7142.86,753.40
+measured build #6,4831.43,692.66
+measured build #7,4890.42,715.49
+measured build #8,6380.14,703.42
+measured build #9,5143.12,689.25
+measured build #10,5758.73,733.06
