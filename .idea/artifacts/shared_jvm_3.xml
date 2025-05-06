@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="shared-jvm-3">
-    <output-path>$PROJECT_DIR$/shared/build/libs</output-path>
-    <root id="archive" name="shared-jvm-3.jar">
-      <element id="module-output" name="Android_Architecture_Templates.shared.jvmMain" />
-    </root>
-  </artifact>
-</component>
