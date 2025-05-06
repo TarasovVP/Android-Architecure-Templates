@@ -3,7 +3,7 @@ package com.vnteam.architecturetemplates.resources
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.vnteam.architecturetemplates.Constants
+import com.vnteam.architecturetemplates.UIConstants
 
 sealed class StringResources(
     var appName: String,
@@ -93,7 +93,7 @@ val LocalStringResources: ProvidableCompositionLocal<StringResources> =
 
 fun getStringResourcesByLocale(locale: String): StringResources {
     return when (locale) {
-        Constants.LANG_UK -> StringResourcesUK()
+        UIConstants.LANG_UK -> StringResourcesUK()
         else -> StringResourcesEN()
     }
 }

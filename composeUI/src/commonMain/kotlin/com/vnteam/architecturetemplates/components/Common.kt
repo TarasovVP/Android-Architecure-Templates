@@ -40,7 +40,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.vnteam.architecturetemplates.Constants.REFRESH_ANIMATION_DURATION
+import com.vnteam.architecturetemplates.UIConstants.REFRESH_ANIMATION_DURATION
 import com.vnteam.architecturetemplates.drawableRes
 import com.vnteam.architecturetemplates.resources.DrawableResources
 import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
