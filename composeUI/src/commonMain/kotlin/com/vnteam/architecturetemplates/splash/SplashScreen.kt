@@ -21,7 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.vnteam.architecturetemplates.Constants.SPLASH_ANIMATION_DURATION
+import com.vnteam.architecturetemplates.UIConstants.SPLASH_ANIMATION_DURATION
 import com.vnteam.architecturetemplates.components.FLOAT_2
 import com.vnteam.architecturetemplates.components.FLOAT_7
 import com.vnteam.architecturetemplates.resources.LocalLargeAvatarSize

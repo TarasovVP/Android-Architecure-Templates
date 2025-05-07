@@ -1,19 +1,30 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.ktor)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.sqlDelight)
-    application
 }
 
 group = "com.vnteam.architecturetemplates"
 version = "1.0.0"
 
 kotlin {
-    jvm()
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    jvm {
+        binaries {
+            executable {
+                mainClass.set("com.vnteam.architecturetemplates.ApplicationKt")
+                applicationDefaultJvmArgs.addAll(
+                    "-Dio.ktor.development=${this@jvm.project.hasProperty("development")}",
+                    "-Xms256m", "-Xmx512m"
+                )
+            }
+        }
+        mainRun { }
+    }
     sourceSets {
         val jvmMain by getting {
             dependencies {
@@ -41,12 +52,6 @@ kotlin {
     }
 }
 
-application {
-    mainClass.set("com.vnteam.architecturetemplates.ApplicationKt")
-    val isDevelopment: Boolean = project.ext.has("development")
-    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
-}
-
 sqldelight {
     databases {
         create("ServerDatabase") {
@@ -57,16 +62,28 @@ sqldelight {
     }
 }
 
-tasks {
-    register<Jar>("fatJar") {
-        archiveBaseName.set("ktor-server")
-        manifest {
-            attributes["Main-Class"] = "com.vnteam.architecturetemplates.ApplicationKt"
-        }
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-        from(sourceSets.main.get().output)
+val jvmMain = kotlin.targets.getByName("jvm")
+    .compilations.getByName("main")
+
+tasks.register<Jar>("fatJar") {
+
+    group = "distribution"
+    archiveBaseName.set("ktor-server")
+    archiveClassifier.set("all")
+
+    manifest {
+        attributes["Main-Class"] = "com.vnteam.architecturetemplates.ApplicationKt"
     }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from(jvmMain.output)
+
+    from(jvmMain.runtimeDependencyFiles?.map { dep ->
+        if (dep.isDirectory) dep
+        else zipTree(dep)
+    })
+    
+    dependsOn(jvmMain.compileTaskProvider)
 }
 
 val kmpExtension = extensions.getByType(KotlinMultiplatformExtension::class.java)

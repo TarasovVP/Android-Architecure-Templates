@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="composeUI-js">
-    <output-path>$PROJECT_DIR$/composeUI/build/libs</output-path>
-    <root id="archive" name="composeUI-js.jar">
-      <element id="module-output" name="Android_Architecture_Templates.composeUI.jsMain" />
-    </root>
-  </artifact>
-</component>

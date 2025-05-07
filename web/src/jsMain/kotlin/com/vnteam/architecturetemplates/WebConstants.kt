@@ -1,4 +1,4 @@
-
+package com.vnteam.architecturetemplates
 
 object WebConstants {
     const val PATH_START = "/"

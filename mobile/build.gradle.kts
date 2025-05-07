@@ -47,6 +47,7 @@ kotlin {
             // Coil
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
+            implementation(libs.slf4j.nop)
             // Navigation
             implementation(libs.navigation.compose)
         }

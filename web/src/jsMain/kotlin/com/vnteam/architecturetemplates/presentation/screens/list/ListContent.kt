@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.components.AvatarImage
 import com.vnteam.architecturetemplates.components.ConfirmationDialog
 import com.vnteam.architecturetemplates.domain.sealedclasses.ListState
+import com.vnteam.architecturetemplates.navigateTo
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.states.screen.ScreenState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
@@ -32,7 +33,6 @@ import com.vnteam.architecturetemplates.resources.LocalSmallPadding
 import com.vnteam.architecturetemplates.resources.LocalStringResources
 import com.vnteam.architecturetemplates.shared.NavigationScreens
 import kotlinx.browser.window
-import navigateTo
 
 @Composable
 fun ListContent(
@@ -98,7 +98,10 @@ fun DemoObjectItem(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(LocalSmallPadding.current.size),
         ) {
-            AvatarImage(resId = item.owner?.avatarUrl.orEmpty(), avatarSize = LocalMediumAvatarSize.current.size)
+            AvatarImage(
+                resId = item.owner?.avatarUrl.orEmpty(),
+                avatarSize = LocalMediumAvatarSize.current.size,
+            )
             Text(
                 text = item.name.orEmpty(),
                 modifier =

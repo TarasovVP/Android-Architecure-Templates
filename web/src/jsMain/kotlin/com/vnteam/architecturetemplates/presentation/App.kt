@@ -26,6 +26,8 @@ import androidx.compose.ui.graphics.Color
 import com.vnteam.architecturetemplates.components.FLOAT_8
 import com.vnteam.architecturetemplates.components.LanguageSwitcherButton
 import com.vnteam.architecturetemplates.components.ThemeToggleButton
+import com.vnteam.architecturetemplates.isMainScreen
+import com.vnteam.architecturetemplates.navigateToMain
 import com.vnteam.architecturetemplates.presentation.states.screen.AppBarState
 import com.vnteam.architecturetemplates.presentation.states.screen.AppMessageState
 import com.vnteam.architecturetemplates.presentation.viewmodels.AppViewModel
@@ -40,10 +42,8 @@ import com.vnteam.architecturetemplates.resources.getStringResourcesByLocale
 import com.vnteam.architecturetemplates.shared.Constants.MESSAGE_ANIMATION_DURATION
 import com.vnteam.architecturetemplates.splash.SplashScreen
 import com.vnteam.architecturetemplates.theme.AppTheme
-import isMainScreen
 import kotlinx.browser.window
 import kotlinx.coroutines.delay
-import navigateToMain
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -84,7 +84,11 @@ fun AppContent(appViewModel: AppViewModel) {
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                AppBar(screenState.value.appBarState.topAppBarVisible, appViewModel, screenState.value.appBarState)
+                AppBar(
+                    screenState.value.appBarState.topAppBarVisible,
+                    appViewModel,
+                    screenState.value.appBarState,
+                )
                 Box(modifier = Modifier.fillMaxWidth(FLOAT_8)) {
                     AppNavigation(screenState)
                 }
