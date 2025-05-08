@@ -1,3 +1,5 @@
+import java.net.URI
+
 rootProject.name = "Android_Architecture_Templates"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
@@ -28,6 +30,14 @@ gradleEnterprise {
 
         termsOfServiceUrl = "https://gradle.com/terms-of-service"
         termsOfServiceAgree = "yes"
+    }
+}
+
+buildCache {
+    remote(HttpBuildCache::class) {
+        url = URI("http://localhost:5071/cache/")
+        isPush = true
+        isAllowInsecureProtocol = true
     }
 }
 
