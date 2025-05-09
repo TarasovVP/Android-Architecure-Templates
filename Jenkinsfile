@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = tool name: 'JDK 17', type: 'jdk'
-        ANDROID_HOME = '/opt/android-sdk'
-        PATH = "${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools/33.0.2:${env.PATH}"
+        JAVA_HOME = "/usr/lib/jvm/temurin-17"
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
     stages {
