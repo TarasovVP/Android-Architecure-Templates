@@ -22,6 +22,8 @@ pipeline {
 
         stage('Build AAB') {
             steps {
+                sh 'sudo apt-get update && sudo apt-get install -y ruby-full'
+                sh 'gem install bundler -N'
                 sh 'bundle install'
                 sh 'fastlane buildRelease'
             }
