@@ -1,10 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'jenkins-android-fastlane'
+            args '-u root'
+        }
+    }
 
     environment {
-        JAVA_HOME = tool name: 'JDK 17', type: 'jdk'
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
         ANDROID_HOME = '/opt/android-sdk'
-        PATH = "${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools/33.0.2:${env.PATH}"
+        PATH = "${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools/33.0.2:/usr/local/bin:${env.PATH}"
     }
 
     stages {
@@ -22,15 +27,6 @@ pipeline {
 
         stage('Build AAB') {
             steps {
-                sh '''
-                export DEBIAN_FRONTEND=noninteractive
-                apt-get update -y
-                apt-get install -y ruby-full build-essential libffi-dev libssl-dev
-                '''
-
-                sh 'gem install bundler -N'
-                sh 'gem install fastlane -N'
-
                 sh 'bundle install --path vendor/bundle'
                 sh 'fastlane buildRelease'
             }
@@ -38,7 +34,7 @@ pipeline {
 
         stage('Upload to Artifact') {
             steps {
-                archiveArtifacts artifacts: 'app/build/outputs/**/*.aab', fingerprint: true
+                archiveArtifacts artifacts: '**/build/outputs/**/*.aab', fingerprint: true
             }
         }
     }

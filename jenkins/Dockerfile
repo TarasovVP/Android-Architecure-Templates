@@ -12,7 +12,10 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libffi-dev \
     libssl-dev \
-    gnupg2
+    gnupg2 \
+    zlib1g-dev \
+    liblzma-dev \
+    && apt-get clean
 
 ENV ANDROID_SDK_ROOT=/opt/android-sdk
 ENV PATH="${PATH}:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools:${ANDROID_SDK_ROOT}/emulator"
@@ -24,10 +27,15 @@ RUN mkdir -p ${ANDROID_SDK_ROOT}/cmdline-tools && \
     rm tools.zip && \
     mv cmdline-tools latest
 
-RUN yes | sdkmanager --licenses && \
-    sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+RUN yes | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --licenses
+
+RUN ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager \
+    "platform-tools" \
+    "platforms;android-33" \
+    "build-tools;33.0.2"
 
 RUN gem install bundler fastlane -NV
 
 USER jenkins
+
 
