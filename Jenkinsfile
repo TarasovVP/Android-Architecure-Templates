@@ -22,9 +22,16 @@ pipeline {
 
         stage('Build AAB') {
             steps {
-                sh 'sudo apt-get update && sudo apt-get install -y ruby-full'
+                sh '''
+                export DEBIAN_FRONTEND=noninteractive
+                apt-get update -y
+                apt-get install -y ruby-full build-essential libffi-dev libssl-dev
+                '''
+
                 sh 'gem install bundler -N'
-                sh 'bundle install'
+                sh 'gem install fastlane -N'
+
+                sh 'bundle install --path vendor/bundle'
                 sh 'fastlane buildRelease'
             }
         }
