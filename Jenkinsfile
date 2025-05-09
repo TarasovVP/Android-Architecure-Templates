@@ -1,8 +1,7 @@
 pipeline {
     agent {
-        docker {
-            image 'jenkins-android-fastlane'
-            args '-u root'
+        dockerfile {
+            filename 'Dockerfile'
         }
     }
 
