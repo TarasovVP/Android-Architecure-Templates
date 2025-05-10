@@ -30,13 +30,15 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - name: Create global local.properties
+      - name: Create local.properties with real values
         run: |
-          echo "CLOUD_URL=" >> local.properties
-          echo "JDBC_URL=" >> local.properties
-          echo "DRIVER_CLASS_NAME=" >> local.properties
-          echo "DB_USER_NAME=" >> local.properties
-          echo "DB_USER_PASSWORD=" >> local.properties
+          cat <<EOF > local.properties
+          CLOUD_URL=${{ secrets.CLOUD_URL }}
+          JDBC_URL=${{ secrets.JDBC_URL }}
+          DRIVER_CLASS_NAME=${{ secrets.DRIVER_CLASS_NAME }}
+          DB_USER_NAME=${{ secrets.DB_USER_NAME }}
+          DB_USER_PASSWORD=${{ secrets.DB_USER_PASSWORD }}
+          EOF
       - name: Run Detekt (continue on error)
         run: ./gradlew detekt --continue || echo "Detekt found issues, but continuing..."
       - name: Generate Kover reports

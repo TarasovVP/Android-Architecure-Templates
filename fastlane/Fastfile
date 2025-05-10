@@ -1,0 +1,11 @@
+default_platform(:android)
+
+platform :android do
+  desc "Build AAB for release"
+  lane :buildRelease do
+    gradle(
+      task: "bundle",
+      build_type: "Release"
+    )
+  end
+end
