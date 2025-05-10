@@ -1,10 +1,13 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'JDK17'
+    }
+
     environment {
-        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
         ANDROID_HOME = '/opt/android-sdk'
-        PATH = "${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools/33.0.2:/usr/local/bin:${env.PATH}"
+        PATH = "${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools/33.0.2:${env.PATH}"
     }
 
     stages {
