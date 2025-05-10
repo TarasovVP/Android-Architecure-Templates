@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        dockerfile {
-            filename 'Dockerfile'
-            dir 'jenkins'
-        }
-    }
+    agent any
 
     environment {
         JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
@@ -25,10 +20,15 @@ pipeline {
             }
         }
 
-        stage('Build AAB') {
+        stage('Install Ruby & Fastlane deps') {
             steps {
                 sh 'bundle install --path vendor/bundle'
-                sh 'fastlane buildRelease'
+            }
+        }
+
+        stage('Build AAB') {
+            steps {
+                sh 'bundle exec fastlane buildRelease'
             }
         }
 
