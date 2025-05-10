@@ -38,6 +38,7 @@ buildCache {
         url = URI("http://localhost:5071/cache/")
         isPush = true
         isAllowInsecureProtocol = true
+        isEnabled = false
     }
 }
 
