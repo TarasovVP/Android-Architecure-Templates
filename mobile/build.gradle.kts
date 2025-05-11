@@ -100,7 +100,7 @@ android {
     }
     signingConfigs {
         create("release") {
-            val storeFilePath = props.getProperty("STORE_FILE") ?: "mobile/keystore.jks"
+            val storeFilePath = props.getProperty("STORE_FILE") ?: "keystore.jks"
 
             storeFile = file(storeFilePath)
             storePassword = getSigningProp("STORE_PASSWORD")
