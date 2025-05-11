@@ -36,16 +36,19 @@ pipeline {
         }
 
         stage('Prepare Signing') {
-            environment {
-                STORE_PASSWORD = credentials('STORE_PASSWORD')
-                KEY_ALIAS = credentials('KEY_ALIAS')
-                KEY_PASSWORD = credentials('KEY_PASSWORD')
-            }
             steps {
                 withCredentials([
-                    file(credentialsId: 'KEYSTORE_FILE', variable: 'KEYSTORE_FILE')
+                    file(credentialsId: 'KEYSTORE_FILE', variable: 'KEYSTORE_FILE'),
+                    string(credentialsId: 'STORE_PASSWORD', variable: 'STORE_PASSWORD'),
+                    string(credentialsId: 'KEY_ALIAS', variable: 'KEY_ALIAS'),
+                    string(credentialsId: 'KEY_PASSWORD', variable: 'KEY_PASSWORD')
                 ]) {
-                    sh 'cp $KEYSTORE_FILE mobile/keystore.jks'
+                    sh '''
+                        cat "$KEYSTORE_FILE" > mobile/keystore.jks
+                        export STORE_PASSWORD=$STORE_PASSWORD
+                        export KEY_ALIAS=$KEY_ALIAS
+                        export KEY_PASSWORD=$KEY_PASSWORD
+                    '''
                 }
             }
         }
