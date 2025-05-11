@@ -100,8 +100,7 @@ android {
     }
     signingConfigs {
         create("release") {
-            val storeFilePath = System.getenv("STORE_FILE") ?: props.getProperty("STORE_FILE")
-            ?: throw GradleException("STORE_FILE is not set in env or local.properties")
+            val storeFilePath = props.getProperty("STORE_FILE") ?: "mobile/keystore.jks"
 
             storeFile = file(storeFilePath)
             storePassword = getSigningProp("STORE_PASSWORD")
