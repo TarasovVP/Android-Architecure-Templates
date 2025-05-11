@@ -43,17 +43,15 @@ pipeline {
                     string(credentialsId: 'KEY_ALIAS', variable: 'KEY_ALIAS'),
                     string(credentialsId: 'KEY_PASSWORD', variable: 'KEY_PASSWORD')
                 ]) {
-                    withEnv([
-                        "STORE_PASSWORD=$STORE_PASSWORD",
-                        "KEY_ALIAS=$KEY_ALIAS",
-                        "KEY_PASSWORD=$KEY_PASSWORD"
-                    ]) {
-                        sh '''
-                            cp "$KEYSTORE_FILE" ./keystore_temp.jks
-                            chmod +r ./keystore_temp.jks
-                            mv ./keystore_temp.jks mobile/keystore.jks
-                        '''
-                    }
+                    sh '''
+                        cp "$KEYSTORE_FILE" ./keystore_temp.jks
+                        chmod +r ./keystore_temp.jks
+                        mv ./keystore_temp.jks mobile/keystore.jks
+
+                        echo "STORE_PASSWORD=$STORE_PASSWORD" >> mobile/local.properties
+                        echo "KEY_ALIAS=$KEY_ALIAS" >> mobile/local.properties
+                        echo "KEY_PASSWORD=$KEY_PASSWORD" >> mobile/local.properties
+                    '''
                 }
             }
         }
