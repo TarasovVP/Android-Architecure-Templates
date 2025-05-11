@@ -35,6 +35,24 @@ pipeline {
             }
         }
 
+        stage('Prepare Signing') {
+            steps {
+                withCredentials([
+                    file(credentialsId: 'KEYSTORE_FILE', variable: 'KEYSTORE_FILE'),
+                    string(credentialsId: 'STORE_PASSWORD', variable: 'STORE_PASSWORD'),
+                    string(credentialsId: 'KEY_ALIAS', variable: 'KEY_ALIAS'),
+                    string(credentialsId: 'KEY_PASSWORD', variable: 'KEY_PASSWORD')
+                ]) {
+                    sh '''
+                        cp $KEYSTORE_FILE keystore.jks
+                        export STORE_PASSWORD=$STORE_PASSWORD
+                        export KEY_ALIAS=$KEY_ALIAS
+                        export KEY_PASSWORD=$KEY_PASSWORD
+                    '''
+                }
+            }
+        }
+
         stage('Dependencies') {
             steps {
                 sh './gradlew dependencies'
