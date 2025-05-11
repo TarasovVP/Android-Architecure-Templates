@@ -1,5 +1,18 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import java.util.Properties
+
+val props = Properties().apply {
+    val file = rootProject.file("mobile/local.properties")
+    if (file.exists()) {
+        load(file.inputStream())
+    }
+}
+
+fun getSigningProp(name: String): String =
+    System.getenv(name)
+        ?: props.getProperty(name)
+        ?: throw GradleException("Missing signing config value for $name")
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -87,10 +100,13 @@ android {
     }
     signingConfigs {
         create("release") {
-            storeFile = file("keystore.jks")
-            storePassword = System.getenv("STORE_PASSWORD")
-            keyAlias = System.getenv("KEY_ALIAS")
-            keyPassword = System.getenv("KEY_PASSWORD")
+            val storeFilePath = System.getenv("STORE_FILE") ?: props.getProperty("STORE_FILE")
+            ?: throw GradleException("STORE_FILE is not set in env or local.properties")
+
+            storeFile = file(storeFilePath)
+            storePassword = getSigningProp("STORE_PASSWORD")
+            keyAlias = getSigningProp("KEY_ALIAS")
+            keyPassword = getSigningProp("KEY_PASSWORD")
         }
     }
     buildTypes {
