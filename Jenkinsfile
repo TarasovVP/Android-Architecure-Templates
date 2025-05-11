@@ -44,9 +44,9 @@ pipeline {
                     string(credentialsId: 'KEY_PASSWORD', variable: 'KEY_PASSWORD')
                 ]) {
                     withEnv([
-                        'STORE_PASSWORD=${STORE_PASSWORD}',
-                        'KEY_ALIAS=${KEY_ALIAS}',
-                        'KEY_PASSWORD=${KEY_PASSWORD}'
+                        "STORE_PASSWORD=$STORE_PASSWORD",
+                        "KEY_ALIAS=$KEY_ALIAS",
+                        "KEY_PASSWORD=$KEY_PASSWORD"
                     ]) {
                         sh '''
                             cp "$KEYSTORE_FILE" ./keystore_temp.jks
