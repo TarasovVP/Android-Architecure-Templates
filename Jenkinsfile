@@ -44,7 +44,9 @@ pipeline {
                     string(credentialsId: 'KEY_PASSWORD', variable: 'KEY_PASSWORD')
                 ]) {
                     sh '''
-                        cat "$KEYSTORE_FILE" > mobile/keystore.jks
+                    cp "$KEYSTORE_FILE" ./keystore_temp.jks
+                    chmod +r ./keystore_temp.jks
+                    mv ./keystore_temp.jks mobile/keystore.jks
                         export STORE_PASSWORD=$STORE_PASSWORD
                         export KEY_ALIAS=$KEY_ALIAS
                         export KEY_PASSWORD=$KEY_PASSWORD
