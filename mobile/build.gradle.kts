@@ -1,5 +1,18 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import java.util.Properties
+
+val props = Properties().apply {
+    val file = rootProject.file("mobile/local.properties")
+    if (file.exists()) {
+        load(file.inputStream())
+    }
+}
+
+fun getSigningProp(name: String): String =
+    System.getenv(name)
+        ?: props.getProperty(name)
+        ?: throw GradleException("Missing signing config value for $name")
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -85,6 +98,16 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        create("release") {
+            val storeFilePath = props.getProperty("STORE_FILE") ?: "keystore.jks"
+
+            storeFile = file(storeFilePath)
+            storePassword = getSigningProp("STORE_PASSWORD")
+            keyAlias = getSigningProp("KEY_ALIAS")
+            keyPassword = getSigningProp("KEY_PASSWORD")
+        }
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
@@ -92,6 +115,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
