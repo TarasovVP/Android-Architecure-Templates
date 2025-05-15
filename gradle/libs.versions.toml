@@ -2,6 +2,7 @@
 compileSdk = "34"
 datastorePreferences = "1.1.1"
 freetts = "1.2.2"
+kotlinxBenchmarkRuntime = "0.4.14"
 ktlintRuleEngine = "1.0.0"
 lintApi = "31.9.1"
 minSdk = "24"
@@ -37,7 +38,7 @@ kmpSecrets = "1.1.0"
 ktlint = "12.2.0"
 detekt = "1.23.8"
 sonarqube = "6.1.0.5360"
-benchmark = "0.4.13"
+benchmark = "0.4.14"
 
 [libraries]
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
@@ -48,6 +49,7 @@ androidx-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecy
 
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-test" }
+kotlinx-benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "kotlinxBenchmarkRuntime" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }

@@ -12,7 +12,6 @@ plugins {
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.detekt) apply true
     alias(libs.plugins.sonarqube) apply true
-    alias(libs.plugins.benchmark) apply false
 }
 
 
