@@ -16,7 +16,9 @@ plugins {
 
 
 subprojects {
+    // kover
     apply(plugin = "org.jetbrains.kotlinx.kover")
+    // ktlint
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         debug.set(true)
@@ -24,11 +26,10 @@ subprojects {
     dependencies {
         add("ktlint", project(":custom-ktlint-rules"))
     }
-
+    // detekt
     apply(plugin = "io.gitlab.arturbosch.detekt")
     plugins.withId("io.gitlab.arturbosch.detekt") {
         configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
-
             source.setFrom(
                 files(
                     "src/main/kotlin",
@@ -50,12 +51,14 @@ subprojects {
 
 sonarqube {
     properties {
+        // kover reports
         val koverReports = allprojects.mapNotNull { project ->
             val reportPath = "${project.projectDir}/build/reports/kover/report.xml"
             if (File(reportPath).exists()) reportPath else null
         }
             .joinToString(",")
         property("sonar.coverage.jacoco.xmlReportPaths", koverReports)
+        // detekt reports
         val detektReports = allprojects.mapNotNull { project ->
             val reportPath = "${project.projectDir}/build/reports/detekt/detekt.xml"
             if (File(reportPath).exists()) reportPath else null

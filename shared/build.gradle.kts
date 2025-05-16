@@ -1,3 +1,4 @@
+import kotlinx.benchmark.gradle.benchmark
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
@@ -9,13 +10,14 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.kmpSecrets)
+    alias(libs.plugins.benchmark)
 }
 
 kotlin {
     androidTarget {
         tasks.withType<KotlinJvmCompile>().configureEach {
             compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_17)
+                jvmTarget.set(JvmTarget.JVM_21)
             }
         }
     }
@@ -56,6 +58,8 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             // SQLDelight
             implementation(libs.sqldelight.coroutines.extensions)
+            // Benchmark
+            implementation(libs.kotlinx.benchmark.runtime)
         }
         androidMain.dependencies {
             implementation(libs.androidx.multidex)
@@ -100,6 +104,7 @@ kotlin {
             implementation(libs.kotlin.coroutine.test)
             implementation(libs.koin.test)
         }
+        val commonBenchmark by creating { dependsOn(commonMain.get()) }
     }
 }
 
@@ -111,8 +116,8 @@ android {
         multiDexEnabled = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
@@ -147,6 +152,23 @@ kover {
                     "com.vnteam.architecturetemplates.shared",
                 )
             }
+        }
+    }
+}
+
+benchmark {
+    targets {
+        register("jvm")
+        register("iosX64")
+        register("js")
+    }
+    configurations {
+        named("main") {
+            iterations = 15
+            iterationTime = 1
+            iterationTimeUnit = "sec"
+            mode = "thrpt"
+            outputTimeUnit = "ms"
         }
     }
 }
