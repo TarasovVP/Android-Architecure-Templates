@@ -1,5 +1,6 @@
 [versions]
 compileSdk = "34"
+buildTool = "35.0.0"
 datastorePreferences = "1.1.1"
 freetts = "1.2.2"
 kotlinxBenchmarkRuntime = "0.4.14"

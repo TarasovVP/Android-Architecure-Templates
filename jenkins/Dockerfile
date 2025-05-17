@@ -31,15 +31,9 @@ RUN yes | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --licenses
 
 RUN ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager \
     "platform-tools" \
-    "platforms;android-33" \
-    "build-tools;33.0.2" \
     "platforms;android-34" \
     "build-tools;35.0.0"
 
 RUN gem install bundler fastlane -NV
-
-RUN mkdir -p ${ANDROID_SDK_ROOT} && \
-    chown -R jenkins:jenkins ${ANDROID_SDK_ROOT} && \
-    chmod -R u+rwX,g+rwX,o-rwx ${ANDROID_SDK_ROOT}
 
 USER jenkins

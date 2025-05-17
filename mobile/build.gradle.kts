@@ -83,6 +83,7 @@ kotlin {
 android {
     namespace = "com.vnteam.architecturetemplates"
     compileSdk = libs.versions.compileSdk.get().toInt()
+    buildToolsVersion = libs.versions.buildTool.get()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
