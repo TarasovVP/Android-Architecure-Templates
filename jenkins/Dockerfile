@@ -38,6 +38,8 @@ RUN ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager \
 
 RUN gem install bundler fastlane -NV
 
-RUN chown -R jenkins:jenkins ${ANDROID_SDK_ROOT}
+RUN mkdir -p ${ANDROID_SDK_ROOT} && \
+    chown -R jenkins:jenkins ${ANDROID_SDK_ROOT} && \
+    chmod -R u+rwX,g+rwX,o-rwx ${ANDROID_SDK_ROOT}
 
 USER jenkins
