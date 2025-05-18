@@ -7,7 +7,6 @@ kotlinCompilerExtensionVersion = "1.5.11"
 
 datastorePreferences = "1.1.1"
 freetts = "1.2.2"
-kotlinxBenchmarkRuntime = "0.4.14"
 ktlintRuleEngine = "1.0.0"
 lintApi = "31.9.1"
 slf4jNop = "1.7.36"
@@ -50,7 +49,7 @@ androidx-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecy
 
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-test" }
-kotlinx-benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "kotlinxBenchmarkRuntime" }
+kotlinx-benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "benchmark" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }

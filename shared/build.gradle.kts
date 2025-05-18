@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.scope.ProjectInfo.Companion.getBaseName
 import kotlinx.benchmark.gradle.benchmark
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
@@ -11,7 +12,13 @@ plugins {
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.kmpSecrets)
     alias(libs.plugins.benchmark)
+    id("org.jetbrains.kotlin.plugin.allopen") version "2.0.20"
 }
+
+allOpen {
+    annotation("org.openjdk.jmh.annotations.State")
+}
+
 
 kotlin {
     androidTarget {
@@ -21,7 +28,6 @@ kotlin {
             }
         }
     }
-    task("testClasses")
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -32,7 +38,10 @@ kotlin {
             nodejs()
         }
     }
-    jvm()
+    jvm {
+        compilations.create("benchmark") { associateWith(this@jvm.compilations.getByName("main")) }
+    }
+    applyDefaultHierarchyTemplate()
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core)
@@ -104,7 +113,12 @@ kotlin {
             implementation(libs.kotlin.coroutine.test)
             implementation(libs.koin.test)
         }
-        val commonBenchmark by creating { dependsOn(commonMain.get()) }
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
@@ -159,16 +173,5 @@ kover {
 benchmark {
     targets {
         register("jvm")
-        register("iosX64")
-        register("js")
-    }
-    configurations {
-        named("main") {
-            iterations = 15
-            iterationTime = 1
-            iterationTimeUnit = "sec"
-            mode = "thrpt"
-            outputTimeUnit = "ms"
-        }
     }
 }
