@@ -4,6 +4,7 @@ buildTool = "35.0.0"
 minSdk = "24"
 targetSdk = "34"
 kotlinCompilerExtensionVersion = "1.5.11"
+jvmVersion = "21"
 
 datastorePreferences = "1.1.1"
 freetts = "1.2.2"
