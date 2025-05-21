@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates
+package benchmarks
 
 import kotlinx.benchmark.Benchmark
 import kotlinx.benchmark.Scope
