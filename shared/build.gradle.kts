@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.scope.ProjectInfo.Companion.getBaseName
 import kotlinx.benchmark.gradle.benchmark
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
@@ -173,5 +172,6 @@ kover {
 benchmark {
     targets {
         register("jvm")
+        register("jvmBenchmark")
     }
 }
