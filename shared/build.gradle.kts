@@ -37,9 +37,7 @@ kotlin {
             nodejs()
         }
     }
-    jvm {
-        compilations.create("benchmark") { associateWith(this@jvm.compilations.getByName("main")) }
-    }
+    jvm()
     applyDefaultHierarchyTemplate()
     sourceSets {
         commonMain.dependencies {
@@ -89,16 +87,23 @@ kotlin {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sqldelight.native.driver)
         }
-        jvmMain.dependencies {
-            implementation(libs.koin.core)
-            implementation(libs.ktor.client.java)
-            implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.sqldelight.java.driver)
-            implementation(libs.slf4j)
-            // Datastore
-            implementation(libs.androidx.datastore.preferences)
-            // Text to speech
-            implementation(libs.freetts)
+        val commonBenchmark by creating {
+            dependsOn(commonMain.get())
+            dependencies { implementation(libs.kotlinx.benchmark.runtime) }
+        }
+        jvmMain {
+            dependsOn(commonBenchmark)
+            dependencies {
+                implementation(libs.koin.core)
+                implementation(libs.ktor.client.java)
+                implementation(libs.kotlinx.coroutines.swing)
+                implementation(libs.sqldelight.java.driver)
+                implementation(libs.slf4j)
+                // Datastore
+                implementation(libs.androidx.datastore.preferences)
+                // Text to speech
+                implementation(libs.freetts)
+            }
         }
         jsMain.dependencies {
             implementation(libs.ktor.client.js)
@@ -172,6 +177,5 @@ kover {
 benchmark {
     targets {
         register("jvm")
-        register("jvmBenchmark")
     }
 }
