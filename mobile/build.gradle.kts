@@ -83,6 +83,7 @@ kotlin {
 android {
     namespace = "com.vnteam.architecturetemplates"
     compileSdk = libs.versions.compileSdk.get().toInt()
+    buildToolsVersion = libs.versions.buildTool.get()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
@@ -122,6 +123,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
+    }
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(libs.versions.jvmVersion.get()))
+        }
     }
     buildFeatures {
         compose = true

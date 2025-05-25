@@ -11,7 +11,13 @@ plugins {
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.kmpSecrets)
     alias(libs.plugins.benchmark)
+    id("org.jetbrains.kotlin.plugin.allopen") version "2.0.20"
 }
+
+allOpen {
+    annotation("org.openjdk.jmh.annotations.State")
+}
+
 
 kotlin {
     androidTarget {
@@ -21,7 +27,6 @@ kotlin {
             }
         }
     }
-    task("testClasses")
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -33,6 +38,7 @@ kotlin {
         }
     }
     jvm()
+    applyDefaultHierarchyTemplate()
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core)
@@ -81,16 +87,23 @@ kotlin {
             implementation(libs.ktor.client.darwin)
             implementation(libs.sqldelight.native.driver)
         }
-        jvmMain.dependencies {
-            implementation(libs.koin.core)
-            implementation(libs.ktor.client.java)
-            implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.sqldelight.java.driver)
-            implementation(libs.slf4j)
-            // Datastore
-            implementation(libs.androidx.datastore.preferences)
-            // Text to speech
-            implementation(libs.freetts)
+        val commonBenchmark by creating {
+            dependsOn(commonMain.get())
+            dependencies { implementation(libs.kotlinx.benchmark.runtime) }
+        }
+        jvmMain {
+            dependsOn(commonBenchmark)
+            dependencies {
+                implementation(libs.koin.core)
+                implementation(libs.ktor.client.java)
+                implementation(libs.kotlinx.coroutines.swing)
+                implementation(libs.sqldelight.java.driver)
+                implementation(libs.slf4j)
+                // Datastore
+                implementation(libs.androidx.datastore.preferences)
+                // Text to speech
+                implementation(libs.freetts)
+            }
         }
         jsMain.dependencies {
             implementation(libs.ktor.client.js)
@@ -104,7 +117,12 @@ kotlin {
             implementation(libs.kotlin.coroutine.test)
             implementation(libs.koin.test)
         }
-        val commonBenchmark by creating { dependsOn(commonMain.get()) }
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(libs.versions.jvmVersion.get()))
     }
 }
 
@@ -159,16 +177,5 @@ kover {
 benchmark {
     targets {
         register("jvm")
-        register("iosX64")
-        register("js")
-    }
-    configurations {
-        named("main") {
-            iterations = 15
-            iterationTime = 1
-            iterationTimeUnit = "sec"
-            mode = "thrpt"
-            outputTimeUnit = "ms"
-        }
     }
 }
