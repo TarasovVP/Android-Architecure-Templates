@@ -11,7 +11,7 @@ plugins {
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.kmpSecrets)
     alias(libs.plugins.benchmark)
-    id("org.jetbrains.kotlin.plugin.allopen") version "2.0.20"
+    alias(libs.plugins.allopen)
 }
 
 allOpen {

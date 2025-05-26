@@ -123,3 +123,4 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
 benchmark = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "benchmark" }
+allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
