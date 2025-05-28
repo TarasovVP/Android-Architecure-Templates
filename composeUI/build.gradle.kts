@@ -76,3 +76,13 @@ compose.resources {
     packageOfResClass = "com.vnteam.architecturetemplates.resources"
     generateResClass = always
 }
+
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            if (requested.group == "androidx.compose.foundation") {
+                useVersion("1.6.7")
+            }
+        }
+    }
+}

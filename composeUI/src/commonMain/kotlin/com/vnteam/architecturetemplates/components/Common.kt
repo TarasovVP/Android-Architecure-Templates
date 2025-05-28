@@ -36,8 +36,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -154,12 +152,7 @@ fun CommonTextField(
                     end = LocalDefaultPadding.current.size,
                 ),
         keyboardOptions =
-            KeyboardOptions(
-                imeAction = ImeAction.Next,
-                keyboardType = KeyboardType.Text,
-                capitalization = KeyboardCapitalization.None,
-                autoCorrect = true,
-            ),
+            KeyboardOptions(imeAction = ImeAction.Next),
         keyboardActions =
             KeyboardActions(
                 onNext = {
