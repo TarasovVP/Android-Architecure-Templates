@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -23,6 +24,7 @@ import com.vnteam.architecturetemplates.components.HeaderText
 import com.vnteam.architecturetemplates.components.PrimaryButton
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.resources.DrawableResources
 import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.resources.LocalStringResources
@@ -108,5 +110,30 @@ fun CreateContent(
                 onClick = onClick,
             )
         }
+    }
+    ChangeAvatarDialog(viewState)
+}
+
+@Composable
+fun ChangeAvatarDialog(viewState: State<CreateViewState>) {
+    val isChangeAvatarDialogVisible =
+        remember { mutableStateOf(viewState.value.isChangeAvatarDialogVisible.value) }
+    LaunchedEffect(isChangeAvatarDialogVisible) {
+        isChangeAvatarDialogVisible.value = viewState.value.isChangeAvatarDialogVisible.value
+    }
+    if (isChangeAvatarDialogVisible.value) {
+        com.vnteam.architecturetemplates.components.ChangeAvatarDialog(
+            avatarList = DrawableResources.avatarList,
+            onDismiss = {
+                viewState.value.isChangeAvatarDialogVisible.value = false
+            },
+            onClick = { avatar ->
+                viewState.value.demoObject.value =
+                    viewState.value.demoObject.value?.copy(
+                        owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
+                    )
+                viewState.value.isChangeAvatarDialogVisible.value = false
+            },
+        )
     }
 }
