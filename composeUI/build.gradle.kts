@@ -43,6 +43,7 @@ kotlin {
             implementation(libs.navigation.compose)
         }
     }
+    jvmToolchain(21)
 }
 
 android {
@@ -56,10 +57,32 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
 compose.resources {
     publicResClass = true
     packageOfResClass = "com.vnteam.architecturetemplates.resources"
     generateResClass = always
+}
+
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            if (requested.group == "androidx.compose.foundation") {
+                useVersion("1.6.7")
+            }
+        }
+    }
 }

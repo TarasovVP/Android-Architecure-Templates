@@ -14,6 +14,6 @@ object UIConstants {
     const val DEFAULT_OBJECT_ID = "demoObjectId"
     const val DEMO_OBJECT_ID = "demoObjectId"
     const val DEMO_OBJECT_NAME = "demoObjectName"
-
+    const val DEFAULT_DEMO_OBJECT_ID = "-1"
     const val LANG_UK = "uk"
 }

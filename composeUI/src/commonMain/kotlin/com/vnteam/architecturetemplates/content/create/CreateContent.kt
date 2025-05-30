@@ -18,11 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.vnteam.architecturetemplates.components.AvatarImage
+import com.vnteam.architecturetemplates.components.BaseChangeAvatarDialog
 import com.vnteam.architecturetemplates.components.CommonTextField
 import com.vnteam.architecturetemplates.components.HeaderText
 import com.vnteam.architecturetemplates.components.PrimaryButton
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
+import com.vnteam.architecturetemplates.resources.DrawableResources
 import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.resources.LocalStringResources
@@ -108,5 +110,20 @@ fun CreateContent(
                 onClick = onClick,
             )
         }
+    }
+    if (viewState.value.isChangeAvatarDialogVisible.value) {
+        BaseChangeAvatarDialog(
+            avatarList = DrawableResources.avatarList,
+            onDismiss = {
+                viewState.value.isChangeAvatarDialogVisible.value = false
+            },
+            onClick = { avatar ->
+                viewState.value.demoObject.value =
+                    viewState.value.demoObject.value?.copy(
+                        owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
+                    )
+                viewState.value.isChangeAvatarDialogVisible.value = false
+            },
+        )
     }
 }

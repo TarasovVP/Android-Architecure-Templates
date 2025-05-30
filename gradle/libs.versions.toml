@@ -3,7 +3,7 @@ compileSdk = "34"
 buildTool = "35.0.0"
 minSdk = "24"
 targetSdk = "34"
-kotlinCompilerExtensionVersion = "1.5.11"
+kotlinCompilerExtensionVersion = "1.6.7"
 jvmVersion = "21"
 
 datastorePreferences = "1.1.1"
@@ -25,7 +25,7 @@ navigationCompose = "2.8.0-alpha02"
 activity = "1.9.2"
 materialRipple = "1.7.2"
 agp = "8.9.2"
-compose-multiplatform = "1.6.10-rc03"
+compose-multiplatform = "1.6.10"
 kotlin = "2.1.20"
 kotlin-test = "1.10.1"
 slf4j = "2.0.12"
@@ -123,3 +123,4 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
 benchmark = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "benchmark" }
+allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }

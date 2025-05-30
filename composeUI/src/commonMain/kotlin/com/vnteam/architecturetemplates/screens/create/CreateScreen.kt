@@ -7,6 +7,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import com.vnteam.architecturetemplates.UIConstants
 import com.vnteam.architecturetemplates.data.generateUUID
 import com.vnteam.architecturetemplates.presentation.intents.CreateIntent
 import com.vnteam.architecturetemplates.presentation.states.CreateViewState
@@ -31,7 +32,7 @@ fun CreateScreen(
     val originDemoObject = remember { mutableStateOf<DemoObjectUI?>(null) }
 
     LaunchedEffect(Unit) {
-        if (demoObjectId.isNotEmpty()) {
+        if (demoObjectId.isNotEmpty() && demoObjectId != UIConstants.DEFAULT_DEMO_OBJECT_ID) {
             viewModel.processIntent(CreateIntent.LoadDemoObject(demoObjectId))
         } else {
             viewModel.state.value.demoObject =

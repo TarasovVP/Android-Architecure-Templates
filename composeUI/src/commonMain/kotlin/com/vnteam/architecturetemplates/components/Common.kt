@@ -152,9 +152,7 @@ fun CommonTextField(
                     end = LocalDefaultPadding.current.size,
                 ),
         keyboardOptions =
-            KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Next,
-            ),
+            KeyboardOptions(imeAction = ImeAction.Next),
         keyboardActions =
             KeyboardActions(
                 onNext = {

@@ -1,4 +1,5 @@
 import kotlinx.benchmark.gradle.benchmark
+import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
@@ -11,7 +12,7 @@ plugins {
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.kmpSecrets)
     alias(libs.plugins.benchmark)
-    id("org.jetbrains.kotlin.plugin.allopen") version "2.0.20"
+    alias(libs.plugins.allopen)
 }
 
 allOpen {
@@ -31,10 +32,17 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
     js(IR) {
-        useCommonJs()
+        binaries.executable()
         browser()
         testRuns {
             nodejs()
+        }
+        compilations.configureEach {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    moduleKind.set(JsModuleKind.MODULE_ES)
+                }
+            }
         }
     }
     jvm()
@@ -137,6 +145,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
+        buildFeatures {
+            compose = true
+        }
+        composeOptions {
+            kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
+        }
 }
 
 sqldelight {
