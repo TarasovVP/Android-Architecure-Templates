@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.vnteam.architecturetemplates.components.AvatarImage
+import com.vnteam.architecturetemplates.components.BaseChangeAvatarDialog
 import com.vnteam.architecturetemplates.components.CommonTextField
 import com.vnteam.architecturetemplates.components.HeaderText
 import com.vnteam.architecturetemplates.components.PrimaryButton
@@ -111,18 +111,8 @@ fun CreateContent(
             )
         }
     }
-    ChangeAvatarDialog(viewState)
-}
-
-@Composable
-fun ChangeAvatarDialog(viewState: State<CreateViewState>) {
-    val isChangeAvatarDialogVisible =
-        remember { mutableStateOf(viewState.value.isChangeAvatarDialogVisible.value) }
-    LaunchedEffect(isChangeAvatarDialogVisible) {
-        isChangeAvatarDialogVisible.value = viewState.value.isChangeAvatarDialogVisible.value
-    }
-    if (isChangeAvatarDialogVisible.value) {
-        com.vnteam.architecturetemplates.components.ChangeAvatarDialog(
+    if (viewState.value.isChangeAvatarDialogVisible.value) {
+        BaseChangeAvatarDialog(
             avatarList = DrawableResources.avatarList,
             onDismiss = {
                 viewState.value.isChangeAvatarDialogVisible.value = false

@@ -130,7 +130,21 @@ fun CreateContent(
             onClick = onClick,
         )
     }
-    ChangeAvatarDialog(viewState)
+    if (viewState.value.isChangeAvatarDialogVisible.value) {
+        com.vnteam.architecturetemplates.components.BaseChangeAvatarDialog(
+            avatarList = DrawableResources.avatarList,
+            onDismiss = {
+                viewState.value.isChangeAvatarDialogVisible.value = false
+            },
+            onClick = { avatar ->
+                viewState.value.demoObject.value =
+                    viewState.value.demoObject.value?.copy(
+                        owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
+                    )
+                viewState.value.isChangeAvatarDialogVisible.value = false
+            },
+        )
+    }
 }
 
 @Composable
@@ -167,7 +181,7 @@ fun ChangeAvatarDialog(viewState: State<CreateViewState>) {
         isChangeAvatarDialogVisible.value = viewState.value.isChangeAvatarDialogVisible.value
     }
     if (isChangeAvatarDialogVisible.value) {
-        com.vnteam.architecturetemplates.components.ChangeAvatarDialog(
+        com.vnteam.architecturetemplates.components.BaseChangeAvatarDialog(
             avatarList = DrawableResources.avatarList,
             onDismiss = {
                 viewState.value.isChangeAvatarDialogVisible.value = false

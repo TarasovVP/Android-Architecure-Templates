@@ -76,13 +76,12 @@ fun ConfirmationDialog(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChangeAvatarDialog(
+fun BaseChangeAvatarDialog(
     avatarList: List<String>,
     onDismiss: () -> Unit,
     onClick: (String) -> Unit,
 ) {
     val modalBottomSheetState = rememberModalBottomSheetState()
-
     ModalBottomSheet(
         sheetState = modalBottomSheetState,
         onDismissRequest = { onDismiss() },
