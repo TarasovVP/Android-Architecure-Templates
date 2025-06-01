@@ -99,7 +99,6 @@ kotlin {
             dependsOn(commonMain.get())
             dependencies {
                 implementation(libs.kotlinx.benchmark.runtime)
-                implementation("app.cash.sqldelight:sqlite-driver:2.0.2")
             }
         }
         jvmMain {
