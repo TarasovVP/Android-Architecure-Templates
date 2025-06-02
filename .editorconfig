@@ -18,5 +18,8 @@ ktlint = disabled
 [**/secrets/**/*.kt]
 ktlint = disabled
 
+[**/commonBenchmark/**/*.kt]
+ktlint = disabled
+
 [**/resources/**]
 ktlint = disabled

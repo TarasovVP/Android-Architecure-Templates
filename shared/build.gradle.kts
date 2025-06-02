@@ -97,7 +97,9 @@ kotlin {
         }
         val commonBenchmark by creating {
             dependsOn(commonMain.get())
-            dependencies { implementation(libs.kotlinx.benchmark.runtime) }
+            dependencies {
+                implementation(libs.kotlinx.benchmark.runtime)
+            }
         }
         jvmMain {
             dependsOn(commonBenchmark)
