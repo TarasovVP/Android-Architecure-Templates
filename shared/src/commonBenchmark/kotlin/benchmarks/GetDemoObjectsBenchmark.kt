@@ -1,5 +1,8 @@
 package benchmarks
 
+import benchmarks.fake.FakeGetDemoObjectsFromApiUseCase
+import benchmarks.fake.FakeGetDemoObjectsFromDBUseCase
+import benchmarks.fake.MapperTestData
 import kotlinx.coroutines.runBlocking
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseCase

@@ -1,5 +1,6 @@
 package benchmarks
 
+import benchmarks.fake.MapperTestData
 import com.vnteam.architecturetemplates.data.mapperimpls.DemoObjectResponseMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.architecturetemplates.data.network.responses.DemoObjectResponse
@@ -19,7 +20,7 @@ import kotlinx.benchmark.State
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(BenchmarkTimeUnit.MICROSECONDS)
-class MappersBenchmark {
+class DemoObjectMappersBenchmark {
     private lateinit var testObject: DemoObject
     private lateinit var testObjectList: List<DemoObject>
 

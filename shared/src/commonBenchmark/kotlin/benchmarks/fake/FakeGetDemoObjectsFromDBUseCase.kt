@@ -1,4 +1,4 @@
-package benchmarks
+package benchmarks.fake
 
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCase
