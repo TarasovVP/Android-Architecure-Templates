@@ -22,6 +22,7 @@ suspend inline fun <reified T> HttpResponse?.handleResponse(): NetworkResult<T> 
             println("Error ${bodyAsText()}")
             NetworkResult.Failure(CONNECTION_EXCEPTION)
         }
+
         status.value !in SUCCESS_STATUS_200..SUCCESS_STATUS_299 -> {
             val error = bodyAsText()
             NetworkResult.Failure(error)
@@ -43,6 +44,7 @@ suspend inline fun <reified T> HttpClient.safeRequest(block: HttpClient.() -> Ht
         val response = block()
         response.handleResponse<T>()
     } catch (e: BaseException) {
-        val errorMessage = if (Secrets.CLOUD_URL.contains(LOCAL_PORT)) CONNECTION_EXCEPTION else e.message
+        val errorMessage =
+            if (Secrets.CLOUD_URL.contains(LOCAL_PORT)) CONNECTION_EXCEPTION else e.message
         NetworkResult.Failure(errorMessage)
     }
