@@ -3,8 +3,8 @@ package benchmarks.fake
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 
-object MapperTestData {
-    fun createTestDemoObject(): DemoObject = DemoObject(
+object MapperFakeData {
+    fun createFakeDemoObject(): DemoObject = DemoObject(
         demoObjectId = "test_id_123",
         name = "Test Object",
         owner = Owner(
@@ -17,9 +17,9 @@ object MapperTestData {
         description = "Test description"
     )
 
-    fun createTestDemoObjectList(size: Int): List<DemoObject> =
+    fun createFakeDemoObjectList(size: Int): List<DemoObject> =
         List(size) { index ->
-            createTestDemoObject().copy(
+            createFakeDemoObject().copy(
                 demoObjectId = "id_$index",
                 name = "Object $index"
             )

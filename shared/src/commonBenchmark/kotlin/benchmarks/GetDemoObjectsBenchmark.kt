@@ -2,7 +2,7 @@ package benchmarks
 
 import benchmarks.fake.FakeGetDemoObjectsFromApiUseCase
 import benchmarks.fake.FakeGetDemoObjectsFromDBUseCase
-import benchmarks.fake.MapperTestData
+import benchmarks.fake.MapperFakeData
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromApiUseCase
 import com.vnteam.architecturetemplates.domain.usecase.GetDemoObjectsFromDBUseCase
@@ -27,7 +27,7 @@ class GetDemoObjectsBenchmark {
 
     @Setup
     fun setUp() {
-        val testData: List<DemoObject> = MapperTestData.createTestDemoObjectList(100)
+        val testData: List<DemoObject> = MapperFakeData.createFakeDemoObjectList(100)
 
         apiUseCase = FakeGetDemoObjectsFromApiUseCase().apply {
             demoObjects = testData

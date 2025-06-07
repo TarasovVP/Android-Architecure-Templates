@@ -1,6 +1,6 @@
 package benchmarks
 
-import benchmarks.fake.MapperTestData
+import benchmarks.fake.MapperFakeData
 import com.vnteam.architecturetemplates.data.mapperimpls.DemoObjectResponseMapperImpl
 import com.vnteam.architecturetemplates.data.mapperimpls.OwnerResponseMapperImpl
 import com.vnteam.architecturetemplates.data.network.responses.DemoObjectResponse
@@ -32,8 +32,8 @@ class DemoObjectMappersBenchmark {
         responseMapper = DemoObjectResponseMapperImpl(OwnerResponseMapperImpl())
         uiMapper = DemoObjectUIMapperImpl(OwnerUIMapperImpl())
 
-        testObject = MapperTestData.createTestDemoObject()
-        testObjectList = MapperTestData.createTestDemoObjectList(100)
+        testObject = MapperFakeData.createFakeDemoObject()
+        testObjectList = MapperFakeData.createFakeDemoObjectList(100)
     }
 
     @Benchmark
