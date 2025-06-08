@@ -27,7 +27,7 @@ class GetDemoObjectsBenchmark {
 
     @Setup
     fun setUp() {
-        val testData: List<DemoObject> = MapperFakeData.createFakeDemoObjectList(100)
+        val testData: List<DemoObject> = MapperFakeData.createFakeDemoObjectList(1000)
 
         apiUseCase = FakeGetDemoObjectsFromApiUseCase().apply {
             demoObjects = testData
