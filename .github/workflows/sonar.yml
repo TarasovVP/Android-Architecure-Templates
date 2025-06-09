@@ -43,6 +43,8 @@ jobs:
         run: ./gradlew detekt --continue || echo "Detekt found issues, but continuing..."
       - name: Generate Kover reports
         run: ./gradlew koverXmlReport
+      - name: Run JMH benchmarks
+        run: ./gradlew :shared:jvmBenchmark
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
