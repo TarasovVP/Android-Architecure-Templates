@@ -48,7 +48,12 @@ actual class PreferencesFactory : Preferences {
     }
 
     actual override fun getBoolean(key: String): Flow<Boolean> {
-        val flow = booleanFlows.getOrPut(key) { MutableStateFlow(localStorage.getItem(key)?.toBoolean() ?: false) }
+        val flow =
+            booleanFlows.getOrPut(key) {
+                MutableStateFlow(
+                    localStorage.getItem(key)?.toBoolean() ?: false,
+                )
+            }
         return flow
     }
 }

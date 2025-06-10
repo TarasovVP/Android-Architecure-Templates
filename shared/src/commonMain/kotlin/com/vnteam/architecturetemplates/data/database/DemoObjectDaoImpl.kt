@@ -36,7 +36,9 @@ class DemoObjectDaoImpl(private val sharedDatabase: SharedDatabase) : DemoObject
     override fun getDemoObjectWithOwners(): Flow<List<DemoObjectWithOwner>> =
         callbackFlow {
             sharedDatabase { database ->
-                trySend(database.appDatabaseQueries.getDemoObjectWithOwners().awaitAsList()).isSuccess
+                trySend(
+                    database.appDatabaseQueries.getDemoObjectWithOwners().awaitAsList(),
+                ).isSuccess
             }
             awaitClose { }
         }
@@ -44,7 +46,9 @@ class DemoObjectDaoImpl(private val sharedDatabase: SharedDatabase) : DemoObject
     override fun getDemoObjectById(id: String): Flow<DemoObjectWithOwner?> =
         callbackFlow {
             sharedDatabase { database ->
-                trySend(database.appDatabaseQueries.getDemoObjectWithOwnerById(id).awaitAsOneOrNull()).isSuccess
+                trySend(
+                    database.appDatabaseQueries.getDemoObjectWithOwnerById(id).awaitAsOneOrNull(),
+                ).isSuccess
             }
             awaitClose { }
         }
