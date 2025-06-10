@@ -41,6 +41,8 @@ jobs:
           EOF
       - name: Run Detekt (continue on error)
         run: ./gradlew detekt --continue || echo "Detekt found issues, but continuing..."
+      - name: Run all KMP tests
+        run: ./gradlew allTests
       - name: Generate Kover reports
         run: ./gradlew koverXmlReport
       - name: Run JMH benchmarks
