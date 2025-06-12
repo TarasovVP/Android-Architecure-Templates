@@ -32,6 +32,7 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
     js(IR) {
+        nodejs()
         binaries.executable()
         browser()
         testRuns {
@@ -193,5 +194,6 @@ kover {
 benchmark {
     targets {
         register("jvm")
+        register("js")
     }
 }
