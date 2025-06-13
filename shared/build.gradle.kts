@@ -32,6 +32,7 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
     js(IR) {
+        nodejs()
         binaries.executable()
         browser()
         testRuns {
@@ -147,12 +148,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-        buildFeatures {
-            compose = true
-        }
-        composeOptions {
-            kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
-        }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
+    }
 }
 
 sqldelight {
@@ -193,5 +194,6 @@ kover {
 benchmark {
     targets {
         register("jvm")
+        register("js")
     }
 }
