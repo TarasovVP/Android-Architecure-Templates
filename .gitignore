@@ -14,3 +14,4 @@ shared/src/commonMain/kotlin/config/BuildConfig.kt
 /gradle-user-home/
 /profile-out*/
 /.kotlin/
+shared/src/commonMain/kotlin/secrets/Secrets.kt
