@@ -1,8 +1,8 @@
 [versions]
-compileSdk = "34"
+compileSdk = "35"
 buildTool = "35.0.0"
 minSdk = "24"
-targetSdk = "34"
+targetSdk = "35"
 kotlinCompilerExtensionVersion = "1.6.7"
 jvmVersion = "21"
 
