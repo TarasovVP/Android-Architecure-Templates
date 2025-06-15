@@ -51,3 +51,9 @@ androidComponents {
         variant.enable = variant.buildType == "benchmark"
     }
 }
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(libs.versions.jvmVersion.get()))
+    }
+}
