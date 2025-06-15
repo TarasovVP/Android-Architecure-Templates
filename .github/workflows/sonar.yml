@@ -60,6 +60,8 @@ jobs:
       #microbenchmark
       - name: Run microbenchmarks (kotlinx.benchmark)
         run: ./gradlew :shared:jvmBenchmark -Pkotlinx.benchmark.format=json
+      - name: Debug list reports
+        run: ls -R shared/build/reports/benchmarks | head -n 40
       - name: Upload microbenchmark result
         uses: actions/upload-artifact@v4
         with:
