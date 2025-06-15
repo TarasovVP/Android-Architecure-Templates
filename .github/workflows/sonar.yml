@@ -60,13 +60,11 @@ jobs:
       #microbenchmark
       - name: Run microbenchmarks (kotlinx.benchmark)
         run: ./gradlew :shared:jvmBenchmark -Pkotlinx.benchmark.format=json
-      - name: Debug list reports
-        run: ls -R shared/build/reports/benchmarks | head -n 40
       - name: Upload microbenchmark result
         uses: actions/upload-artifact@v4
         with:
           name: microbenchmark-${{ github.sha }}
-          path: shared/build/reports/benchmarks/main/results.json
+          path: shared/build/reports/benchmarks/**/jvm.json
       - name: Download baseline microbenchmark
         if: github.event_name == 'pull_request'
         uses: actions/download-artifact@v4
