@@ -49,13 +49,15 @@ jobs:
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > $HOME/ci-release-key.jks
           echo "STORE_FILE=$HOME/ci-release-key.jks" >> $GITHUB_ENV
+      #detekt
       - name: Run Detekt (continue on error)
         run: ./gradlew detekt --continue || true
+      #tests
       - name: Run all KMP tests
         run: ./gradlew allTests
       - name: Generate Kover reports
         run: ./gradlew koverXmlReport
-
+      #microbenchmark
       - name: Run microbenchmarks (kotlinx.benchmark)
         run: ./gradlew :shared:jvmBenchmark -Pkotlinx.benchmark.format=json
       - name: Upload microbenchmark result
@@ -105,7 +107,7 @@ jobs:
           name: microbenchmark-main
           path: baseline-results.json
           retention-days: 30
-
+      #macrobenchmark
       - name: Run Macrobenchmark
         uses: reactivecircus/android-emulator-runner@v2.30.0
         with:
@@ -117,6 +119,40 @@ jobs:
           emulator-options: "-no-window -noaudio -no-boot-anim -gpu swiftshader_indirect -no-snapshot"
           script: ./gradlew :benchmark:connectedCheck
           timeout-minutes: 25
+      - name: Upload macrobenchmark result
+        uses: actions/upload-artifact@v4
+        with:
+          name: macrobenchmark-${{ github.sha }}
+          path: benchmark/build/outputs/connected_android_test_additional_output/**/benchmarkData.json
+      - name: Download baseline macrobenchmark
+        if: github.event_name == 'pull_request'
+        uses: actions/download-artifact@v4
+        with:
+          name: macrobenchmark-main
+          path: baseline_macro
+      - name: Check macrobenchmark regressions
+        if: github.event_name == 'pull_request'
+        run: |
+          CUR=$(find benchmark/build/outputs/connected_android_test_additional_output -name benchmarkData.json | head -n1)
+          BASE=baseline_macro/benchmarkData.json
+          ./gradlew :benchmark:compareBenchmark \
+            -PbaselineFile=$BASE \
+            -PcurrentFile=$CUR \
+            -PthresholdPercent=15
+          echo "Macrobenchmark ✅"
+      - name: Promote macrobenchmark baseline
+        if: github.ref == 'refs/heads/main'
+        run: |
+          CUR=$(find benchmark/build/outputs/connected_android_test_additional_output -name benchmarkData.json | head -n1)
+          cp "$CUR" macro-baseline.json
+      - name: Upload new macrobaseline artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: macrobenchmark-main
+          path: macro-baseline.json
+          retention-days: 30
+      #sonar
       - name: Build and analyze with Sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
