@@ -1,22 +1,27 @@
 name: Build
+
 on:
   push:
-    branches:
-      - main
-      - kmp_with_analyze_tools
+    branches: [ main, kmp_with_analyze_tools ]
   pull_request:
     types: [ opened, synchronize, reopened ]
+
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
+    env:
+      STORE_PASSWORD:  ${{ secrets.STORE_PASSWORD }}
+      KEY_ALIAS:       ${{ secrets.KEY_ALIAS }}
+      KEY_PASSWORD:    ${{ secrets.KEY_PASSWORD }}
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Set up JDK 17
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
+          distribution: temurin
           java-version: 17
       - name: Cache SonarQube packages
         uses: actions/cache@v3
@@ -24,11 +29,12 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/*.kts') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Create local.properties with real values
         run: |
@@ -39,25 +45,28 @@ jobs:
           DB_USER_NAME=${{ secrets.DB_USER_NAME }}
           DB_USER_PASSWORD=${{ secrets.DB_USER_PASSWORD }}
           EOF
+      - name: Decode Android keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > $HOME/ci-release-key.jks
+          echo "STORE_FILE=$HOME/ci-release-key.jks" >> $GITHUB_ENV
       - name: Run Detekt (continue on error)
-        run: ./gradlew detekt --continue || echo "Detekt found issues, but continuing..."
+        run: ./gradlew detekt --continue || true
       - name: Run all KMP tests
         run: ./gradlew allTests
       - name: Generate Kover reports
         run: ./gradlew koverXmlReport
       - name: Run JMH benchmarks
         run: ./gradlew :shared:jvmBenchmark
-      - name: Run Macrobenchmark (Emulator)
+      - name: Run Macrobenchmark
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 33
           target: google_apis
           arch: x86_64
           profile: Nexus 6
-          script: |
-            ./gradlew :benchmark:connectedCheck
-            timeout-minutes: 20
-      - name: Build and analyze
+          script: ./gradlew :benchmark:connectedCheck
+          timeout-minutes: 20
+      - name: Build and analyze with Sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
