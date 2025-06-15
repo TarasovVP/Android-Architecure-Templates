@@ -81,13 +81,13 @@ jobs:
             cur=$(get_score "$name" "$CUR")
             base=$(get_score "$name" "$BASE" 2>/dev/null || echo "")
             if [ -z "$base" ]; then
-              echo "::notice::$name — новый тест, пропускаем"
+              echo "::notice::$name — new test, skip"
               continue
             fi
             diff=$(awk "BEGIN { print ($cur - $base) / $base * 100 }")
             abs=${diff#-}
             if (( $(echo "$abs > 10" | bc -l) )); then
-              echo "::error::$name регресс на ${diff}%  ($base → $cur)"
+              echo "::error::$name regression на ${diff}%  ($base → $cur)"
               regress=true
             else
               echo "$name OK (${diff}%)"
