@@ -55,8 +55,57 @@ jobs:
         run: ./gradlew allTests
       - name: Generate Kover reports
         run: ./gradlew koverXmlReport
-      - name: Run JMH benchmarks
-        run: ./gradlew :shared:jvmBenchmark
+
+      - name: Run microbenchmarks (kotlinx.benchmark)
+        run: ./gradlew :shared:jvmBenchmark --benchmark-format=json
+      - name: Upload microbenchmark result
+        uses: actions/upload-artifact@v3
+        with:
+          name: microbenchmark-${{ github.sha }}
+          path: shared/build/reports/benchmarks/main/results.json
+      - name: Download baseline microbenchmark
+        if: github.event_name == 'pull_request'
+        uses: actions/download-artifact@v3
+        with:
+          name: microbenchmark-main
+          path: baseline
+      - name: Check microbenchmark regressions
+        if: github.event_name == 'pull_request'
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y jq bc
+          CUR="shared/build/reports/benchmarks/main/results.json"
+          BASE="baseline/results.json"
+          get_score() { jq -r --arg NAME "$1" '.benchmarks[] | select(.name==$NAME) | .metrics.score' "$2"; }
+          regress=false
+          for name in $(jq -r '.benchmarks[].name' "$CUR"); do
+            cur=$(get_score "$name" "$CUR")
+            base=$(get_score "$name" "$BASE" 2>/dev/null || echo "")
+            if [ -z "$base" ]; then
+              echo "::notice::$name — новый тест, пропускаем"
+              continue
+            fi
+            diff=$(awk "BEGIN { print ($cur - $base) / $base * 100 }")
+            abs=${diff#-}
+            if (( $(echo "$abs > 10" | bc -l) )); then
+              echo "::error::$name регресс на ${diff}%  ($base → $cur)"
+              regress=true
+            else
+              echo "$name OK (${diff}%)"
+            fi
+          done
+          $regress && exit 1 || echo "Microbenchmark ✅"
+      - name: Promote current microbenchmark to baseline
+        if: github.ref == 'refs/heads/main'
+        run: |
+          cp shared/build/reports/benchmarks/main/results.json baseline-results.json
+      - name: Upload new baseline artefact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v3
+        with:
+          name: microbenchmark-main
+          path: baseline-results.json
+          retention-days: 30
+
       - name: Run Macrobenchmark
         uses: reactivecircus/android-emulator-runner@v2
         with:
