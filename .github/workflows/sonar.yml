@@ -5,7 +5,7 @@ on:
       - main
       - kmp_with_analyze_tools
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ opened, synchronize, reopened ]
 jobs:
   build:
     name: Build
@@ -47,6 +47,16 @@ jobs:
         run: ./gradlew koverXmlReport
       - name: Run JMH benchmarks
         run: ./gradlew :shared:jvmBenchmark
+      - name: Run Macrobenchmark (Emulator)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          profile: Nexus 6
+          script: |
+            ./gradlew :benchmark:connectedCheck
+            timeout-minutes: 20
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
