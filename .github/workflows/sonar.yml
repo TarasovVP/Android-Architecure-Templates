@@ -67,12 +67,11 @@ jobs:
           path: shared/build/reports/benchmarks/**/jvm.json
       - name: Download baseline microbenchmark
         if: github.event_name == 'pull_request'
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           name: microbenchmark-main
           path: baseline
-          fail-if-no-artifact: false
-          continue-on-error: true
       - name: Check microbenchmark regressions
         if: github.event_name == 'pull_request'
         run: |
