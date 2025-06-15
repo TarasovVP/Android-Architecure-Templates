@@ -107,14 +107,16 @@ jobs:
           retention-days: 30
 
       - name: Run Macrobenchmark
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: reactivecircus/android-emulator-runner@v2.30.0
         with:
-          api-level: 33
+          api-level: 34
           target: google_apis
           arch: x86_64
-          profile: Nexus 6
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: "-no-window -noaudio -no-boot-anim -gpu swiftshader_indirect -no-snapshot"
           script: ./gradlew :benchmark:connectedCheck
-          timeout-minutes: 20
+          timeout-minutes: 25
       - name: Build and analyze with Sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
