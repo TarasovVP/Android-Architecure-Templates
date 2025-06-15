@@ -71,12 +71,17 @@ jobs:
         with:
           name: microbenchmark-main
           path: baseline
+          fail-if-no-artifact: false
       - name: Check microbenchmark regressions
         if: github.event_name == 'pull_request'
         run: |
           sudo apt-get update -y && sudo apt-get install -y jq bc
-          CUR="shared/build/reports/benchmarks/main/results.json"
-          BASE="baseline/results.json"
+          CUR=$(find shared/build/reports/benchmarks -name results.json | head -n1)
+          BASE=$(find baseline -name results.json | head -n1 || true)
+          if [ -z "$BASE" ]; then
+          echo "::notice::Baseline not found — skipping comparison"
+          exit 0
+          fi
           get_score() { jq -r --arg NAME "$1" '.benchmarks[] | select(.name==$NAME) | .metrics.score' "$2"; }
           regress=false
           for name in $(jq -r '.benchmarks[].name' "$CUR"); do
