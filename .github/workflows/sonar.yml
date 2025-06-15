@@ -115,15 +115,15 @@ jobs:
       #macrobenchmark
       - name: Run Macrobenchmark
         uses: reactivecircus/android-emulator-runner@v2.30.0
+        timeout-minutes: 25
         with:
           api-level: 34
           target: google_apis
           arch: x86_64
-          profile: pixel_6
+          profile: pixel
           disable-animations: true
           emulator-options: "-no-window -noaudio -no-boot-anim -gpu swiftshader_indirect -no-snapshot"
           script: ./gradlew :benchmark:connectedCheck
-          timeout-minutes: 25
       - name: Upload macrobenchmark result
         uses: actions/upload-artifact@v4
         with:
