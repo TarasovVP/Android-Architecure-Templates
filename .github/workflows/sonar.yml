@@ -57,7 +57,7 @@ jobs:
         run: ./gradlew koverXmlReport
 
       - name: Run microbenchmarks (kotlinx.benchmark)
-        run: ./gradlew :shared:jvmBenchmark --benchmark-format=json
+        run: ./gradlew :shared:jvmBenchmark -Pkotlinx.benchmark.format=json
       - name: Upload microbenchmark result
         uses: actions/upload-artifact@v4
         with:
