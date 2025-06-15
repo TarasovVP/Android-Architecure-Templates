@@ -100,7 +100,7 @@ jobs:
           cp shared/build/reports/benchmarks/main/results.json baseline-results.json
       - name: Upload new baseline artefact
         if: github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: microbenchmark-main
           path: baseline-results.json
