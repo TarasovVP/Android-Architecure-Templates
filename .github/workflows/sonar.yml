@@ -72,6 +72,7 @@ jobs:
           name: microbenchmark-main
           path: baseline
           fail-if-no-artifact: false
+          continue-on-error: true
       - name: Check microbenchmark regressions
         if: github.event_name == 'pull_request'
         run: |
