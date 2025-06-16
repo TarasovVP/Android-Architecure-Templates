@@ -57,9 +57,10 @@ jobs:
           echo "STORE_FILE=$HOME/ci-release-key.jks" >> $GITHUB_ENV
 
       #macrobenchmark
-      - name: Run Macrobenchmark (emulator-runner • ARM image)
+      - name: Run Macrobenchmark
         uses: reactivecircus/android-emulator-runner@v2.30.0
-        timeout-minutes: 25
+        env:
+          EMULATOR_VERSION: 34.1.9
         with:
           api-level: 33
           target: google_apis
@@ -67,10 +68,13 @@ jobs:
           profile: pixel_4
           disable-animations: true
           emulator-options: >
-            -no-window -noaudio -no-boot-anim -no-snapshot
-            -grpc-use-token=no
-            -no-auth
-          script: ./gradlew :benchmark:connectedCheck
+            -no-window -noaudio -no-boot-anim
+            -gpu swiftshader_indirect
+            -no-snapshot
+          script: |
+            ./gradlew :benchmark:connectedCheck
+            adb logcat -d > emulator.log
+        timeout-minutes: 30
       - name: Upload macrobenchmark result
         uses: actions/upload-artifact@v4
         with:
