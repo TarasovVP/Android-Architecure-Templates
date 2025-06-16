@@ -44,6 +44,7 @@ android {
                     device = "Pixel 4"
                     apiLevel = 33
                     systemImageSource = "google"
+                    require64Bit = true
                 }
             }
         }

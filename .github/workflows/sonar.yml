@@ -113,7 +113,7 @@ jobs:
           path: baseline-results.json
           retention-days: 30
       #macrobenchmark
-      - name: Run Macrobenchmark (GMD)
+      - name: Run Macrobenchmark (GMD Pixel 4 API 33)
         timeout-minutes: 25
         run: ./gradlew pixel4Api33Benchmark
       - name: Upload macrobenchmark result
