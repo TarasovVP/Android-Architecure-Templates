@@ -62,43 +62,21 @@ jobs:
         timeout-minutes: 30
         with:
           api-level: 33
-          target: google_apis_playstore
+          target: google_apis
           arch: x86_64
-          profile: pixel_6
-          disk-size: 8192M
+          profile: pixel_4
+          disk-size: 4096M
           disable-animations: true
           emulator-options: >
             -no-window -noaudio -no-boot-anim
             -gpu swiftshader_indirect
             -no-snapshot
-            -no-accel
-            -grpc-use-jwt
-            -delay-adb
+            -grpc -no-accel
           script: |
-            adb kill-server
-            adb start-server
-
-            echo "Waiting for device..."
-            timeout 300 bash -c 'until adb shell getprop sys.boot_completed | grep -q "1"; do sleep 5; done'
-
-            echo "Stabilizing connection..."
-            adb root
-            sleep 10
-            adb shell settings put global window_animation_scale 0
-            adb shell settings put global transition_animation_scale 0
-            adb shell settings put global animator_duration_scale 0
-            sleep 5
-
-            for i in {1..3}; do
-              if ./gradlew :benchmark:connectedCheck --stacktrace; then
-                exit 0
-              fi
-              echo "Attempt $i failed, retrying..."
-              sleep 10
-            done
-
+            adb wait-for-device
+            adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+            ./gradlew :benchmark:connectedCheck
             adb logcat -d > emulator.log
-            exit 1
       - name: Upload macrobenchmark result
         uses: actions/upload-artifact@v4
         with:
