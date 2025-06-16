@@ -113,6 +113,8 @@ jobs:
           path: baseline-results.json
           retention-days: 30
       #macrobenchmark
+      - name: List available AVD profiles
+        run: sdkmanager --list | grep "Tag/Device"
       - name: Run Macrobenchmark
         uses: reactivecircus/android-emulator-runner@v2.30.0
         timeout-minutes: 25
