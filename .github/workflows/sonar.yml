@@ -72,7 +72,6 @@ jobs:
             -gpu swiftshader_indirect
             -no-snapshot
             -grpc -no-accel
-            -no-quickboot
           script: |
             adb wait-for-device
             adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
