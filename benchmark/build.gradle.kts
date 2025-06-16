@@ -43,7 +43,7 @@ android {
                 maybeCreate<ManagedVirtualDevice>("pixel4Api33").apply {
                     device = "Pixel 4"
                     apiLevel = 33
-                    systemImageSource = "google-atd"
+                    systemImageSource = "google"
                     require64Bit = true
                 }
                 emulatorSnapshots {
