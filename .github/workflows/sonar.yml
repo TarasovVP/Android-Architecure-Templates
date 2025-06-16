@@ -59,8 +59,7 @@ jobs:
       #macrobenchmark
       - name: Run Macrobenchmark
         uses: reactivecircus/android-emulator-runner@v2.30.0
-        env:
-          EMULATOR_VERSION: 34.1.9
+        timeout-minutes: 30
         with:
           api-level: 33
           target: google_apis
@@ -71,10 +70,12 @@ jobs:
             -no-window -noaudio -no-boot-anim
             -gpu swiftshader_indirect
             -no-snapshot
+            -grpc -no-accel
           script: |
+            adb wait-for-device
+            adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
             ./gradlew :benchmark:connectedCheck
             adb logcat -d > emulator.log
-        timeout-minutes: 30
       - name: Upload macrobenchmark result
         uses: actions/upload-artifact@v4
         with:
