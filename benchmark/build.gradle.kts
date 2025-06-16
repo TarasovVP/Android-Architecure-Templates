@@ -37,22 +37,7 @@ android {
         jvmTarget = "21"
     }
 
-    testOptions {
-        managedDevices {
-            allDevices {
-                maybeCreate<ManagedVirtualDevice>("pixel4Api33").apply {
-                    device = "Pixel 4"
-                    apiLevel = 33
-                    systemImageSource = "google"
-                    require64Bit = true
-                }
-                emulatorSnapshots {
-                    enableForTestFailures = false
-                    maxSnapshotsForTestFailures = 0
-                }
-            }
-        }
-    }
+
 
     targetProjectPath = ":mobile"
     experimentalProperties["android.experimental.self-instrumenting"] = true

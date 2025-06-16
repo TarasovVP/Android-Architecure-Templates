@@ -55,11 +55,19 @@ jobs:
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > $HOME/ci-release-key.jks
           echo "STORE_FILE=$HOME/ci-release-key.jks" >> $GITHUB_ENV
-
+ 
       #macrobenchmark
-      - name: Run Macrobenchmark (GMD Pixel 4 API 33)
+      - name: Run Macrobenchmark (emulator-runner • ARM image)
+        uses: reactivecircus/android-emulator-runner@v2.30.0
         timeout-minutes: 25
-        run: ./gradlew pixel4Api33Benchmark
+        with:
+          api-level: 33
+          target: google_apis
+          arch: arm64-v8a
+          profile: pixel_4
+          disable-animations: true
+          emulator-options: -no-window -noaudio -no-boot-anim -no-snapshot
+          script: ./gradlew :benchmark:connectedCheck
       - name: Upload macrobenchmark result
         uses: actions/upload-artifact@v4
         with:
