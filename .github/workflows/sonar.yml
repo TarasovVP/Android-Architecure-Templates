@@ -23,6 +23,12 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+      - name: Accept Android SDK licenses
+        run: yes | sudo sdkmanager --licenses
       - name: Cache SonarQube packages
         uses: actions/cache@v3
         with:
@@ -113,8 +119,6 @@ jobs:
           path: baseline-results.json
           retention-days: 30
       #macrobenchmark
-      - name: Accept Android SDK licenses
-        run: yes | sudo sdkmanager --licenses
       - name: Run Macrobenchmark (GMD Pixel 4 API 33)
         timeout-minutes: 25
         run: ./gradlew pixel4Api33Benchmark
