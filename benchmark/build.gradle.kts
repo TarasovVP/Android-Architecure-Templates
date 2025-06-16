@@ -43,8 +43,6 @@ android {
         jvmTarget = "21"
     }
 
-
-
     targetProjectPath = ":mobile"
     experimentalProperties["android.experimental.self-instrumenting"] = true
 }

@@ -74,7 +74,14 @@ jobs:
             -grpc -no-accel
           script: |
             adb wait-for-device
+
+            echo "=== Check env ==="
+            adb devices -l
+            adb shell getprop
+            echo "========================="
+
             adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+
             ./gradlew :benchmark:connectedCheck
             adb logcat -d > emulator.log
       - name: Upload macrobenchmark result
