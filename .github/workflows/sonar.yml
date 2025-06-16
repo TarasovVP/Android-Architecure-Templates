@@ -56,6 +56,11 @@ jobs:
           echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > $HOME/ci-release-key.jks
           echo "STORE_FILE=$HOME/ci-release-key.jks" >> $GITHUB_ENV
 
+      - name: Get Build ID for emulator 34.1.9
+        id: emu
+        run: |
+          ID=$(sdkmanager --list | awk -F'|' '/emulator;34\.1\.9/{gsub(/ /,"",$3);print $3}')
+          echo "ID=$ID" >> $GITHUB_OUTPUT
       #macrobenchmark
       - name: Run Macrobenchmark
         uses: reactivecircus/android-emulator-runner@v2.30.0
