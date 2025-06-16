@@ -66,7 +66,9 @@ jobs:
           arch: x86_64
           profile: pixel_4
           disable-animations: true
-          emulator-options: -no-window -noaudio -no-boot-anim -no-snapshot -grpc-use-token false
+          emulator-options: >
+            -no-window -noaudio -no-boot-anim -no-snapshot
+            -grpc-use-token=false
           script: ./gradlew :benchmark:connectedCheck
       - name: Upload macrobenchmark result
         uses: actions/upload-artifact@v4
