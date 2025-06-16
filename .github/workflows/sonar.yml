@@ -62,9 +62,9 @@ jobs:
         timeout-minutes: 30
         with:
           api-level: 33
-          target: google_apis
+          target: google_apis_playstore
           arch: x86_64
-          profile: pixel_4
+          profile: pixel_6
           disk-size: 4096M
           disable-animations: true
           emulator-options: >
@@ -73,9 +73,15 @@ jobs:
             -no-snapshot
             -grpc -no-accel
           script: |
+            adb kill-server
+            adb start-server
             adb wait-for-device
             adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
-            ./gradlew :benchmark:connectedCheck
+            adb root
+            adb shell setprop persist.test.privileged 1
+            adb shell chmod 777 /data/local/tmp
+            sleep 20
+            ./gradlew :benchmark:connectedCheck --stacktrace
             adb logcat -d > emulator.log
       - name: Upload macrobenchmark result
         uses: actions/upload-artifact@v4
