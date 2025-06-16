@@ -65,10 +65,8 @@ jobs:
           target: google_apis
           arch: x86_64
           profile: pixel_4
-          emulator-build: 1001587796
-          emulator-boot-timeout: 600
           disable-animations: true
-          emulator-options: -no-window -noaudio -no-boot-anim -no-snapshot
+          emulator-options: -no-window -noaudio -no-boot-anim -no-snapshot -grpc-use-token false
           script: ./gradlew :benchmark:connectedCheck
       - name: Upload macrobenchmark result
         uses: actions/upload-artifact@v4
