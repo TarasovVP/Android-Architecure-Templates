@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ManagedVirtualDevice
+
 plugins {
     id(libs.plugins.androidTest.get().pluginId)
     kotlin("android")
@@ -33,6 +35,18 @@ android {
 
     kotlinOptions {
         jvmTarget = "21"
+    }
+
+    testOptions {
+        managedDevices {
+            allDevices {
+                maybeCreate<ManagedVirtualDevice>("pixel4Api33").apply {
+                    device = "Pixel 4"
+                    apiLevel = 33
+                    systemImageSource = "google"
+                }
+            }
+        }
     }
 
     targetProjectPath = ":mobile"
