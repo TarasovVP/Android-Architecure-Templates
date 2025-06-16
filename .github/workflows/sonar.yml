@@ -68,7 +68,8 @@ jobs:
           disable-animations: true
           emulator-options: >
             -no-window -noaudio -no-boot-anim -no-snapshot
-            -no-grpc
+            -grpc-use-token=no
+            -no-auth
           script: ./gradlew :benchmark:connectedCheck
       - name: Upload macrobenchmark result
         uses: actions/upload-artifact@v4
