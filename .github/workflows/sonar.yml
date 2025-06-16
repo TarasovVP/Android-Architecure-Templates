@@ -65,6 +65,8 @@ jobs:
           target: google_apis
           arch: x86_64
           profile: pixel_4
+          emulator-build: 1001587796
+          emulator-boot-timeout: 600
           disable-animations: true
           emulator-options: -no-window -noaudio -no-boot-anim -no-snapshot
           script: ./gradlew :benchmark:connectedCheck
