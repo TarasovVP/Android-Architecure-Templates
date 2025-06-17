@@ -1,4 +1,4 @@
-package com.vnteam.baselineprofile
+package com.vnteam.benchmark
 
 import androidx.benchmark.macro.BaselineProfileMode
 import androidx.benchmark.macro.CompilationMode
@@ -14,7 +14,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class StartupBenchmarks {
+class StartupBenchmarksFromBaseline {
 
     @get:Rule
     val rule = MacrobenchmarkRule()
