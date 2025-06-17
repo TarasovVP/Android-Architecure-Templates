@@ -67,28 +67,33 @@ jobs:
           profile: pixel_4
           disk-size: 4096M
           disable-animations: true
+
           emulator-options: |
             -no-window -noaudio -no-boot-anim
             -gpu swiftshader_indirect
             -no-snapshot
-            -grpc-use-token=no
+            -grpc
+            -no-accel
+
           pre-emulator-launch-script: |
-            echo "Restarting adb *before* emulator starts..."
+            echo "Restarting adb before emulator starts..."
             adb kill-server || true
             adb start-server
+
           script: |
             adb wait-for-device
-            
+
             echo "=== Check env ==="
             adb devices -l
             adb shell getprop | head -n 20
             echo "================="
-            
+
+            # wait for boot + unlock
             adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
-            
+
             ./gradlew :baselineprofile:updateBaselineProfile
-            
-            adb logcat -d > baselineprofile-emulator.log
+
+            adb logcat -d > baselineprofile-emulator.log || true
       - name: Commit & push
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/kmp_with_ci_cd'
         run: |
