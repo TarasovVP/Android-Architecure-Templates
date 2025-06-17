@@ -73,12 +73,12 @@ jobs:
             -no-snapshot
             -grpc-use-token=no
             
-            pre-emulator-launch-script: |
+          pre-emulator-launch-script: |
             echo "Restarting adb *before* emulator starts..."
             adb kill-server || true
             adb start-server
             
-            script: |
+          script: |
             adb wait-for-device
             
             echo "=== Check env ==="
