@@ -67,17 +67,15 @@ jobs:
           profile: pixel_4
           disk-size: 4096M
           disable-animations: true
-          emulator-options: >
+          emulator-options: |
             -no-window -noaudio -no-boot-anim
             -gpu swiftshader_indirect
             -no-snapshot
             -grpc-use-token=no
-            
           pre-emulator-launch-script: |
             echo "Restarting adb *before* emulator starts..."
             adb kill-server || true
             adb start-server
-            
           script: |
             adb wait-for-device
             
