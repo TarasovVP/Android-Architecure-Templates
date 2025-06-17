@@ -57,8 +57,35 @@ jobs:
           echo "STORE_FILE=$HOME/ci-release-key.jks" >> $GITHUB_ENV
 
       #baseline profile
-      - name: Update baseline profile
-        run: ./gradlew :baselineprofile:updateBaselineProfile
+      - name: Generate & merge baseline-profile
+        uses: reactivecircus/android-emulator-runner@v2.30.0
+        timeout-minutes: 30
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          profile: pixel_4
+          disk-size: 4096M
+          disable-animations: true
+          emulator-options: |
+            -no-window -noaudio -no-boot-anim \
+            -gpu swiftshader_indirect \
+            -no-snapshot
+            -grpc
+            -no-accel
+          script: |
+            adb wait-for-device
+
+            echo "=== Check env ==="
+            adb devices -l
+            adb shell getprop | head -n 20
+            echo "================="
+            
+            adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+
+            ./gradlew :baselineprofile:updateBaselineProfile
+
+            adb logcat -d > baselineprofile-emulator.log
       - name: Commit & push
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/kmp_with_ci_cd'
         run: |
