@@ -74,6 +74,9 @@ jobs:
             -grpc
             -no-accel
           script: |
+            adb kill-server || true
+            adb start-server
+            sleep 2
             adb wait-for-device
 
             echo "=== Check env ==="
