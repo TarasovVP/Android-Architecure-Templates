@@ -59,7 +59,7 @@ jobs:
       #baseline profile
       - name: Generate & merge baseline-profile
         uses: reactivecircus/android-emulator-runner@v2.30.0
-        timeout-minutes: 30
+        timeout-minutes: 60
         with:
           api-level: 33
           target: google_apis
@@ -67,6 +67,7 @@ jobs:
           profile: pixel_4
           disk-size: 4096M
           disable-animations: true
+          cores: 2
 
           emulator-options: |
             -no-window -noaudio -no-boot-anim
