@@ -60,7 +60,7 @@ jobs:
       - name: Update baseline profile
         run: ./gradlew :baselineprofile:updateBaselineProfile
       - name: Commit & push
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/kmp_with_ci_cd'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
