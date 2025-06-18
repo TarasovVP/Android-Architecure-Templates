@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ManagedVirtualDevice
+
 plugins {
     id(libs.plugins.androidTest.get().pluginId)
     kotlin("android")
@@ -10,13 +12,15 @@ android {
     defaultConfig {
         minSdk = 24
         targetSdk = 35
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner =
+            "androidx.benchmark.selfinstrumenting.AndroidBenchmarkRunner"
         testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR,LOW-BATTERY,DEBUGGABLE"
     }
 
     buildTypes {
-        create("benchmark") {
-            isDebuggable = true
+        maybeCreate("benchmark").apply {
+            isDebuggable = false
+            isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")
             proguardFiles(
@@ -39,11 +43,19 @@ android {
     experimentalProperties["android.experimental.self-instrumenting"] = true
 }
 
+configurations.all {
+    exclude(group = "com.google.errorprone", module = "error_prone_annotations")
+}
+
 dependencies {
     implementation(libs.androidx.junit)
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.uiautomator)
     implementation(libs.androidx.benchmark.macro.junit4)
+    implementation("androidx.benchmark:benchmark-junit4:1.2.3")
+    implementation("androidx.arch.core:core-runtime:2.2.0")
+    implementation("androidx.profileinstaller:profileinstaller:1.3.1")
+    implementation("androidx.startup:startup-runtime:1.1.1")
 }
 
 androidComponents {

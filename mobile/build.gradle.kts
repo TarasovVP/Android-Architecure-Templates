@@ -19,6 +19,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.baselineprofile)
+
 }
 
 kotlin {
@@ -140,4 +142,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
     }
+}
+
+dependencies {
+    implementation(libs.androidx.profileinstaller)
+    "baselineProfile"(project(":baselineprofile"))
 }
