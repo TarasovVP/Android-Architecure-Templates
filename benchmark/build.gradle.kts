@@ -52,10 +52,10 @@ dependencies {
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.uiautomator)
     implementation(libs.androidx.benchmark.macro.junit4)
-    implementation("androidx.benchmark:benchmark-junit4:1.2.3")
-    implementation("androidx.arch.core:core-runtime:2.2.0")
-    implementation("androidx.profileinstaller:profileinstaller:1.3.1")
-    implementation("androidx.startup:startup-runtime:1.1.1")
+    implementation(libs.androidx.benchmark.junit4)
+    implementation(libs.androidx.core.runtime)
+    implementation(libs.androidx.profileinstaller)
+    implementation(libs.androidx.startup.runtime)
 }
 
 androidComponents {
