@@ -1,7 +1,9 @@
 [versions]
 compileSdk = "35"
 buildTool = "35.0.0"
+coreRuntime = "2.2.0"
 minSdk = "24"
+startupRuntime = "1.2.0"
 targetSdk = "35"
 kotlinCompilerExtensionVersion = "1.6.7"
 jvmVersion = "21"
@@ -48,8 +50,11 @@ baselineprofile = "1.3.4"
 profileinstaller = "1.4.1"
 
 [libraries]
+androidx-benchmark-junit4 = { module = "androidx.benchmark:benchmark-junit4", version.ref = "benchmarkMacroJunit4" }
+androidx-core-runtime = { module = "androidx.arch.core:core-runtime", version.ref = "coreRuntime" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
 freetts = { module = "net.sf.sociaal:freetts", version.ref = "freetts" }
 hikari-cp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
 androidx-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "viewmodelCompose" }
