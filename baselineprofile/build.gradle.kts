@@ -70,7 +70,7 @@ tasks.register("mergeNonMinifiedReleaseBaselineProfile") {
 
     doLast {
         val rawDir = file(
-            "$buildDir/intermediates/baselineprofiles/nonMinifiedRelease"
+            "${layout.buildDirectory}/intermediates/baselineprofiles/nonMinifiedRelease"
         )
         val outFile = file("src/main/baseline-prof.txt")
 
