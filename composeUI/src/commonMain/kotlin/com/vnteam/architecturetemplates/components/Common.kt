@@ -40,7 +40,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.vnteam.architecturetemplates.UIConstants.REFRESH_ANIMATION_DURATION
+import com.vnteam.architecturetemplates.UIConstants
 import com.vnteam.architecturetemplates.drawableRes
 import com.vnteam.architecturetemplates.resources.DrawableResources
 import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
@@ -173,7 +173,7 @@ fun RefreshableLazyList(
     if (state.isRefreshing) {
         LaunchedEffect(true) {
             onRefresh()
-            delay(REFRESH_ANIMATION_DURATION)
+            delay(UIConstants.REFRESH_ANIMATION_DURATION)
             state.endRefresh()
         }
     }
@@ -206,7 +206,7 @@ fun EmptyState() {
             contentDescription = null,
             modifier =
                 Modifier
-                    .fillMaxSize(FLOAT_3)
+                    .fillMaxSize(UIConstants.FLOAT_3)
                     .padding(LocalMediumPadding.current.size),
             contentScale = ContentScale.Fit,
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
@@ -218,8 +218,3 @@ fun EmptyState() {
         )
     }
 }
-
-const val FLOAT_2 = 0.2f
-const val FLOAT_3 = 0.3f
-const val FLOAT_7 = 0.7f
-const val FLOAT_8 = 0.8f

@@ -36,12 +36,12 @@ import com.vnteam.architecturetemplates.resources.LocalStringResources
 @Composable
 fun ScaffoldContent(appViewModel: AppViewModel) {
     val screenState = remember { mutableStateOf(ScreenState()) }
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
 
     LaunchedEffect(screenState.value.appMessageState.messageVisible) {
         if (screenState.value.appMessageState.messageVisible) {
-            snackbarHostState.showSnackbar(
+            snackBarHostState.showSnackbar(
                 message = screenState.value.appMessageState.messageText,
                 duration = SnackbarDuration.Short,
             )
@@ -55,8 +55,8 @@ fun ScaffoldContent(appViewModel: AppViewModel) {
     Scaffold(
         topBar = { AppTopBar(screenState.value, appViewModel) },
         snackbarHost = {
-            AppSnackbarHost(
-                snackbarHostState,
+            AppSnackBarHost(
+                snackBarHostState,
                 screenState.value.appMessageState.isMessageError,
             )
         },
@@ -125,11 +125,11 @@ fun AppFAB(screenState: ScreenState) {
 }
 
 @Composable
-fun AppSnackbarHost(
-    snackbarHostState: SnackbarHostState,
+fun AppSnackBarHost(
+    snackBarHostState: SnackbarHostState,
     isError: Boolean,
 ) {
-    SnackbarHost(hostState = snackbarHostState) { data ->
+    SnackbarHost(hostState = snackBarHostState) { data ->
         Snackbar(
             snackbarData = data,
             actionColor = Color.White,
