@@ -21,9 +21,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import com.vnteam.architecturetemplates.UIConstants
 import com.vnteam.architecturetemplates.UIConstants.SPLASH_ANIMATION_DURATION
-import com.vnteam.architecturetemplates.components.FLOAT_2
-import com.vnteam.architecturetemplates.components.FLOAT_7
 import com.vnteam.architecturetemplates.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.resources.Res
 import com.vnteam.architecturetemplates.resources.android_architecture_template
@@ -32,8 +31,8 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun SplashScreen() {
     val screenWidth = remember { mutableStateOf(0.dp) }
-    val minSize = screenWidth.value * FLOAT_2
-    val maxSize = screenWidth.value * FLOAT_7
+    val minSize = screenWidth.value * UIConstants.FLOAT_2
+    val maxSize = screenWidth.value * UIConstants.FLOAT_7
 
     val infiniteTransition = rememberInfiniteTransition()
     val size =

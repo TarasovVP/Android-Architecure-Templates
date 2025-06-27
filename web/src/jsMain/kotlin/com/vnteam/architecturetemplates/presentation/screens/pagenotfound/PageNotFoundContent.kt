@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import com.vnteam.architecturetemplates.components.FLOAT_3
+import com.vnteam.architecturetemplates.UIConstants.FLOAT_3
 import com.vnteam.architecturetemplates.components.HeaderText
 import com.vnteam.architecturetemplates.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.resources.LocalStringResources

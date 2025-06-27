@@ -23,7 +23,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.vnteam.architecturetemplates.components.FLOAT_8
+import com.vnteam.architecturetemplates.UIConstants.FLOAT_8
 import com.vnteam.architecturetemplates.components.LanguageSwitcherButton
 import com.vnteam.architecturetemplates.components.ThemeToggleButton
 import com.vnteam.architecturetemplates.isMainScreen
