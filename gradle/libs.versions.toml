@@ -1,5 +1,5 @@
 [versions]
-compileSdk = "35"
+compileSdk = "36"
 buildTool = "35.0.0"
 coreRuntime = "2.2.0"
 minSdk = "24"
