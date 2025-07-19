@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import com.vnteam.architecturetemplates.UIConstants.LONG_PRESS_TIME_OUT
 import com.vnteam.architecturetemplates.UIConstants.THIRD_PART
-import com.vnteam.architecturetemplates.UIConstants.ZERO
+import com.vnteam.architecturetemplates.UIConstants.ZERO_FLOAT
 import com.vnteam.architecturetemplates.resources.LocalSmallPadding
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -59,7 +59,7 @@ fun <T : Any> DragDropColumn(
 
                                 dragDropState
                                     .checkForOverScroll()
-                                    .takeIf { it != ZERO }
+                                    .takeIf { it != ZERO_FLOAT }
                                     ?.let {
                                         overscrollJob.value =
                                             scope.launch {

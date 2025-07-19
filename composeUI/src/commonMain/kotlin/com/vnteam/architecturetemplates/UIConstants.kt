@@ -13,7 +13,7 @@ object UIConstants {
 
     const val LONG_PRESS_TIME_OUT = 200L
     const val THIRD_PART = 1.3f
-    const val ZERO = 0f
+    const val ZERO_FLOAT = 0f
     const val LARGE_PADDING = 50f
     const val FLOAT_PADDING = 0.67f
 }

@@ -10,7 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import com.vnteam.architecturetemplates.UIConstants.LARGE_PADDING
-import com.vnteam.architecturetemplates.UIConstants.ZERO
+import com.vnteam.architecturetemplates.UIConstants.ZERO_FLOAT
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -19,13 +19,13 @@ class DragDropState internal constructor(
     private val scope: CoroutineScope,
     private val onSwap: (Int, Int) -> Unit,
 ) {
-    private var draggedDistance by mutableStateOf(ZERO)
+    private var draggedDistance by mutableStateOf(ZERO_FLOAT)
     private var draggingItemInitialOffset by mutableStateOf(0)
     internal val draggingItemOffset: Float
         get() =
             draggingItemLayoutInfo?.let { item ->
                 draggingItemInitialOffset + draggedDistance - item.offset
-            } ?: ZERO
+            } ?: ZERO_FLOAT
     private val draggingItemLayoutInfo: LazyListItemInfo?
         get() =
             state.layoutInfo.visibleItemsInfo
@@ -33,7 +33,7 @@ class DragDropState internal constructor(
 
     internal var previousIndexOfDraggedItem by mutableStateOf<Int?>(null)
         private set
-    internal var previousItemOffset = Animatable(ZERO)
+    internal var previousItemOffset = Animatable(ZERO_FLOAT)
         private set
 
     private var initiallyDraggedElement by mutableStateOf<LazyListItemInfo?>(null)
@@ -63,14 +63,14 @@ class DragDropState internal constructor(
             previousIndexOfDraggedItem = currentIndexOfDraggedItem
             scope.launch {
                 previousItemOffset.animateTo(
-                    ZERO,
+                    ZERO_FLOAT,
                     tween(easing = FastOutLinearInEasing),
                 )
                 previousIndexOfDraggedItem = null
             }
         }
         draggingItemInitialOffset = 0
-        draggedDistance = ZERO
+        draggedDistance = ZERO_FLOAT
         currentIndexOfDraggedItem = null
         initiallyDraggedElement = null
     }
@@ -116,6 +116,6 @@ class DragDropState internal constructor(
                 draggedDistance < 0 -> (startOffset - state.layoutInfo.viewportStartOffset - LARGE_PADDING).takeIf { diff -> diff < 0 }
                 else -> null
             }
-        } ?: ZERO
+        } ?: ZERO_FLOAT
     }
 }
