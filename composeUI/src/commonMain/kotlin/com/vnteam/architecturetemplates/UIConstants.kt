@@ -10,4 +10,10 @@ object UIConstants {
     const val FLOAT_3 = 0.3f
     const val FLOAT_7 = 0.7f
     const val FLOAT_8 = 0.8f
+
+    const val LONG_PRESS_TIME_OUT = 200L
+    const val THIRD_PART = 1.3f
+    const val ZERO_FLOAT = 0f
+    const val LARGE_PADDING = 50f
+    const val FLOAT_PADDING = 0.67f
 }
