@@ -9,6 +9,7 @@ import com.vnteam.architecturetemplates.resources.Res
 import com.vnteam.architecturetemplates.resources.default_text_size
 import com.vnteam.architecturetemplates.resources.robotomono_italic
 import com.vnteam.architecturetemplates.resources.robotomono_regular
+import org.jetbrains.compose.resources.Font
 
 @Composable
 fun Typography() =
@@ -19,7 +20,7 @@ fun Typography() =
                 fontSize = default_text_size.textSize,
                 fontFamily =
                     FontFamily(
-                        org.jetbrains.compose.resources.Font(Res.font.robotomono_italic, FontWeight.Normal),
+                        Font(Res.font.robotomono_italic, FontWeight.Normal),
                     ),
             ),
         bodyMedium =
@@ -28,7 +29,7 @@ fun Typography() =
                 fontSize = default_text_size.textSize,
                 fontFamily =
                     FontFamily(
-                        org.jetbrains.compose.resources.Font(Res.font.robotomono_regular, FontWeight.Normal),
+                        Font(Res.font.robotomono_regular, FontWeight.Normal),
                     ),
             ),
         bodyLarge =
@@ -37,7 +38,7 @@ fun Typography() =
                 fontSize = default_text_size.textSize,
                 fontFamily =
                     FontFamily(
-                        org.jetbrains.compose.resources.Font(Res.font.robotomono_regular, FontWeight.Bold),
+                        Font(Res.font.robotomono_regular, FontWeight.Bold),
                     ),
             ),
     )
