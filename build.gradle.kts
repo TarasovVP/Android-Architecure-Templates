@@ -12,10 +12,13 @@ plugins {
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.detekt) apply true
     alias(libs.plugins.sonarqube) apply true
+    id("com.autonomousapps.dependency-analysis") version "3.0.1" apply false
 }
 
 
 subprojects {
+    // dependency-analysis
+    apply(plugin = "com.autonomousapps.dependency-analysis")
     // kover
     apply(plugin = "org.jetbrains.kotlinx.kover")
     // ktlint
@@ -67,6 +70,7 @@ sonarqube {
         property("sonar.kotlin.detekt.reportPaths", detektReports)
     }
 }
+
 
 tasks.named("sonar") {
     dependsOn(provider {
