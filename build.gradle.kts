@@ -19,6 +19,14 @@ plugins {
 subprojects {
     // dependency-analysis
     apply(plugin = "com.autonomousapps.dependency-analysis")
+    if (this.name == "shared") {
+        val soleSecretsTask = "generateSecretsMetadataMain"
+        tasks.matching { it.name.startsWith("generateSecrets") && it.name != soleSecretsTask }
+            .configureEach { enabled = false }
+
+        tasks.matching { it.name.matches(Regex("compile.*Kotlin.*")) }
+            .configureEach { dependsOn(soleSecretsTask) }
+    }
     // kover
     apply(plugin = "org.jetbrains.kotlinx.kover")
     // ktlint
