@@ -12,7 +12,7 @@ plugins {
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.detekt) apply true
     alias(libs.plugins.sonarqube) apply true
-    id("com.autonomousapps.dependency-analysis") version "3.0.1" apply false
+    alias(libs.plugins.dependency.analysis) apply false
 }
 
 
