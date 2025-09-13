@@ -16,4 +16,8 @@ object UIConstants {
     const val ZERO_FLOAT = 0f
     const val LARGE_PADDING = 50f
     const val FLOAT_PADDING = 0.67f
+
+    const val DIALOG_MIN_WIDTH = 320
+    const val DIALOG_MAX_WIDTH = 560
+    const val DIALOG_MAX_HEIGHT = 150
 }

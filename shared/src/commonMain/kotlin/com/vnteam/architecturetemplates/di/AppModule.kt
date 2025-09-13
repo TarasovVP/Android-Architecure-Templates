@@ -111,7 +111,7 @@ val appModule =
 
         single<GetDemoObjectsFromApiUseCase> { GetDemoObjectsFromApiUseCaseImpl(get()) }
 
-        single<DeleteDemoObjectUseCase> { DeleteDemoObjectUseCaseImpl(get()) }
+        single<DeleteDemoObjectUseCase> { DeleteDemoObjectUseCaseImpl(get(), get()) }
 
         single<GetDemoObjectUseCase> { GetDemoObjectUseCaseImpl(get(), get()) }
 

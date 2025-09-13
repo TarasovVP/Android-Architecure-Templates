@@ -72,7 +72,6 @@ class ListViewModel(
 
     private fun deleteDemoObjectById(demoObjectId: String) {
         showProgress(true)
-        _state.value = state.value.copy(successResult = false)
         viewModelScope.launch(exceptionHandler) {
             deleteDemoObjectUseCase.execute(demoObjectId)
             _state.value = state.value.copy(successResult = true)
