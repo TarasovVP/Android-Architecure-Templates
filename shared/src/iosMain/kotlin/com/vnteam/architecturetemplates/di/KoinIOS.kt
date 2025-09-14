@@ -4,5 +4,5 @@ import org.koin.core.context.startKoin
 
 fun initKoin() =
     startKoin {
-        modules(appModule, desktopModule)
+        modules(appModule, iosModule)
     }

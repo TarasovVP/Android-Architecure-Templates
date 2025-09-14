@@ -5,7 +5,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-fun doInitKoin(application: Application) =
+fun initKoin(application: Application) =
     startKoin {
         androidLogger()
         androidContext(application)
