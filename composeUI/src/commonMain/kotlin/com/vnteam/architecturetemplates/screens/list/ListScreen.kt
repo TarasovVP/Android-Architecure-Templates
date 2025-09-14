@@ -30,7 +30,7 @@ fun ListScreen(
 
     LaunchedEffect(viewState.value.successResult) {
         if (viewState.value.successResult) {
-            viewModel.processIntent(ListIntent.ClearDemoObjects())
+            viewModel.processIntent(ListIntent.LoadDemoObjects(true))
         }
     }
 

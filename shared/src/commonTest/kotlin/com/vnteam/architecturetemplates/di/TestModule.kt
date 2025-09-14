@@ -107,7 +107,7 @@ val testModule =
 
         single<CreateDemoObjectUseCase> { CreateDemoObjectUseCaseImpl(get()) }
 
-        single<DeleteDemoObjectUseCase> { DeleteDemoObjectUseCaseImpl(get()) }
+        single<DeleteDemoObjectUseCase> { DeleteDemoObjectUseCaseImpl(get(), get()) }
 
         single<GetDemoObjectsFromApiUseCase> { GetDemoObjectsFromApiUseCaseImpl(get()) }
 

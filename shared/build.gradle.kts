@@ -31,6 +31,13 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    jvm {
+        tasks.withType<KotlinJvmCompile>().configureEach {
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_21)
+            }
+        }
+    }
     js(IR) {
         nodejs()
         binaries.executable()
@@ -46,7 +53,6 @@ kotlin {
             }
         }
     }
-    jvm()
     applyDefaultHierarchyTemplate()
     sourceSets {
         commonMain.dependencies {

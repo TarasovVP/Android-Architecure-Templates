@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
@@ -17,11 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.vnteam.architecturetemplates.components.AvatarImage
 import com.vnteam.architecturetemplates.components.ConfirmationDialog
-import com.vnteam.architecturetemplates.components.draggable.DragDropColumn
+import com.vnteam.architecturetemplates.components.RefreshableLazyList
 import com.vnteam.architecturetemplates.domain.sealedclasses.ListState
 import com.vnteam.architecturetemplates.presentation.states.ListViewState
 import com.vnteam.architecturetemplates.presentation.uimodels.DemoObjectUI
-import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.resources.LocalMediumAvatarSize
 import com.vnteam.architecturetemplates.resources.LocalMediumPadding
 import com.vnteam.architecturetemplates.resources.LocalSmallAvatarSize
@@ -34,16 +34,13 @@ fun ListContent(
     onItemClick: (DemoObjectUI, ListState) -> Unit,
 ) {
     Box {
-        DragDropColumn(
-            modifier = Modifier.padding(vertical = LocalDefaultPadding.current.size),
-            items = viewState.demoObjectUIs.orEmpty(),
-            onSwap = { firstIndex, secondIndex ->
-            },
-            onDragEnd = {
-            },
-        ) { item, isDragging ->
-            DemoObjectItem(item, onItemClick)
-        }
+        RefreshableLazyList(viewState.demoObjectUIs.isNullOrEmpty(), content = {
+            items(viewState.demoObjectUIs.orEmpty()) { item ->
+                DemoObjectItem(item, onItemClick)
+            }
+        }, onRefresh = {
+            onItemClick(DemoObjectUI(), ListState.Refresh)
+        })
         ConfirmationDialog(
             showDialog = viewState.isConfirmationDialogVisible,
             title = LocalStringResources.current.delete,

@@ -1,14 +1,14 @@
 package com.vnteam.architecturetemplates.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -17,16 +17,19 @@ import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.vnteam.architecturetemplates.UIConstants
+import com.vnteam.architecturetemplates.resources.LocalDefaultPadding
 import com.vnteam.architecturetemplates.resources.LocalLargeAvatarSize
 import com.vnteam.architecturetemplates.resources.LocalLargePadding
 import com.vnteam.architecturetemplates.resources.LocalLargerPadding
@@ -41,35 +44,42 @@ fun ConfirmationDialog(
     onDismiss: () -> Unit,
     onConfirmationClick: () -> Unit,
 ) {
-    if (showDialog.value) {
-        Column {
-            Dialog(
-                onDismissRequest = onDismiss,
-                content = {
-                    Column(
-                        modifier =
-                            Modifier
-                                .wrapContentSize()
-                                .border(1.dp, Primary500, shape = RoundedCornerShape(LocalLargeAvatarSize.current.size))
-                                .background(
-                                    color = MaterialTheme.colorScheme.primary,
-                                    shape = RoundedCornerShape(LocalLargeAvatarSize.current.size),
-                                ),
-                        verticalArrangement = Arrangement.Center,
-                    ) {
-                        Text(
-                            text = title,
-                            color = Color.White,
-                            modifier =
-                                Modifier
-                                    .fillMaxWidth()
-                                    .padding(LocalLargeAvatarSize.current.size),
-                            textAlign = TextAlign.Center,
-                        )
-                        SubmitButtons(true, onDismiss, onConfirmationClick)
-                    }
-                },
-            )
+    if (!showDialog.value) return
+
+    Dialog(onDismissRequest = onDismiss) {
+        val shape = RoundedCornerShape(LocalMediumPadding.current.size)
+        Surface(
+            shape = shape,
+            color = MaterialTheme.colorScheme.surface,
+            border = BorderStroke(1.dp, Primary500),
+            tonalElevation = LocalMediumPadding.current.size,
+            modifier =
+                Modifier
+                    .widthIn(min = UIConstants.DIALOG_MIN_WIDTH.dp, max = UIConstants.DIALOG_MAX_WIDTH.dp)
+                    .heightIn(min = UIConstants.DIALOG_MAX_HEIGHT.dp)
+                    .clip(shape),
+        ) {
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = LocalDefaultPadding.current.size, vertical = LocalDefaultPadding.current.size),
+                verticalArrangement = Arrangement.spacedBy(LocalDefaultPadding.current.size),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.titleMedium,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                SubmitButtons(
+                    isEnabled = true,
+                    onDismiss = onDismiss,
+                    onConfirmationClick = onConfirmationClick,
+                )
+            }
         }
     }
 }
