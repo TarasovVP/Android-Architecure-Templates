@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 plugins {
@@ -98,7 +99,7 @@ project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
     val kmpExtension = project.extensions.getByType<KotlinMultiplatformExtension>()
     kmpExtension.targets.configureEach {
         compilations.configureEach {
-            compileKotlinTask.dependsOn(installGitHook)
+            compileTaskProvider.dependsOn(installGitHook)
         }
     }
 }

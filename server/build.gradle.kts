@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import java.util.Properties
@@ -82,7 +83,7 @@ tasks.register<Jar>("fatJar") {
         if (dep.isDirectory) dep
         else zipTree(dep)
     })
-    
+
     dependsOn(jvmMain.compileTaskProvider)
 }
 
@@ -171,6 +172,6 @@ kmpExtension.targets.configureEach {
             }
 
         // 5) Link it to the compileKotlin task
-        compileKotlinTask.dependsOn(generateSecretsTask)
+        compileTaskProvider.dependsOn(generateSecretsTask)
     }
 }
