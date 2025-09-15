@@ -1,4 +1,4 @@
-package com.vnteam.architecturetemplates.diios
+package com.vnteam.architecturetemplates.di
 
 import com.vnteam.architecturetemplates.data.database.DatabaseDriverFactory
 import com.vnteam.architecturetemplates.data.local.Preferences
