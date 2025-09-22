@@ -12,4 +12,5 @@ object Constants {
     const val DEFAULT_OBJECT_ID = "demoObjectId"
     const val DEMO_OBJECT_ID = "demoObjectId"
     const val DEMO_OBJECT_NAME = "demoObjectName"
+    const val KOIN_IS_NOT_INITIALIZED = "Koin is not initialized. Call initKoin() first."
 }

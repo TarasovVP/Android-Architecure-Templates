@@ -54,7 +54,7 @@ import kotlinx.serialization.json.Json
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-val appModule =
+val commonModule =
     module {
 
         single<ApiService> { ApiServiceImpl(get()) }

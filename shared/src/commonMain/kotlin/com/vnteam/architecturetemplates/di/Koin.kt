@@ -2,14 +2,25 @@
 
 package com.vnteam.architecturetemplates.di
 
+import com.vnteam.architecturetemplates.shared.Constants
+import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 
-fun initKoin(config: (KoinApplication) -> Unit = {}) =
-    startKoin {
-        config.invoke(this)
-        modules(appModule, platformModule())
+private var koinRef: Koin? = null
+
+fun initKoin(config: (KoinApplication) -> Unit = {}) {
+    if (koinRef == null) {
+        val app =
+            startKoin {
+                config(this)
+                modules(commonModule, platformModule())
+            }
+        koinRef = app.koin
     }
+}
 
 expect fun platformModule(): Module
+
+fun getKoin(): Koin = koinRef ?: throw Throwable(Constants.KOIN_IS_NOT_INITIALIZED)

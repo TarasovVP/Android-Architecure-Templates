@@ -7,6 +7,7 @@
 
 import SwiftUI
 import mobile
+import shared
 
 struct ComposeView: UIViewControllerRepresentable {
 
