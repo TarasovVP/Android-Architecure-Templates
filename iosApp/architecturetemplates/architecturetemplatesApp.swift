@@ -6,9 +6,14 @@
 //
 
 import SwiftUI
+import mobile
 
 @main
 struct architecturetemplatesApp: App {
+
+    init() {
+        KoinIOSKt.doInitKoin()
+    }
 
     var body: some Scene {
         WindowGroup {
