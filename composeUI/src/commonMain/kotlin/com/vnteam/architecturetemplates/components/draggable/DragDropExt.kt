@@ -74,7 +74,7 @@ fun LazyItemScope.DraggableItem(
                     translationY = previous
                 }
         } else {
-            Modifier.animateItemPlacement(
+            Modifier.animateItem(
                 tween(easing = FastOutLinearInEasing),
             )
         }
@@ -91,7 +91,9 @@ fun UpdateViewConfiguration(
     fun ViewConfiguration.updateViewConfiguration() =
         object : ViewConfiguration {
             override val longPressTimeoutMillis
-                get() = longPressTimeoutMillis ?: this@updateViewConfiguration.longPressTimeoutMillis
+                get() =
+                    longPressTimeoutMillis
+                        ?: this@updateViewConfiguration.longPressTimeoutMillis
 
             override val doubleTapTimeoutMillis
                 get() = this@updateViewConfiguration.doubleTapTimeoutMillis
