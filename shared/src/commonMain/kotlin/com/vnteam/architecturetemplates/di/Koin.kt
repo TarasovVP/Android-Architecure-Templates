@@ -2,7 +2,6 @@
 
 package com.vnteam.architecturetemplates.di
 
-import com.vnteam.architecturetemplates.shared.Constants
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -22,5 +21,3 @@ fun initKoin(config: (KoinApplication) -> Unit = {}) {
 }
 
 expect fun platformModule(): Module
-
-fun getKoin(): Koin = koinRef ?: throw Throwable(Constants.KOIN_IS_NOT_INITIALIZED)
