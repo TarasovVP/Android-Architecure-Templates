@@ -32,7 +32,6 @@ kotlin {
                 implementation(projects.core)
                 implementation(libs.logback)
                 implementation(libs.kotlinx.serialization.json)
-                implementation(libs.ktor.server.tests)
                 // Koin
                 implementation(libs.koin.core)
                 implementation(libs.koin.ktor)
