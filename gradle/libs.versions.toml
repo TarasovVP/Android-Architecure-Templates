@@ -139,6 +139,5 @@ sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
 benchmark = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "microBenchmark" }
 allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
 androidTest = { id = "com.android.test", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofile" }
 dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
