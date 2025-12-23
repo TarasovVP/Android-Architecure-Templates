@@ -92,7 +92,7 @@ tasks.register("mergeNonMinifiedReleaseBaselineProfile") {
 }
 
 tasks.register("updateBaselineProfile") {
-    group       = "baseline-profile"
+    group = "baseline-profile"
     description = "collect + merge → baseline-prof.txt"
     dependsOn("mergeNonMinifiedReleaseBaselineProfile")
 }

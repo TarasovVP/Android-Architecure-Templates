@@ -42,24 +42,91 @@ fun CreateContent(
 ) {
     CreateScreenStateContent(screenState, originDemoObject.value?.name.isNullOrEmpty())
     val nameState =
-        remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.name.orEmpty())) }
+        remember {
+            mutableStateOf(
+                TextFieldValue(
+                    viewState.value.demoObject.value
+                        ?.name
+                        .orEmpty(),
+                ),
+            )
+        }
     val descriptionState =
-        remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.description.orEmpty())) }
+        remember {
+            mutableStateOf(
+                TextFieldValue(
+                    viewState.value.demoObject.value
+                        ?.description
+                        .orEmpty(),
+                ),
+            )
+        }
     val urlState =
-        remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.htmlUrl.orEmpty())) }
+        remember {
+            mutableStateOf(
+                TextFieldValue(
+                    viewState.value.demoObject.value
+                        ?.htmlUrl
+                        .orEmpty(),
+                ),
+            )
+        }
     val ownerNameState =
-        remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.owner?.login.orEmpty())) }
+        remember {
+            mutableStateOf(
+                TextFieldValue(
+                    viewState.value.demoObject.value
+                        ?.owner
+                        ?.login
+                        .orEmpty(),
+                ),
+            )
+        }
     val ownerUrlState =
-        remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.owner?.url.orEmpty())) }
+        remember {
+            mutableStateOf(
+                TextFieldValue(
+                    viewState.value.demoObject.value
+                        ?.owner
+                        ?.url
+                        .orEmpty(),
+                ),
+            )
+        }
 
     LaunchedEffect(viewState.value.demoObject) {
-        nameState.value = TextFieldValue(viewState.value.demoObject.value?.name.orEmpty())
+        nameState.value =
+            TextFieldValue(
+                viewState.value.demoObject.value
+                    ?.name
+                    .orEmpty(),
+            )
         descriptionState.value =
-            TextFieldValue(viewState.value.demoObject.value?.description.orEmpty())
-        urlState.value = TextFieldValue(viewState.value.demoObject.value?.htmlUrl.orEmpty())
+            TextFieldValue(
+                viewState.value.demoObject.value
+                    ?.description
+                    .orEmpty(),
+            )
+        urlState.value =
+            TextFieldValue(
+                viewState.value.demoObject.value
+                    ?.htmlUrl
+                    .orEmpty(),
+            )
         ownerNameState.value =
-            TextFieldValue(viewState.value.demoObject.value?.owner?.login.orEmpty())
-        ownerUrlState.value = TextFieldValue(viewState.value.demoObject.value?.owner?.url.orEmpty())
+            TextFieldValue(
+                viewState.value.demoObject.value
+                    ?.owner
+                    ?.login
+                    .orEmpty(),
+            )
+        ownerUrlState.value =
+            TextFieldValue(
+                viewState.value.demoObject.value
+                    ?.owner
+                    ?.url
+                    .orEmpty(),
+            )
     }
     Column(
         modifier =
@@ -75,21 +142,25 @@ fun CreateContent(
             nameState,
             "${LocalStringResources.current.name}*",
         ) { text ->
-            viewState.value.demoObject.value = viewState.value.demoObject.value?.copy(name = text)
+            viewState.value.demoObject.value =
+                viewState.value.demoObject.value
+                    ?.copy(name = text)
         }
         CommonTextField(
             descriptionState,
             LocalStringResources.current.description,
         ) { text ->
             viewState.value.demoObject.value =
-                viewState.value.demoObject.value?.copy(description = text)
+                viewState.value.demoObject.value
+                    ?.copy(description = text)
         }
         CommonTextField(
             urlState,
             LocalStringResources.current.url,
         ) { text ->
             viewState.value.demoObject.value =
-                viewState.value.demoObject.value?.copy(htmlUrl = text)
+                viewState.value.demoObject.value
+                    ?.copy(htmlUrl = text)
         }
         HeaderText(LocalStringResources.current.owner)
         Box(
@@ -100,7 +171,11 @@ fun CreateContent(
                 },
         ) {
             AvatarImage(
-                resId = viewState.value.demoObject.value?.owner?.avatarUrl.orEmpty(),
+                resId =
+                    viewState.value.demoObject.value
+                        ?.owner
+                        ?.avatarUrl
+                        .orEmpty(),
                 avatarSize = LocalLargeAvatarSize.current.size,
             )
         }
@@ -110,7 +185,10 @@ fun CreateContent(
         ) { text ->
             viewState.value.demoObject.value =
                 viewState.value.demoObject.value?.copy(
-                    owner = viewState.value.demoObject.value?.owner?.copy(login = text),
+                    owner =
+                        viewState.value.demoObject.value
+                            ?.owner
+                            ?.copy(login = text),
                 )
         }
         CommonTextField(
@@ -119,13 +197,17 @@ fun CreateContent(
         ) { text ->
             viewState.value.demoObject.value =
                 viewState.value.demoObject.value?.copy(
-                    owner = viewState.value.demoObject.value?.owner?.copy(url = text),
+                    owner =
+                        viewState.value.demoObject.value
+                            ?.owner
+                            ?.copy(url = text),
                 )
         }
         PrimaryButton(
             LocalStringResources.current.submit,
             originDemoObject.value != viewState.value.demoObject.value &&
-                viewState.value.demoObject.value?.isDemoObjectValid() == true,
+                viewState.value.demoObject.value
+                    ?.isDemoObjectValid() == true,
             Modifier,
             onClick = onClick,
         )
@@ -139,7 +221,10 @@ fun CreateContent(
             onClick = { avatar ->
                 viewState.value.demoObject.value =
                     viewState.value.demoObject.value?.copy(
-                        owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
+                        owner =
+                            viewState.value.demoObject.value
+                                ?.owner
+                                ?.copy(avatarUrl = avatar),
                     )
                 viewState.value.isChangeAvatarDialogVisible.value = false
             },
@@ -189,7 +274,10 @@ fun ChangeAvatarDialog(viewState: State<CreateViewState>) {
             onClick = { avatar ->
                 viewState.value.demoObject.value =
                     viewState.value.demoObject.value?.copy(
-                        owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
+                        owner =
+                            viewState.value.demoObject.value
+                                ?.owner
+                                ?.copy(avatarUrl = avatar),
                     )
                 viewState.value.isChangeAvatarDialogVisible.value = false
             },

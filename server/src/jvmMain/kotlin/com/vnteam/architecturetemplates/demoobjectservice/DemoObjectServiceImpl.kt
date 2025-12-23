@@ -4,8 +4,9 @@ import com.vnteam.architecturetemplates.ServerDatabaseQueries
 import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.mapperimpls.toDemoObject
 
-class DemoObjectServiceImpl(private val serverDatabaseQueries: ServerDatabaseQueries) :
-    DemoObjectService {
+class DemoObjectServiceImpl(
+    private val serverDatabaseQueries: ServerDatabaseQueries,
+) : DemoObjectService {
     override suspend fun insertDemoObjects(demoObjects: List<DemoObject>) {
         demoObjects.forEach {
             serverDatabaseQueries.insertDemoObjectWithOwner(
@@ -21,13 +22,17 @@ class DemoObjectServiceImpl(private val serverDatabaseQueries: ServerDatabaseQue
         }
     }
 
-    override suspend fun getDemoObjects(): List<DemoObject> {
-        return serverDatabaseQueries.getDemoObjectWithOwners().executeAsList()
+    override suspend fun getDemoObjects(): List<DemoObject> =
+        serverDatabaseQueries
+            .getDemoObjectWithOwners()
+            .executeAsList()
             .map { it.toDemoObject() }
-    }
 
     override suspend fun getDemoObjectById(demoObjectId: String): DemoObject? =
-        serverDatabaseQueries.getDemoObjectWithOwnerById(demoObjectId).executeAsOneOrNull()?.toDemoObject()
+        serverDatabaseQueries
+            .getDemoObjectWithOwnerById(demoObjectId)
+            .executeAsOneOrNull()
+            ?.toDemoObject()
 
     override suspend fun deleteDemoObjectById(demoObjectId: String) {
         serverDatabaseQueries.deleteDemoObjectWithOwnerById(demoObjectId)

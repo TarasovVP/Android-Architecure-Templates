@@ -55,15 +55,20 @@ fun ConfirmationDialog(
             tonalElevation = LocalMediumPadding.current.size,
             modifier =
                 Modifier
-                    .widthIn(min = UIConstants.DIALOG_MIN_WIDTH.dp, max = UIConstants.DIALOG_MAX_WIDTH.dp)
-                    .heightIn(min = UIConstants.DIALOG_MAX_HEIGHT.dp)
+                    .widthIn(
+                        min = UIConstants.DIALOG_MIN_WIDTH.dp,
+                        max = UIConstants.DIALOG_MAX_WIDTH.dp,
+                    ).heightIn(min = UIConstants.DIALOG_MAX_HEIGHT.dp)
                     .clip(shape),
         ) {
             Column(
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = LocalDefaultPadding.current.size, vertical = LocalDefaultPadding.current.size),
+                        .padding(
+                            horizontal = LocalDefaultPadding.current.size,
+                            vertical = LocalDefaultPadding.current.size,
+                        ),
                 verticalArrangement = Arrangement.spacedBy(LocalDefaultPadding.current.size),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
