@@ -2,21 +2,21 @@ complexity:
   LongMethod:
     active: true
     threshold: 60
-    ignoreAnnotated: ['Composable']
+    ignoreAnnotated: [ 'Composable' ]
   LongParameterList:
     active: true
-    excludes: ['**/resources/**']
+    excludes: [ '**/resources/**' ]
 naming:
   FunctionNaming:
     active: true
-    ignoreAnnotated: ['Composable']
+    ignoreAnnotated: [ 'Composable' ]
   ConstructorParameterNaming:
     active: true
-    excludes: ['**/resources/**']
+    excludes: [ '**/resources/**' ]
 style:
   MagicNumber:
     active: true
-    excludes: ['**/theme/**']
+    excludes: [ '**/theme/**' ]
   MaxLineLength:
     active: true
     excludes: [ '**/secrets/**' ]

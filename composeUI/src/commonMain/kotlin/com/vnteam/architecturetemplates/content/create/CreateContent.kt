@@ -50,25 +50,52 @@ fun CreateContent(
         ) {
             HeaderText(LocalStringResources.current.demoObject)
             CommonTextField(
-                remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.name.orEmpty())) },
+                remember {
+                    mutableStateOf(
+                        TextFieldValue(
+                            viewState.value.demoObject.value
+                                ?.name
+                                .orEmpty(),
+                        ),
+                    )
+                },
                 "${LocalStringResources.current.name}*",
             ) { text ->
                 viewState.value.demoObject.value =
-                    viewState.value.demoObject.value?.copy(name = text)
+                    viewState.value.demoObject.value
+                        ?.copy(name = text)
             }
             CommonTextField(
-                remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.description.orEmpty())) },
+                remember {
+                    mutableStateOf(
+                        TextFieldValue(
+                            viewState.value.demoObject.value
+                                ?.description
+                                .orEmpty(),
+                        ),
+                    )
+                },
                 LocalStringResources.current.description,
             ) { text ->
                 viewState.value.demoObject.value =
-                    viewState.value.demoObject.value?.copy(description = text)
+                    viewState.value.demoObject.value
+                        ?.copy(description = text)
             }
             CommonTextField(
-                remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.htmlUrl.orEmpty())) },
+                remember {
+                    mutableStateOf(
+                        TextFieldValue(
+                            viewState.value.demoObject.value
+                                ?.htmlUrl
+                                .orEmpty(),
+                        ),
+                    )
+                },
                 LocalStringResources.current.url,
             ) { text ->
                 viewState.value.demoObject.value =
-                    viewState.value.demoObject.value?.copy(htmlUrl = text)
+                    viewState.value.demoObject.value
+                        ?.copy(htmlUrl = text)
             }
             HeaderText(LocalStringResources.current.owner)
             Box(
@@ -79,33 +106,62 @@ fun CreateContent(
                     },
             ) {
                 AvatarImage(
-                    resId = viewState.value.demoObject.value?.owner?.avatarUrl.orEmpty(),
+                    resId =
+                        viewState.value.demoObject.value
+                            ?.owner
+                            ?.avatarUrl
+                            .orEmpty(),
                     avatarSize = LocalLargeAvatarSize.current.size,
                 )
             }
             CommonTextField(
-                remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.owner?.login.orEmpty())) },
+                remember {
+                    mutableStateOf(
+                        TextFieldValue(
+                            viewState.value.demoObject.value
+                                ?.owner
+                                ?.login
+                                .orEmpty(),
+                        ),
+                    )
+                },
                 "${LocalStringResources.current.name}*",
             ) { text ->
                 viewState.value.demoObject.value =
                     viewState.value.demoObject.value?.copy(
-                        owner = viewState.value.demoObject.value?.owner?.copy(login = text),
+                        owner =
+                            viewState.value.demoObject.value
+                                ?.owner
+                                ?.copy(login = text),
                     )
             }
             CommonTextField(
-                remember { mutableStateOf(TextFieldValue(viewState.value.demoObject.value?.owner?.url.orEmpty())) },
+                remember {
+                    mutableStateOf(
+                        TextFieldValue(
+                            viewState.value.demoObject.value
+                                ?.owner
+                                ?.url
+                                .orEmpty(),
+                        ),
+                    )
+                },
                 LocalStringResources.current.url,
             ) { text ->
                 viewState.value.demoObject.value =
                     viewState.value.demoObject.value?.copy(
-                        owner = viewState.value.demoObject.value?.owner?.copy(url = text),
+                        owner =
+                            viewState.value.demoObject.value
+                                ?.owner
+                                ?.copy(url = text),
                     )
             }
             PrimaryButton(
                 LocalStringResources.current.submit,
                 originDemoObject.value !=
                     viewState.value.demoObject.value &&
-                    viewState.value.demoObject.value?.isDemoObjectValid() == true,
+                    viewState.value.demoObject.value
+                        ?.isDemoObjectValid() == true,
                 Modifier,
                 onClick = onClick,
             )
@@ -120,7 +176,10 @@ fun CreateContent(
             onClick = { avatar ->
                 viewState.value.demoObject.value =
                     viewState.value.demoObject.value?.copy(
-                        owner = viewState.value.demoObject.value?.owner?.copy(avatarUrl = avatar),
+                        owner =
+                            viewState.value.demoObject.value
+                                ?.owner
+                                ?.copy(avatarUrl = avatar),
                     )
                 viewState.value.isChangeAvatarDialogVisible.value = false
             },

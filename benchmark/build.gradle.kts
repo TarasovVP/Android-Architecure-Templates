@@ -1,5 +1,3 @@
-import com.android.build.api.dsl.ManagedVirtualDevice
-
 plugins {
     id(libs.plugins.androidTest.get().pluginId)
     kotlin("android")
@@ -14,7 +12,8 @@ android {
         targetSdk = 35
         testInstrumentationRunner =
             "androidx.benchmark.selfinstrumenting.AndroidBenchmarkRunner"
-        testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR,LOW-BATTERY,DEBUGGABLE"
+        testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] =
+            "EMULATOR,LOW-BATTERY,DEBUGGABLE"
     }
 
     buildTypes {
