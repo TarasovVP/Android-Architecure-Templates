@@ -8,7 +8,5 @@ import com.vnteam.architecturetemplates.data.DEMO_OBJECTS_DB
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DatabaseDriverFactory {
-    actual suspend fun createDriver(): SqlDriver {
-        return NativeSqliteDriver(AppDatabase.Schema.synchronous(), DEMO_OBJECTS_DB)
-    }
+    actual suspend fun createDriver(): SqlDriver = NativeSqliteDriver(AppDatabase.Schema.synchronous(), DEMO_OBJECTS_DB)
 }

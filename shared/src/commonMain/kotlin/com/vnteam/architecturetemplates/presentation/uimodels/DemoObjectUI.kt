@@ -10,7 +10,5 @@ data class DemoObjectUI(
     var htmlUrl: String? = null,
     var description: String? = null,
 ) {
-    fun isDemoObjectValid(): Boolean {
-        return !name.isNullOrEmpty() && !owner?.login.isNullOrEmpty()
-    }
+    fun isDemoObjectValid(): Boolean = !name.isNullOrEmpty() && !owner?.login.isNullOrEmpty()
 }

@@ -14,11 +14,12 @@ class ApiRepositoryImpl(
     override suspend fun getDemoObjectsFromApi(): List<DemoObject> {
         when (val response = apiService.getDemoObjectsFromApi()) {
             is NetworkResult.Success -> {
-                return response.data?.map {
-                    demoObjectResponseMapper.mapFromImplModel(
-                        it,
-                    )
-                }.orEmpty()
+                return response.data
+                    ?.map {
+                        demoObjectResponseMapper.mapFromImplModel(
+                            it,
+                        )
+                    }.orEmpty()
             }
 
             is NetworkResult.Failure -> {

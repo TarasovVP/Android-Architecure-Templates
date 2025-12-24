@@ -9,11 +9,10 @@ import org.w3c.dom.Worker
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DatabaseDriverFactory {
-    actual suspend fun createDriver(): SqlDriver {
-        return WebWorkerDriver(
+    actual suspend fun createDriver(): SqlDriver =
+        WebWorkerDriver(
             Worker(
                 js(Constants.SQL_JS_WORKER_URL),
             ),
         ).also { AppDatabase.Schema.awaitCreate(it) }
-    }
 }
