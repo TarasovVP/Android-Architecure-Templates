@@ -15,9 +15,12 @@ const val SUCCESS_STATUS_200 = 200
 const val SUCCESS_STATUS_299 = 299
 const val LOCAL_PORT = ":8080/"
 
-suspend inline fun <reified T> HttpResponse?.handleResponse(): NetworkResult<T> {
-    return when {
-        this == null -> NetworkResult.Failure(UNKNOWN_ERROR)
+suspend inline fun <reified T> HttpResponse?.handleResponse(): NetworkResult<T> =
+    when {
+        this == null -> {
+            NetworkResult.Failure(UNKNOWN_ERROR)
+        }
+
         status.value in ERROR_STATUS_400..ERROR_STATUS_405 -> {
             println("Error ${bodyAsText()}")
             NetworkResult.Failure(CONNECTION_EXCEPTION)
@@ -37,7 +40,6 @@ suspend inline fun <reified T> HttpResponse?.handleResponse(): NetworkResult<T> 
             }
         }
     }
-}
 
 suspend inline fun <reified T> HttpClient.safeRequest(block: HttpClient.() -> HttpResponse): NetworkResult<T> =
     try {

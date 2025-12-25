@@ -11,10 +11,17 @@ import kotlinx.coroutines.flow.map
 import okio.Path.Companion.toPath
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class PreferencesFactory(private val context: Context) : Preferences {
+actual class PreferencesFactory(
+    private val context: Context,
+) : Preferences {
     private val dataStore =
         PreferenceDataStoreFactory.createWithPath(
-            produceFile = { context.filesDir.resolve(PREFERENCES_PB).absolutePath.toPath() },
+            produceFile = {
+                context.filesDir
+                    .resolve(PREFERENCES_PB)
+                    .absolutePath
+                    .toPath()
+            },
         )
 
     actual override suspend fun putString(

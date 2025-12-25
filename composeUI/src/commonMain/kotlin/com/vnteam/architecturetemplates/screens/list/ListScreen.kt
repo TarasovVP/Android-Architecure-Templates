@@ -49,12 +49,19 @@ fun ListScreen(
 
     content(viewState) { demoObjectUI, action ->
         when (action) {
-            ListState.Refresh -> viewModel.processIntent(ListIntent.LoadDemoObjects(false))
-            ListState.Details -> onItemClick(demoObjectUI)
+            ListState.Refresh -> {
+                viewModel.processIntent(ListIntent.LoadDemoObjects(false))
+            }
+
+            ListState.Details -> {
+                onItemClick(demoObjectUI)
+            }
+
             ListState.ConfirmDelete -> {
                 viewState.value.isConfirmationDialogVisible.value = true
                 viewState.value.demoObjectToDelete = demoObjectUI.demoObjectId.orEmpty()
             }
+
             ListState.Delete -> {
                 viewState.value.isConfirmationDialogVisible.value = false
                 viewState.value.demoObjectToDelete = ""

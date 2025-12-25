@@ -21,8 +21,8 @@ import org.jetbrains.compose.resources.DrawableResource
 @Composable
 fun String?.textWithNoDataHandling() = this.takeIf { it.orEmpty().isNotEmpty() } ?: LocalStringResources.current.noData
 
-fun DrawableResources.drawableRes(resId: String): DrawableResource {
-    return when (resId) {
+fun DrawableResources.drawableRes(resId: String): DrawableResource =
+    when (resId) {
         EMPTY_STATE -> Res.drawable.ic_empty_state
         IC_AVATAR_1 -> Res.drawable.ic_avatar_1
         IC_AVATAR_2 -> Res.drawable.ic_avatar_2
@@ -36,4 +36,3 @@ fun DrawableResources.drawableRes(resId: String): DrawableResource {
         IC_AVATAR_10 -> Res.drawable.ic_avatar_10
         else -> Res.drawable.ic_avatar_default
     }
-}

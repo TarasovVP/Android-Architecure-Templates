@@ -81,7 +81,8 @@ fun DemoObjectItem(
                 text = item.name.orEmpty(),
                 modifier =
                     Modifier
-                        .padding(LocalMediumPadding.current.size).weight(1f),
+                        .padding(LocalMediumPadding.current.size)
+                        .weight(1f),
             )
             IconButton(onClick = { onItemClick(item, ListState.ConfirmDelete) }) {
                 Icon(

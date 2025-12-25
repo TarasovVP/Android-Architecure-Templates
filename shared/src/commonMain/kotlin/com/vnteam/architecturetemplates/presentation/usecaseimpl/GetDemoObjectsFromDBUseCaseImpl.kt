@@ -8,7 +8,5 @@ import kotlinx.coroutines.flow.Flow
 class GetDemoObjectsFromDBUseCaseImpl(
     private val dbRepository: DBRepository,
 ) : GetDemoObjectsFromDBUseCase {
-    override suspend fun execute(params: Nothing?): Flow<List<DemoObject>?> {
-        return dbRepository.getDemoObjectsFromDB()
-    }
+    override suspend fun execute(params: Nothing?): Flow<List<DemoObject>?> = dbRepository.getDemoObjectsFromDB()
 }

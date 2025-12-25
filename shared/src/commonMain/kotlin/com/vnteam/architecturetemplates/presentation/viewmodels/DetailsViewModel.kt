@@ -18,11 +18,12 @@ class DetailsViewModel(
 
     fun processIntent(intent: DetailsIntent) {
         when (intent) {
-            is DetailsIntent.LoadDemoObject ->
+            is DetailsIntent.LoadDemoObject -> {
                 getDemoObjectById(
                     intent.demoObjectId,
                     intent.isUpdated,
                 )
+            }
         }
     }
 

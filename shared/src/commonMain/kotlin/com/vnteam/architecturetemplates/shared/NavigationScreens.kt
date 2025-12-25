@@ -7,7 +7,9 @@ import com.vnteam.architecturetemplates.shared.Constants.MAIN_SCREEN
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class NavigationScreens(var route: String) {
+sealed class NavigationScreens(
+    var route: String,
+) {
     @Serializable
     data object MainScreen : NavigationScreens("$MAIN_SCREEN/")
 

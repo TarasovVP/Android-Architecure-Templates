@@ -4,11 +4,10 @@ import com.vnteam.architecturetemplates.domain.repositories.PreferencesRepositor
 import com.vnteam.architecturetemplates.domain.usecase.IsDarkThemeUseCase
 import kotlinx.coroutines.flow.Flow
 
-class IsDarkThemeUseCaseImpl(private val preferencesRepository: PreferencesRepository) :
-    IsDarkThemeUseCase {
-    override fun get(): Flow<Boolean?> {
-        return preferencesRepository.getIsDarkTheme()
-    }
+class IsDarkThemeUseCaseImpl(
+    private val preferencesRepository: PreferencesRepository,
+) : IsDarkThemeUseCase {
+    override fun get(): Flow<Boolean?> = preferencesRepository.getIsDarkTheme()
 
     override suspend fun set(params: Boolean) {
         preferencesRepository.setIsDarkTheme(params)

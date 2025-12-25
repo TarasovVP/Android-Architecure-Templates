@@ -5,9 +5,7 @@ import com.vnteam.architecturetemplates.WebConstants.POP_STATE
 import org.w3c.dom.Window
 import org.w3c.dom.events.Event
 
-fun Window.isMainScreen(): Boolean {
-    return window.location.pathname == PATH_START
-}
+fun Window.isMainScreen(): Boolean = window.location.pathname == PATH_START
 
 fun Window.navigateTo(path: String) {
     history.pushState(null, "", path)
