@@ -50,7 +50,8 @@ fun CreateScreen(
     LaunchedEffect(viewState.value.successResult) {
         if (viewState.value.successResult) {
             screenState.value = screenState.value.copy(isScreenUpdatingNeeded = true)
-            screenState.value.appBarState.topAppBarAction.invoke()
+            screenState.value.appBarState.topAppBarAction
+                .invoke()
             viewState.value.successResult = false
         }
     }

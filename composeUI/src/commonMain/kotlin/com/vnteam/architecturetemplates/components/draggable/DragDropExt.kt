@@ -38,12 +38,16 @@ fun rememberDragDropState(
     return state
 }
 
-fun LazyListState.getVisibleItemInfoFor(absoluteIndex: Int): LazyListItemInfo? {
-    return this
+fun LazyListState.getVisibleItemInfoFor(absoluteIndex: Int): LazyListItemInfo? =
+    this
         .layoutInfo
         .visibleItemsInfo
-        .getOrNull(absoluteIndex - this.layoutInfo.visibleItemsInfo.first().index)
-}
+        .getOrNull(
+            absoluteIndex -
+                this.layoutInfo.visibleItemsInfo
+                    .first()
+                    .index,
+        )
 
 val LazyListItemInfo.offsetEnd: Int
     get() = this.offset + this.size

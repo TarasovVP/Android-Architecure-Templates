@@ -91,8 +91,7 @@ class DragDropState internal constructor(
                             delta > 0 -> (endOffset > item.offsetEnd)
                             else -> (startOffset < item.offset)
                         }
-                    }
-                    ?.also { item ->
+                    }?.also { item ->
                         currentIndexOfDraggedItem?.let { current ->
                             scope.launch {
                                 onSwap.invoke(

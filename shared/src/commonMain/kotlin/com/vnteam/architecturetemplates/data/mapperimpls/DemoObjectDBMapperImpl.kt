@@ -6,8 +6,8 @@ import com.vnteam.architecturetemplates.domain.models.DemoObject
 import com.vnteam.architecturetemplates.domain.models.Owner
 
 class DemoObjectDBMapperImpl : DemoObjectDBMapper {
-    override fun mapToImplModel(from: DemoObject): DemoObjectWithOwner {
-        return DemoObjectWithOwner(
+    override fun mapToImplModel(from: DemoObject): DemoObjectWithOwner =
+        DemoObjectWithOwner(
             id = 0,
             demoObjectId = from.demoObjectId.orEmpty(),
             name = from.name,
@@ -18,10 +18,9 @@ class DemoObjectDBMapperImpl : DemoObjectDBMapper {
             description = from.description,
             url = from.owner?.url,
         )
-    }
 
-    override fun mapFromImplModel(to: DemoObjectWithOwner): DemoObject {
-        return DemoObject(
+    override fun mapFromImplModel(to: DemoObjectWithOwner): DemoObject =
+        DemoObject(
             demoObjectId = to.demoObjectId,
             name = to.name,
             owner =
@@ -34,13 +33,8 @@ class DemoObjectDBMapperImpl : DemoObjectDBMapper {
             htmlUrl = to.htmlUrl,
             description = to.description,
         )
-    }
 
-    override fun mapToImplModelList(fromList: List<DemoObject>): List<DemoObjectWithOwner> {
-        return fromList.map { mapToImplModel(it) }
-    }
+    override fun mapToImplModelList(fromList: List<DemoObject>): List<DemoObjectWithOwner> = fromList.map { mapToImplModel(it) }
 
-    override fun mapFromImplModelList(toList: List<DemoObjectWithOwner>): List<DemoObject> {
-        return toList.map { mapFromImplModel(it) }
-    }
+    override fun mapFromImplModelList(toList: List<DemoObjectWithOwner>): List<DemoObject> = toList.map { mapFromImplModel(it) }
 }

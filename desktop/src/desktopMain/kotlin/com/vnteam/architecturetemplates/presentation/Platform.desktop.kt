@@ -31,8 +31,14 @@ fun shareLink(url: String) {
         )
 
     when (choice) {
-        0 -> openInBrowser(url)
-        1 -> copyToClipboard(url)
+        0 -> {
+            openInBrowser(url)
+        }
+
+        1 -> {
+            copyToClipboard(url)
+        }
+
         else -> {
             // Do nothing
         }

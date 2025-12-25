@@ -64,7 +64,8 @@ fun <T : Any> DragDropColumn(
                                         overscrollJob.value =
                                             scope.launch {
                                                 dragDropState.state.animateScrollBy(
-                                                    it * THIRD_PART, tween(easing = FastOutLinearInEasing),
+                                                    it * THIRD_PART,
+                                                    tween(easing = FastOutLinearInEasing),
                                                 )
                                             }
                                     }

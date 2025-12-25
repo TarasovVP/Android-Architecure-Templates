@@ -57,11 +57,10 @@ class AppViewModel(
         }
     }
 
-    fun getNewLanguage(): String {
-        return if (language.value == APP_LANG_EN) {
+    fun getNewLanguage(): String =
+        if (language.value == APP_LANG_EN) {
             APP_LANG_UK
         } else {
             APP_LANG_EN
         }
-    }
 }

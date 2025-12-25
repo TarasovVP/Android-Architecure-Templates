@@ -7,8 +7,7 @@ import com.vnteam.architecturetemplates.appdatabase.AppDatabase
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DatabaseDriverFactory {
-    actual suspend fun createDriver(): SqlDriver {
-        return JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+    actual suspend fun createDriver(): SqlDriver =
+        JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
             .also { AppDatabase.Schema.awaitCreate(it) }
-    }
 }

@@ -102,7 +102,8 @@ fun AppNavigation(
                 ),
         ) { backStackEntry ->
             val demoObjectId =
-                backStackEntry.arguments?.getString(DEMO_OBJECT_ID)
+                backStackEntry.arguments
+                    ?.getString(DEMO_OBJECT_ID)
                     .takeIf { it?.isNotEmpty() == true && it != DEFAULT_OBJECT_ID } ?: ""
             screenState.value =
                 screenState.value.copy(

@@ -10,8 +10,7 @@ class GetDemoObjectUseCaseImpl(
     private val apiRepository: ApiRepository,
     private val dbRepository: DBRepository,
 ) : GetDemoObjectUseCase {
-    override suspend fun execute(params: String): DemoObject? {
-        return dbRepository.getDemoObjectById(params).firstOrNull()
+    override suspend fun execute(params: String): DemoObject? =
+        dbRepository.getDemoObjectById(params).firstOrNull()
             ?: apiRepository.getDemoObjectById(params)
-    }
 }

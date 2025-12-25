@@ -7,7 +7,9 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
-class DemoObjectDaoImpl(private val sharedDatabase: SharedDatabase) : DemoObjectDao {
+class DemoObjectDaoImpl(
+    private val sharedDatabase: SharedDatabase,
+) : DemoObjectDao {
     override suspend fun clearDemoObjects() {
         sharedDatabase { database ->
             database.appDatabaseQueries.clearDemoObjects()
