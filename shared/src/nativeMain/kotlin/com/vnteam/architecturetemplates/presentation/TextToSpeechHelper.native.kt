@@ -10,7 +10,9 @@ import platform.darwin.NSObject
 
 private const val DEFAULT_LANGUAGE = "en-US"
 
-class TextToSpeechHelper : NSObject(), AVSpeechSynthesizerDelegateProtocol {
+class TextToSpeechHelper :
+    NSObject(),
+    AVSpeechSynthesizerDelegateProtocol {
     private var synthesizer: AVSpeechSynthesizer = AVSpeechSynthesizer()
     private var isSpeaking = false
     private var isPaused = false

@@ -5,7 +5,9 @@ import android.speech.tts.TextToSpeech
 import java.util.Locale
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class TextToSpeechHelper(private val context: Context) {
+actual class TextToSpeechHelper(
+    private val context: Context,
+) {
     private var tts: TextToSpeech? = null
 
     init {

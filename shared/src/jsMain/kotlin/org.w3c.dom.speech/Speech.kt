@@ -4,7 +4,9 @@ package org.w3c.dom.speech
 
 import org.w3c.dom.events.EventTarget
 
-external class SpeechSynthesisUtterance(text: String) : EventTarget {
+external class SpeechSynthesisUtterance(
+    text: String,
+) : EventTarget {
     var innerText: String
     var lang: String
     var volume: Float
