@@ -67,7 +67,8 @@ fun SplashScreen() {
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier =
-                Modifier.size(size.value.dp)
+                Modifier
+                    .size(size.value.dp)
                     .clip(RoundedCornerShape(LocalLargeAvatarSize.current.size)),
         )
     }

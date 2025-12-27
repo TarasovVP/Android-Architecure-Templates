@@ -9,7 +9,6 @@ import com.vnteam.architecturetemplates.domain.models.BaseException
 import com.vnteam.architecturetemplates.domain.responses.DemoObjectResponse
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
-import io.ktor.server.application.call
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Routing
@@ -35,7 +34,8 @@ fun Routing.insertDemoObjects(
     demoObjectResponseMapper: DemoObjectResponseMapper,
 ) = post(DEMO_OBJECTS_ROUTE) {
     try {
-        val demoObjects = demoObjectResponseMapper.mapFromImplModelList(call.receive<List<DemoObjectResponse>>())
+        val demoObjects =
+            demoObjectResponseMapper.mapFromImplModelList(call.receive<List<DemoObjectResponse>>())
         demoObjectService.insertDemoObjects(demoObjects)
         call.respond(HttpStatusCode.Created)
     } catch (e: BaseException) {
@@ -71,7 +71,8 @@ fun Routing.getDemoObjectById(
         }
         val demoObject =
             demoObjectService
-                .getDemoObjectById(demoObjectId)?.let { it1 -> demoObjectResponseMapper.mapToImplModel(it1) }
+                .getDemoObjectById(demoObjectId)
+                ?.let { it1 -> demoObjectResponseMapper.mapToImplModel(it1) }
         if (demoObject != null) {
             call.respond(demoObject)
         } else {

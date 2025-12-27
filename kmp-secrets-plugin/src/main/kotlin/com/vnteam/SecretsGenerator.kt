@@ -9,7 +9,10 @@ import org.gradle.api.Project
 import java.io.File
 import java.util.Properties
 
-class SecretsGenerator(private val project: Project, private val extension: SecretsPluginExtension) {
+class SecretsGenerator(
+    private val project: Project,
+    private val extension: SecretsPluginExtension,
+) {
     fun generateSecrets(): File {
         val propertiesFile = findPropertiesFile()
         val properties = loadProperties(propertiesFile)
@@ -71,7 +74,5 @@ class SecretsGenerator(private val project: Project, private val extension: Secr
         }
     }
 
-    private fun isValidKey(key: String): Boolean {
-        return key.matches(Regex(VALID_KEY_PATTERN))
-    }
+    private fun isValidKey(key: String): Boolean = key.matches(Regex(VALID_KEY_PATTERN))
 }

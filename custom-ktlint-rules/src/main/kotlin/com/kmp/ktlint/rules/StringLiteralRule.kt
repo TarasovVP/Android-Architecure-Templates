@@ -20,8 +20,11 @@ class StringLiteralRule : Rule(RuleId(Constants.RAW_STRING_RULE_ID), About()) {
         val shouldEmit =
             when {
                 node.elementType != ElementType.STRING_TEMPLATE -> false
+
                 text == Constants.EMPTY_DOUBLE_QUOTE || text == Constants.EMPTY_TRIPLE_QUOTE -> false
-                node.psi.getParentOfType<KtProperty>(false)
+
+                node.psi
+                    .getParentOfType<KtProperty>(false)
                     ?.hasModifier(KtTokens.CONST_KEYWORD) == true -> false
 
                 (node.psi as? KtStringTemplateExpression)?.let { psi ->

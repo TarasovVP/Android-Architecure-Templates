@@ -3,7 +3,9 @@ package com.vnteam.architecturetemplates.data.database
 import com.vnteam.architecturetemplates.appdatabase.AppDatabase
 import com.vnteam.architecturetemplates.data.DATABASE_NOT_INITIALIZED
 
-class SharedDatabase(private val databaseDriverFactory: DatabaseDriverFactory) {
+class SharedDatabase(
+    private val databaseDriverFactory: DatabaseDriverFactory,
+) {
     private var database: AppDatabase? = null
 
     private suspend fun initDatabase() {

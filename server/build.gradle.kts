@@ -27,27 +27,25 @@ kotlin {
         mainRun { }
     }
     sourceSets {
-        val jvmMain by getting {
-            dependencies {
-                implementation(projects.core)
-                implementation(libs.logback)
-                implementation(libs.kotlinx.serialization.json)
-                // Koin
-                implementation(libs.koin.core)
-                implementation(libs.koin.ktor)
-                // Ktor
-                implementation(libs.ktor.server.core)
-                implementation(libs.ktor.server.netty)
-                implementation(libs.ktor.server.config.yaml)
-                implementation(libs.ktor.server.cors)
-                implementation(libs.ktor.server.content.negotiation)
-                implementation(libs.ktor.serialization.kotlinx.json)
-                // DB
-                implementation(libs.postgresql)
-                implementation(libs.hikari.cp)
-                implementation(libs.jdbc.driver)
-                implementation(libs.postgres.socket.factory)
-            }
+        jvmMain.dependencies {
+            implementation(projects.core)
+            implementation(libs.logback)
+            implementation(libs.kotlinx.serialization.json)
+            // Koin
+            implementation(libs.koin.core)
+            implementation(libs.koin.ktor)
+            // Ktor
+            implementation(libs.ktor.server.core)
+            implementation(libs.ktor.server.netty)
+            implementation(libs.ktor.server.config.yaml)
+            implementation(libs.ktor.server.cors)
+            implementation(libs.ktor.server.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            // DB
+            implementation(libs.postgresql)
+            implementation(libs.hikari.cp)
+            implementation(libs.jdbc.driver)
+            implementation(libs.postgres.socket.factory)
         }
     }
 }

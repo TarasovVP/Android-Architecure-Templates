@@ -13,7 +13,9 @@ import com.android.tools.lint.detector.api.resolveManifestName
 import com.intellij.psi.PsiClass
 import org.w3c.dom.Element
 
-class UnresolvedComponentDetector : Detector(), XmlScanner {
+class UnresolvedComponentDetector :
+    Detector(),
+    XmlScanner {
     override fun getApplicableElements(): Collection<String> = listOf(ACTIVITY, SERVICE, RECEIVER, PROVIDER)
 
     override fun visitElement(
