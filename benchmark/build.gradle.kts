@@ -1,3 +1,7 @@
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
 plugins {
     id(libs.plugins.androidTest.get().pluginId)
     kotlin("android")
@@ -34,8 +38,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = "21"
+    tasks.withType<KotlinJvmCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
+        }
     }
 
     targetProjectPath = ":mobile"
