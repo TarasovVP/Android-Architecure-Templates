@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.vnteam.benchmark"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = 24

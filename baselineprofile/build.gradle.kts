@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.vnteam.baselineprofile"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
