@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = 35
+        targetSdk = libs.versions.targetSdk.get().toInt()
         testInstrumentationRunner =
             "androidx.benchmark.selfinstrumenting.AndroidBenchmarkRunner"
         testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] =
