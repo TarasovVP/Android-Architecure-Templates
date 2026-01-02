@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.vnteam.baselineprofile"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
@@ -20,8 +20,8 @@ android {
     }
 
     defaultConfig {
-        minSdk = 24
-        targetSdk = 35
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] =
