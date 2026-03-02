@@ -14,3 +14,6 @@ shared/src/commonMain/kotlin/config/BuildConfig.kt
 /gradle-user-home/
 /profile-out*/
 /.kotlin/
+
+.DS_Store
+**/.DS_Store
