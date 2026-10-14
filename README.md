@@ -1,5 +1,7 @@
 # Android Architecture Templates
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 **One functional scenario, many architectural, platform and infrastructure implementations — each in its own branch.**
 
 This repository is an architecture playground and showcase for Android and Kotlin Multiplatform (KMP). The same small feature is implemented again and again, changing one decision at a time: architecture pattern, UI toolkit, networking, persistence, concurrency, dependency injection, navigation, supported platforms, module structure, testing, code analysis, Gradle tooling and CI/CD. Because the functionality stays constant, the differences between branches show the effect of each technical choice.
