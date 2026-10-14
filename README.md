@@ -1,157 +1,112 @@
-The project includes templates for main architectural solutions and examples of using different approaches to specific functional implementations.   
-It consists of two screens. On the first one, a list of data is obtained, which, after caching, is displayed in a list format. Clicking on a selected item launches the next screen with detailed information. To view the required implementation, you need to switch to the corresponding branch.   
-Below is a list of branches with an overview of the applied approaches:
+# KMP with a Ktor Server
 
-[KMP with Server Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_server_implementation)
+Extends the [KMP branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation) with the project's **own backend**: a Ktor server with a PostgreSQL database, written in Kotlin and sharing its models with the clients. The clients stop calling the GitHub API and talk to this server instead, with a local SQLDelight database as a cache.
 
-**Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS), Server(Ktor+SqlDelight(dialect-PostgreSQL))*  
-**Architecture**: *MVI*  
-**Screens:** *(Android/ComponentActivity, iOS/ContentView, Desktop/androidx.compose.ui.window.Window, Web/org.jetbrains.compose.web.renderComposable) + @Composable*  
-**Api:** *io.ktor.client.HttpClient*  
-**Image loading:** *coil.compose.AsyncImage*   
-**JsonConverter:** *kotlinx.serialization.SerialName*  
-**DB:** *com.squareup.sqldelight.AppDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *org.jetbrains.androidx.navigation*  
-**DI:** *org.koin.core.KoinApplication*
+## Overview
 
-[KMP Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation)
+- **Purpose:** show a full-stack Kotlin setup — multiplatform clients and a JVM server in one Gradle project, sharing a `core` module.
+- **Approach:** MVI clients (as in the KMP branch) plus a small layered server (routes → service → SQLDelight/PostgreSQL).
+- **Place in the evolution:** KMP → **KMP with server** → [multi-module KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation).
 
-**Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS)*  
-**Architecture**: *MVI*  
-**Screens:** *(Android/ComponentActivity, iOS/ContentView, Desktop/androidx.compose.ui.window.Window, Web/org.jetbrains.compose.web.renderComposable) + @Composable*  
-**Api:** *io.ktor.client.HttpClient*  
-**Image loading:** *coil.compose.AsyncImage*   
-**JsonConverter:** *kotlinx.serialization.SerialName*  
-**DB:** *com.squareup.sqldelight.AppDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *org.jetbrains.androidx.navigation*  
-**DI:** *org.koin.core.KoinApplication*
+## Functionality
 
-[KMM Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmm_implementation)
+Compared with the base scenario this branch has full CRUD over the server data:
 
-**Platform**: *Android, iOS*  
-**Architecture**: *MVI*  
-**Screens:** *(Android/ComponentActivity, iOS/ContentView) + @Composable*  
-**Api:** *io.ktor.client.HttpClient*  
-**Image loading:** *coil.compose.AsyncImage*   
-**JsonConverter:** *kotlinx.serialization.SerialName*  
-**DB:** *com.squareup.sqldelight.AppDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *org.jetbrains.androidx.navigation*  
-**DI:** *org.koin.core.KoinApplication*
+1. **List** — loads items from the server (`GET /demoObjects`), stores them in the local database and renders the stored list; items can be deleted (`DELETE /demoObjects/{id}`).
+2. **Details** — shows an item with its owner and avatar.
+3. **Create / edit** — a form screen that sends a new or changed item to the server (`POST /demoObjects`).
+4. **Settings** — dark theme and language (en / uk) stored in DataStore preferences; a text-to-speech helper is provided per platform.
 
-[MVI with Compose Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvi_compose_navigation_implementation)
+## Platforms
 
-**Architecture**: *MVI*  
-**Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*  
-**Api:** *io.ktor.client.HttpClient*  
-**Image loading:** *coil.compose.AsyncImage*   
-**JsonConverter:** *kotlinx.serialization.SerialName*  
-**DB:** *com.squareup.sqldelight.AppDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *cafe.adriel.voyager.navigator.Navigator*  
-**DI:** *org.koin.core.KoinApplication*
+Android, iOS, Desktop (JVM), Web (Kotlin/JS) and a **JVM server**. As in the KMP branch there is no `wasmJs` target; the canvas-based web UI is a Kotlin/JS build using the Skiko WebAssembly runtime.
 
+## Architecture
 
-[MVVM with Compose Navigation Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_navigation_implementation)
+| Module | Responsibility |
+|--------|----------------|
+| `core` | Multiplatform models (`DemoObject`, `Owner`), response DTOs and mapper contracts shared by clients **and** server |
+| `shared` | Client domain/data/presentation: use cases, Ktor `ApiService`, SQLDelight cache, preferences, ViewModels (intents, states), Koin modules, platform source sets |
+| `composeUi` | Compose Multiplatform screens and components reused by the app targets (list, details, create, theme) |
+| `composeApp` | Application entry points: Android, desktop, iOS framework, canvas web build |
+| `composeWebApp` | Web application using `composeUi` (with URL navigation) |
+| `webApp` | Compose HTML (DOM) web application |
+| `server` | Ktor + Netty server |
+| `iosApp` | SwiftUI host |
 
-**Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*   
-**Api:** *io.ktor.client.HttpClient*  
-**Image loading:** *coil.compose.AsyncImage*   
-**JsonConverter:** *kotlinx.serialization.SerialName*  
-**DB:** *com.squareup.sqldelight.AppDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *androidx.navigation.compose.NavHost*  
-**DI:** *org.koin.core.KoinApplication*
+### Server
 
+- **Framework:** Ktor server (Netty engine, ContentNegotiation with kotlinx.serialization JSON, CORS), DI with Koin.
+- **API:** `POST /demoObjects` (insert/upsert list), `GET /demoObjects`, `GET /demoObjects/{id}`, `DELETE /demoObjects/{id}`.
+- **Layers:** `http/Routes.kt` → `DemoObjectService` / `DemoObjectServiceImpl` → SQLDelight queries (`ServerDatabase.sq`, PostgreSQL dialect) → HikariCP pool.
+- **Database:** PostgreSQL, table `DemoObjectWithOwner` with `ON CONFLICT … DO UPDATE` upsert. The JDBC driver can be configured with environment variables (`JDBC_URL`, `DRIVER_CLASS_NAME`, `DB_USER_NAME`, `DB_USER_PASSWORD`); the defaults in `Constants.kt` are placeholders for a Google Cloud SQL instance.
+- **Packaging:** `fatJar` Gradle task and a `Dockerfile` that runs `ktor-server-1.0.0.jar` on port 8080 (`PORT` env variable is honoured). The server was deployed to Google Cloud Run (see the article below).
 
-[MVVM with Compose Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_implementation)
+Clients read the server address from `shared/.../data/Constants.kt` (`LOCAL_HOST_URL`, `CLOUD_URL`); change it to your own deployment.
 
-**Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment + @Composable*  
-**Api:** *retrofit2.Retrofit*  
-**Image loading:** *coil.compose.AsyncImage*  
-**JsonConverter:** *com.google.gson.Gson*  
-**DB:** *androidx.room.RoomDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** a*ndroidx.lifecycle.ViewModel*  
-**Observable component:** *androidx.lifecycle.MutableLiveData*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*
+## Technology stack
 
+| Area | Technology |
+|------|------------|
+| UI | Compose Multiplatform (Material 3), Compose HTML |
+| Networking | Ktor client (clients), Ktor server + Netty |
+| Image loading | Coil 3 (alpha) |
+| Serialization | kotlinx.serialization |
+| Database | SQLDelight 2.0.2 — platform-specific drivers on clients (incl. sql.js web worker), PostgreSQL dialect + HikariCP on server |
+| Preferences | AndroidX DataStore |
+| Concurrency | Kotlin coroutines and `Flow` |
+| State management | MVI with `StateFlow` |
+| Navigation | JetBrains `navigation-compose`; route objects in `NavigationScreens` |
+| Dependency injection | Koin 4.0 (clients and server via `koin-ktor`) |
+| Logging (server) | Logback |
+| Testing | Template tests only (`ktor-server-tests` dependency is declared) |
+| Build | Gradle 8.7 (Kotlin DSL, version catalog), AGP 8.5.2, Kotlin 2.0.20 |
 
-[MVVM with Clean Architecture Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_clean_architecture_implementation)
+## Project structure
 
-**Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
-**Api:** *retrofit2.Retrofit*  
-**Image loading:** *com.bumptech.glide.Glide*   
-**JsonConverter:** *com.google.gson.Gson*  
-**DB:** *androidx.room.RoomDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *androidx.lifecycle.MutableLiveData*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*
+```
+core/         shared models + DTOs
+shared/       client logic (commonMain + android/ios/jvm/js/native)
+composeUi/    shared Compose screens
+composeApp/   android · desktop · ios · js entry points
+composeWebApp/ webApp/   web applications
+server/       Ktor server, SQLDelight schema, Dockerfile
+iosApp/       Xcode project
+```
 
+## How to run
 
-[MVVM Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_implementation)
+> Derived from the project configuration; **not executed** while preparing this documentation. JDK 17+ required.
 
-**Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
-**Api:** *retrofit2.Retrofit*  
-**Image loading:** *com.bumptech.glide.Glide JsonConverter: com.google.gson.Gson*  
-**DB:** *androidx.room.RoomDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *androidx.lifecycle.MutableLiveData*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*
+```bash
+git clone --branch kmp_with_server_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
+cd Android-Architecure-Templates
 
+# Server (needs a reachable PostgreSQL database; set the DB environment variables first)
+./gradlew :server:run
+./gradlew :server:fatJar            # build the deployable jar
 
-[MVP Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvp_implementation)
+# Clients (point Constants.kt at your server)
+./gradlew :composeApp:installDebug  # Android
+./gradlew :composeApp:run           # Desktop
+./gradlew :composeWebApp:jsBrowserDevelopmentRun   # Web
+```
 
-**Architecture:** *MVP    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
-**Api:** *com.android.volley.toolbox.Volley*  
-**Image loading:** *com.squareup.picasso.Picasso*   
-**JsonConverter:** *com.squareup.moshi.Moshi*  
-**DB:** *io.realm.Realm*  
-**Multithreading:** *io.reactivex.RxAndroid*  
-**Architectural component:** *Presenter*  
-**Observable component:** *io.reactivex.Observable*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*
+## What this branch demonstrates
 
+- A Kotlin backend sharing models with multiplatform clients.
+- Server-side SQLDelight with a PostgreSQL dialect.
+- Containerisation and cloud deployment of a Ktor service.
+- Client-side offline cache on top of a remote API.
 
-[MVC_with Async Task Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_async_task_implementation)
+## Related articles
 
-**Architecture:** *MVC*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity*   
-**Api:** *java.net.HttpURLConnection*  
-**Image loading:** *BitmapFactory.decodeStream(HttpURLConnection.inputStream)*   
-**JsonConverter:** *com.squareup.moshi.Moshi*  
-**DB:** *com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper*  
-**Multithreading:** *android.os.AsyncTask*
+- [KMP: Server Implementation](https://medium.com/@vptarasov/kmp-server-implementation-49a0a4389b34) — documents this branch.
+- [Navigation in a Web Application with Kotlin Multiplatform](https://medium.com/@vptarasov/navigation-in-a-web-application-with-kotlin-multiplatform-2ac625b0ea04) — web navigation in the `composeWebApp` module.
+- [Deploying a KMP Server on Google Cloud: Step-by-Step Guide](https://medium.com/@vptarasov/deploying-a-kmp-server-on-google-cloud-step-by-step-guide-f32ade8c4be3) — Cloud SQL, Docker and Cloud Run deployment of the `server` module.
 
-[MVC_Native Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_native_implementation)
+## Other implementations
 
-**Architecture:** *MVC*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity*   
-**Api:** *java.net.HttpURLConnection*  
-**Image loading:** *BitmapFactory.decodeStream(HttpURLConnection.inputStream)*   
-**JsonConverter:** *org.json.JSONObject*  
-**DB:** *android.database.sqlite.SQLiteDatabase*  
-**Multithreading:** *android.os.Handler + Thread*  
+- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
+- Previous: [KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation)
+- Next: [Multi-module KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation)
