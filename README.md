@@ -1,157 +1,78 @@
-The project includes templates for main architectural solutions and examples of using different approaches to specific functional implementations.   
-It consists of two screens. On the first one, a list of data is obtained, which, after caching, is displayed in a list format. Clicking on a selected item launches the next screen with detailed information. To view the required implementation, you need to switch to the corresponding branch.   
-Below is a list of branches with an overview of the applied approaches:
+# KMP with Git Submodules
 
-[KMP with Server Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_server_implementation)
+A variant of the [multi-module KMP project](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation) in which two parts of the code base — the **`shared`** module and the **`web`** application — live in their own Git repositories and are attached to this repository as **Git submodules**.
 
-**Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS), Server(Ktor+SqlDelight(dialect-PostgreSQL))*  
-**Architecture**: *MVI*  
-**Screens:** *(Android/ComponentActivity, iOS/ContentView, Desktop/androidx.compose.ui.window.Window, Web/org.jetbrains.compose.web.renderComposable) + @Composable*  
-**Api:** *io.ktor.client.HttpClient*  
-**Image loading:** *coil.compose.AsyncImage*   
-**JsonConverter:** *kotlinx.serialization.SerialName*  
-**DB:** *com.squareup.sqldelight.AppDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *org.jetbrains.androidx.navigation*  
-**DI:** *org.koin.core.KoinApplication*
+## Overview
 
-[KMP Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation)
+- **Purpose:** show how to split a KMP project across repositories (independent history, release cadence, access control or CI per part) while keeping a single Gradle build.
+- **Approach:** the multi-module layout is preserved; `shared` and `web` directories are submodule checkouts pinned to specific commits.
+- **Place in the history:** a side branch. It starts from the same code as the multi-module branch (initial commit "Init commit", 2025-01-19) but the later branches (tests, plugins, analysis, CI/CD) continue from the multi-module branch, **not** from this one.
 
-**Platform**: *Android, iOS, Desktop(JVM), Web(Wasm), Web(JS)*  
-**Architecture**: *MVI*  
-**Screens:** *(Android/ComponentActivity, iOS/ContentView, Desktop/androidx.compose.ui.window.Window, Web/org.jetbrains.compose.web.renderComposable) + @Composable*  
-**Api:** *io.ktor.client.HttpClient*  
-**Image loading:** *coil.compose.AsyncImage*   
-**JsonConverter:** *kotlinx.serialization.SerialName*  
-**DB:** *com.squareup.sqldelight.AppDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *org.jetbrains.androidx.navigation*  
-**DI:** *org.koin.core.KoinApplication*
+> **Important:** a plain `git clone` leaves the `shared/` and `web/` directories empty. Clone with `--recurse-submodules` (see below).
 
-[KMM Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmm_implementation)
+## Functionality
 
-**Platform**: *Android, iOS*  
-**Architecture**: *MVI*  
-**Screens:** *(Android/ComponentActivity, iOS/ContentView) + @Composable*  
-**Api:** *io.ktor.client.HttpClient*  
-**Image loading:** *coil.compose.AsyncImage*   
-**JsonConverter:** *kotlinx.serialization.SerialName*  
-**DB:** *com.squareup.sqldelight.AppDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *org.jetbrains.androidx.navigation*  
-**DI:** *org.koin.core.KoinApplication*
+The same scenario as the multi-module branch: list items from a Ktor server with a local cache, delete, details, create/edit, theme and language settings. Application logic is in the `shared` submodule.
 
-[MVI with Compose Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvi_compose_navigation_implementation)
+## Platforms
 
-**Architecture**: *MVI*  
-**Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*  
-**Api:** *io.ktor.client.HttpClient*  
-**Image loading:** *coil.compose.AsyncImage*   
-**JsonConverter:** *kotlinx.serialization.SerialName*  
-**DB:** *com.squareup.sqldelight.AppDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *cafe.adriel.voyager.navigator.Navigator*  
-**DI:** *org.koin.core.KoinApplication*
+Android and iOS (`mobile`), Desktop (`desktop`), Web (`web`, Kotlin/JS with Compose HTML) and a JVM `server`.
 
+## Submodules
 
-[MVVM with Compose Navigation Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_navigation_implementation)
+Declared in `.gitmodules`:
 
-**Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + @Composable*   
-**Api:** *io.ktor.client.HttpClient*  
-**Image loading:** *coil.compose.AsyncImage*   
-**JsonConverter:** *kotlinx.serialization.SerialName*  
-**DB:** *com.squareup.sqldelight.AppDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *kotlinx.coroutines.flow.StateFlow*  
-**Navigation component:** *androidx.navigation.compose.NavHost*  
-**DI:** *org.koin.core.KoinApplication*
+| Path | Repository | Pinned commit | Contents |
+|------|------------|---------------|----------|
+| `shared` | [TarasovVP/architecture_template_shared](https://github.com/TarasovVP/architecture_template_shared) | `45fbbdb` | The KMP `shared` module (`build.gradle.kts` + `src`): domain, data, presentation, Koin, platform source sets. The former `core` models/DTOs are included here. |
+| `web` | [TarasovVP/architecture_template_web](https://github.com/TarasovVP/architecture_template_web) | `60cede9` | A standalone Gradle project that contains the `web` module (and itself references `shared` as a submodule). |
 
+In the main repository stay: `mobile`, `desktop`, `server`, `iosApp`, the Gradle build files and the version catalog.
 
-[MVVM with Compose Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_implementation)
+`settings.gradle.kts` includes `:core`, `:shared`, `:mobile`, `:desktop`, `:web:web` and `:server`. The `:web:web` path reflects that the `web` submodule is a project with a nested `web` module. **Verify:** the `:core` entry is still present although no `core/` directory exists in this branch (its content moved into the `shared` submodule); this has not been checked with a build.
 
-**Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment + @Composable*  
-**Api:** *retrofit2.Retrofit*  
-**Image loading:** *coil.compose.AsyncImage*  
-**JsonConverter:** *com.google.gson.Gson*  
-**DB:** *androidx.room.RoomDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** a*ndroidx.lifecycle.ViewModel*  
-**Observable component:** *androidx.lifecycle.MutableLiveData*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*
+## Module dependencies
 
+```
+mobile ─┐
+desktop ├──► shared (submodule) ──► (models, DTOs, logic)
+web:web ┘     ▲
+              └── also pulled in by the web submodule project
+server (in-repo, Ktor + PostgreSQL)
+```
 
-[MVVM with Clean Architecture Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_clean_architecture_implementation)
+## Technology stack
 
-**Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
-**Api:** *retrofit2.Retrofit*  
-**Image loading:** *com.bumptech.glide.Glide*   
-**JsonConverter:** *com.google.gson.Gson*  
-**DB:** *androidx.room.RoomDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *androidx.lifecycle.MutableLiveData*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*
+Identical to the [multi-module branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation): Compose Multiplatform / Compose HTML, Ktor, SQLDelight, DataStore, Koin, kotlinx.serialization, MVI with `StateFlow`, Gradle 8.7 and Kotlin 2.0.20.
 
+## How to run
 
-[MVVM Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_implementation)
+> Derived from the project configuration; **not executed** while preparing this documentation (submodule contents are not part of this repository's tree).
 
-**Architecture:** *MVVM*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
-**Api:** *retrofit2.Retrofit*  
-**Image loading:** *com.bumptech.glide.Glide JsonConverter: com.google.gson.Gson*  
-**DB:** *androidx.room.RoomDatabase*  
-**Multithreading:** *kotlinx.coroutines.CoroutineScope*  
-**Architectural component:** *androidx.lifecycle.ViewModel*  
-**Observable component:** *androidx.lifecycle.MutableLiveData*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*
+```bash
+git clone --recurse-submodules --branch kmp_with_git_submodules_implementation \
+  https://github.com/TarasovVP/Android-Architecure-Templates.git
+cd Android-Architecure-Templates
 
+# if you cloned without submodules
+git submodule update --init --recursive
+```
 
-[MVP Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvp_implementation)
+Then build as in the multi-module branch, e.g. `./gradlew :mobile:installDebug`, `./gradlew :desktop:run`, `./gradlew :server:run`. To move a submodule to a newer commit, `cd shared && git pull origin main`, then commit the updated pointer in the main repository.
 
-**Architecture:** *MVP    
-**Screens:** *androidx.appcompat.app.AppCompatActivity + androidx.fragment.app.Fragment*   
-**Api:** *com.android.volley.toolbox.Volley*  
-**Image loading:** *com.squareup.picasso.Picasso*   
-**JsonConverter:** *com.squareup.moshi.Moshi*  
-**DB:** *io.realm.Realm*  
-**Multithreading:** *io.reactivex.RxAndroid*  
-**Architectural component:** *Presenter*  
-**Observable component:** *io.reactivex.Observable*  
-**Navigation component:** *androidx.navigation.fragment.NavController*  
-**DI:** *dagger.hilt.android.HiltAndroidApp*
+## What this branch demonstrates
 
+- Extracting modules into separate repositories without rewriting the project structure.
+- Pinning dependencies by commit through submodule pointers.
+- Trade-offs: extra clone/update steps, two-step commits (submodule, then pointer), and path adjustments such as `:web:web`.
 
-[MVC_with Async Task Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_async_task_implementation)
+## Related article
 
-**Architecture:** *MVC*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity*   
-**Api:** *java.net.HttpURLConnection*  
-**Image loading:** *BitmapFactory.decodeStream(HttpURLConnection.inputStream)*   
-**JsonConverter:** *com.squareup.moshi.Moshi*  
-**DB:** *com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper*  
-**Multithreading:** *android.os.AsyncTask*
+- [Migration to Git Submodules Architecture in a KMP Project](https://medium.com/@vptarasov/migration-to-git-submodules-architecture-in-a-kmp-project-4a73ec4a2c9e) — describes moving the web module and then `shared` into their own repositories.
+- Background: [KMP: Modular Architecture](https://medium.com/@vptarasov/kmp-modular-architecture-faabbdf58197).
 
-[MVC_Native Implementation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_native_implementation)
+## Other implementations
 
-**Architecture:** *MVC*    
-**Screens:** *androidx.appcompat.app.AppCompatActivity*   
-**Api:** *java.net.HttpURLConnection*  
-**Image loading:** *BitmapFactory.decodeStream(HttpURLConnection.inputStream)*   
-**JsonConverter:** *org.json.JSONObject*  
-**DB:** *android.database.sqlite.SQLiteDatabase*  
-**Multithreading:** *android.os.Handler + Thread*  
+- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
+- Base: [Multi-module KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation)
+- Mainline continues with: [KMP with tests](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_tests)
