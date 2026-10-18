@@ -1,6 +1,6 @@
 # KMP with CI/CD, Benchmarks and Baseline Profiles
 
-The most complete stage of the KMP line. On top of the [analysis tools branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_analyze_tools) it adds **two CI/CD pipelines** (GitHub Actions and Jenkins + Fastlane), **performance measurement** (kotlinx.benchmark micro-benchmarks, Macrobenchmark startup tests, Baseline Profiles) and **dependency analysis**. The application and module layout are the same as before; the toolchain is newer (Kotlin 2.2.0, Compose Multiplatform 1.9.0, Ktor 3.2.3).
+The most complete stage of the KMP line. On top of the [analysis tools branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_analyze_tools) it adds **two CI/CD pipelines** (GitHub Actions and Jenkins + Fastlane), **performance measurement** (kotlinx.benchmark micro-benchmarks, Macrobenchmark startup tests, Baseline Profiles) and **dependency analysis**. The application and module layout are the same as before; the toolchain is newer (Kotlin 2.2.0, Compose Multiplatform 1.9.0, Ktor 3.2.3).
 
 ## Overview
 
@@ -79,8 +79,8 @@ Android, iOS (`mobile`), Desktop (`desktop`), Web (Kotlin/JS, `web`) and a JVM `
 > Derived from the project configuration; **not executed** while preparing this documentation. Pipelines additionally need repository / Jenkins secrets (Sonar token, keystore, `CLOUD_URL`, database settings).
 
 ```bash
-git clone --branch kmp_with_ci_cd https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch kmp_with_ci_cd https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 # create local.properties (sdk.dir + CLOUD_URL etc.)
 
 ./gradlew allTests detekt koverXmlReport     # what the workflow runs, minus Sonar
@@ -106,6 +106,6 @@ docker compose -f jenkins/docker-compose.yml up --build   # local Jenkins on :80
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [Analysis tools](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_analyze_tools)
-- Earlier in the line: [Custom plugins](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_custom_plugins), [Tests](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_tests)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [Analysis tools](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_analyze_tools)
+- Earlier in the line: [Custom plugins](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_custom_plugins), [Tests](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_tests)
