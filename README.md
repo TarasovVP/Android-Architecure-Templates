@@ -2,13 +2,13 @@
 
 The first multiplatform step: the MVI/Compose app from the Android branches is moved into a shared Kotlin module and reused on **Android and iOS**. Business logic, data layer, ViewModels and the Compose UI live in `shared/commonMain`; the platforms only provide an entry point and platform-specific drivers.
 
-> **About the name.** *Kotlin Multiplatform Mobile (KMM)* was the name used by JetBrains for sharing code between Android and iOS. The brand was later dropped in favour of plain *Kotlin Multiplatform (KMP)*, which also covers desktop, web and server targets. This branch keeps the historical name; the broader target set arrives in the [KMP branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation).
+> **About the name.** *Kotlin Multiplatform Mobile (KMM)* was the name used by JetBrains for sharing code between Android and iOS. The brand was later dropped in favour of plain *Kotlin Multiplatform (KMP)*, which also covers desktop, web and server targets. This branch keeps the historical name; the broader target set arrives in the [KMP branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_implementation).
 
 ## Overview
 
 - **Purpose:** show how little platform code remains when the architecture is already based on multiplatform-capable libraries (Ktor, SQLDelight, Koin, kotlinx.serialization, Compose Multiplatform).
 - **Approach:** MVI (intents + view state + `StateFlow`) with `data` / `domain` / `presentation` packages in `shared`.
-- **Place in the evolution:** follows the [MVI Compose branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvi_compose_navigation_implementation); precedes the full KMP project.
+- **Place in the evolution:** follows the [MVI Compose branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvi_compose_navigation_implementation); precedes the full KMP project.
 
 ## Functionality
 
@@ -66,8 +66,8 @@ gradle/libs.versions.toml
 > Derived from the project configuration; **not executed** while preparing this documentation. iOS requires macOS with Xcode.
 
 ```bash
-git clone --branch kmm_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch kmm_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :app:installDebug      # Android
 open iosApp/architecturetemplates.xcodeproj   # iOS: run the scheme from Xcode
 ```
@@ -87,6 +87,6 @@ open iosApp/architecturetemplates.xcodeproj   # iOS: run the scheme from Xcode
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [MVI + Compose Navigation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvi_compose_navigation_implementation)
-- Next: [KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [MVI + Compose Navigation](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvi_compose_navigation_implementation)
+- Next: [KMP](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_implementation)
