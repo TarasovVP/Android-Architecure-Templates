@@ -1,6 +1,6 @@
 # MVC with AsyncTask
 
-The second step of the Android line: the same MVC structure as the [native MVC branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_native_implementation), but with a few popular libraries of the time (OkHttp, Moshi, ORMLite, ButterKnife) and `AsyncTask` instead of `Handler` + `Thread` for background work.
+The second step of the Android line: the same MVC structure as the [native MVC branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvc_native_implementation), but with a few popular libraries of the time (OkHttp, Moshi, ORMLite, ButterKnife) and `AsyncTask` instead of `Handler` + `Thread` for background work.
 
 > **Status: historical / educational.** `android.os.AsyncTask` is **deprecated** (API 30) and should not be used in new code. The branch is preserved to show how Android concurrency evolved towards RxJava and Kotlin coroutines in later branches.
 
@@ -66,8 +66,8 @@ app/src/main/java/com/vnteam/architecturetemplates/
 > The commands below are derived from the project configuration. They were **not executed** while preparing this documentation.
 
 ```bash
-git clone --branch mvc_async_task_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch mvc_async_task_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :app:installDebug   # emulator/device required
 ```
 
@@ -85,6 +85,6 @@ No dedicated article. See the [Medium profile](https://medium.com/@vptarasov).
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [MVC with native APIs](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_native_implementation)
-- Next: [MVP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvp_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [MVC with native APIs](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvc_native_implementation)
+- Next: [MVP](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvp_implementation)
