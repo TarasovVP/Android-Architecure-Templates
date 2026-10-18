@@ -65,8 +65,8 @@ app/src/main/java/com/vnteam/architecturetemplates/
 > Derived from the project configuration; **not executed** while preparing this documentation.
 
 ```bash
-git clone --branch mvp_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch mvp_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :app:installDebug   # emulator/device required
 ```
 
@@ -85,6 +85,6 @@ No dedicated article. See the [Medium profile](https://medium.com/@vptarasov).
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [MVC with AsyncTask](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_async_task_implementation)
-- Next: [MVVM](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [MVC with AsyncTask](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvc_async_task_implementation)
+- Next: [MVVM](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_implementation)
