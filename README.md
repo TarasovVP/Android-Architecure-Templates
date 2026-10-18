@@ -1,12 +1,12 @@
 # KMP with Unit Tests
 
-Adds an automated test suite to the [multi-module KMP project](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation). Tests are written once in `shared/commonTest` with `kotlin.test`, Koin test support and hand-written fakes, and run on every target that supports unit tests. Code coverage is measured with Kover.
+Adds an automated test suite to the [multi-module KMP project](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_multimodules_implementation). Tests are written once in `shared/commonTest` with `kotlin.test`, Koin test support and hand-written fakes, and run on every target that supports unit tests. Code coverage is measured with Kover.
 
 ## Overview
 
 - **Purpose:** show how to unit-test shared Kotlin Multiplatform code — repositories, use cases and ViewModels — without platform frameworks or mocking libraries.
 - **Approach:** fakes + dependency injection. Production Koin modules are overridden in tests (`BaseKoinTest`, `TestModule`) so each layer is tested against fake collaborators.
-- **Place in the evolution:** multi-module → **tests** → [custom plugins](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_custom_plugins) → [analysis tools](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_analyze_tools) → [CI/CD](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_ci_cd).
+- **Place in the evolution:** multi-module → **tests** → [custom plugins](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_custom_plugins) → [analysis tools](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_analyze_tools) → [CI/CD](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_ci_cd).
 
 ## Functionality
 
@@ -59,8 +59,8 @@ The `kotlinKover` plugin is applied to `shared`. The `kover { reports { filters 
 2. Run the tests:
 
 ```bash
-git clone --branch kmp_with_tests https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch kmp_with_tests https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :shared:jvmTest            # fastest: JVM
 ./gradlew :shared:allTests           # all configured targets (iOS requires macOS)
 ./gradlew :shared:koverHtmlReport    # coverage report, build/reports/kover/html
@@ -79,6 +79,6 @@ cd Android-Architecure-Templates
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [Multi-module KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation)
-- Next: [Custom plugins](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_custom_plugins)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [Multi-module KMP](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_multimodules_implementation)
+- Next: [Custom plugins](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_custom_plugins)
