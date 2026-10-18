@@ -6,7 +6,7 @@ The first "modern Android" implementation in the repository: MVVM with Jetpack `
 
 - **Purpose:** show the standard Jetpack-based architecture for a View-based (XML) Android app.
 - **Approach:** MVVM with `data` / `domain` / `presentation` packages inside a single `app` module, use cases and mapper classes between layers.
-- **Place in the evolution:** replaces the MVP branch. Variations built on top of the same idea: [Clean Architecture naming](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_clean_architecture_implementation) and [Compose](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_implementation).
+- **Place in the evolution:** replaces the MVP branch. Variations built on top of the same idea: [Clean Architecture naming](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_clean_architecture_implementation) and [Compose](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_compose_implementation).
 
 ## Functionality
 
@@ -68,8 +68,8 @@ app/src/main/res/navigation/navigation.xml
 > Derived from the project configuration; **not executed** while preparing this documentation.
 
 ```bash
-git clone --branch mvvm_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch mvvm_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :app:installDebug   # JDK 17, emulator/device required
 ```
 
@@ -86,6 +86,6 @@ No dedicated article for this branch. See the [Medium profile](https://medium.co
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [MVP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvp_implementation)
-- Related: [MVVM + Clean Architecture](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_clean_architecture_implementation), [MVVM + Compose](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [MVP](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvp_implementation)
+- Related: [MVVM + Clean Architecture](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_clean_architecture_implementation), [MVVM + Compose](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_compose_implementation)
