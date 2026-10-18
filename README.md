@@ -1,12 +1,12 @@
 # KMP with Custom Plugins and Rules
 
-Builds on the [tests branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_tests) by turning repeated build and code-quality chores into **custom, reusable tooling** that lives in the repository: a Gradle plugin for secrets, custom ktlint rules, a custom Android Lint check and a Git pre-commit hook. Ktlint and Detekt are wired into every module.
+Builds on the [tests branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_tests) by turning repeated build and code-quality chores into **custom, reusable tooling** that lives in the repository: a Gradle plugin for secrets, custom ktlint rules, a custom Android Lint check and a Git pre-commit hook. Ktlint and Detekt are wired into every module.
 
 ## Overview
 
 - **Purpose:** show how to extend the toolchain of a KMP project instead of copy-pasting build logic and style conventions.
 - **Approach:** small, separate modules (`kmp-secrets-plugin`, `custom-ktlint-rules`, `lint-checks`) plus root-level configuration applied to all subprojects.
-- **Place in the evolution:** tests → **custom plugins** → [analysis tools](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_analyze_tools) → [CI/CD](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_ci_cd).
+- **Place in the evolution:** tests → **custom plugins** → [analysis tools](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_analyze_tools) → [CI/CD](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_ci_cd).
 
 The application itself (Ktor server + multiplatform clients) is the same as in the tests branch.
 
@@ -68,8 +68,8 @@ Android, iOS, Desktop (JVM), Web (Kotlin/JS) and a JVM server — the module lay
 > Derived from the project configuration; **not executed** while preparing this documentation.
 
 ```bash
-git clone --branch kmp_with_custom_plugins https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch kmp_with_custom_plugins https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 # create local.properties (sdk.dir plus the keys used by the code, e.g. CLOUD_URL)
 
 ./gradlew ktlintCheck                 # style incl. custom rules
@@ -94,6 +94,6 @@ cd Android-Architecure-Templates
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [KMP with tests](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_tests)
-- Next: [Analysis tools](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_analyze_tools)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [KMP with tests](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_tests)
+- Next: [Analysis tools](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_analyze_tools)
