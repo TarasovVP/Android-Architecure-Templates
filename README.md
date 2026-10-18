@@ -1,19 +1,19 @@
 # KMP with Code Analysis Tools
 
-Adds a **code-quality pipeline** to the [custom plugins branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_custom_plugins): ktlint and Detekt reports, Kover coverage, a SonarQube/SonarCloud analysis task that aggregates them, and a GitHub Actions workflow that runs the chain on every push and pull request. Build-performance tooling (build cache, build scans, a gradle-profiler scenario file) is also introduced here.
+Adds a **code-quality pipeline** to the [custom plugins branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_custom_plugins): ktlint and Detekt reports, Kover coverage, a SonarQube/SonarCloud analysis task that aggregates them, and a GitHub Actions workflow that runs the chain on every push and pull request. Build-performance tooling (build cache, build scans, a gradle-profiler scenario file) is also introduced here.
 
 ## Overview
 
 - **Purpose:** show how to measure and track the quality of a multi-module KMP code base — style, static analysis, test coverage — in one place.
 - **Approach:** per-module tools configured from the root build; results exported as XML and consumed by Sonar.
-- **Place in the evolution:** custom plugins → **analysis tools** → [CI/CD](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_ci_cd).
+- **Place in the evolution:** custom plugins → **analysis tools** → [CI/CD](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_ci_cd).
 - The application is the same Ktor server + multiplatform clients project. Structurally, the shared Compose screens, components and theme are extracted from `shared` into a new **`composeUI`** module that `mobile`, `desktop` and `web` consume.
 
 ## Analysis tooling
 
 | Tool | Role | Where configured |
 |------|------|------------------|
-| ktlint | Code style (Gradle plugin 12.2.0) with the project's [custom rules](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_custom_plugins) from `:custom-ktlint-rules` | root `build.gradle.kts` (`subprojects { … }`), `.editorconfig` |
+| ktlint | Code style (Gradle plugin 12.2.0) with the project's [custom rules](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_custom_plugins) from `:custom-ktlint-rules` | root `build.gradle.kts` (`subprojects { … }`), `.editorconfig` |
 | Detekt | Static analysis (1.23.8), project config in `detekt.yml` on top of the defaults; `ignoreFailures = true` so findings are reported without failing the build | root `build.gradle.kts`, `detekt.yml` |
 | Kover | Test coverage (0.9.1); XML reports per module; exclusions for composables, DI, resources, generated code in `shared` | root and `shared/build.gradle.kts` |
 | SonarQube plugin | `org.sonarqube` 6.1.0 — `sonar` task depends on every module's `koverXmlReport` and on `detekt`; passes `build/reports/kover/report.xml` as coverage and `build/reports/detekt/detekt.xml` as external issues | root `build.gradle.kts` (`sonarqube { … }`) |
@@ -35,7 +35,7 @@ Triggered on pushes to `main` / `kmp_with_analyze_tools` and on pull requests. I
 4. `./gradlew koverXmlReport`;
 5. `./gradlew sonar` with the project key, organisation, host and token taken from repository secrets (`-x assembleDebug -x packageDebug -x validateSigningDebug`).
 
-Unit tests, benchmarks, release builds and deployment are **not** part of this workflow; see the [CI/CD branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_ci_cd) for those.
+Unit tests, benchmarks, release builds and deployment are **not** part of this workflow; see the [CI/CD branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_ci_cd) for those.
 
 ## Platforms
 
@@ -71,8 +71,8 @@ detekt.yml  .editorconfig  pre-commit  benchmark.scenarios  .github/workflows/so
 > Derived from the project configuration; **not executed** while preparing this documentation. Running `sonar` needs a Sonar server/organisation and a token.
 
 ```bash
-git clone --branch kmp_with_analyze_tools https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch kmp_with_analyze_tools https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 # create local.properties (sdk.dir + keys read by the secrets plugin, e.g. CLOUD_URL)
 
 ./gradlew ktlintCheck
@@ -97,6 +97,6 @@ cd Android-Architecure-Templates
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [Custom plugins](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_custom_plugins)
-- Next: [CI/CD](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_ci_cd)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [Custom plugins](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_custom_plugins)
+- Next: [CI/CD](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_ci_cd)
