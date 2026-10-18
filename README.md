@@ -1,12 +1,12 @@
 # KMP — Android, iOS, Desktop and Web
 
-The full Kotlin Multiplatform version of the feature: one shared codebase (domain, data, ViewModels, Compose UI) running on **Android, iOS, Desktop (JVM) and Web (Kotlin/JS)**. It extends the [KMM branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmm_implementation) with desktop and web targets, user preferences and platform-specific entry points.
+The full Kotlin Multiplatform version of the feature: one shared codebase (domain, data, ViewModels, Compose UI) running on **Android, iOS, Desktop (JVM) and Web (Kotlin/JS)**. It extends the [KMM branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmm_implementation) with desktop and web targets, user preferences and platform-specific entry points.
 
 ## Overview
 
 - **Purpose:** demonstrate Kotlin Multiplatform beyond mobile — the same logic and UI on four platform families.
 - **Approach:** MVI (intents + view states + `StateFlow`) in the `shared` module; UI in `composeApp` (Compose Multiplatform) plus a separate DOM-based web UI in `webApp`.
-- **Place in the evolution:** KMM → **KMP** → [KMP with its own server](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_server_implementation).
+- **Place in the evolution:** KMM → **KMP** → [KMP with its own server](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_server_implementation).
 
 ## Functionality
 
@@ -68,8 +68,8 @@ gradle/libs.versions.toml
 > Derived from the project configuration; **not executed** while preparing this documentation. JDK 17+ is required; iOS needs macOS and Xcode.
 
 ```bash
-git clone --branch kmp_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch kmp_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :composeApp:installDebug            # Android
 ./gradlew :composeApp:run                     # Desktop (Compose desktop application)
 ./gradlew :composeApp:jsBrowserDevelopmentRun # Web, canvas UI
@@ -93,6 +93,6 @@ open iosApp/architecturetemplates.xcodeproj   # iOS
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [KMM](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmm_implementation)
-- Next: [KMP with server](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_server_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [KMM](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmm_implementation)
+- Next: [KMP with server](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_server_implementation)
