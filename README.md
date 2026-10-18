@@ -6,7 +6,7 @@ The Compose-based Android implementation reworked to **Model-View-Intent**: each
 
 - **Purpose:** show unidirectional data flow (UDF) on top of the Ktor / SQLDelight / Koin stack.
 - **Approach:** MVI per screen — `ListIntent`/`ListViewState`/`ListViewModel` and `DetailsIntent`/`DetailsViewState`/`DetailsViewModel`.
-- **Difference from [MVVM + Compose Navigation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_navigation_implementation):** several `StateFlow`s per ViewModel are replaced with one state object per screen; user actions go through `processIntent(...)`; navigation moves from `NavHost` string routes to Voyager `Screen` classes.
+- **Difference from [MVVM + Compose Navigation](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_compose_navigation_implementation):** several `StateFlow`s per ViewModel are replaced with one state object per screen; user actions go through `processIntent(...)`; navigation moves from `NavHost` string routes to Voyager `Screen` classes.
 
 ## Functionality
 
@@ -70,8 +70,8 @@ app/src/main/java/com/vnteam/architecturetemplates/
 > Derived from the project configuration; **not executed** while preparing this documentation.
 
 ```bash
-git clone --branch mvi_compose_navigation_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch mvi_compose_navigation_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :app:installDebug   # JDK 17, emulator/device required
 ```
 
@@ -87,6 +87,6 @@ No dedicated article. The shared stack is described in [KMP: Network Requests wi
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [MVVM + Compose Navigation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_navigation_implementation)
-- Next: [KMM](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmm_implementation), [KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [MVVM + Compose Navigation](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_compose_navigation_implementation)
+- Next: [KMM](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmm_implementation), [KMP](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_implementation)
