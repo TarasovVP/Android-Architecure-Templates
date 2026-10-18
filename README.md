@@ -1,6 +1,6 @@
 # KMP with Git Submodules
 
-A variant of the [multi-module KMP project](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation) in which two parts of the code base — the **`shared`** module and the **`web`** application — live in their own Git repositories and are attached to this repository as **Git submodules**.
+A variant of the [multi-module KMP project](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_multimodules_implementation) in which two parts of the code base — the **`shared`** module and the **`web`** application — live in their own Git repositories and are attached to this repository as **Git submodules**.
 
 ## Overview
 
@@ -43,7 +43,7 @@ server (in-repo, Ktor + PostgreSQL)
 
 ## Technology stack
 
-Identical to the [multi-module branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation): Compose Multiplatform / Compose HTML, Ktor, SQLDelight, DataStore, Koin, kotlinx.serialization, MVI with `StateFlow`, Gradle 8.7 and Kotlin 2.0.20.
+Identical to the [multi-module branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_multimodules_implementation): Compose Multiplatform / Compose HTML, Ktor, SQLDelight, DataStore, Koin, kotlinx.serialization, MVI with `StateFlow`, Gradle 8.7 and Kotlin 2.0.20.
 
 ## How to run
 
@@ -51,8 +51,8 @@ Identical to the [multi-module branch](https://github.com/TarasovVP/Android-Arch
 
 ```bash
 git clone --recurse-submodules --branch kmp_with_git_submodules_implementation \
-  https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+  https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 
 # if you cloned without submodules
 git submodule update --init --recursive
@@ -73,6 +73,6 @@ Then build as in the multi-module branch, e.g. `./gradlew :mobile:installDebug`,
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Base: [Multi-module KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation)
-- Mainline continues with: [KMP with tests](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_tests)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Base: [Multi-module KMP](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_multimodules_implementation)
+- Mainline continues with: [KMP with tests](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_tests)
