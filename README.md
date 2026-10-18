@@ -1,12 +1,12 @@
 # KMP with a Ktor Server
 
-Extends the [KMP branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation) with the project's **own backend**: a Ktor server with a PostgreSQL database, written in Kotlin and sharing its models with the clients. The clients stop calling the GitHub API and talk to this server instead, with a local SQLDelight database as a cache.
+Extends the [KMP branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_implementation) with the project's **own backend**: a Ktor server with a PostgreSQL database, written in Kotlin and sharing its models with the clients. The clients stop calling the GitHub API and talk to this server instead, with a local SQLDelight database as a cache.
 
 ## Overview
 
 - **Purpose:** show a full-stack Kotlin setup — multiplatform clients and a JVM server in one Gradle project, sharing a `core` module.
 - **Approach:** MVI clients (as in the KMP branch) plus a small layered server (routes → service → SQLDelight/PostgreSQL).
-- **Place in the evolution:** KMP → **KMP with server** → [multi-module KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation).
+- **Place in the evolution:** KMP → **KMP with server** → [multi-module KMP](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_multimodules_implementation).
 
 ## Functionality
 
@@ -79,8 +79,8 @@ iosApp/       Xcode project
 > Derived from the project configuration; **not executed** while preparing this documentation. JDK 17+ required.
 
 ```bash
-git clone --branch kmp_with_server_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch kmp_with_server_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 
 # Server (needs a reachable PostgreSQL database; set the DB environment variables first)
 ./gradlew :server:run
@@ -107,6 +107,6 @@ cd Android-Architecure-Templates
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_implementation)
-- Next: [Multi-module KMP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_multimodules_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [KMP](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_implementation)
+- Next: [Multi-module KMP](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_multimodules_implementation)
