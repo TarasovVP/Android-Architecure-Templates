@@ -6,7 +6,7 @@ A fully Compose-based Android app: single `Activity`, `NavHost` navigation, `Sta
 
 - **Purpose:** show an MVVM app without Fragments, LiveData, Hilt, Room or Retrofit, using libraries that also work in Kotlin Multiplatform.
 - **Approach:** MVVM with `data` / `domain` / `presentation` packages, `StateFlow` instead of `LiveData`, Compose Navigation instead of the Fragment-based Navigation component.
-- **Place in the evolution:** the bridge between the Android-only MVVM branches and the [MVI branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvi_compose_navigation_implementation) and the KMM/KMP branches.
+- **Place in the evolution:** the bridge between the Android-only MVVM branches and the [MVI branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvi_compose_navigation_implementation) and the KMM/KMP branches.
 
 ## Functionality
 
@@ -63,8 +63,8 @@ app/src/main/
 > Derived from the project configuration; **not executed** while preparing this documentation.
 
 ```bash
-git clone --branch mvvm_compose_navigation_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch mvvm_compose_navigation_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :app:installDebug   # JDK 17, emulator/device required
 ```
 
@@ -84,6 +84,6 @@ The articles are written for KMP; they are listed here by technology, not as wal
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [MVVM + Compose](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_implementation)
-- Next: [MVI + Compose Navigation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvi_compose_navigation_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [MVVM + Compose](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_compose_implementation)
+- Next: [MVI + Compose Navigation](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvi_compose_navigation_implementation)
