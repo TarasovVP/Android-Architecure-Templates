@@ -2,13 +2,13 @@
 
 The baseline of the repository: a two-screen Android app built with the Model-View-Controller pattern and only platform APIs (`HttpURLConnection`, `SQLiteDatabase`, `Handler` + `Thread`, `org.json`). No third-party libraries are used for networking, persistence, JSON or threading.
 
-> **Status: historical / educational.** This branch is kept to show how the same feature looks without modern libraries and to provide a starting point for the architecture evolution described in the [repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md). It is not a recommended way to build new apps.
+> **Status: historical / educational.** This branch is kept to show how the same feature looks without modern libraries and to provide a starting point for the architecture evolution described in the [repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md). It is not a recommended way to build new apps.
 
 ## Overview
 
 - **Purpose:** demonstrate the feature scenario with the smallest possible dependency set.
 - **Approach:** MVC where `Activity` classes act as view and controller at the same time; helper classes act as the model/data layer.
-- **Place in the evolution:** first step of the Android line. Next: [MVC with AsyncTask](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_async_task_implementation).
+- **Place in the evolution:** first step of the Android line. Next: [MVC with AsyncTask](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvc_async_task_implementation).
 
 ## Functionality
 
@@ -69,8 +69,8 @@ app/src/main/java/com/vnteam/architecturetemplates/
 2. Open the project and run the `app` configuration, or from a terminal:
 
 ```bash
-git clone --branch mvc_native_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch mvc_native_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :app:installDebug   # with an emulator/device connected
 ```
 
@@ -89,6 +89,6 @@ No dedicated article. For the broader context see the [Medium profile](https://m
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Next step: [MVC with AsyncTask](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvc_async_task_implementation)
-- Then: [MVP](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvp_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Next step: [MVC with AsyncTask](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvc_async_task_implementation)
+- Then: [MVP](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvp_implementation)
