@@ -6,7 +6,7 @@ An MVVM implementation organised in Clean Architecture layers (`presentation`, `
 
 - **Purpose:** present the layered, dependency-inverted structure on a concrete domain entity — a GitHub **fork** (`Fork`, `ForkUI`, `ForkDB`, `ForkResponse`, `ForkUseCase`, …).
 - **Approach:** the `domain` layer defines models, repository interfaces, mapper interfaces and the use-case contract; `data` implements them; `presentation` consumes them through ViewModels.
-- **Difference from the plain [MVVM branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_implementation):** in the current code both branches share the same layering, libraries and flow. This branch differs mainly by **domain naming** (`Fork*` instead of the generic `DemoObject*`) and a few resource changes. Read it as the "named" variant of the same architecture, not as a structurally different one.
+- **Difference from the plain [MVVM branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_implementation):** in the current code both branches share the same layering, libraries and flow. This branch differs mainly by **domain naming** (`Fork*` instead of the generic `DemoObject*`) and a few resource changes. Read it as the "named" variant of the same architecture, not as a structurally different one.
 
 ## Functionality
 
@@ -61,8 +61,8 @@ app/src/main/java/com/vnteam/architecturetemplates/
 > Derived from the project configuration; **not executed** while preparing this documentation.
 
 ```bash
-git clone --branch mvvm_clean_architecture_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch mvvm_clean_architecture_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :app:installDebug   # JDK 17, emulator/device required
 ```
 
@@ -79,6 +79,6 @@ No dedicated article. See the [Medium profile](https://medium.com/@vptarasov).
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Compare with: [MVVM](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_implementation)
-- Next: [MVVM + Compose](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Compare with: [MVVM](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_implementation)
+- Next: [MVVM + Compose](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_compose_implementation)
