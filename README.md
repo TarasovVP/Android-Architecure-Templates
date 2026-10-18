@@ -5,8 +5,8 @@ The MVVM + Hilt + Room + Retrofit implementation with the UI rewritten in **Jetp
 ## Overview
 
 - **Purpose:** show the step from View-based UI to Compose without changing the rest of the architecture.
-- **Approach:** the layered MVVM from the [MVVM branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_implementation) is kept; only the presentation layer changes.
-- **Place in the evolution:** between the View-based MVVM branches and the fully Compose-based [navigation branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_navigation_implementation).
+- **Approach:** the layered MVVM from the [MVVM branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_implementation) is kept; only the presentation layer changes.
+- **Place in the evolution:** between the View-based MVVM branches and the fully Compose-based [navigation branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_compose_navigation_implementation).
 
 ## Functionality
 
@@ -64,8 +64,8 @@ app/src/main/res/navigation/navigation.xml
 > Derived from the project configuration; **not executed** while preparing this documentation.
 
 ```bash
-git clone --branch mvvm_compose_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch mvvm_compose_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :app:installDebug   # JDK 17, emulator/device required
 ```
 
@@ -81,6 +81,6 @@ No dedicated article. See the [Medium profile](https://medium.com/@vptarasov).
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Related: [MVVM + Clean Architecture](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_clean_architecture_implementation)
-- Next: [MVVM + Compose Navigation](https://github.com/TarasovVP/Android-Architecure-Templates/tree/mvvm_compose_navigation_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Related: [MVVM + Clean Architecture](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_clean_architecture_implementation)
+- Next: [MVVM + Compose Navigation](https://github.com/TarasovVP/Android-Architecture-Templates/tree/mvvm_compose_navigation_implementation)
