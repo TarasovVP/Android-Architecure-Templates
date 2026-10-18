@@ -1,16 +1,16 @@
 # KMP with a Multi-Module Structure
 
-Restructures the [KMP-with-server project](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_server_implementation) into **one Gradle module per platform application** plus shared libraries. The goal is clear module boundaries: each platform app depends on `shared`, `shared` depends on `core`, and the server depends only on `core`.
+Restructures the [KMP-with-server project](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_server_implementation) into **one Gradle module per platform application** plus shared libraries. The goal is clear module boundaries: each platform app depends on `shared`, `shared` depends on `core`, and the server depends only on `core`.
 
 ## Overview
 
 - **Purpose:** demonstrate modular architecture for Kotlin Multiplatform and show how to split the earlier `composeApp`/`composeUi`/`webApp` layout into focused modules.
 - **Approach:** the same MVI client + Ktor server as before, reorganised into `core`, `shared`, `mobile`, `desktop`, `web` and `server` modules.
-- **Place in the evolution:** KMP with server → **multi-module** → [tests](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_tests) (the mainline continues from here). The [Git submodules variant](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_git_submodules_implementation) is a side branch that starts from the same code.
+- **Place in the evolution:** KMP with server → **multi-module** → [tests](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_tests) (the mainline continues from here). The [Git submodules variant](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_git_submodules_implementation) is a side branch that starts from the same code.
 
 ## Functionality
 
-The scenario of the server branch: list items from the server with a local cache, delete items, open details, create or edit an item, switch dark theme and language (en / uk), text-to-speech helper. The server exposes `GET/POST /demoObjects`, `GET/DELETE /demoObjects/{id}` (see the [server branch](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_server_implementation) for details).
+The scenario of the server branch: list items from the server with a local cache, delete items, open details, create or edit an item, switch dark theme and language (en / uk), text-to-speech helper. The server exposes `GET/POST /demoObjects`, `GET/DELETE /demoObjects/{id}` (see the [server branch](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_server_implementation) for details).
 
 ## Platforms
 
@@ -70,8 +70,8 @@ Boundary rules that are visible in the build files: platform modules never depen
 > Derived from the project configuration; **not executed** while preparing this documentation. JDK 17+; iOS needs macOS + Xcode.
 
 ```bash
-git clone --branch kmp_with_multimodules_implementation https://github.com/TarasovVP/Android-Architecure-Templates.git
-cd Android-Architecure-Templates
+git clone --branch kmp_with_multimodules_implementation https://github.com/TarasovVP/Android-Architecture-Templates.git
+cd Android-Architecture-Templates
 ./gradlew :mobile:installDebug                 # Android
 ./gradlew :desktop:run                         # Desktop
 ./gradlew :web:jsBrowserDevelopmentRun         # Web
@@ -92,6 +92,6 @@ cd Android-Architecure-Templates
 
 ## Other implementations
 
-- [Repository overview](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecure-Templates/blob/master/README.md#all-branches)
-- Previous: [KMP with server](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_server_implementation)
-- Next: [KMP with tests](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_tests) · Variant: [Git submodules](https://github.com/TarasovVP/Android-Architecure-Templates/tree/kmp_with_git_submodules_implementation)
+- [Repository overview](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md) · [All branches](https://github.com/TarasovVP/Android-Architecture-Templates/blob/master/README.md#all-branches)
+- Previous: [KMP with server](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_server_implementation)
+- Next: [KMP with tests](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_tests) · Variant: [Git submodules](https://github.com/TarasovVP/Android-Architecture-Templates/tree/kmp_with_git_submodules_implementation)
